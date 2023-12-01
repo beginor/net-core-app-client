@@ -27,7 +27,7 @@ export class AppUserTokenService {
         private ui: UiService,
         private errorHandler: ErrorHandler
     ) {
-        this.baseUrl = `${apiRoot}/app-user-tokens`;
+        this.baseUrl = `${apiRoot}/user-tokens`;
     }
 
     /** 搜索用户凭证 */
