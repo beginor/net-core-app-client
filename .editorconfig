@@ -1,0 +1,5 @@
+root = false
+
+# html/scss/css files
+[*.{html,scss,css,yml,mjs}]
+indent_size = 2
