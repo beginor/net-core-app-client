@@ -33,6 +33,10 @@ const routes: Routes = [
     {
         path: 'logs',
         loadChildren: () => import('./logs/logs.module').then(m => m.AppLogModule)
+    },
+    {
+        path: 'organize-units',
+        loadChildren: () => import('./organize-units/organize-units.module').then(m => m.OrganizeUnitModule)
     }
 ];
 /* eslint-enable max-len */

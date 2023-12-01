@@ -54,8 +54,9 @@ TableFilter:
     - app_nav_items
     - app_storages
     - app_user_tokens
-  IncludeTables:
     - app_logs
+  IncludeTables:
+    - app_organize_units
   IgnoreNoPKTable: true
   IgnoreView: true
 
