@@ -17,4 +17,4 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         AdminRoutingModule
     ]
 })
-export class AdminModule { }
+export default class AdminModule { }

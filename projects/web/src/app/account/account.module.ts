@@ -31,4 +31,4 @@ import { TokenDetailComponent } from './token-detail/token-detail.component';
         AccountRoutingModule
     ]
 })
-export class AccountModule { }
+export default class AccountModule { }

@@ -13,12 +13,12 @@ const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        loadChildren: () => import('./home/home.module'),
         canMatch: [],
     },
     {
         path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
+        loadChildren: () => import('./about/about.module'),
         canMatch: [
             (route: Route, segments: UrlSegment[]): Promise<boolean> => {
                 return inject(AuthGuard).canLoad(route, segments);
@@ -32,7 +32,7 @@ const routes: Routes = [
     },
     {
         path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        loadChildren: () => import('./admin/admin.module'),
         canMatch: [
             (route: Route, segments: UrlSegment[]): Promise<boolean> => {
                 return inject(AuthGuard).canLoad(route, segments);
@@ -46,7 +46,7 @@ const routes: Routes = [
     },
     {
         path: 'login',
-        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        loadChildren: () => import('./login/login.module'),
         canMatch: []
     },
     {
@@ -56,7 +56,7 @@ const routes: Routes = [
     },
     {
         path: 'account',
-        loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        loadChildren: () => import('./account/account.module'),
         canMatch: [
             (route: Route, segments: UrlSegment[]): Promise<boolean> => {
                 return inject(AuthGuard).canLoad(route, segments);
