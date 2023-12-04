@@ -255,8 +255,12 @@
                 "bundleName": "bootstrap",
                 "inject": true
               },
-              "projects/web/src/styles.css",
-              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+              {
+                "input": "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+                "bundleName": "ng-zorro-antd",
+                "inject": true
+              },
+              "projects/web/src/styles.css"
             ],
             "scripts": []
           },

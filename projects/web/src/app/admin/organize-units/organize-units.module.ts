@@ -11,6 +11,9 @@ import { AppCommonModule } from 'projects/web/src/app/common';
 import { OrganizeUnitRoutingModule } from './organize-units-routing.module';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
+// import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 @NgModule({
     declarations: [
@@ -25,7 +28,10 @@ import { DetailComponent } from './detail/detail.component';
         NgbOffcanvasModule,
         AppSharedModule,
         AppCommonModule,
-        OrganizeUnitRoutingModule
+        OrganizeUnitRoutingModule,
+        NzTableModule,
+        // NzTreeModule,
+        NzTreeSelectModule
     ]
 })
 export class OrganizeUnitModule { }
