@@ -54,7 +54,8 @@
     "@angular/material": "^17.0.0",
     "hammerjs": "^2.0.8",
     "material-design-icons": "^3.0.1",
-    "echarts": "^5.4.3"
+    "echarts": "^5.4.3",
+    "ng-zorro-antd": "^17.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.5",
