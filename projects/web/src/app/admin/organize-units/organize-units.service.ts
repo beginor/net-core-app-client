@@ -45,8 +45,9 @@ export class OrganizeUnitService {
             );
             const total = result.total ?? 0;
             const data = result.data ?? [];
+            const tree = this.mergeToTree(data);
             this.total.next(total);
-            this.data.next(data);
+            this.data.next(tree);
             this.showPagination = total > data.length;
         }
         catch (ex: unknown) {
@@ -148,6 +149,24 @@ export class OrganizeUnitService {
                 { type: 'danger', message: '更新组织单元出错！' }
             );
             return;
+        }
+    }
+
+    private mergeToTree(units: AppOrganizeUnitModel[]): AppOrganizeUnitModel[] {
+        const root = units[0];
+        this.findChildren(root, units);
+        return [root];
+    }
+
+    private findChildren(
+        parent: AppOrganizeUnitModel,
+        units: AppOrganizeUnitModel[]
+    ): void {
+        parent.children = units.filter(unit => unit.parentId == parent.id);
+        if (parent.children.length > 0) {
+            for (const child of parent.children) {
+                this.findChildren(child, units);
+            }
         }
     }
 
