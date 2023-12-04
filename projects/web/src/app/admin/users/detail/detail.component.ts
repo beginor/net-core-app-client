@@ -7,7 +7,7 @@ import { UserModel, UsersService} from '../users.service';
 @Component({
     selector: 'app-users-detail',
     templateUrl: './detail.component.html',
-    styleUrls: ['./detail.component.css'],
+    styleUrl: './detail.component.css',
 })
 export class DetailComponent implements OnInit {
 

@@ -6,7 +6,7 @@ import { RolesService } from '../roles.service';
 @Component({
     selector: 'app-role-privilege',
     templateUrl: './privilege.component.html',
-    styleUrls: ['./privilege.component.css'],
+    styleUrl: './privilege.component.css',
 })
 export class PrivilegeComponent implements OnInit {
 

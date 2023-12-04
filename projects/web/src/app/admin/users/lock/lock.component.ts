@@ -10,7 +10,7 @@ import { UsersService } from '../users.service';
 @Component({
     selector: 'app-user-lock',
     templateUrl: './lock.component.html',
-    styleUrls: ['./lock.component.css'],
+    styleUrl: './lock.component.css',
 })
 export class LockComponent {
 

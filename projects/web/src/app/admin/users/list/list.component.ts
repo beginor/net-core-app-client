@@ -13,7 +13,7 @@ import { RolesComponent } from '../roles/roles.component';
 @Component({
     selector: 'app-admin-users-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css']
+    styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
 

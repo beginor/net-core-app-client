@@ -10,7 +10,7 @@ import {
 @Component({
     selector: 'app-storage-detail',
     templateUrl: './detail.component.html',
-    styleUrls: ['./detail.component.css'],
+    styleUrl: './detail.component.css',
 })
 export class DetailComponent implements OnInit {
 

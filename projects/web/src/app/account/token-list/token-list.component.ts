@@ -10,7 +10,7 @@ import { TokenService } from '../token.service';
 @Component({
     selector: 'app-token-list',
     templateUrl: './token-list.component.html',
-    styleUrls: ['./token-list.component.css']
+    styleUrl: './token-list.component.css',
 })
 export class TokenListComponent implements OnInit {
 

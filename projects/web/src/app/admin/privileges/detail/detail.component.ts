@@ -7,7 +7,7 @@ import { AppPrivilegeModel, AppPrivilegeService } from '../privileges.service';
 @Component({
     selector: 'app-privilege-detail',
     templateUrl: './detail.component.html',
-    styleUrls: ['./detail.component.css'],
+    styleUrl: './detail.component.css',
 })
 export class DetailComponent implements OnInit {
 

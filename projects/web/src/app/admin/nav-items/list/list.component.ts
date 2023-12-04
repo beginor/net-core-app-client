@@ -9,7 +9,7 @@ import { DetailComponent } from '../detail/detail.component';
 @Component({
     selector: 'app-nav-item-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css']
+    styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
 

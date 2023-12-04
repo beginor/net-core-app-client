@@ -13,7 +13,7 @@ import { NavigationService } from './common/services/navigation.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+    styleUrl: './app.component.css',
     providers: [
         NgbTooltipConfig,
         NgbDropdownConfig

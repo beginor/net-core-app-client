@@ -12,7 +12,7 @@ import { UsersService } from '../users.service';
 @Component({
     selector: 'app-user-password',
     templateUrl: './password.component.html',
-    styleUrls: ['./password.component.css'],
+    styleUrl: './password.component.css',
 })
 export class PasswordComponent {
 

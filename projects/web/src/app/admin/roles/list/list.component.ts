@@ -10,7 +10,7 @@ import { PrivilegeComponent } from '../privilege/privilege.component';
 @Component({
     selector: 'app-role-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css']
+    styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit, OnDestroy {
 
