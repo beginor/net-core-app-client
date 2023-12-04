@@ -167,6 +167,12 @@ export interface AppOrganizeUnitModel {
     description?: string;
     /** 组织机构排序 */
     sequence: number;
+    /** 级别 */
+    level?: number;
+    /** 是否展开 */
+    expand?: boolean;
+    /** 下级组织单元 */
+    children?: AppOrganizeUnitModel[];
 }
 
 /** 组织单元 搜索参数 */
