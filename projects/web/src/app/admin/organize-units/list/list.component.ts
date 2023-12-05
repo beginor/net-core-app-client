@@ -8,6 +8,7 @@ import {
     OrganizeUnitService,
 } from '../organize-units.service';
 import { DetailComponent } from '../detail/detail.component';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 export interface TreeNodeInterface extends AppOrganizeUnitModel {
     children?: TreeNodeInterface[];
@@ -24,8 +25,9 @@ export class ListComponent implements OnInit {
     constructor(
         private offcanvas: NgbOffcanvas,
         public account: AccountService,
-        public vm: OrganizeUnitService
-    ) {}
+        public vm: OrganizeUnitService,
+        private drawerService: NzDrawerService
+    ) { }
 
     public listData: TreeNodeInterface[] = [];
 
@@ -45,8 +47,21 @@ export class ListComponent implements OnInit {
         return list;
     }
 
-    public collapse(data: TreeNodeInterface): void {
+    public expandChange(data: TreeNodeInterface): void {
         data.expand = !data.expand;
+        if (!data.expand) {
+            this.collapseChild(data.children);
+        }
+        // console.log('listData : ', this.listData);
+    }
+
+    public collapseChild(childs?: TreeNodeInterface[]): void {
+        if (!!childs) {
+            childs.forEach((child) => {
+                child.expand = false;
+                this.collapseChild(child.children);
+            });
+        }
     }
 
     public ngOnInit(): void {
@@ -62,17 +77,26 @@ export class ListComponent implements OnInit {
     }
 
     public showDetail(id: string, editable: boolean): void {
-        const ref = this.offcanvas.open(DetailComponent, {
-            position: 'end',
-            panelClass: 'offcanvas-vw-40',
+        const ref = this.drawerService.create<DetailComponent, {
+            id: string,
+            editable: boolean
+        }, string
+        >({
+            nzClosable: false,
+            nzContent: DetailComponent,
+            nzWidth: '40vw',
+            nzBodyStyle: {
+                padding: 0
+            },
+            nzContentParams: {
+                id,
+                editable
+            }
         });
-        const detail = ref.componentInstance as DetailComponent;
-        detail.editable = editable;
-        detail.id = id;
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(() => {
-            console.error('offcanvas canceled');
+        ref.afterClose.subscribe((result) => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 

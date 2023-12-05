@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
 import { UiService } from 'projects/web/src/app/common';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 /** 组织单元服务 */
 @Injectable({
@@ -55,7 +56,7 @@ export class OrganizeUnitService {
             this.total.next(0);
             this.data.next([]);
             this.ui.showAlert(
-                { type: 'danger', message: '加载组织单元数据出错!'}
+                { type: 'danger', message: '加载组织单元数据出错!' }
             );
         }
         finally {
@@ -95,7 +96,8 @@ export class OrganizeUnitService {
     }
 
     /** 获取指定的组织单元 */
-    public async getById(id: string): Promise<AppOrganizeUnitModel | undefined> {
+    public async getById(id: string)
+        : Promise<AppOrganizeUnitModel | undefined> {
         try {
             const result = await lastValueFrom(
                 this.http.get<AppOrganizeUnitModel>(`${this.baseUrl}/${id}`) // eslint-disable-line max-len
@@ -170,6 +172,27 @@ export class OrganizeUnitService {
         }
     }
 
+    /** 转为 treeSelect 需要的  treeNodes  */
+    public convertToNzTreeNodeOptions(data: AppOrganizeUnitModel[])
+        : NzTreeNodeOptions[] {
+        const treeNodes = data.map((node) => {
+            const treeNode: NzTreeNodeOptions = {
+                title: node.name,
+                key: node.id,
+                value: node.id,
+                expanded: node.expand
+            };
+            if (node.children && node.children.length > 0) {
+                treeNode.children =
+                    this.convertToNzTreeNodeOptions(node.children);
+            }
+            else {
+                treeNode.isLeaf = true;
+            }
+            return treeNode;
+        });
+        return treeNodes;
+    }
 }
 
 /** 组织单元 */
