@@ -8,7 +8,9 @@ import {
 import { NzTableModule } from 'ng-zorro-antd/table';
 // import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
-
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 import { AppSharedModule } from 'app-shared';
 import { AppCommonModule } from 'projects/web/src/app/common';
@@ -29,9 +31,12 @@ import { DetailComponent } from './detail/detail.component';
         NgbTooltipModule,
         NgbOffcanvasModule,
         OverlayModule,
+        NzFormModule,
+        NzInputModule,
         NzTableModule,
         // NzTreeModule,
         NzTreeSelectModule,
+        NzInputNumberModule,
         AppSharedModule,
         AppCommonModule,
         OrganizeUnitRoutingModule,

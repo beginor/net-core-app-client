@@ -1,4 +1,4 @@
-﻿<form class="card detail" *ngIf="(account.info | async) as info" #detailForm="ngForm">
+﻿<form class="card detail" nz-form nzLayout="vertical" *ngIf="(account.info | async) as info" #detailForm="ngForm">
   <div class="card-header d-flex justify-content-between align-content-center">
     <h5 class="card-title mb-0">{{title}}</h5>
     <div class="btn-group btn-group-sm">
@@ -14,58 +14,62 @@
     </div>
   </div>
   <div class="card-body">
-    <div class="mb-3">
-      <label class="form-label text-muted" for="parentId">上级组织单元</label>
-      <!--
-      <input class="form-control" type="text" id="parentId" name="parentId"
-        placeholder="请输入上级组织单元 ID ..."
-        [(ngModel)]="model.parentId" [disabled]="!editable"
-      />
-      -->
-      <div class="m-0">
-        <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large" [(ngModel)]="model.parentId" nzPlaceHolder="请选择上级组织单元"></nz-tree-select>
+    <nz-form-item>
+      <nz-form-label nzRequired>上级组织单元</nz-form-label>
+      <nz-form-control>
+        <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large"
+          [(ngModel)]="model.parentId"
+          nzPlaceHolder="请选择上级组织单元">
+        </nz-tree-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzFlex="1">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="code">编码</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input type="text" id="code" name="code" nzSize="large"
+              placeholder="请输入组织单元编码 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.code"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzFlex="1">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="name">名称</nz-form-label>
+          <nz-form-control>
+            <input nz-input nzSize="large" type="text" id="name" name="name"
+              placeholder="请输入组织单元名称 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.code"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="sequence">排序</nz-form-label>
+          <nz-form-control>
+            <nz-input-number nzSize="large" type="number" id="sequence" name="sequence"
+              nzPlaceHolder="请输入排序..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.sequence"
+            />
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="code">组织单元编码  <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="code" name="code"
-        placeholder="请输入组织单元编码 ..." required
-        [disabled]="!editable"
-        [(ngModel)]="model.code"
-        #code="ngModel"
-        [class.is-invalid]="!(code.valid || code.pristine)"
-        [class.is-valid]="code.valid"
-      />
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="name">组织单元名称  <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="name" name="name"
-        placeholder="请输入组织单元名称 ..." required
-        [disabled]="!editable"
-        [(ngModel)]="model.name"
-        #name="ngModel"
-        [class.is-invalid]="!(name.valid || name.pristine)"
-        [class.is-valid]="name.valid"
-      />
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="description">组织单元说明 </label>
-      <input class="form-control" type="text" id="description" name="description"
-        placeholder="请输入组织单元说明 ..."
-        [(ngModel)]="model.description" [disabled]="!editable"
-      />
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="sequence">组织机构排序  <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="sequence" name="sequence"
-        placeholder="请输入组织机构排序 ..." required
-        [disabled]="!editable"
-        [(ngModel)]="model.sequence"
-        #sequence="ngModel"
-        [class.is-invalid]="!(sequence.valid || sequence.pristine)"
-        [class.is-valid]="sequence.valid"
-      />
-    </div>
+    <nz-form-item>
+      <nz-form-label nzFor="description">组织单元说明 </nz-form-label>
+      <nz-form-control>
+        <textarea nz-input id="description" name="description"
+          placeholder="请输入组织单元说明 ..."
+          [(ngModel)]="model.description" [disabled]="!editable">
+        </textarea>
+      </nz-form-control>
+    </nz-form-item>
   </div>
   <div *ngIf="info.privileges['app_organize_unit.update'] && editable"
     class="card-footer d-flex justify-content-between">
