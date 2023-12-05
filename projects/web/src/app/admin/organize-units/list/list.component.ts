@@ -71,6 +71,8 @@ export class ListComponent implements OnInit {
         detail.id = id;
         void ref.result.then(() => {
             void this.vm.search();
+        }).catch(() => {
+            console.error('offcanvas canceled');
         });
     }
 

@@ -82,15 +82,16 @@
             #expandTable
             [nzData]="listData"
             nzTableLayout="fixed"
-            :nzShowPagination="false"
+            nzShowPagination="false"
+            nzSize="small"
           >
             <thead>
               <tr>
-                <th>组织单元编码</th>
-                <th>组织单元名称</th>
-                <th>组织单元说明</th>
-                <th>组织机构排序</th>
-                <th>操作</th>
+                <th>编码</th>
+                <th>名称</th>
+                <th>说明</th>
+                <th class="text-end">顺序</th>
+                <th class="table-action-col-3 text-center">操作</th>
               </tr>
             </thead>
             <tbody>
@@ -106,7 +107,7 @@
                   </td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.description }}</td>
-                  <td>{{ item.sequence }}</td>
+                  <td class="text-end">{{ item.sequence }}</td>
                   <td>
                     <div class="btn-group btn-group-sm">
                       <button

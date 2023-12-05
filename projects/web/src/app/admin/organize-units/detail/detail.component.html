@@ -15,22 +15,16 @@
   </div>
   <div class="card-body">
     <div class="mb-3">
-      <label class="form-label text-muted" for="id">组织单元ID  <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="id" name="id"
-        placeholder="请输入组织单元ID ..." required
-        [disabled]="!editable"
-        [(ngModel)]="model.id"
-        #id="ngModel"
-        [class.is-invalid]="!(id.valid || id.pristine)"
-        [class.is-valid]="id.valid"
-      />
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="parentId">上级组织单元 ID </label>
+      <label class="form-label text-muted" for="parentId">上级组织单元</label>
+      <!--
       <input class="form-control" type="text" id="parentId" name="parentId"
         placeholder="请输入上级组织单元 ID ..."
         [(ngModel)]="model.parentId" [disabled]="!editable"
       />
+      -->
+      <div class="m-0">
+        <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large" [(ngModel)]="model.parentId" nzPlaceHolder="请选择上级组织单元"></nz-tree-select>
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label text-muted" for="code">组织单元编码  <i class="text-danger">*</i> </label>

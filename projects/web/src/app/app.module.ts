@@ -4,6 +4,7 @@ import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayModule } from '@angular/cdk/overlay'
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
@@ -24,6 +25,7 @@ import { AppComponent } from './app.component';
         CommonModule,
         FormsModule,
         HttpClientModule,
+        OverlayModule,
         NgbAlertModule,
         AppSharedModule,
         AppCommonModule,

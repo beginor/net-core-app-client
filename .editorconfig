@@ -10,5 +10,5 @@ indent_size = 4
 trim_trailing_whitespace = true
 
 # html/scss/css files
-[*.{html,scss,css,yml,mjs}]
+[*.{html,scss,css,yml,mjs,json}]
 indent_size = 2
