@@ -2,7 +2,7 @@
   <div class="card-header d-flex justify-content-between align-content-center">
     <h5 class="card-title mb-0">{{title}}</h5>
     <div class="btn-group btn-group-sm">
-      <button *ngIf="info.privileges['app_organize_units.update'] && editable"
+      <button *ngIf="info.privileges['app_organize_unit.update'] && editable"
         type="button" class="btn btn-sm btn-outline-primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <svg-icon path="bi/check"></svg-icon> 保存
@@ -18,7 +18,7 @@
       <nz-form-label nzRequired>上级组织单元</nz-form-label>
       <nz-form-control>
         <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large"
-          [(ngModel)]="model.parentId"
+          [(ngModel)]="model.parentId" [nzDisabled]="!editable"
           nzPlaceHolder="请选择上级组织单元" [nzNodes]="treeNodes" nzShowSearch>
         </nz-tree-select>
       </nz-form-control>
