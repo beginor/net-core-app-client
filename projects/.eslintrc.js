@@ -25,10 +25,6 @@ module.exports = {
             "propertyDeclaration": true
           }
         ],
-        "@typescript-eslint/no-implicit-any-catch": [
-          "warn",
-          { "allowExplicitAny": true }
-        ],
         "@typescript-eslint/no-explicit-any": ["off"],
         "@typescript-eslint/no-unsafe-call": ["warn"],
         "@typescript-eslint/no-unsafe-assignment": ["warn"],
