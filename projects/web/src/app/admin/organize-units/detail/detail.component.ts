@@ -1,8 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from 'app-shared';
-import { OrganizeUnitService, AppOrganizeUnitModel } from '../organize-units.service';
+import {
+    OrganizeUnitService,
+    AppOrganizeUnitModel
+} from '../organize-units.service';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 @Component({
     selector: 'app-organize-unit-detail',
@@ -27,11 +31,14 @@ export class DetailComponent implements OnInit {
     }
 
     public editable = false;
-    public model: AppOrganizeUnitModel = { id: '', code: '', name: '', sequence: 0 };
+    public model: AppOrganizeUnitModel = {
+        id: '', code: '', name: '', sequence: 0
+    };
     private reloadList = false;
+    public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef<{ id: string, editable: boolean }>,
         public account: AccountService,
         public vm: OrganizeUnitService
     ) { }
@@ -43,10 +50,13 @@ export class DetailComponent implements OnInit {
                 this.model = model;
             }
         }
+        this.vm.data.subscribe((data) => {
+            this.treeNodes = this.vm.convertToNzTreeNodeOptions(data);
+        });
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
@@ -56,7 +66,6 @@ export class DetailComponent implements OnInit {
         else {
             await this.vm.create(this.model);
         }
-        this.activeOffcanvas.close('ok');
+        this.drawerRef.close('ok');
     }
-
 }

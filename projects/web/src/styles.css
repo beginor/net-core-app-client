@@ -126,3 +126,7 @@ ngb-pagination ul.pagination {
 .table-action-col-4 {
   width: 144px;
 }
+
+.cdk-overlay-container {
+  z-index: 1056 !important;
+}
