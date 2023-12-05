@@ -11,6 +11,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
     imports: [
@@ -25,6 +27,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
         NzDividerModule,
         NzSpaceModule,
         NzDrawerModule,
+        NzModalModule,
+        NzMessageModule,
     ],
     exports: [
         NzTableModule,
@@ -38,6 +42,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
         NzDividerModule,
         NzSpaceModule,
         NzDrawerModule,
+        NzModalModule,
+        NzMessageModule,
     ]
 })
 export class AntdModule {}

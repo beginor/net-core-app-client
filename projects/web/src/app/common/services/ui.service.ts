@@ -1,40 +1,51 @@
 import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ConfirmComponent } from '../confirm/confirm.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UiService {
 
-    public alerts: Alert[] = [];
-
     constructor(
-        private modal: NgbModal
+        private nzModal: NzModalService,
+        private nzMessage: NzMessageService,
     ) { }
 
     public showAlert(alert: Alert): void {
-        this.alerts.push(alert);
-    }
-
-    public closeAlert(alert: Alert): void {
-        this.alerts.splice(this.alerts.indexOf(alert), 1);
-    }
-
-    public clearAlerts(): void {
-        this.alerts = Array.from([]);
+        const option = {
+            nzDuration: 3000,
+            nzAnimate: true,
+            nzPauseOnHover: true
+        };
+        switch (alert.type) {
+            case 'info':
+                this.nzMessage.info(alert.message, option);
+                break;
+            case 'success':
+                this.nzMessage.success(alert.message, option);
+                break;
+            case 'warning':
+                this.nzMessage.warning(alert.message, option);
+                break;
+            case 'danger':
+                this.nzMessage.error(alert.message, option);
+                break;
+            default:
+                this.nzMessage.create(alert.type, alert.message, option);
+                break;
+        }
     }
 
     public showConfirm(message: string): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject) => {
-            const ref = this.modal.open(
-                ConfirmComponent,
-                { size: 'sm', centered: true }
-            );
-            ref.componentInstance.message = message;
-            ref.result.then(_ => resolve(true))
-                .catch(_ => resolve(false));
+        return new Promise<boolean>((resolve) => {
+            this.nzModal.confirm({
+                nzTitle: '提示：',
+                nzContent: message,
+                nzOnOk: () => resolve(true),
+                nzOnCancel: () => resolve(false),
+            });
         });
     }
 }

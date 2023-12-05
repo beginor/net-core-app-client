@@ -88,10 +88,7 @@ export class ListComponent implements OnInit {
             nzBodyStyle: {
                 padding: 0
             },
-            nzContentParams: {
-                id,
-                editable
-            }
+            nzData: { id, editable }
         });
         ref.afterClose.subscribe((result) => {
             if (result === 'ok') {

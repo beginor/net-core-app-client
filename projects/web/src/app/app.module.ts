@@ -4,6 +4,7 @@ import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNzI18n, zh_CN } from 'ng-zorro-antd/i18n';
 
 import {
     AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd
@@ -52,7 +53,8 @@ import { AppComponent } from './app.component';
         {
             provide: ErrorHandler,
             useClass: HttpErrorHandler
-        }
+        },
+        provideNzI18n(zh_CN),
     ],
     bootstrap: [AppComponent]
 })

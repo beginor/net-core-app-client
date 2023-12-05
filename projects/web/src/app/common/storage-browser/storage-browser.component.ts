@@ -46,7 +46,7 @@ export class StorageBrowserComponent implements OnInit {
         }
         else {
             if (path.endsWith('.') || path.endsWith('/')) {
-                path = path.substr(0, path.length - 1);
+                path = path.substring(0, path.length - 1);
             }
             path = `${path}/${item.name}`;
         }
