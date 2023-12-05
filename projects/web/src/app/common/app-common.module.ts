@@ -6,7 +6,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {
     NgbAlertModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule,
-    NgbCollapseModule, NgbNavModule, NgbDatepickerModule
+    NgbCollapseModule, NgbNavModule, NgbDatepickerModule, NgbPaginationModule,
+    NgbOffcanvasModule,
 } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppSharedModule } from 'app-shared';
@@ -46,6 +47,8 @@ import { HighlightDirective } from './highlight.directive';
         NgbCollapseModule,
         NgbNavModule,
         NgbDatepickerModule,
+        NgbOffcanvasModule,
+        NgbPaginationModule,
         AppSharedModule,
     ],
     exports: [

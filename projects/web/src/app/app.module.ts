@@ -4,13 +4,13 @@ import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayModule } from '@angular/cdk/overlay'
-import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
     AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd
 } from 'app-shared';
 
+import { AntdModule } from './antd.module';
+import { NgbModule } from './ngb.module';
 import { AppCommonModule } from './common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,8 +25,8 @@ import { AppComponent } from './app.component';
         CommonModule,
         FormsModule,
         HttpClientModule,
-        OverlayModule,
-        NgbAlertModule,
+        AntdModule,
+        NgbModule,
         AppSharedModule,
         AppCommonModule,
         AppRoutingModule
