@@ -13,6 +13,9 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @NgModule({
     imports: [
@@ -29,6 +32,9 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
         NzDrawerModule,
         NzModalModule,
         NzMessageModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzRadioModule,
     ],
     exports: [
         NzTableModule,
@@ -44,6 +50,9 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
         NzDrawerModule,
         NzModalModule,
         NzMessageModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzRadioModule,
     ]
 })
 export class AntdModule {}

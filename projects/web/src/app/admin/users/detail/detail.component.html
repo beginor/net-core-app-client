@@ -1,4 +1,4 @@
-<form class="card detail" *ngIf="(account.info | async) as info" #detailForm="ngForm">
+<form nz-form nzLayout="vertical" class="card detail" *ngIf="(account.info | async) as info" #detailForm="ngForm">
   <div class="card-header d-flex justify-content-between align-content-center">
     <h5 class="card-title mb-0">{{getTitle()}}</h5>
     <div class="btn-group btn-group-sm">
@@ -16,138 +16,129 @@
   <div class="card-body">
     <div class="row">
       <div class="col">
-        <div class="mb-3" [class.is-valid]="surname.valid"
-          [class.is-invalid]="!(surname.valid || surname.pristine)">
-          <label class="form-label text-muted" for="surname">姓氏 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="surname" name="surname"
-            placeholder="请输入用户姓氏 ..." [(ngModel)]="model.surname"
-            [class.is-invalid]="!(surname.valid || surname.pristine)"
-            [class.is-valid]="surname.valid"
-            required #surname="ngModel" [disabled]="!editable" />
-        </div>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="surname">姓氏</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input type="text" id="surname" name="surname" nzSize="large"
+              placeholder="请输入用户姓氏 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.surname"
+            />
+            </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col">
-        <div class="mb-3" [class.is-valid]="givenName.valid"
-          [class.is-invalid]="!(givenName.valid || givenName.pristine)">
-          <label class="form-label text-muted" for="givenName">名称 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="givenName" name="givenName"
-            placeholder="请输入用户名称 ..." [(ngModel)]="model.givenName"
-            [class.is-invalid]="!(givenName.valid || givenName.pristine)"
-            [class.is-valid]="givenName.valid"
-            required #givenName="ngModel" [disabled]="!editable" />
-        </div>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="givenName">名称</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input type="text" id="givenName" name="givenName" nzSize="large"
+              placeholder="请输入用户名称 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.givenName"
+            />
+            </nz-form-control>
+        </nz-form-item>
       </div>
-    </div>
-    <div class="mb-3" [class.is-valid]="userName.valid"
-      [class.is-invalid]="!(userName.valid || userName.pristine)">
-      <label class="form-label text-muted" for="userName">用户名 <i class="text-danger">*</i></label>
-      <input class="form-control" type="text" id="userName" name="userName"
-        placeholder="请输入用户用户名 ..." [(ngModel)]="model.userName"
-        [class.is-invalid]="!(userName.valid || userName.pristine)"
-        [class.is-valid]="userName.valid"
-        required #userName="ngModel" [disabled]="!editable" />
     </div>
     <div class="row">
       <div class="col">
-        <div class="mb-3" [class.is-valid]="email.valid"
-          [class.is-invalid]="!(email.valid || email.pristine)">
-          <label class="form-label text-muted" for="email">电子邮箱 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="email" name="email"
-            placeholder="请输入用户电子邮箱 ..." [(ngModel)]="model.email"
-            [class.is-invalid]="!(email.valid || email.pristine)"
-            [class.is-valid]="email.valid"
-            required #email="ngModel" [disabled]="!editable" />
-        </div>
-        <div class="mb-3">
-          <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input"
-              id="emailConfirmed" name="emailConfirmed"
-              [(ngModel)]="model.emailConfirmed" [disabled]="!editable">
-            <label class="form-check-label text-muted" for="emailConfirmed">
-              电子邮箱已确认
-            </label>
-          </div>
-        </div>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="userName">用户名</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input type="text" id="userName" name="userName" nzSize="large"
+              placeholder="请输入用户用户名 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.userName"
+            />
+            </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col">
-        <div class="mb-3" [class.is-valid]="phoneNumber.valid"
-          [class.is-invalid]="!(phoneNumber.valid || phoneNumber.pristine)">
-          <label class="form-label text-muted" for="phoneNumber">电话号码 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="phoneNumber" name="phoneNumber"
-            placeholder="请输入用户电话号码 ..." [(ngModel)]="model.phoneNumber"
-            [class.is-invalid]="!(phoneNumber.valid || phoneNumber.pristine)"
-            [class.is-valid]="phoneNumber.valid"
-            required #phoneNumber="ngModel" [disabled]="!editable" />
-        </div>
-        <div class="mb-3">
-          <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input"
-              id="phoneNumberConfirmed" name="phoneNumberConfirmed"
-              [(ngModel)]="model.phoneNumberConfirmed" [disabled]="!editable">
-            <label class="form-check-label text-muted" for="phoneNumberConfirmed">
-              电话号码已确认
-            </label>
-          </div>
-        </div>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="organizeUnit.id">组织单元</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-tree-select class="w-100" id="organizeUnit.id" name="organizeUnit.id" nzSize="large" nzPlaceHolder="请选择组织单元" required  [nzDisabled]="!editable" [nzNodes]="treeNodes" [(ngModel)]="model.organizeUnit!.id"></nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="email">电子邮箱</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input type="text" id="email" name="email" nzSize="large"
+              placeholder="请输入用户电子邮箱 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.email"
+            />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <label id="emailConfirmed" name="emailConfirmed" for="emailConfirmed" nz-checkbox [(ngModel)]="model.emailConfirmed" [nzDisabled]="!editable">电子邮箱已确认</label>
+        </nz-form-item>
+      </div>
+      <div class="col">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="phoneNumber">电话号码</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <input nz-input type="text" id="phoneNumber" name="phoneNumber" nzSize="large"
+              placeholder="请输入用户电话号码 ..." required
+              [disabled]="!editable"
+              [(ngModel)]="model.phoneNumber"
+            />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <label id="phoneNumberConfirmed" name="phoneNumberConfirmed" for="phoneNumberConfirmed" nz-checkbox [(ngModel)]="model.phoneNumberConfirmed" [nzDisabled]="!editable">电话号码已确认</label>
+        </nz-form-item>
       </div>
     </div>
     <hr />
     <div class="row">
       <div class="col">
-        <div class="mb-3">
-          <label class="form-label text-muted" for="dateOfBirth">出生日期</label>
-          <div class="input-group">
-            <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth"
-              placeholder="请选择出生日期 ..." [(ngModel)]="dob"
-              ngbDatepicker container="body" #dp="ngbDatepicker"
-              #dateOfBirth="ngModel" [disabled]="!editable" />
-            <button class="btn btn-outline-secondary calendar"
-              (click)="dp.toggle()" [disabled]="!editable">
-              <svg-icon path="bi/calendar3"></svg-icon>
-            </button>
-          </div>
-        </div>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="dateOfBirth">出生日期</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-date-picker class="w-100" id="dateOfBirth" name="dateOfBirth" nzSize="large"
+            nzPlaceHolder="请选择出生日期 ..." [(ngModel)]="model.dateOfBirth"
+            [nzDisabled]="!editable"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
       </div>
       <div class="col">
-        <div class="mb-3">
-          <label class="form-label text-muted" for="gender1">性别</label>
-          <div class="form-control-plaintext">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="gender1" value="保密"
-                [(ngModel)]="model.gender" [attr.disabled]="editable ? null : true">
-              <label for="gender1" class="form-check-label">保密</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="gender2" value="男"
-                [(ngModel)]="model.gender" [attr.disabled]="editable ? null : true">
-              <label for="gender2" class="form-check-label">男</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="gender3" value="女"
-                [(ngModel)]="model.gender" [attr.disabled]="editable ? null : true">
-              <label for="gender3" class="form-check-label">女</label>
-            </div>
-          </div>
-        </div>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="gender">性别</nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-radio-group id="gender" name="gender" nzName="gender" [(ngModel)]="model.gender" [nzDisabled]="!editable">
+              <label id="gender1" for="gender1" nz-radio nzValue="保密">保密</label>
+              <label id="gender2" for="gender2" nz-radio nzValue="男">男</label>
+              <label id="gender3" for="gender3" nz-radio nzValue="女">女</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label class="form-label text-muted" for="streetAddress">地址</label>
       <input class="form-control" type="text" id="streetAddress" name="streetAddress"
         placeholder="请输入用户地址 ..." [(ngModel)]="model.streetAddress"
         [disabled]="!editable" />
-    </div>
+    </div> -->
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="streetAddress">地址</nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input nz-input type="text" id="streetAddress" name="streetAddress" nzSize="large"
+          placeholder="请输入用户地址 ..." required
+          [disabled]="!editable"
+          [(ngModel)]="model.streetAddress"
+        />
+        </nz-form-control>
+    </nz-form-item>
     <hr />
-    <div class="mb-3">
-      <div class="form-check form-switch">
-        <input type="checkbox" class="form-check-input"
-          id="lockoutEnabled" name="lockoutEnabled"
-          [(ngModel)]="model.lockoutEnabled" [disabled]="!editable">
-        <label class="form-check-label text-muted" for="lockoutEnabled">
-          连续输错密码时，允许锁定该用户
-        </label>
-      </div>
-    </div>
+    <nz-form-item>
+      <label id="lockoutEnabled" name="lockoutEnabled" for="lockoutEnabled" nz-checkbox [(ngModel)]="model.lockoutEnabled" [nzDisabled]="!editable">连续输错密码时，允许锁定该用户</label>
+    </nz-form-item>
   </div>
   <div class="card-footer d-flex justify-content-between"
     *ngIf="info.privileges['app_users.update'] && editable">

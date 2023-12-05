@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from 'app-shared';
-import { UserModel, UsersService} from '../users.service';
+import { UserModel, UsersService } from '../users.service';
+import {
+    OrganizeUnitService
+} from '../../organize-units/organize-units.service';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Component({
     selector: 'app-users-detail',
@@ -26,13 +30,19 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public model: UserModel = { id: '', lockoutEnabled: true, gender: '保密' };
+    public model: UserModel = {
+        id: '',
+        lockoutEnabled: true, gender: '保密',
+        organizeUnit: { id: '', name: '' }
+    };
     public dob = { year: 1970, month: 1, day: 1 };
+    public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
         private activeOffcanvas: NgbActiveOffcanvas,
         public account: AccountService,
-        public vm: UsersService
+        public vm: UsersService,
+        public organizeUnitSvc: OrganizeUnitService,
     ) { }
 
     public async ngOnInit(): Promise<void> {
@@ -50,6 +60,15 @@ export class DetailComponent implements OnInit {
                 };
             }
         }
+        this.initOrganizeUnit();
+    }
+
+    public initOrganizeUnit(): void {
+        void this.organizeUnitSvc.search();
+        this.organizeUnitSvc.data.subscribe((data) => {
+            this.treeNodes =
+                this.organizeUnitSvc.convertToNzTreeNodeOptions(data);
+        });
     }
 
     public cancel(): void {

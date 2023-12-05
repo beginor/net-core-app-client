@@ -330,6 +330,13 @@ export interface UserModel {
     gender?: string;
     /** 家庭地址 */
     streetAddress?: string;
+    /** 工作单元 */
+    organizeUnit?: StringIdNameModel;
+}
+
+export interface StringIdNameModel {
+    id: string;
+    name: string;
 }
 
 /** 用户搜索参数 */

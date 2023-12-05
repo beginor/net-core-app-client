@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppSharedModule } from 'app-shared';
+import { AntdModule } from '../../antd.module';
 import { NgbModule } from '../../ngb.module';
 import { AppCommonModule } from '../../common';
 
@@ -25,6 +26,7 @@ import { RolesComponent } from './roles/roles.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AntdModule,
     NgbModule,
     AppCommonModule,
     AppSharedModule,

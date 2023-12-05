@@ -10,6 +10,7 @@ declare function isSupportedBrowser(): boolean;
 if (isSupportedBrowser()) {
 
     registerLocaleData(zh, 'zh-Hans', zhEx);
+    registerLocaleData(zh, 'zh-cn', zhEx);
 
     platformBrowserDynamic().bootstrapModule(AppModule)
         .then(() => {
