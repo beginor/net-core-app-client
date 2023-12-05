@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-    NgbPaginationModule, NgbTooltipModule, NgbDatepickerModule,
-    NgbDropdownModule
-} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppSharedModule } from 'app-shared';
-
+import { NgbModule } from '../../ngb.module';
 import { AppCommonModule } from '../../common';
+
 import { UsersRoutingModule } from './users-routing.module';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
@@ -28,10 +25,7 @@ import { RolesComponent } from './roles/roles.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbPaginationModule,
-    NgbTooltipModule,
-    NgbDatepickerModule,
-    NgbDropdownModule,
+    NgbModule,
     AppCommonModule,
     AppSharedModule,
     UsersRoutingModule

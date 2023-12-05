@@ -4,14 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import {
-    NgbAlertModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule,
-    NgbCollapseModule, NgbNavModule, NgbDatepickerModule, NgbPaginationModule,
-    NgbOffcanvasModule,
-} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppSharedModule } from 'app-shared';
 
+import { NgbModule } from '../ngb.module';
 import { NavTopBarComponent } from './nav-topbar/nav-topbar.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
@@ -40,15 +36,7 @@ import { HighlightDirective } from './highlight.directive';
         RouterModule,
         LayoutModule,
         ScrollingModule,
-        NgbAlertModule,
-        NgbDropdownModule,
-        NgbModalModule,
-        NgbTooltipModule,
-        NgbCollapseModule,
-        NgbNavModule,
-        NgbDatepickerModule,
-        NgbOffcanvasModule,
-        NgbPaginationModule,
+        NgbModule,
         AppSharedModule,
     ],
     exports: [

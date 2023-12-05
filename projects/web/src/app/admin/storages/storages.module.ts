@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-    NgbPaginationModule, NgbTooltipModule, NgbOffcanvasModule,
-} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppSharedModule } from 'app-shared';
+import { NgbModule } from '../../ngb.module';
+import { AppCommonModule } from '../../common';
 
-import { AppCommonModule } from 'projects/web/src/app/common';
 import { AppStorageRoutingModule } from './storages-routing.module';
 import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
@@ -20,9 +18,7 @@ import { DetailComponent } from './detail/detail.component';
     imports: [
         CommonModule,
         FormsModule,
-        NgbPaginationModule,
-        NgbTooltipModule,
-        NgbOffcanvasModule,
+        NgbModule,
         AppSharedModule,
         AppCommonModule,
         AppStorageRoutingModule

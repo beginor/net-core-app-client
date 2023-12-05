@@ -8,10 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd
 } from 'app-shared';
-
 import { AntdModule } from './antd.module';
 import { NgbModule } from './ngb.module';
 import { AppCommonModule } from './common';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 

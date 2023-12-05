@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-    NgbDatepickerModule, NgbTooltipModule
-} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppSharedModule } from 'app-shared';
 
+import { NgbModule } from '../ngb.module';
 import { AppCommonModule } from '../common/app-common.module';
 import { AccountRoutingModule } from './account-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -24,8 +23,7 @@ import { TokenDetailComponent } from './token-detail/token-detail.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbDatepickerModule,
-        NgbTooltipModule,
+        NgbModule,
         AppCommonModule,
         AppSharedModule,
         AccountRoutingModule
