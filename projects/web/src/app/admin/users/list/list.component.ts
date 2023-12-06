@@ -9,6 +9,10 @@ import { DetailComponent } from '../detail/detail.component';
 import { LockComponent } from '../lock/lock.component';
 import { PasswordComponent } from '../password/password.component';
 import { RolesComponent } from '../roles/roles.component';
+import {
+    OrganizeUnitService
+} from '../../organize-units/organize-units.service';
+import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Component({
     selector: 'app-admin-users-list',
@@ -16,12 +20,14 @@ import { RolesComponent } from '../roles/roles.component';
     styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
+    public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
         route: ActivatedRoute,
         private offcanvas: NgbOffcanvas,
         public account: AccountService,
-        public vm: UsersService
+        public vm: UsersService,
+        private organizeUnitSvc: OrganizeUnitService,
     ) {
         const { roleName } = route.snapshot.params;
         if (!!roleName) {
@@ -34,11 +40,20 @@ export class ListComponent implements OnInit {
 
     public ngOnInit(): void {
         void this.loadData();
+        void this.loadOrganizeUnit();
+        this.organizeUnitSvc.data.subscribe((data) => {
+            this.treeNodes =
+                this.organizeUnitSvc.convertToNzTreeNodeOptions(data);
+        });
     }
 
     public async loadData(): Promise<void> {
         await this.vm.getRoles();
         await this.vm.search();
+    }
+
+    public async loadOrganizeUnit(): Promise<void> {
+        await this.organizeUnitSvc.search();
     }
 
     public showDetail(id: string, editable: boolean): void {
@@ -168,6 +183,13 @@ export class ListComponent implements OnInit {
             .map(r => r.userCount || 0)
             .reduce((prev, curr) => prev + curr, 0);
         return usersCount;
+    }
+
+    public onOrganizeUnitClick(event: NzFormatEmitEvent): void {
+        if (event.node) {
+            this.vm.searchModel.organizeUnitId = event.node.key;
+            void this.loadData();
+        }
     }
 
 }

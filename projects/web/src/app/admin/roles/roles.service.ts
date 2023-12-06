@@ -277,6 +277,8 @@ export interface AppRoleSearchModel {
     skip: number;
     /** 取多少条记录 */
     take: number;
+    /** 组织机构ID */
+    organizeUnitId?: string;
 }
 
 /** 角色 搜索结果 */

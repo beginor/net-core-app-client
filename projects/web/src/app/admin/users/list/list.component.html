@@ -6,8 +6,24 @@
   </ol>
 </nav>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
+  <div class="row g-2">
+    <div class="col-2">
+      <div class="card h-100">
+          <div class="card-header d-flex justify-content-between">
+              <h5 class="card-title mb-0">组织单元</h5>
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-outline-secondary"
+                  (click)="loadOrganizeUnit()">
+                  <svg-icon path="bi/arrow-repeat"></svg-icon>
+                </button>
+              </div>
+          </div>
+          <div>
+            <nz-tree [nzData]="treeNodes" (nzClick)="onOrganizeUnitClick($event)"></nz-tree>
+          </div>
+      </div>
+    </div>
+    <div class="col">
       <div class="card" *ngIf="(account.info | async) as info">
         <div class="card-header d-flex justify-content-between">
             <h5 class="card-title mb-0">用户</h5>

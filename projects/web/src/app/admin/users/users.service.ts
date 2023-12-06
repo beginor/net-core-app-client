@@ -71,7 +71,7 @@ export class UsersService {
             this.total.next(0);
             this.data.next([]);
             this.ui.showAlert(
-                { type: 'danger', message: '加载用户数据出错!'}
+                { type: 'danger', message: '加载用户数据出错!' }
             );
         }
         finally {
@@ -182,7 +182,7 @@ export class UsersService {
         catch (ex: unknown) {
             this.errorHandler.handleError(ex);
             this.ui.showAlert(
-                { type: 'danger', message: '解锁用户失败！'}
+                { type: 'danger', message: '解锁用户失败！' }
             );
             return false;
         }
@@ -198,7 +198,7 @@ export class UsersService {
         catch (ex: unknown) {
             this.errorHandler.handleError(ex);
             this.ui.showAlert(
-                { type: 'danger', message: '锁定用户失败！'}
+                { type: 'danger', message: '锁定用户失败！' }
             );
             return false;
         }
@@ -224,7 +224,7 @@ export class UsersService {
         catch (ex: unknown) {
             this.errorHandler.handleError(ex);
             this.ui.showAlert(
-                { type: 'danger', message: '重置用户密码失败！'}
+                { type: 'danger', message: '重置用户密码失败！' }
             );
             return false;
         }
@@ -233,6 +233,8 @@ export class UsersService {
     /** 获取全部角色 */
     public async getRoles(): Promise<void> {
         try {
+            this.rolesSvc.searchModel.organizeUnitId
+                = this.searchModel.organizeUnitId;
             this.rolesSvc.searchModel.skip = 0;
             this.rolesSvc.searchModel.take = 999;
             await this.rolesSvc.search();
@@ -354,6 +356,8 @@ export interface UserSearchModel {
     sortBy?: string;
     /** 角色名称 */
     roleName?: string;
+    /** 组织机构ID */
+    organizeUnitId?: string;
 }
 
 /** 用户搜索结果 */
