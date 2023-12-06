@@ -16,6 +16,9 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @NgModule({
     imports: [
@@ -35,6 +38,9 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
         NzCheckboxModule,
         NzDatePickerModule,
         NzRadioModule,
+        NzButtonModule,
+        NzCardModule,
+        NzAlertModule,
     ],
     exports: [
         NzTableModule,
@@ -53,6 +59,9 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
         NzCheckboxModule,
         NzDatePickerModule,
         NzRadioModule,
+        NzButtonModule,
+        NzCardModule,
+        NzAlertModule,
     ]
 })
 export class AntdModule {}
