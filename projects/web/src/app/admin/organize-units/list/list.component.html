@@ -29,22 +29,6 @@
             </button>
           </div>
         </div>
-        <!-- <form class="p-2 bg-light">
-          <div class="row">
-            <div class="col-6">
-            </div>
-            <div class="col-6">
-              <div class="row g-0">
-                <div class="col">
-                  <span class="text-muted">其它工具栏</span>
-                </div>
-                <div class="col">
-                  <span class="text-muted">其它工具栏</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form> -->
         <div class="table-responsive p-2">
           <nz-table
             #expandTable
@@ -65,7 +49,7 @@
               <ng-container *ngFor="let item of expandTable.data">
                 <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
                   <td
-                    [nzIndentSize]="item.level! * 20"
+                    [nzIndentSize]="item.level! * 16"
                     [nzShowExpand]="item.children && item.children.length > 0"
                     [nzExpand]="item.expand"
                     (nzExpandChange)="expandChange(item)"
@@ -105,6 +89,7 @@
                         placement="top"
                         [openDelay]="300"
                         container="body"
+                        [disabled]="item.children && item.children.length > 0"
                         (click)="delete(item.id)"
                       >
                         <svg-icon path="bi/trash"></svg-icon>
