@@ -32,7 +32,7 @@ export class DetailComponent implements OnInit {
 
     public editable = false;
     public model: AppOrganizeUnitModel = {
-        id: '', code: '', name: '', sequence: 0
+        id: '', name: '', sequence: 0
     };
     private reloadList = false;
     public treeNodes: NzTreeNodeOptions[] = [];
