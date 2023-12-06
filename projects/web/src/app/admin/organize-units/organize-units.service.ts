@@ -206,8 +206,6 @@ export interface AppOrganizeUnitModel {
     id: string;
     /** 上级组织单元 ID */
     parentId?: string;
-    /** 组织单元编码 */
-    code: string;
     /** 组织单元名称 */
     name: string;
     /** 组织单元说明 */
