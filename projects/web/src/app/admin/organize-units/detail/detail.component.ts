@@ -51,7 +51,8 @@ export class DetailComponent implements OnInit {
             }
         }
         this.vm.data.subscribe((data) => {
-            this.treeNodes = this.vm.convertToNzTreeNodeOptions(data);
+            this.treeNodes = this.vm.convertToNzTreeNodeOptions(data
+                , this.model.id);
         });
     }
 

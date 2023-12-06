@@ -173,18 +173,23 @@ export class OrganizeUnitService {
     }
 
     /** 转为 treeSelect 需要的  treeNodes  */
-    public convertToNzTreeNodeOptions(data: AppOrganizeUnitModel[])
+    public convertToNzTreeNodeOptions(data: AppOrganizeUnitModel[],
+        currentOrganizeUnitId?: string, parentNode?: NzTreeNodeOptions)
         : NzTreeNodeOptions[] {
         const treeNodes = data.map((node) => {
             const treeNode: NzTreeNodeOptions = {
                 title: node.name,
                 key: node.id,
                 value: node.id,
-                expanded: node.expand
+                expanded: node.expand,
+                disabled: node.id === currentOrganizeUnitId
+                    || parentNode?.disabled,
+                parent: parentNode
             };
             if (node.children && node.children.length > 0) {
                 treeNode.children =
-                    this.convertToNzTreeNodeOptions(node.children);
+                    this.convertToNzTreeNodeOptions(node.children,
+                        currentOrganizeUnitId, treeNode);
             }
             else {
                 treeNode.isLeaf = true;
