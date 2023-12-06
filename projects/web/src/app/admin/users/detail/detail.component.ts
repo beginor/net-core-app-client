@@ -6,7 +6,7 @@ import { UserModel, UsersService } from '../users.service';
 import {
     OrganizeUnitService
 } from '../../organize-units/organize-units.service';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Component({
     selector: 'app-users-detail',
@@ -35,7 +35,7 @@ export class DetailComponent implements OnInit {
         lockoutEnabled: true, gender: '保密',
         organizeUnit: { id: '', name: '' }
     };
-    public dob = { year: 1970, month: 1, day: 1 };
+    public dateOfBirthDate: Date = new Date('1970-01-01');
     public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
@@ -52,12 +52,7 @@ export class DetailComponent implements OnInit {
                 this.model = model;
             }
             if (!!this.model.dateOfBirth) {
-                const dob = this.model.dateOfBirth.split('-');
-                this.dob = {
-                    year: parseInt(dob[0], 10),
-                    month: parseInt(dob[1], 10),
-                    day: parseInt(dob[2], 10)
-                };
+                this.dateOfBirthDate = new Date(this.model.dateOfBirth);
             }
         }
         this.initOrganizeUnit();
@@ -76,8 +71,10 @@ export class DetailComponent implements OnInit {
     }
 
     public async save(): Promise<void> {
-        const dob = `${this.dob.year}-${this.dob.month}-${this.dob.day}`;
-        this.model.dateOfBirth = dob;
+        const dateOfBirth = `${this.dateOfBirthDate.getFullYear()
+            }-${this.dateOfBirthDate.getMonth() + 1
+            }-${this.dateOfBirthDate.getDate()}`;
+        this.model.dateOfBirth = dateOfBirth;
         if (this.id !== '0') {
             await this.vm.update(this.id, this.model);
         }
@@ -87,4 +84,13 @@ export class DetailComponent implements OnInit {
         this.activeOffcanvas.close('ok');
     }
 
+    public onOrganizeUnitClick(event: NzFormatEmitEvent)
+        : void {
+        if (event.node) {
+            this.model.organizeUnit = {
+                id: event.node.key,
+                name: event.node.title,
+            }
+        }
+    }
 }

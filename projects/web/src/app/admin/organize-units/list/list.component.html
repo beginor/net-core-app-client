@@ -55,7 +55,6 @@
           >
             <thead>
               <tr>
-                <th>编码</th>
                 <th>名称</th>
                 <th>说明</th>
                 <th class="text-end">顺序</th>
@@ -71,9 +70,8 @@
                     [nzExpand]="item.expand"
                     (nzExpandChange)="expandChange(item)"
                   >
-                    {{ item.code }}
+                    {{ item.name }}
                   </td>
-                  <td>{{ item.name }}</td>
                   <td>{{ item.description }}</td>
                   <td class="text-end">{{ item.sequence }}</td>
                   <td>

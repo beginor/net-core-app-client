@@ -26,18 +26,6 @@
     <div nz-row [nzGutter]="8">
       <div nz-col nzFlex="1">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="code">编码</nz-form-label>
-          <nz-form-control nzHasFeedback>
-            <input nz-input type="text" id="code" name="code" nzSize="large"
-              placeholder="请输入组织单元编码 ..." required
-              [disabled]="!editable"
-              [(ngModel)]="model.code"
-            />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzFlex="1">
-        <nz-form-item>
           <nz-form-label nzRequired nzFor="name">名称</nz-form-label>
           <nz-form-control nzHasFeedback>
             <input nz-input nzSize="large" type="text" id="name" name="name"
