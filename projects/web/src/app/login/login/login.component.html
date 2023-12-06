@@ -5,8 +5,8 @@
         <form nz-form nzLayout="vertical" #loginForm="ngForm" (submit)="login()" method="post">
           <nz-form-item>
             <nz-form-label nzFor="username" nzRequired>用户名</nz-form-label>
-            <nz-form-control >
-              <input nz-input type="text" id="username" name="username"
+            <nz-form-control>
+              <input nz-input nzSize="large" type="text" id="username" name="username"
                 placeholder="请输入用户名 ..." [(ngModel)]="model.userName"
                 required autocomplete="username"
               />
@@ -15,7 +15,7 @@
           <nz-form-item>
             <nz-form-label nzFor="password" nzRequired>密码</nz-form-label>
             <nz-form-control>
-              <input nz-input type="password" name="password"
+              <input nz-input nzSize="large" type="password" name="password"
                 placeholder="请输入密码 ..." required id="password"
                 [(ngModel)]="model.password"
                 autocomplete="current-password"
@@ -24,7 +24,7 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <button nz-button nzType="primary" [disabled]="(!loginForm.valid) || loading"
+            <button nz-button nzType="primary" nzSize="large" [disabled]="(!loginForm.valid) || loading"
               type="button" (click)="login()">
               <ng-container *ngIf="loading; else loginTpl;">
                 <svg-icon path="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 登录中 ...
