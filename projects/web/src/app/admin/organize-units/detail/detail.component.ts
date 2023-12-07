@@ -5,7 +5,6 @@ import {
     OrganizeUnitService,
     AppOrganizeUnitModel
 } from '../organize-units.service';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 @Component({
@@ -35,7 +34,6 @@ export class DetailComponent implements OnInit {
         id: '', name: '', sequence: 0
     };
     private reloadList = false;
-    public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
         private drawerRef: NzDrawerRef<{ id: string, editable: boolean }>,
@@ -50,10 +48,7 @@ export class DetailComponent implements OnInit {
                 this.model = model;
             }
         }
-        this.vm.data.subscribe((data) => {
-            this.treeNodes = this.vm.convertToNzTreeNodeOptions(data
-                , this.model.id);
-        });
+        this.vm.subscribeDataToTreeNodes(this.model.id);
     }
 
     public cancel(): void {

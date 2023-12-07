@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="card-body">
-    <nz-form-item>
+    <nz-form-item *ngIf="(vm.treeNodes | async) as treeNodes">
       <nz-form-label nzRequired>上级组织单元</nz-form-label>
       <nz-form-control>
         <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large"

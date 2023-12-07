@@ -20,6 +20,7 @@ export class OrganizeUnitService {
     public loading = false;
     public showPagination = false;
     private baseUrl: string;
+    public treeNodes = new BehaviorSubject<NzTreeNodeOptions[]>([]);
 
     constructor(
         private http: HttpClient,
@@ -172,8 +173,21 @@ export class OrganizeUnitService {
         }
     }
 
+    /** 当前svc中 data => treeNodes */
+    public subscribeDataToTreeNodes(disabledOrganizeUnitId?: string,
+        parentNode?: NzTreeNodeOptions): void {
+        this.data.subscribe((data) => {
+            if (!data || data.length === 0) {
+                return;
+            }
+            const treeNodes = this.convertToNzTreeNodeOptions(
+                data, disabledOrganizeUnitId, parentNode);
+            this.treeNodes.next(treeNodes);
+        });
+    }
+
     /** 转为 treeSelect 需要的  treeNodes  */
-    public convertToNzTreeNodeOptions(data: AppOrganizeUnitModel[],
+    private convertToNzTreeNodeOptions(data: AppOrganizeUnitModel[],
         disabledOrganizeUnitId?: string, parentNode?: NzTreeNodeOptions)
         : NzTreeNodeOptions[] {
         const treeNodes = data.map((node) => {

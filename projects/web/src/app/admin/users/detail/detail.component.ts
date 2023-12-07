@@ -6,7 +6,7 @@ import { UserModel, UsersService } from '../users.service';
 import {
     OrganizeUnitService
 } from '../../organize-units/organize-units.service';
-import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
     selector: 'app-users-detail',
@@ -36,7 +36,6 @@ export class DetailComponent implements OnInit {
         organizeUnit: { id: '', name: '' }
     };
     public dateOfBirthDate: Date = new Date('1970-01-01');
-    public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
         private activeOffcanvas: NgbActiveOffcanvas,
@@ -60,10 +59,7 @@ export class DetailComponent implements OnInit {
 
     public initOrganizeUnit(): void {
         void this.organizeUnitSvc.search();
-        this.organizeUnitSvc.data.subscribe((data) => {
-            this.treeNodes =
-                this.organizeUnitSvc.convertToNzTreeNodeOptions(data);
-        });
+        this.organizeUnitSvc.subscribeDataToTreeNodes();
     }
 
     public cancel(): void {

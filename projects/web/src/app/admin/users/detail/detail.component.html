@@ -54,7 +54,7 @@
         </nz-form-item>
       </div>
       <div class="col">
-        <nz-form-item>
+        <nz-form-item *ngIf="(organizeUnitSvc.treeNodes| async) as treeNodes">
           <nz-form-label nzRequired nzFor="organizeUnit.id">组织单元</nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-tree-select class="w-100" id="organizeUnit.id" name="organizeUnit.id" nzSize="large" nzPlaceHolder="请选择组织单元" required  [nzDisabled]="!editable" [nzNodes]="treeNodes" [(ngModel)]="model.organizeUnit!.id" (nzTreeClick)="onOrganizeUnitClick($event)"></nz-tree-select>

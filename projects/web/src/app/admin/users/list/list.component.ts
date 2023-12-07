@@ -12,7 +12,7 @@ import { RolesComponent } from '../roles/roles.component';
 import {
     OrganizeUnitService
 } from '../../organize-units/organize-units.service';
-import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
     selector: 'app-admin-users-list',
@@ -20,14 +20,13 @@ import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
     styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
-    public treeNodes: NzTreeNodeOptions[] = [];
 
     constructor(
         route: ActivatedRoute,
         private offcanvas: NgbOffcanvas,
         public account: AccountService,
         public vm: UsersService,
-        private organizeUnitSvc: OrganizeUnitService,
+        public organizeUnitSvc: OrganizeUnitService,
     ) {
         const { roleName } = route.snapshot.params;
         if (!!roleName) {
@@ -41,10 +40,7 @@ export class ListComponent implements OnInit {
     public ngOnInit(): void {
         void this.loadData();
         void this.loadOrganizeUnit();
-        this.organizeUnitSvc.data.subscribe((data) => {
-            this.treeNodes =
-                this.organizeUnitSvc.convertToNzTreeNodeOptions(data);
-        });
+        this.organizeUnitSvc.subscribeDataToTreeNodes();
     }
 
     public async loadData(): Promise<void> {
