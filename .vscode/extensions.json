@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "angular.ng-template",
+    "johnpapa.Angular2",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "VisualStudioExptTeam.intellicode-api-usage-examples",
+    "Zignd.html-css-class-completion",
+    "dbaeumer.vscode-eslint",
+    "DavidAnson.vscode-markdownlint"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "build-shared"],
+      "group": "build",
+      "problemMatcher": ["$tsc"],
+      "label": "build-shared",
+      "detail": "pnpm run build-shared"
+    },
+    {
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "build-web"],
+      "group": "build",
+      "problemMatcher": ["$tsc"],
+      "label": "build-web",
+      "detail": "pnpm run build-web"
+    },
+    {
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["run", "serve-web"],
+      "group": "none",
+      "problemMatcher": ["$tsc"],
+      "label": "serve-web",
+      "detail": "pnpm run serve-web"
+    }
+  ]
+}
