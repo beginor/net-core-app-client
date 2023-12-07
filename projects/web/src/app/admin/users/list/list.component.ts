@@ -4,7 +4,7 @@ import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap'
 
 import { AccountService } from 'app-shared';
 
-import { UsersService, UserModel } from '../users.service';
+import { UsersService, UserModel, StringIdNameModel } from '../users.service';
 import { DetailComponent } from '../detail/detail.component';
 import { LockComponent } from '../lock/lock.component';
 import { PasswordComponent } from '../password/password.component';
@@ -12,7 +12,8 @@ import { RolesComponent } from '../roles/roles.component';
 import {
     OrganizeUnitService
 } from '../../organize-units/organize-units.service';
-import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { BehaviorSubject, first } from 'rxjs';
 
 @Component({
     selector: 'app-admin-users-list',
@@ -20,6 +21,8 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
     styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
+    public treeNodes = new BehaviorSubject<NzTreeNodeOptions[]>([]);
+    public organizeUnit?: StringIdNameModel;
 
     constructor(
         route: ActivatedRoute,
@@ -41,7 +44,6 @@ export class ListComponent implements OnInit {
         this.vm.searchModel.organizeUnitId = '';
         void this.loadData();
         void this.loadOrganizeUnit();
-        void this.organizeUnitSvc.subscribeDataToTreeNodes();
     }
 
     public async loadData(): Promise<void> {
@@ -51,6 +53,15 @@ export class ListComponent implements OnInit {
 
     public async loadOrganizeUnit(): Promise<void> {
         await this.organizeUnitSvc.search();
+        this.organizeUnitSvc.data.pipe(
+            first(data => data && data.length > 0)
+        ).subscribe(data => {
+            const treeNodes =
+                this.organizeUnitSvc.convertToNzTreeNodeOptions(
+                    data);
+            this.treeNodes.next(treeNodes);
+            // console.log('this.treeNodes : ', treeNodes);
+        });
     }
 
     public showDetail(id: string, editable: boolean): void {
@@ -61,6 +72,11 @@ export class ListComponent implements OnInit {
         const detail = ref.componentInstance as DetailComponent;
         detail.editable = editable;
         detail.id = id;
+        if (id === '0' && this.organizeUnit) {
+            detail.model.organizeUnit = {
+                ...this.organizeUnit
+            };
+        }
         void ref.result.then(() => {
             void this.vm.search();
         }).catch(ex => {
@@ -184,7 +200,11 @@ export class ListComponent implements OnInit {
 
     public onOrganizeUnitClick(event: NzFormatEmitEvent): void {
         if (event.node) {
-            this.vm.searchModel.organizeUnitId = event.node.key;
+            this.organizeUnit = {
+                id: event.node.key,
+                name: event.node.title
+            };
+            this.vm.searchModel.organizeUnitId = this.organizeUnit.id;
             void this.loadData();
         }
     }

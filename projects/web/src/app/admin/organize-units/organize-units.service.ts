@@ -174,21 +174,25 @@ export class OrganizeUnitService {
     }
 
     /** 当前svc中 data => treeNodes */
-    public subscribeDataToTreeNodes(disabledOrganizeUnitId?: string,
-        parentNode?: NzTreeNodeOptions): void {
+    public subscribeDataToTreeNodes(
+        disabledOrganizeUnitId?: string
+    ): void {
         this.data.subscribe((data) => {
             if (!data || data.length === 0) {
                 return;
             }
             const treeNodes = this.convertToNzTreeNodeOptions(
-                data, disabledOrganizeUnitId, parentNode);
+                data, disabledOrganizeUnitId);
             this.treeNodes.next(treeNodes);
         });
     }
 
     /** 转为 treeSelect 需要的  treeNodes  */
-    private convertToNzTreeNodeOptions(data: AppOrganizeUnitModel[],
-        disabledOrganizeUnitId?: string, parentNode?: NzTreeNodeOptions)
+    public convertToNzTreeNodeOptions(
+        data: AppOrganizeUnitModel[],
+        disabledOrganizeUnitId?: string,
+        parentNode?: NzTreeNodeOptions
+    )
         : NzTreeNodeOptions[] {
         const treeNodes = data.map((node) => {
             const treeNode: NzTreeNodeOptions = {
@@ -202,8 +206,11 @@ export class OrganizeUnitService {
             };
             if (node.children && node.children.length > 0) {
                 treeNode.children =
-                    this.convertToNzTreeNodeOptions(node.children,
-                        disabledOrganizeUnitId, treeNode);
+                    this.convertToNzTreeNodeOptions(
+                        node.children,
+                        disabledOrganizeUnitId,
+                        treeNode
+                    );
             }
             else {
                 treeNode.isLeaf = true;
