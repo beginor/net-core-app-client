@@ -62,7 +62,9 @@ export class RolesService {
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {
                 const val = this.searchModel[key];
-                params = params.set(key, val as string);
+                if (val) {
+                    params = params.set(key, val as string);
+                }
             }
         }
         this.loading = true;
