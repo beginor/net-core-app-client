@@ -38,9 +38,10 @@ export class ListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        this.vm.searchModel.organizeUnitId = '';
         void this.loadData();
         void this.loadOrganizeUnit();
-        this.organizeUnitSvc.subscribeDataToTreeNodes();
+        void this.organizeUnitSvc.subscribeDataToTreeNodes();
     }
 
     public async loadData(): Promise<void> {
