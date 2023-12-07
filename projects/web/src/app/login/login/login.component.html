@@ -24,21 +24,23 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <button nz-button nzType="primary" nzSize="large" [disabled]="(!loginForm.valid) || loading"
+            <button nz-button nzType="primary" nzSize="large"
+              [disabled]="(!loginForm.valid) || loading"
               type="button" (click)="login()">
-              <ng-container *ngIf="loading; else loginTpl;">
+              @if (loading) {
                 <svg-icon path="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 登录中 ...
-              </ng-container>
-              <ng-template #loginTpl>
+              } @else {
                 登录
-              </ng-template>
+              }
             </button>
           </nz-form-item>
-          <nz-alert nzType="error" *ngIf="(message | async) as msg"
-            [nzCloseable]="true" (nzOnClose)="clearMessage()"
-            [nzShowIcon]="true"
-            [nzMessage]="msg">
-          </nz-alert>
+          @if (message | async; as msg) {
+            <nz-alert nzType="error"
+              [nzCloseable]="true" (nzOnClose)="clearMessage()"
+              [nzShowIcon]="true"
+              [nzMessage]="msg">
+            </nz-alert>
+          }
         </form>
       </nz-card>
     </div>

@@ -1,6 +1,10 @@
-<app-nav-topbar *ngIf="navigation.initialized"></app-nav-topbar>
+@if (navigation.initialized) {
+  <app-nav-topbar></app-nav-topbar>
+}
 <div class="app-main d-flex">
-  <app-nav-sidebar *ngIf="navigation.showSidebar"></app-nav-sidebar>
+  @if (navigation.showSidebar) {
+    <app-nav-sidebar *ngIf="navigation.showSidebar"></app-nav-sidebar>
+  }
   <div class="router-main flex-grow-1">
     <router-outlet></router-outlet>
   </div>
