@@ -65,11 +65,10 @@ export class ListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        void this.loadData();
         this.vm.data.subscribe((data) => {
             this.listData = this.convertTreeToList(data);
-            // console.log('listData : ', this.listData);
         });
+        void this.loadData();
     }
 
     public loadData(): void {

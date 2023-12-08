@@ -17,10 +17,10 @@ export class OrganizeUnitService {
     };
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<AppOrganizeUnitModel[]>([]);
+    public treeNodes = new BehaviorSubject<NzTreeNodeOptions[]>([]);
     public loading = false;
     public showPagination = false;
     private baseUrl: string;
-    public treeNodes = new BehaviorSubject<NzTreeNodeOptions[]>([]);
 
     constructor(
         private http: HttpClient,
