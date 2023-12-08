@@ -54,7 +54,7 @@ export class DetailComponent implements OnInit {
                 this.dateOfBirthDate = new Date(this.model.dateOfBirth);
             }
         }
-        this.initOrganizeUnit();
+        // this.initOrganizeUnit();
     }
 
     public initOrganizeUnit(): void {

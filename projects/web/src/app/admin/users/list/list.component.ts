@@ -12,8 +12,7 @@ import { RolesComponent } from '../roles/roles.component';
 import {
     OrganizeUnitService
 } from '../../organize-units/organize-units.service';
-import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { BehaviorSubject, first } from 'rxjs';
+import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
     selector: 'app-admin-users-list',
@@ -21,7 +20,6 @@ import { BehaviorSubject, first } from 'rxjs';
     styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
-    public treeNodes = new BehaviorSubject<NzTreeNodeOptions[]>([]);
     public organizeUnit?: StringIdNameModel;
 
     constructor(
@@ -53,15 +51,7 @@ export class ListComponent implements OnInit {
 
     public async loadOrganizeUnit(): Promise<void> {
         await this.organizeUnitSvc.search();
-        this.organizeUnitSvc.data.pipe(
-            first(data => data && data.length > 0)
-        ).subscribe(data => {
-            const treeNodes =
-                this.organizeUnitSvc.convertToNzTreeNodeOptions(
-                    data);
-            this.treeNodes.next(treeNodes);
-            // console.log('this.treeNodes : ', treeNodes);
-        });
+        this.organizeUnitSvc.subscribeDataToTreeNodes();
     }
 
     public showDetail(id: string, editable: boolean): void {

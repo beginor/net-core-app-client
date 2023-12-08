@@ -18,7 +18,7 @@
                 </button>
               </div>
           </div>
-          <div *ngIf="(treeNodes | async) as nzTreeNodes">
+          <div *ngIf="(organizeUnitSvc.treeNodes | async) as nzTreeNodes">
             <nz-tree [nzData]="nzTreeNodes" (nzClick)="onOrganizeUnitClick($event)"></nz-tree>
           </div>
       </div>
