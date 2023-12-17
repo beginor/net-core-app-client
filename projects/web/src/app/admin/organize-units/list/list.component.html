@@ -13,7 +13,7 @@
           <h5 class="card-title mb-0">组织单元</h5>
           <div class="btn-group btn-group-sm">
             <button
-              *ngIf="info.privileges['app_organize_unit.create']"
+              *ngIf="info.privileges['app_organize_units.create']"
               type="button"
               class="btn btn-outline-primary"
               (click)="showDetail('0', true)"
@@ -61,7 +61,7 @@
                   <td>
                     <div class="btn-group btn-group-sm">
                       <button
-                        *ngIf="info.privileges['app_organize_unit.read_by_id']"
+                        *ngIf="info.privileges['app_organize_units.read_by_id']"
                         class="btn btn-outline-secondary"
                         ngbTooltip="详情"
                         placement="top"
@@ -72,7 +72,7 @@
                         <svg-icon path="bi/info-square"></svg-icon>
                       </button>
                       <button
-                        *ngIf="info.privileges['app_organize_unit.update']"
+                        *ngIf="info.privileges['app_organize_units.update']"
                         class="btn btn-outline-secondary"
                         ngbTooltip="编辑"
                         placement="top"
@@ -83,7 +83,7 @@
                         <svg-icon path="bi/pencil-square"></svg-icon>
                       </button>
                       <button
-                        *ngIf="info.privileges['app_organize_unit.delete']"
+                        *ngIf="info.privileges['app_organize_units.delete']"
                         class="btn btn-outline-secondary"
                         ngbTooltip="删除"
                         placement="top"

@@ -2,7 +2,7 @@
   <div class="card-header d-flex justify-content-between align-content-center">
     <h5 class="card-title mb-0">{{title}}</h5>
     <div class="btn-group btn-group-sm">
-      <button *ngIf="info.privileges['app_organize_unit.update'] && editable"
+      <button *ngIf="info.privileges['app_organize_units.update'] && editable"
         type="button" class="btn btn-sm btn-outline-primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <svg-icon path="bi/check"></svg-icon> 保存
@@ -59,7 +59,7 @@
       </nz-form-control>
     </nz-form-item>
   </div>
-  <div *ngIf="info.privileges['app_organize_unit.update'] && editable"
+  <div *ngIf="info.privileges['app_organize_units.update'] && editable"
     class="card-footer d-flex justify-content-between">
     <button type="button" class="btn btn-sm btn-outline-primary"
       (click)="save()" [disabled]="!detailForm.valid">
