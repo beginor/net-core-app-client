@@ -14,7 +14,7 @@
           <div class="btn-group btn-group-sm">
             <button type="button" class="btn btn-outline-primary"
               (click)="this.vm.search()">
-              <svg-icon path="bi/arrow-repeat"></svg-icon> 刷新
+              <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
             </button>
           </div>
         </div>
@@ -38,7 +38,7 @@
                 <div class="col-auto text-muted px-2">条记录</div>
                 <div class="col-auto text-muted px-2">
                   <ng-container *ngIf="vm.loading">
-                    <svg-icon path="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
+                    <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
                   </ng-container>
                 </div>
               </div>
@@ -57,7 +57,7 @@
                           (dateSelect)="onSelectDate($event)" readonly />
                         <button class="btn btn-outline-secondary" type="button"
                           (click)="sd.toggle()">
-                          <svg-icon path="bi/calendar3"></svg-icon>
+                          <svg-icon iconPath="bi/calendar3"></svg-icon>
                         </button>
                       </div>
                     </div>
@@ -77,7 +77,7 @@
                           (dateSelect)="onSelectDate($event)" readonly />
                         <button class="btn btn-outline-secondary" type="button"
                           (click)="ed.toggle()">
-                          <svg-icon path="bi/calendar3"></svg-icon>
+                          <svg-icon iconPath="bi/calendar3"></svg-icon>
                         </button>
                       </div>
                     </div>
@@ -92,7 +92,7 @@
                     <button *ngIf="!!vm.searchModel.userName"
                       class="btn btn-outline-secondary" type="button"
                       (click)="resetUsername()">
-                      <svg-icon path="bi/x"></svg-icon>
+                      <svg-icon iconPath="bi/x"></svg-icon>
                     </button>
                   </div>
                 </div>

@@ -9,32 +9,32 @@ import { SvgIconService } from './svg-icon.service';
 })
 export class SvgIconComponent implements AfterViewInit {
 
-    private viewInited = false;
-    private iconPath = '';
-    private svgIconClass?: string;
+    private _viewInited = false;
+    private _iconPath = '';
+    private _svgIconClass?: string;
 
-    public get path(): string | undefined { return this.iconPath; }
-    @Input() public set path(val: string | undefined) {
+    public get iconPath(): string | undefined { return this._iconPath; }
+    @Input() public set iconPath(val: string | undefined) {
         if (!val) {
             return;
         }
-        if (val !== this.iconPath) {
-            this.iconPath = val;
-            if (!!this.iconPath && this.viewInited) {
+        if (val !== this._iconPath) {
+            this._iconPath = val;
+            if (!!this._iconPath && this._viewInited) {
                 void this.updateIcon();
             }
         }
     }
     @Input() public size = '1rem';
 
-    public get iconClass(): string | undefined { return this.svgIconClass }
+    public get iconClass(): string | undefined { return this._svgIconClass }
     @Input() public set iconClass(val: string | undefined) {
-        if (val === this.svgIconClass) {
+        if (val === this._svgIconClass) {
             return;
         }
-        const oldClasses = this.svgIconClass;
-        this.svgIconClass = val;
-        if (!this.viewInited) {
+        const oldClasses = this._svgIconClass;
+        this._svgIconClass = val;
+        if (!this._viewInited) {
             return;
         }
         const svg = this.el.nativeElement.firstChild as SVGElement;
@@ -50,20 +50,20 @@ export class SvgIconComponent implements AfterViewInit {
     ) { }
 
     public async ngAfterViewInit(): Promise<void> {
-        this.viewInited = true;
+        this._viewInited = true;
         const svg = this.el.nativeElement.firstChild as SVGElement;
         this.setIconProps(svg);
-        if (!!this.iconPath) {
+        if (!!this._iconPath) {
             await this.updateIcon();
         }
     }
 
     private async updateIcon(): Promise<void> {
-        if (!this.path) {
+        if (!this.iconPath) {
             return;
         }
         let svg = this.el.nativeElement.firstChild as SVGElement;
-        const xml = await this.svg.loadSvgFile(this.path);
+        const xml = await this.svg.loadSvgFile(this.iconPath);
         svg.remove();
         this.el.nativeElement.innerHTML = xml;
         svg = this.el.nativeElement.firstChild as SVGElement;
@@ -75,7 +75,7 @@ export class SvgIconComponent implements AfterViewInit {
             svg.setAttribute('width', this.size);
             svg.setAttribute('height', this.size);
         }
-        this.addClasses(svg, this.svgIconClass);
+        this.addClasses(svg, this._svgIconClass);
         svg.setAttribute('fill', 'currentColor');
     }
 

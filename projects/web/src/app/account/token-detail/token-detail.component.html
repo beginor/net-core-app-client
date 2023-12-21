@@ -5,10 +5,10 @@
     <h5 class="card-title mb-0">{{title}}</h5>
     <div class="btn-group btn-group-sm">
       <button class="btn btn-sm btn-outline-primary" type="button" (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon path="bi/check"></svg-icon> 保存
+        <svg-icon iconPath="bi/check"></svg-icon> 保存
       </button>
       <button class="btn btn-sm btn-outline-secondary" type="button" (click)="goBack()">
-        <svg-icon path="bi/x"></svg-icon> 取消
+        <svg-icon iconPath="bi/x"></svg-icon> 取消
       </button>
     </div>
   </div>
@@ -34,7 +34,7 @@
           [class.is-valid]="value.valid"
         />
         <button class="btn btn-outline-secondary" type="button" ngbTooltip="刷新凭证值" container="body" (click)="newTokenValue()">
-          <svg-icon path="bi/arrow-repeat"></svg-icon>
+          <svg-icon iconPath="bi/arrow-repeat"></svg-icon>
         </button>
       </div>
     </div>
@@ -46,7 +46,7 @@
           [(ngModel)]="tokenExpiresAt" ngbDatepicker #exp="ngbDatepicker" [minDate]="calendar.getToday()"
         />
         <button class="btn btn-outline-secondary" (click)="exp.toggle()">
-          <svg-icon path="bi/calendar3"></svg-icon>
+          <svg-icon iconPath="bi/calendar3"></svg-icon>
         </button>
       </div>
     </div>
@@ -84,13 +84,13 @@
             #newUrl
           />
           <button class="btn btn-outline-secondary" type="button" (click)="addTokenUrl(newUrl)">
-            <svg-icon path="bi/plus"></svg-icon>
+            <svg-icon iconPath="bi/plus"></svg-icon>
           </button>
         </div>
         <div class="input-group mb-1" *ngFor="let url of tokenUrls">
           <input class="form-control" type="text" readonly [value]="url" />
           <button class="btn btn-outline-secondary" type="button" (click)="removeTokenUrl(url)">
-            <svg-icon path="bi/x"></svg-icon>
+            <svg-icon iconPath="bi/x"></svg-icon>
           </button>
         </div>
       </div>
@@ -98,10 +98,10 @@
   </div>
   <div class="card-footer d-flex justify-content-between">
     <button type="button" class="btn btn-sm btn-outline-primary" (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon path="bi/check"></svg-icon> 保存
+      <svg-icon iconPath="bi/check"></svg-icon> 保存
     </button>
     <button type="button" class="btn btn-sm btn-outline-secondary" (click)="goBack()">
-      <svg-icon path="bi/x"></svg-icon> 取消
+      <svg-icon iconPath="bi/x"></svg-icon> 取消
     </button>
   </div>
 </form>

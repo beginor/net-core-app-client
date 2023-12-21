@@ -5,10 +5,10 @@
         <h5 class="card-title mb-0">我的凭证</h5>
         <div class="btn-group btn-group-sm">
           <button class="btn btn-outline-primary" type="button" (click)="showDetail('0')">
-            <svg-icon path="bi/plus"></svg-icon> 新建凭证
+            <svg-icon iconPath="bi/plus"></svg-icon> 新建凭证
           </button>
           <button type="button" class="btn btn-outline-secondary" (click)="vm.loadTokens()">
-            <svg-icon path="bi/arrow-repeat"></svg-icon> 刷新
+            <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
           </button>
         </div>
       </div>
@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col-6">
             <ng-container *ngIf="vm.loading;else tokenCountTpl;">
-              <svg-icon path="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
+              <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
             </ng-container>
             <ng-template #tokenCountTpl>
               <div class="text-muted">全部凭证，共 {{vm.total}} 条记录。</div>
@@ -29,7 +29,7 @@
               />
               <button class="btn btn-sm btn-outline-secondary" type="button"
                 *ngIf="vm.model.keywords" (click)="resetSearch()">
-                <svg-icon path="bi/x"></svg-icon>
+                <svg-icon iconPath="bi/x"></svg-icon>
               </button>
             </div>
           </div>
@@ -66,13 +66,13 @@
                     ngbTooltip="编辑" placement="top" [openDelay]="300" container="body"
                     (click)="showDetail(token.id)"
                   >
-                    <svg-icon path="bi/pencil-square"></svg-icon>
+                    <svg-icon iconPath="bi/pencil-square"></svg-icon>
                   </button>
                   <button class="btn btn-outline-secondary"
                     ngbTooltip="删除" placement="top" [openDelay]="300" container="body"
                     (click)="deleteToken(token.id)"
                   >
-                    <svg-icon path="bi/trash"></svg-icon>
+                    <svg-icon iconPath="bi/trash"></svg-icon>
                   </button>
                 </div>
               </td>

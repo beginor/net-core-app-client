@@ -5,11 +5,11 @@
       <button *ngIf="info.privileges['app_users.update'] && editable"
         type="button" class="btn btn-sm btn-outline-primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon path="bi/check"></svg-icon> 保存
+        <svg-icon iconPath="bi/check"></svg-icon> 保存
       </button>
       <button type="button" class="btn btn-sm btn-outline-secondary"
         (click)="cancel()">
-        <svg-icon path="bi/x"></svg-icon> 取消
+        <svg-icon iconPath="bi/x"></svg-icon> 取消
       </button>
     </div>
   </div>
@@ -144,11 +144,11 @@
     *ngIf="info.privileges['app_users.update'] && editable">
     <button class="btn btn-sm btn-outline-primary" type="button"
       (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon path="bi/check"></svg-icon> 保存
+      <svg-icon iconPath="bi/check"></svg-icon> 保存
     </button>
     <button class="btn btn-sm btn-outline-secondary" type="button"
       (click)="save()">
-      <svg-icon path="bi/x"></svg-icon> 取消
+      <svg-icon iconPath="bi/x"></svg-icon> 取消
     </button>
   </div>
 </form>

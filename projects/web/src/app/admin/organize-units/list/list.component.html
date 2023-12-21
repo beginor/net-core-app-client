@@ -18,14 +18,14 @@
               class="btn btn-outline-primary"
               (click)="showDetail('0', true)"
             >
-              <svg-icon path="bi/plus"></svg-icon> 新建组织单元
+              <svg-icon iconPath="bi/plus"></svg-icon> 新建组织单元
             </button>
             <button
               type="button"
               class="btn btn-outline-secondary"
               (click)="loadData()"
             >
-              <svg-icon path="bi/arrow-repeat"></svg-icon> 刷新
+              <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
             </button>
           </div>
         </div>
@@ -69,7 +69,7 @@
                         container="body"
                         (click)="showDetail(item.id, false)"
                       >
-                        <svg-icon path="bi/info-square"></svg-icon>
+                        <svg-icon iconPath="bi/info-square"></svg-icon>
                       </button>
                       <button
                         *ngIf="info.privileges['app_organize_units.update']"
@@ -80,7 +80,7 @@
                         container="body"
                         (click)="showDetail(item.id, true)"
                       >
-                        <svg-icon path="bi/pencil-square"></svg-icon>
+                        <svg-icon iconPath="bi/pencil-square"></svg-icon>
                       </button>
                       <button
                         *ngIf="info.privileges['app_organize_units.delete']"
@@ -92,7 +92,7 @@
                         [disabled]="item.children && item.children.length > 0"
                         (click)="delete(item.id)"
                       >
-                        <svg-icon path="bi/trash"></svg-icon>
+                        <svg-icon iconPath="bi/trash"></svg-icon>
                       </button>
                     </div>
                   </td>

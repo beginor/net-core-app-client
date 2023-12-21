@@ -4,7 +4,7 @@
   <div class="ms-2 me-auto btn-group btn-group-sm">
     <button type="button" class="btn btn-outline-secondary"
       (click)="getFolderContentByPath('.')">
-      <svg-icon path="bi/house"></svg-icon> {{params.alias}}
+      <svg-icon iconPath="bi/house"></svg-icon> {{params.alias}}
     </button>
     <button type="button" class="btn btn-outline-secondary"
       *ngFor="let bc of breadcrumbs" (click)="getFolderContentByPath(bc.path)">
@@ -20,11 +20,11 @@
     <div class="btn-group btn-group-sm">
       <button type="button" class="btn btn-sm btn-outline-primary"
         (click)="ok()">
-        <svg-icon path="bi/check"></svg-icon> 确定
+        <svg-icon iconPath="bi/check"></svg-icon> 确定
       </button>
       <button type="button" class="btn btn-sm btn-outline-secondary"
         (click)="modal.dismiss('cancel')">
-        <svg-icon path="bi/x"></svg-icon> 取消
+        <svg-icon iconPath="bi/x"></svg-icon> 取消
       </button>
     </div>
   </div>
@@ -37,7 +37,7 @@
       [ngbTooltip]="item.name" container="body" [openDelay]="500"
       (dblclick)="getFolderContent(item)" (click)="setSelectedItem(item)">
       <div [class]="getFolderItemClass(item)">
-        <svg-icon [path]="getFolderItemIconPath(item)" iconClass="bi bi-2x"></svg-icon>
+        <svg-icon [iconPath]="getFolderItemIconPath(item)" iconClass="bi bi-2x"></svg-icon>
       </div>
       <div class="text-muted mt-1 folder-item-name text-truncate user-select-none">
         {{ item.type === 'folder' ? item.name : item.name + '.' + item.ext }}

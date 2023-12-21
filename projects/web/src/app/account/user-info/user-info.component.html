@@ -51,7 +51,7 @@
               #dateOfBirth="ngModel" />
             <button class="btn btn-outline-secondary calendar"
               (click)="dp.toggle()">
-              <svg-icon path="bi/calendar3"></svg-icon>
+              <svg-icon iconPath="bi/calendar3"></svg-icon>
             </button>
           </div>
         </div>
@@ -87,12 +87,12 @@
       <div class="row">
         <div class="col d-flex justify-content-end">
           <div class="me-auto" *ngIf="loading">
-            <svg-icon path="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
+            <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
             {{loadingMessage}}
           </div>
           <button class="btn btn-sm btn-outline-primary" type="button"
             (click)="saveUser()" [disabled]="!detailForm.valid || loading">
-            <svg-icon path="bi/check"></svg-icon> 保存
+            <svg-icon iconPath="bi/check"></svg-icon> 保存
           </button>
         </div>
       </div>
@@ -139,12 +139,12 @@
       <div class="row">
         <div class="col d-flex justify-content-end">
           <div class="me-auto" *ngIf="updatingPwd">
-            <svg-icon path="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
+            <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
             正在修改密码 ...
           </div>
           <button class="btn btn-sm btn-outline-primary" type="button"
             (click)="changePassword()" [disabled]="!pwdForm.valid || updatingPwd">
-            <svg-icon path="bi/check"></svg-icon> 保存
+            <svg-icon iconPath="bi/check"></svg-icon> 保存
           </button>
         </div>
       </div>

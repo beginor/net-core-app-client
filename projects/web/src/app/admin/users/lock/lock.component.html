@@ -6,11 +6,11 @@
       <button class="btn btn-outline-primary" type="button"
         *ngIf="info.privileges['app_users.lock']"
         [disabled]="!lockForm.valid" (click)="save()">
-        <svg-icon path="bi/check"></svg-icon> 保存
+        <svg-icon iconPath="bi/check"></svg-icon> 保存
       </button>
       <button class="btn btn-outline-secondary" type="button"
         (click)="cancel()">
-        <svg-icon path="bi/x"></svg-icon> 取消
+        <svg-icon iconPath="bi/x"></svg-icon> 取消
       </button>
     </div>
   </div>
@@ -25,7 +25,7 @@
           ngbDatepicker container="body" #le="ngbDatepicker" [minDate]="calendar.getToday()"
           required />
         <button class="btn btn-outline-secondary" type="button" (click)="le.toggle()">
-          <svg-icon path="bi/calendar3"></svg-icon>
+          <svg-icon iconPath="bi/calendar3"></svg-icon>
         </button>
       </div>
     </div>
