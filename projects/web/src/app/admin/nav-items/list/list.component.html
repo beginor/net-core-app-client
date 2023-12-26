@@ -1,28 +1,28 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">首页</a></li>
-    <li class="breadcrumb-item"><a routerLink="/admin">管理</a></li>
-    <li class="breadcrumb-item active" aria-current="page">导航菜单</li>
-  </ol>
-</nav>
+<nz-breadcrumb class="m-3">
+  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item><a routerLink="/admin">管理</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>导航菜单</nz-breadcrumb-item>
+</nz-breadcrumb>
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <div class="card" *ngIf="(account.info | async) as info">
-        <div class="card-header d-flex justify-content-between">
-          <h5 class="card-title mb-0">导航菜单</h5>
-          <div class="btn-group btn-group-sm">
+      <nz-card *ngIf="(account.info | async) as info" nzTitle="导航菜单"
+        [nzBodyStyle]="{ padding: '0' }"
+        [nzExtra]="cardExtra">
+        <ng-template #cardExtra>
+          <nz-button-group>
             <button *ngIf="info.privileges['app_nav_items.create']"
-              type="button" class="btn btn-outline-primary"
+              nz-button nzType="primary"
+              type="button"
               (click)="showDetail('0', true)">
               <svg-icon iconPath="bi/plus"></svg-icon> 新建菜单项
             </button>
-            <button type="button" class="btn btn-outline-secondary"
+            <button nz-button nzType="default"
               (click)="loadData()">
               <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
             </button>
-          </div>
-        </div>
+          </nz-button-group>
+        </ng-template>
         <form class="p-2 bg-light">
           <div class="row">
             <div class="col-6">
@@ -61,8 +61,8 @@
             </div>
           </div>
         </form>
-        <div class="table-responsive">
-          <table class="table table-striped mb-0">
+        <div class="table-responsive" *ngIf="(vm.data | async) as data">
+          <nz-table #table [nzData]="data">
             <thead>
               <tr>
                 <th scope="col" class="text-end text-nowrap text-muted table-row-num-col">#</th>
@@ -74,8 +74,8 @@
                 <th scope="col" class="text-center text-nowrap text-muted table-action-col-3">操作</th>
               </tr>
             </thead>
-            <tbody *ngIf="(vm.data | async) as data">
-              <tr *ngFor="let item of data; let i = index;">
+            <tbody>
+              <tr *ngFor="let item of table.data; let i = index;">
                 <th scope="row" class="text-end text-muted">{{i+1+vm.searchModel.skip}}</th>
                 <td class='text-start'>{{item.title}}</td>
                 <td class='text-start'>{{item.tooltip}}</td>
@@ -103,7 +103,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </nz-table>
         </div>
         <div class="card-footer">
           <div *ngIf="(vm.data | async) as data" class="row g-0">
@@ -131,7 +131,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </nz-card>
     </div>
   </div>
 </div>

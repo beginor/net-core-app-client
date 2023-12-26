@@ -19,6 +19,12 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @NgModule({
     imports: [
@@ -41,6 +47,12 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         NzButtonModule,
         NzCardModule,
         NzAlertModule,
+        NzTabsModule,
+        NzSelectModule,
+        NzIconModule,
+        NzToolTipModule,
+        NzSpinModule,
+        NzBreadCrumbModule,
     ],
     exports: [
         NzTableModule,
@@ -62,6 +74,17 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         NzButtonModule,
         NzCardModule,
         NzAlertModule,
+        NzTabsModule,
+        NzSelectModule,
+        NzIconModule,
+        NzToolTipModule,
+        NzSpinModule,
+        NzBreadCrumbModule,
     ]
 })
-export class AntdModule {}
+export class AntdModule {
+    constructor(nzIconService: NzIconService) {
+        // antd 写死了路，参数只能添加到 assets/ 的前面，所以多了个assets文件夹
+        nzIconService.changeAssetsSource('assets/icons/antd');
+    }
+}
