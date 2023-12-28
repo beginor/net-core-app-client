@@ -3,9 +3,7 @@ import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from 'app-shared';
 import { UserModel, UsersService } from '../users.service';
-import {
-    OrganizeUnitService
-} from '../../organize-units/organize-units.service';
+import { OrganizeUnitService } from '../../organize-units/organize-units.service';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
@@ -67,10 +65,8 @@ export class DetailComponent implements OnInit {
     }
 
     public async save(): Promise<void> {
-        const dateOfBirth = `${this.dateOfBirthDate.getFullYear()
-            }-${this.dateOfBirthDate.getMonth() + 1
-            }-${this.dateOfBirthDate.getDate()}`;
-        this.model.dateOfBirth = dateOfBirth;
+        // eslint-disable-next-line max-len
+        this.model.dateOfBirth = `${this.dateOfBirthDate.getFullYear()}-${this.dateOfBirthDate.getMonth() + 1}-${this.dateOfBirthDate.getDate()}`;
         if (this.id !== '0') {
             await this.vm.update(this.id, this.model);
         }

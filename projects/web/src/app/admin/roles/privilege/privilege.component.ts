@@ -18,9 +18,9 @@ export class PrivilegeComponent implements OnInit {
         public vm: RolesService
     ) { }
 
-    public ngOnInit(): void {
-        this.vm.getPrivilegesForRole(this.id);
-        this.vm.getAllPrivileges();
+    public async ngOnInit(): Promise<void> {
+        await this.vm.getPrivilegesForRole(this.id);
+        await this.vm.getAllPrivileges();
     }
 
     public cancel(): void {

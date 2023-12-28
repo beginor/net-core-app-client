@@ -37,8 +37,6 @@ export class DetailComponent implements OnInit {
     public selectedRoles: string[] = [];
     public parents: MenuOption[] = [];
 
-    private reloadList = false;
-
     constructor(
         private modal: NgbModal,
         private activeOffcanvas: NgbActiveOffcanvas,

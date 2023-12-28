@@ -13,7 +13,7 @@ export class DetailComponent implements OnInit {
 
     public id = '0';
     public get title(): string {
-        let title = '';
+        let title: string;
         if (this.id === '0') {
             title = '新建系统权限';
         }
