@@ -14,7 +14,7 @@ import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 })
 export class DetailComponent implements OnInit {
 
-    public id = '';
+    public id = '0';
     public get title(): string {
         let title = '';
         if (this.id === '0') {
@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit {
 
     public editable = false;
     public model: AppOrganizeUnitModel = {
-        id: '', name: '', sequence: 0
+        id: '0', name: '', sequence: 0
     };
     private reloadList = false;
 

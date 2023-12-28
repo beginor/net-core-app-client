@@ -14,7 +14,7 @@ import {
 })
 export class DetailComponent implements OnInit {
 
-    public id = '';
+    public id = '0';
     public get title(): string {
         let title = '';
         if (this.id === '0') {
@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit {
         return title;
     }
     public editable = false;
-    public model: AppStorageModel = { id: '', aliasName: '', rootFolder: '', readonly: true, roles: [] }; // eslint-disable-line max-len
+    public model: AppStorageModel = { id: '0', aliasName: '', rootFolder: '', readonly: true, roles: [] }; // eslint-disable-line max-len
 
     constructor(
         private activeOffcanvas: NgbActiveOffcanvas,

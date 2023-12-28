@@ -15,7 +15,7 @@ import { StorageBrowserComponent } from '../../../common';
 export class DetailComponent implements OnInit {
 
     public editable = false;
-    public id = '';
+    public id = '0';
 
     public getTitle(): string {
         if (this.id === '0') {
@@ -33,7 +33,7 @@ export class DetailComponent implements OnInit {
         { name: '当前窗口', value: '' },
         { name: '内嵌窗口', value: '_iframe' }
     ];
-    public model: NavItemModel = { id: '', target: '', roles: [] };
+    public model: NavItemModel = { id: '0', target: '', roles: [] };
     public selectedRoles: string[] = [];
     public parents: MenuOption[] = [];
 

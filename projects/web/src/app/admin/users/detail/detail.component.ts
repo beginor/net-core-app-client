@@ -16,7 +16,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 export class DetailComponent implements OnInit {
 
     public editable = false;
-    public id = '';
+    public id = '0';
 
     public getTitle(): string {
         if (this.id === '0') {
@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit {
     }
 
     public model: UserModel = {
-        id: '',
+        id: '0',
         lockoutEnabled: true, gender: '保密',
         organizeUnit: { id: '', name: '' }
     };

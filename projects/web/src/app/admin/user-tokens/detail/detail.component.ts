@@ -24,9 +24,9 @@ export class DetailComponent implements OnInit {
     public animation = '';
     public title = '';
     public editable = false;
-    public model: AppUserTokenModel = { id: '' };
+    public model: AppUserTokenModel = { id: '0' };
 
-    private id = '';
+    private id = '0';
     private reloadList = false;
 
     constructor(

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap'
 
-import { slideInRight, slideOutRight, AccountService } from 'app-shared';
+import { AccountService } from 'app-shared';
 import { AppPrivilegeModel, AppPrivilegeService } from '../privileges.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { AppPrivilegeModel, AppPrivilegeService } from '../privileges.service';
 })
 export class DetailComponent implements OnInit {
 
-    public id = '';
+    public id = '0';
     public get title(): string {
         let title = '';
         if (this.id === '0') {
@@ -26,7 +26,7 @@ export class DetailComponent implements OnInit {
         return title;
     }
     public editable = true;
-    public model: AppPrivilegeModel = { id: '', name: '' };
+    public model: AppPrivilegeModel = { id: '0', name: '' };
 
     constructor(
         private activeOffcanvas: NgbActiveOffcanvas,

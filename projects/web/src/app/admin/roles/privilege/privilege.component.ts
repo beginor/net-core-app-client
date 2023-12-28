@@ -11,7 +11,7 @@ import { RolesService } from '../roles.service';
 export class PrivilegeComponent implements OnInit {
 
     public title = '';
-    public id = '';
+    public id = '0';
 
     constructor(
         private activeOffcanvas: NgbActiveOffcanvas,

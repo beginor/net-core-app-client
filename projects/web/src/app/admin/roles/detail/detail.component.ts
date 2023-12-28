@@ -10,7 +10,7 @@ import { RolesService, AppRoleModel } from '../roles.service';
 })
 export class DetailComponent implements OnInit {
 
-    public id = '';
+    public id = '0';
     public get title(): string {
         let title = '';
         if (this.id === '0') {
@@ -26,7 +26,7 @@ export class DetailComponent implements OnInit {
     }
     public editable = true;
 
-    public model: AppRoleModel = { id: '', name: '' };
+    public model: AppRoleModel = { id: '0', name: '' };
 
     constructor(
         private activeOffcanvas: NgbActiveOffcanvas,
