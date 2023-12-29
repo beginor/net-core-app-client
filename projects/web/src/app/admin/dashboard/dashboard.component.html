@@ -1,54 +1,40 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">首页</a></li>
-    <li class="breadcrumb-item active" aria-current="page">管理</li>
-  </ol>
-</nav>
+<nz-breadcrumb class="p-3">
+  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>管理</nz-breadcrumb-item>
+</nz-breadcrumb>
 
 <div class="container-fluid">
   <app-nav-card></app-nav-card>
   <div class="row g-0">
-    <div class="col-12">
-      <div class="card m-2">
-        <div class="card-header">
-          <div class="card-title">最近30天访问量统计</div>
-        </div>
-          <lib-echart class="card-body p-0" style="height: 200px;"
-            config="assets/echarts/audit-logs/traffic.json">
-          </lib-echart>
-      </div>
+    <div class="col">
+      <nz-card class="m-2" nzTitle="最近30天访问量统计">
+        <lib-echart class="p-0" style="height: 200px;"
+          config="assets/echarts/audit-logs/traffic.json">
+        </lib-echart>
+      </nz-card>
     </div>
   </div>
   <div class="row g-0">
     <div class="col-4">
-      <div class="card m-2">
-        <div class="card-header">
-          <div class="card-title">最近30天服务状态码统计</div>
-        </div>
-        <lib-echart class="card-body p-0" style="height: 200px;"
+      <nz-card class="m-2" nzTitle="最近30天服务状态码统计">
+        <lib-echart class="p-0" style="height: 200px;"
           config="assets/echarts/audit-logs/status.json">
         </lib-echart>
-      </div>
+      </nz-card>
     </div>
     <div class="col-4">
-      <div class="card m-2">
-        <div class="card-header">
-          <div class="card-title">最近30天服务响应时间统计</div>
-        </div>
-        <lib-echart class="card-body p-0" style="height: 200px;"
+      <nz-card class="m-2" nzTitle="最近30天服务响应时间统计">
+        <lib-echart class="p-0" style="height: 200px;"
           config="assets/echarts/audit-logs/duration.json">
         </lib-echart>
-      </div>
+      </nz-card>
     </div>
     <div class="col-4">
-      <div class="card m-2">
-        <div class="card-header">
-          <div class="card-title">最近30天用户访问统计</div>
-        </div>
-        <lib-echart class="card-body p-0" style="height: 200px;"
+      <nz-card class="m-2" nzTitle="最近30天用户访问统计">
+        <lib-echart class="p-0" style="height: 200px;"
           config="assets/echarts/audit-logs/user.json">
         </lib-echart>
-      </div>
+      </nz-card>
     </div>
   </div>
 </div>
