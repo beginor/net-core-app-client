@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap'
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
 import { NavItemsService } from '../nav-items.service';
@@ -14,31 +15,43 @@ import { DetailComponent } from '../detail/detail.component';
 export class ListComponent implements OnInit {
 
     constructor(
-        private offcanvas: NgbOffcanvas,
+        private drawerService: NzDrawerService,
         public account: AccountService,
         public vm: NavItemsService
     ) { }
 
-    public ngOnInit(): void {
-        void this.loadData();
-    }
-
-    public async loadData(): Promise<void> {
+    public async ngOnInit(): Promise<void> {
         await this.vm.search();
     }
 
+    public loadData({
+        pageSize = 10,
+        pageIndex = 1,
+        // sort = [],
+        // filter = [],
+    }: Partial<NzTableQueryParams>): void {
+        this.vm.pageSize = pageSize;
+        this.vm.pageIndex = pageIndex;
+        void this.vm.search();
+    }
+
     public showDetail(id: string, editable: boolean): void {
-        const ref = this.offcanvas.open(
+        const ref = this.drawerService.create<
             DetailComponent,
-            { position: 'end', panelClass: 'offcanvas-vw-40' }
-        );
-        const detail = ref.componentInstance as DetailComponent;
-        detail.editable = editable;
-        detail.id = id;
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(ex => {
-            console.log(`offcanvas canceled with reason ${ex}`)
+            Partial<DetailComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: DetailComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: { id, editable },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 

@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 
 import { StorageService, StorageContent } from '../services/storage.service';
 
@@ -10,8 +10,8 @@ import { StorageService, StorageContent } from '../services/storage.service';
 })
 export class StorageBrowserComponent implements OnInit {
 
-    public title?: string;
-    public params!: StorageContent;
+    public title?: string = '选择图标';
+    public params: StorageContent = inject(NZ_MODAL_DATA);
 
     public filteredItems: FolderItem[] = [];
     private allItems: FolderItem[] = [];
@@ -23,7 +23,7 @@ export class StorageBrowserComponent implements OnInit {
     public searchEl?: ElementRef<HTMLInputElement>;
 
     constructor(
-        public modal: NgbActiveModal,
+        public modal: NzModalRef,
         private service: StorageService
     ) { }
 

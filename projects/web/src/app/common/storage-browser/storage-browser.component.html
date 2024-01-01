@@ -1,47 +1,49 @@
-<div class="modal-header">
-  <h5 class="modal-title">{{title}}</h5>
-
-  <div class="ms-2 me-auto btn-group btn-group-sm">
-    <button type="button" class="btn btn-outline-secondary"
-      (click)="getFolderContentByPath('.')">
-      <svg-icon iconPath="bi/house"></svg-icon> {{params.alias}}
-    </button>
-    <button type="button" class="btn btn-outline-secondary"
-      *ngFor="let bc of breadcrumbs" (click)="getFolderContentByPath(bc.path)">
-      {{bc.name}}
-    </button>
-  </div>
-
-  <div class="ms-auto d-flex">
-    <div class="input-group input-group-sm me-1" style="width: 120px;">
-      <input #searchEl class="form-control form-control" type="text" placeholder="搜索..."
-        (keyup)="search($event)">
+<nz-card class="m-0" [nzTitle]="titleTpl" [nzExtra]="toolsTpl">
+  <ng-template #titleTpl>
+    <div class="d-flex flex-row align-items-center">
+      <div>{{title}}</div>
+      <nz-button-group class="ms-1" nzSize="small">
+        <button type="button" nz-button nzType="default" nzSize="small"
+          (click)="getFolderContentByPath('.')">
+          <svg-icon class="me-1" iconPath="bi/house"></svg-icon> {{params.alias}}
+        </button>
+        <button *ngFor="let bc of breadcrumbs"
+          type="button" nz-button nzType="default" nzSize="small"
+          (click)="getFolderContentByPath(bc.path)">
+          {{bc.name}}
+        </button>
+      </nz-button-group>
     </div>
-    <div class="btn-group btn-group-sm">
-      <button type="button" class="btn btn-sm btn-outline-primary"
-        (click)="ok()">
-        <svg-icon iconPath="bi/check"></svg-icon> 确定
-      </button>
-      <button type="button" class="btn btn-sm btn-outline-secondary"
-        (click)="modal.dismiss('cancel')">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
-      </button>
-    </div>
-  </div>
-</div>
-<div class="modal-body">
+  </ng-template>
+  <ng-template #toolsTpl>
+    <nz-space>
+      <nz-input-group *nzSpaceItem>
+        <input nz-input type="text" placeholder="搜索..." (keyup)="search($event)" />
+      </nz-input-group>
+      <nz-button-group *nzSpaceItem>
+        <button type="button" nz-button nzType="primary"
+          (click)="ok()">
+          <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 确定
+        </button>
+        <button type="button" nz-button nzType="default"
+          (click)="modal.close('cancel')">
+          <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
+        </button>
+      </nz-button-group>
+    </nz-space>
+  </ng-template>
   <cdk-virtual-scroll-viewport class="scroll-viewport" [itemSize]="20">
-    <div class="rounded bg-light p-4 m-2 folder-item text-center d-inline-block border"
+    <div class="rounded p-4 m-2 folder-item text-center d-inline-block border"
       [ngClass]="{ 'border-primary': item.name === selectedItem?.name }"
       *cdkVirtualFor="let item of filteredItems"
-      [ngbTooltip]="item.name" container="body" [openDelay]="500"
+      [nz-tooltip]="item.name"
       (dblclick)="getFolderContent(item)" (click)="setSelectedItem(item)">
       <div [class]="getFolderItemClass(item)">
         <svg-icon [iconPath]="getFolderItemIconPath(item)" iconClass="bi bi-2x"></svg-icon>
       </div>
-      <div class="text-muted mt-1 folder-item-name text-truncate user-select-none">
+      <div class="mt-1 folder-item-name text-truncate user-select-none">
         {{ item.type === 'folder' ? item.name : item.name + '.' + item.ext }}
       </div>
     </div>
   </cdk-virtual-scroll-viewport>
-</div>
+</nz-card>

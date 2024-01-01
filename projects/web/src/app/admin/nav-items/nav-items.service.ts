@@ -21,6 +21,9 @@ export class NavItemsService {
     public showPagination = false;
     public roles: AppRoleModel[] = [];
 
+    public pageSize = 10;
+    public pageIndex = 1;
+
     private baseUrl: string;
     private rolesSvc: RolesService;
 
@@ -41,6 +44,8 @@ export class NavItemsService {
 
     /** 搜索导航节点（菜单） */
     public async search(): Promise<void> {
+        this.searchModel.skip = this.pageSize * (this.pageIndex - 1);
+        this.searchModel.take = this.pageSize;
         let params = new HttpParams();
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {
@@ -70,18 +75,6 @@ export class NavItemsService {
         finally {
             this.loading = false;
         }
-    }
-
-    /** 更改页码分页查询 */
-    public async onPageChange(p: number): Promise<void> {
-        this.searchModel.skip = (p - 1) * this.searchModel.take;
-        await this.search();
-    }
-
-    /** 更改分页大小 */
-    public async onPageSizeChange(): Promise<void> {
-        this.searchModel.skip = 0;
-        await this.search();
     }
 
     /** 创建导航节点（菜单） */

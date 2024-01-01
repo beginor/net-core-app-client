@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { AccountService } from 'app-shared';
 import {
     NavItemsService, NavItemModel, MenuOption
 } from '../nav-items.service';
-import { StorageBrowserComponent } from '../../../common';
+import { StorageBrowserComponent, StorageContent } from '../../../common';
 
 @Component({
     selector: 'app-nav-item-detail',
@@ -17,7 +18,7 @@ export class DetailComponent implements OnInit {
     public editable = false;
     public id = '0';
 
-    public getTitle(): string {
+    public get title(): string {
         if (this.id === '0') {
             return '新建菜单项';
         }
@@ -34,12 +35,13 @@ export class DetailComponent implements OnInit {
         { name: '内嵌窗口', value: '_iframe' }
     ];
     public model: NavItemModel = { id: '0', target: '', roles: [] };
-    public selectedRoles: string[] = [];
+
     public parents: MenuOption[] = [];
 
     constructor(
-        private modal: NgbModal,
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private modal: NzModalService,
+        private viewContainerRef: ViewContainerRef,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: NavItemsService
     ) { }
@@ -56,7 +58,7 @@ export class DetailComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
@@ -66,7 +68,7 @@ export class DetailComponent implements OnInit {
         else {
             await this.vm.create(this.model);
         }
-        this.activeOffcanvas.close('ok');
+        this.drawerRef.close('ok');
     }
 
     public isRoleChecked(role: string): boolean {
@@ -90,25 +92,30 @@ export class DetailComponent implements OnInit {
     }
 
     public showIconDialog(): void {
-        const modalRef = this.modal.open(
+        const modalRef = this.modal.create<
             StorageBrowserComponent,
-            { size: 'lg', backdrop: 'static', keyboard: false }
-        );
-        Object.assign(modalRef.componentInstance, {
-            title: '选择图标',
-            params: {
+            StorageContent,
+            string
+        >({
+            nzClosable: false,
+            nzWidth: '824px',
+            nzBodyStyle: { padding: '0' },
+            nzContent: StorageBrowserComponent,
+            nzTitle: undefined,
+            nzFooter: null,
+            nzData: {
                 alias: 'icons',
                 path: '/',
                 filter: '*.svg'
             }
         });
-        modalRef.result.then((path: string) => {
-            let icon = path;
+        modalRef.afterClose.subscribe(result => {
+            let icon = result!;
             if (icon.endsWith('.svg')) {
                 icon = icon.substring(0, icon.length - 4);
                 this.model.icon = icon;
             }
-        }).catch(ex => { console.error(ex); });
+        });
     }
 
 }
