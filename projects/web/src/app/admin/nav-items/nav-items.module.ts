@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AppSharedModule } from 'app-shared';
-import { NgbModule } from '../../ngb.module';
 import { AntdModule } from '../../antd.module';
 import { AppCommonModule } from '../../common';
 
@@ -19,7 +18,6 @@ import { DetailComponent } from './detail/detail.component';
     imports: [
         CommonModule,
         FormsModule,
-        NgbModule,
         AntdModule,
         AppSharedModule,
         AppCommonModule,
