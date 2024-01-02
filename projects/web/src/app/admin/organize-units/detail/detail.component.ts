@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 import {
     OrganizeUnitService,
     AppOrganizeUnitModel
 } from '../organize-units.service';
-import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 @Component({
     selector: 'app-organize-unit-detail',

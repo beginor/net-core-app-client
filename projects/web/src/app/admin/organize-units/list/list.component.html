@@ -1,42 +1,35 @@
-﻿<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">首页</a></li>
-    <li class="breadcrumb-item"><a routerLink="/admin">管理</a></li>
-    <li class="breadcrumb-item active" aria-current="page">组织单元</li>
-  </ol>
-</nav>
+﻿<script src="../detail/detail.component.ts"></script>
+<nz-breadcrumb class="m-3">
+  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item><a routerLink="/admin">管理</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item aria-current="page">组织单元</nz-breadcrumb-item>
+</nz-breadcrumb>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12">
-      <div class="card" *ngIf="account.info | async as info">
-        <div class="card-header d-flex justify-content-between">
-          <h5 class="card-title mb-0">组织单元</h5>
-          <div class="btn-group btn-group-sm">
+    <div class="col">
+      <nz-card *ngIf="account.info | async as info"
+        class="ant-card-data-list" nzTitle="组织单元" [nzExtra]="cardExtra">
+        <ng-template #cardExtra>
+          <nz-button-group class="btn-group btn-group-sm">
             <button
               *ngIf="info.privileges['app_organize_units.create']"
-              type="button"
-              class="btn btn-outline-primary"
+              type="button" nz-button nzType="primary"
               (click)="showDetail('0', true)"
             >
-              <svg-icon iconPath="bi/plus"></svg-icon> 新建组织单元
+              <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建组织单元
             </button>
             <button
-              type="button"
-              class="btn btn-outline-secondary"
+              type="button" nz-button nzType="default"
               (click)="loadData()"
             >
-              <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
+              <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
             </button>
-          </div>
-        </div>
-        <div class="table-responsive p-2">
-          <nz-table
-            #expandTable
-            [nzData]="listData"
-            [nzShowPagination]="false"
-            nzSize="small"
-            [nzPageSize]="listData.length"
-          >
+          </nz-button-group>
+        </ng-template>
+        <div class="table-responsive">
+          <nz-table #expandTable
+            [nzData]="listData" [nzShowPagination]="false"
+            nzSize="small" [nzPageSize]="listData.length">
             <thead>
               <tr>
                 <th>名称</th>
@@ -48,60 +41,48 @@
             <tbody>
               <ng-container *ngFor="let item of expandTable.data">
                 <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
-                  <td
-                    [nzIndentSize]="item.level! * 16"
+                  <td [nzIndentSize]="item.level! * 16"
                     [nzShowExpand]="item.children && item.children.length > 0"
                     [nzExpand]="item.expand"
-                    (nzExpandChange)="expandChange(item)"
-                  >
+                    (nzExpandChange)="expandChange(item)">
                     {{ item.name }}
                   </td>
                   <td>{{ item.description }}</td>
                   <td class="text-end">{{ item.sequence }}</td>
                   <td>
-                    <div class="btn-group btn-group-sm">
+                    <nz-button-group>
                       <button
                         *ngIf="info.privileges['app_organize_units.read_by_id']"
-                        class="btn btn-outline-secondary"
-                        ngbTooltip="详情"
-                        placement="top"
-                        [openDelay]="300"
-                        container="body"
-                        (click)="showDetail(item.id, false)"
-                      >
+                        class="px-2" nz-button nzType="default"
+                        nz-tooltip="详情" nzTooltipPlacement="top"
+                        (click)="showDetail(item.id, false)">
                         <svg-icon iconPath="bi/info-square"></svg-icon>
                       </button>
                       <button
                         *ngIf="info.privileges['app_organize_units.update']"
-                        class="btn btn-outline-secondary"
-                        ngbTooltip="编辑"
-                        placement="top"
-                        [openDelay]="300"
-                        container="body"
+                        class="px-2" nz-button nzType="default"
+                        nz-tooltip="编辑" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, true)"
                       >
                         <svg-icon iconPath="bi/pencil-square"></svg-icon>
                       </button>
                       <button
                         *ngIf="info.privileges['app_organize_units.delete']"
-                        class="btn btn-outline-secondary"
-                        ngbTooltip="删除"
-                        placement="top"
-                        [openDelay]="300"
-                        container="body"
+                        class="px-2" nz-button nzType="default"
+                        nz-tooltip="删除" nzTooltipPlacement="top"
                         [disabled]="item.children && item.children.length > 0"
                         (click)="delete(item.id)"
                       >
                         <svg-icon iconPath="bi/trash"></svg-icon>
                       </button>
-                    </div>
+                    </nz-button-group>
                   </td>
                 </tr>
               </ng-container>
             </tbody>
           </nz-table>
         </div>
-      </div>
+      </nz-card>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 
@@ -8,7 +8,6 @@ import {
     OrganizeUnitService,
 } from '../organize-units.service';
 import { DetailComponent } from '../detail/detail.component';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 export interface TreeNodeInterface extends AppOrganizeUnitModel {
     children?: TreeNodeInterface[];
@@ -23,10 +22,9 @@ export interface TreeNodeInterface extends AppOrganizeUnitModel {
 export class ListComponent implements OnInit {
 
     constructor(
-        private offcanvas: NgbOffcanvas,
+        private drawerService: NzDrawerService,
         public account: AccountService,
-        public vm: OrganizeUnitService,
-        private drawerService: NzDrawerService
+        public vm: OrganizeUnitService
     ) { }
 
     public listData: TreeNodeInterface[] = [];

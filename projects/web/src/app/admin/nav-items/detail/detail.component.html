@@ -121,8 +121,12 @@
       </div>
     </div>
     <nz-form-item>
-      <label id="isHidden" name="isHidden" for="isHidden" nz-checkbox
-        [(ngModel)]="model.isHidden" [nzDisabled]="!editable">隐藏菜单项</label>
+      <label class="d-flex align-items-center" for="isHidden">
+        <span class="me-2">隐藏菜单项</span>
+        <nz-switch nzId="isHidden" id="isHidden" name="isHidden" nzSize="default"
+          [(ngModel)]="model.isHidden" [nzDisabled]="!editable"
+        />
+      </label>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="roles">菜单角色</nz-form-label>
@@ -145,7 +149,7 @@
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default"
       (click)="cancel()">
-      <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
     </button>
   </ng-template>
 </nz-card>

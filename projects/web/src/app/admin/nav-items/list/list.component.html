@@ -7,20 +7,18 @@
   <div class="row">
     <div class="col">
       <nz-card *ngIf="(account.info | async) as info"
-        class="ant-card-data-list" nzTitle="导航菜单"
-        [nzBodyStyle]="{ padding: '0' }"
-        [nzExtra]="cardExtra">
+        class="ant-card-data-list" nzTitle="导航菜单" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
           <nz-button-group>
             <button *ngIf="info.privileges['app_nav_items.create']"
               nz-button nzType="primary"
               type="button"
               (click)="showDetail('0', true)">
-              <svg-icon iconPath="bi/plus"></svg-icon> 新建菜单项
+              <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建菜单项
             </button>
             <button nz-button nzType="default"
               (click)="vm.search()">
-              <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
+              <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
             </button>
           </nz-button-group>
         </ng-template>
