@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -41,6 +41,10 @@ import { AppComponent } from './app.component';
         {
             provide: LOCALE_ID,
             useValue: 'zh-Hans'
+        },
+        {
+            provide: APP_BASE_HREF,
+            useValue: '/net-core-app/web/',
         },
         {
             provide: 'apiRoot',
