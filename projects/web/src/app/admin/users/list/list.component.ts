@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap'
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
 
@@ -24,7 +25,7 @@ export class ListComponent implements OnInit {
 
     constructor(
         route: ActivatedRoute,
-        private offcanvas: NgbOffcanvas,
+        private drawerService: NzDrawerService,
         public account: AccountService,
         public vm: UsersService,
         public organizeUnitSvc: OrganizeUnitService,
@@ -38,13 +39,20 @@ export class ListComponent implements OnInit {
         }
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         this.vm.searchModel.organizeUnitId = '';
-        void this.loadData();
-        void this.loadOrganizeUnit();
+        await this.loadOrganizeUnit();
+        await this.vm.search();
     }
 
-    public async loadData(): Promise<void> {
+    public async loadData({
+        pageSize = 10,
+        pageIndex = 1,
+        // sort = [],
+        // filter = [],
+    }: Partial<NzTableQueryParams>): Promise<void> {
+        this.vm.pageSize = pageSize;
+        this.vm.pageIndex = pageIndex;
         await this.vm.getRoles();
         await this.vm.search();
     }
@@ -55,70 +63,94 @@ export class ListComponent implements OnInit {
     }
 
     public showDetail(id: string, editable: boolean): void {
-        const ref = this.offcanvas.open(
+        const ref = this.drawerService.create<
             DetailComponent,
-            { position: 'end', panelClass: 'offcanvas-vw-40' }
-        );
-        const detail = ref.componentInstance as DetailComponent;
-        detail.editable = editable;
-        detail.id = id;
-        if (id === '0' && this.organizeUnit) {
-            detail.model.organizeUnit = {
-                ...this.organizeUnit
-            };
-        }
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(ex => {
-            console.log(`offcanvas canceled with reason ${ex}`)
+            Partial<DetailComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: DetailComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: { id, editable },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 
     public showLock(user: UserModel): void {
-        const ref = this.offcanvas.open(
+        const ref = this.drawerService.create<
             LockComponent,
-            { position: 'end', panelClass: 'offcanvas-vw-40' }
-        );
-        const lock = ref.componentInstance as LockComponent;
-        lock.userId = user.id;
-        lock.fullname = this.getFullname(user);
-        lock.editable = true;
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(ex => {
-            console.log(`offcanvas canceled with reason ${ex}`)
+            Partial<LockComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: LockComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: {
+                userId: user.id,
+                fullname: this.getFullname(user),
+                editable: true
+            },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 
     public showPassword(user: UserModel): void {
-        const ref = this.offcanvas.open(
+        const ref = this.drawerService.create<
             PasswordComponent,
-            { position: 'end', panelClass: 'offcanvas-vw-40' }
-        );
-        const lock = ref.componentInstance as PasswordComponent;
-        lock.userId = user.id;
-        lock.fullname = this.getFullname(user);
-        lock.editable = true;
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(ex => {
-            console.log(`offcanvas canceled with reason ${ex}`)
+            Partial<PasswordComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: PasswordComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: {
+                userId: user.id,
+                fullname: this.getFullname(user),
+                editable: true
+            },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 
     public showRoles(user: UserModel): void {
-        const ref = this.offcanvas.open(
+        const ref = this.drawerService.create<
             RolesComponent,
-            { position: 'end', panelClass: 'offcanvas-vw-40' }
-        );
-        const lock = ref.componentInstance as RolesComponent;
-        lock.userId = user.id;
-        lock.fullname = this.getFullname(user);
-        lock.editable = true;
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(ex => {
-            console.log(`offcanvas canceled with reason ${ex}`)
+            Partial<RolesComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: RolesComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: {
+                userId: user.id,
+                fullname: this.getFullname(user),
+                editable: true
+            },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 
@@ -195,7 +227,7 @@ export class ListComponent implements OnInit {
                 name: event.node.title
             };
             this.vm.searchModel.organizeUnitId = this.organizeUnit.id;
-            void this.loadData();
+            void this.vm.search();
         }
     }
 

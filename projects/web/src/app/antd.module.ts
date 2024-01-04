@@ -26,6 +26,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 @NgModule({
     imports: [
@@ -55,6 +56,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
         NzSpinModule,
         NzBreadCrumbModule,
         NzSwitchModule,
+        NzDropDownModule,
     ],
     exports: [
         NzTableModule,
@@ -83,6 +85,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
         NzSpinModule,
         NzBreadCrumbModule,
         NzSwitchModule,
+        NzDropDownModule,
     ]
 })
 export class AntdModule {

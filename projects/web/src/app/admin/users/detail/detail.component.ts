@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 import { AccountService } from 'app-shared';
+
 import { UserModel, UsersService } from '../users.service';
-import { OrganizeUnitService } from '../../organize-units/organize-units.service';
-import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
+import {
+    OrganizeUnitService
+} from '../../organize-units/organize-units.service';
 
 @Component({
     selector: 'app-users-detail',
@@ -16,7 +19,7 @@ export class DetailComponent implements OnInit {
     public editable = false;
     public id = '0';
 
-    public getTitle(): string {
+    public get title(): string {
         if (this.id === '0') {
             return '新建菜单项';
         }
@@ -36,7 +39,7 @@ export class DetailComponent implements OnInit {
     public dateOfBirthDate: Date = new Date('1970-01-01');
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: UsersService,
         public organizeUnitSvc: OrganizeUnitService,
@@ -61,19 +64,20 @@ export class DetailComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
+        const d = this.dateOfBirthDate;
         // eslint-disable-next-line max-len
-        this.model.dateOfBirth = `${this.dateOfBirthDate.getFullYear()}-${this.dateOfBirthDate.getMonth() + 1}-${this.dateOfBirthDate.getDate()}`;
+        this.model.dateOfBirth = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
         if (this.id !== '0') {
             await this.vm.update(this.id, this.model);
         }
         else {
             await this.vm.create(this.model);
         }
-        this.activeOffcanvas.close('ok');
+        this.drawerRef.close('ok');
     }
 
     public onOrganizeUnitClick(event: NzFormatEmitEvent)

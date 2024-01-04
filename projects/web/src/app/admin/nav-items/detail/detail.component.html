@@ -8,9 +8,8 @@
         (click)="save()" [disabled]="!detailForm.valid">
         <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
       </button>
-      <button type="button" nz-button nzType="default"
-        (click)="cancel()">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <button type="button" nz-button nzType="default" (click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
       </button>
     </nz-button-group>
   </ng-template>

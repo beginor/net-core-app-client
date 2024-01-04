@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {
     FormGroup, FormControl, Validators
 } from '@angular/forms';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import {
     AccountService, confirmTo
@@ -33,7 +33,7 @@ export class PasswordComponent {
     }
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: UsersService
     ) {
@@ -50,12 +50,12 @@ export class PasswordComponent {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
         await this.vm.resetPass(this.userId, this.form.value);
-        this.activeOffcanvas.close('ok')
+        this.drawerRef.close('ok')
     }
 
 }

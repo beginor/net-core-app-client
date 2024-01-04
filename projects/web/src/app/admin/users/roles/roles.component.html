@@ -1,39 +1,27 @@
-<div class="card detail" *ngIf="(account.info | async) as info">
-  <div class="card-header d-flex justify-content-between align-content-center">
-    <h5 class="card-title mb-0">{{title}}</h5>
-    <div class="btn-group btn-group-sm">
-      <button class="btn btn-sm btn-outline-primary" type="button"
-        (click)="save()">
-        <svg-icon iconPath="bi/check"></svg-icon> 确定
+<nz-card *ngIf="(account.info | async) as info"
+  class="ant-card-data-detail m-0"
+  [nzTitle]="title" [nzExtra]="toolsTpl"
+  >
+  <ng-template #toolsTpl>
+    <nz-button-group>
+      <button type="button" nz-button nzType="primary" (click)="save()">
+        <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 确定
       </button>
-      <button class="btn btn-sm btn-outline-secondary" type="button"
-        (click)="cancel()">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <button type="button" nz-button nzType="default"(click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
       </button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-auto" *ngFor="let r of vm.roles | async">
-        <div class="mb-3" >
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" [id]="r.id" [name]="r.name"
-              [checked]="isChecked(r.name)" (change)="toggleUserRole($event, r.name)" />
-            <label class="form-check-label" [for]="r.id">{{r.description || r.name}}</label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card-footer d-flex justify-content-between"
-    *ngIf="info.privileges['app_users.update'] && editable">
-    <button class="btn btn-sm btn-outline-primary" type="button"
-      (click)="save()">
-      <svg-icon iconPath="bi/check"></svg-icon> 保存
-    </button>
-    <button class="btn btn-sm btn-outline-secondary" type="button"
-      (click)="cancel()">
-      <svg-icon iconPath="bi/x"></svg-icon> 取消
-    </button>
-  </div>
-</div>
+    </nz-button-group>
+  </ng-template>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-control>
+        <label *ngFor="let role of vm.roles | async" class="m-0"
+          nz-checkbox [nzId]="role.id" [for]="role.id" [nzValue]="role.name"
+          [nzChecked]="isChecked(role.name)"
+          (nzCheckedChange)="toggleUserRole($event, role.name)">
+          {{role.description}}
+        </label>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

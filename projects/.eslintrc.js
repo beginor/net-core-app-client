@@ -57,7 +57,7 @@ module.exports = {
     },
     {
       "files": ["*.component.html"],
-      "fules": {
+      "rules": {
         "@angular-eslint/template/click-events-have-key-events": [
             "off"
         ],

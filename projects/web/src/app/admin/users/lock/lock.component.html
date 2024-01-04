@@ -1,33 +1,27 @@
-<form class="card detail" *ngIf="(account.info | async) as info"
-  [formGroup]="lockForm" (ngSubmit)="save()">
-  <div class="card-header d-flex justify-content-between align-content-center">
-    <h5 class="card-title mb-0">{{title}}</h5>
-    <div class="btn-group btn-group-sm">
-      <button class="btn btn-outline-primary" type="button"
-        *ngIf="info.privileges['app_users.lock']"
+<nz-card *ngIf="(account.info | async) as info"
+  class="ant-card-data-detail m-0"
+  [nzTitle]="title" [nzExtra]="toolsTpl">
+  <ng-template #toolsTpl>
+    <nz-button-group>
+      <button *ngIf="info.privileges['app_users.lock']"
+        type="button" type="button" nz-button nzType="primary"
         [disabled]="!lockForm.valid" (click)="save()">
-        <svg-icon iconPath="bi/check"></svg-icon> 保存
+        <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
       </button>
-      <button class="btn btn-outline-secondary" type="button"
-        (click)="cancel()">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <button type="button" nz-button nzType="default" (click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
       </button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="mb-3">
-      <label class="form-label text-muted" for="lockoutEnd">锁定至 <i class="text-danger">*</i></label>
-      <div class="input-group">
-        <input class="form-control" type="text" id="lockoutEnd"
+    </nz-button-group>
+  </ng-template>
+  <form nz-form [formGroup]="lockForm" (ngSubmit)="save()">
+    <nz-form-item>
+      <nz-form-label nzFor="lockoutEnd" [nzRequired]="true">锁定至</nz-form-label>
+      <nz-form-control [nzHasFeedback]="true">
+        <nz-date-picker class="w-100" id="lockoutEnd" nzId="lockoutEnd" nzFormat="yyyy-MM-dd"
+          [nzAllowClear]="false" [nzDisabledDate]="disabledDate"
           placeholder="请选择锁定截止时间 ..." formControlName="lockoutEnd"
-          [class.is-invalid]="!(lockoutEnd.valid || lockoutEnd.pristine)"
-          [class.is-valid]="lockoutEnd.valid"
-          ngbDatepicker container="body" #le="ngbDatepicker" [minDate]="calendar.getToday()"
           required />
-        <button class="btn btn-outline-secondary" type="button" (click)="le.toggle()">
-          <svg-icon iconPath="bi/calendar3"></svg-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

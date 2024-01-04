@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {
-    NgbCalendar, NgbDateStruct, NgbDateParserFormatter, NgbActiveOffcanvas,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 import { UsersService } from '../users.service';
@@ -30,30 +28,34 @@ export class LockComponent {
     }
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
-        private dateFormatter: NgbDateParserFormatter,
-        public calendar: NgbCalendar,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: UsersService
     ) {
-        const nextDay = calendar.getNext(calendar.getToday(), 'd', 1);
         this.lockForm  = new FormGroup({
             lockoutEnd: new FormControl(
-                { value: nextDay, disabled: !this.editable },
+                { value: new Date(), disabled: !this.editable },
                 Validators.required
             )
         });
     }
 
+    public disabledDate = (current: Date): boolean => {
+        const today = new Date();
+        const diff = current.getTime() - today.getTime();
+        return diff < 0;
+    };
+
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public save(): void {
-        const value = this.lockoutEnd.value as NgbDateStruct;
-        const date = this.dateFormatter.format(value);
-        void this.vm.lockUser(this.userId, `${date} 23:59:59`).then(
-            () => this.activeOffcanvas.close('ok')
+        const d = this.lockoutEnd.value as Date;
+        // eslint-disable-next-line max-len
+        const lockEndTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} 23:59:59`;
+        void this.vm.lockUser(this.userId, lockEndTime).then(
+            () => this.drawerRef.close('ok')
         );
     }
 

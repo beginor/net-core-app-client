@@ -29,6 +29,9 @@ export class UsersService {
     ];
     public roles = new BehaviorSubject<AppRoleModel[]>([]);
 
+    public pageSize = 10;
+    public pageIndex = 1;
+
     private baseUrl: string;
     private rolesSvc: RolesService;
 
@@ -48,6 +51,9 @@ export class UsersService {
     }
 
     public async search(): Promise<void> {
+        this.searchModel.skip = this.pageSize * (this.pageIndex - 1);
+        this.searchModel.take = this.pageSize;
+
         let params = new HttpParams();
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {

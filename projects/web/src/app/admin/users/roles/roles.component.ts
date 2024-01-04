@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 import { UsersService } from '../users.service';
@@ -21,7 +21,7 @@ export class RolesComponent implements OnInit {
     private userRoles: { [key: string]: boolean } = {};
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: UsersService
     ) { }
@@ -35,7 +35,7 @@ export class RolesComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
@@ -53,16 +53,15 @@ export class RolesComponent implements OnInit {
             }
         }
         await this.vm.saveUserRoles(this.userId, toAdd, toDelete);
-        this.activeOffcanvas.close('ok');
+        this.drawerRef.close('ok');
     }
 
     public isChecked(roleName: string): boolean {
         return this.userRoles[roleName];
     }
 
-    public toggleUserRole($event: Event, roleName: string): void {
-        const target = $event.target as HTMLInputElement;
-        this.userRoles[roleName] = target.checked;
+    public toggleUserRole(checked: boolean, roleName: string): void {
+        this.userRoles[roleName] = checked;
     }
 
 }
