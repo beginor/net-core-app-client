@@ -36,7 +36,7 @@
                     (click)="cleanUserSearch()">
                     <svg-icon iconPath="bi/x"></svg-icon>
                   </button>
-                  <button class="px-2" type="button" nz-button nzType="default" nzSearch>
+                  <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
                     <svg-icon iconPath="bi/search"></svg-icon>
                   </button>
                 </ng-template>
