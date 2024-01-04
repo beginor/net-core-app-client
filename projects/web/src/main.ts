@@ -8,7 +8,11 @@ import { AppModule } from './app/app.module';
 declare function isSupportedBrowser(): boolean;
 
 if (isSupportedBrowser()) {
-
+    const params = new URLSearchParams(self.location.search);
+    const tmpToken = params.get('tmpToken');
+    if (tmpToken) {
+        sessionStorage.setItem('tmpToken', tmpToken);
+    }
     registerLocaleData(zh, 'zh-Hans', zhEx);
     registerLocaleData(zh, 'zh-cn', zhEx);
 

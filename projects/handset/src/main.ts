@@ -5,6 +5,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 
+const params = new URLSearchParams(self.location.search);
+const tmpToken = params.get('tmpToken');
+if (tmpToken) {
+    sessionStorage.setItem('tmpToken', tmpToken);
+}
+
 registerLocaleData(zh, 'zh-Hans', zhEx);
 
 platformBrowserDynamic().bootstrapModule(AppModule)

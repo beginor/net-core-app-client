@@ -37,7 +37,12 @@ export class AccountService {
 
     public async getInfo(): Promise<AccountInfo> {
         try {
-            const url = `${this.apiRoot}/account`;
+            let url = `${this.apiRoot}/account`;
+            const tmpToken = sessionStorage.getItem('tmpToken');
+            if (tmpToken) {
+                url += `?tmpToken=${tmpToken}`;
+                sessionStorage.removeItem('tmpToken');
+            }
             const info = await lastValueFrom(this.http.get<AccountInfo>(url));
             if (!!info.token) {
                 this.saveToken(info.token);
