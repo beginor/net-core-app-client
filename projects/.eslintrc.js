@@ -52,6 +52,17 @@ module.exports = {
         ],
         "@typescript-eslint/explicit-module-boundary-types": [
           "warn"
+        ],
+      }
+    },
+    {
+      "files": ["*.component.html"],
+      "fules": {
+        "@angular-eslint/template/click-events-have-key-events": [
+            "off"
+        ],
+        "@angular-eslint/template/interactive-supports-focus": [
+            "off"
         ]
       }
     }
