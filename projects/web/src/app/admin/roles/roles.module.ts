@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AppSharedModule } from 'app-shared';
-import { NgbModule } from '../../ngb.module';
+import { AntdModule } from '../../antd.module';
 import { AppCommonModule } from '../../common';
 
 import { RolesRoutingModule } from './roles-routing.module';
@@ -20,7 +20,7 @@ import { PrivilegeComponent } from './privilege/privilege.component';
     imports: [
         CommonModule,
         FormsModule,
-        NgbModule,
+        AntdModule,
         AppSharedModule,
         AppCommonModule,
         RolesRoutingModule

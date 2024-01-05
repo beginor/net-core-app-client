@@ -25,6 +25,9 @@ export class RolesService {
     public privileges: ModulePrivileges[] = [];
     public rolePrivileges: { [key: string]: boolean } = {};
 
+    public pageSize = 10;
+    public pageIndex = 1;
+
     private baseUrl: string;
     private privilegeService: AppPrivilegeService;
 
@@ -58,6 +61,8 @@ export class RolesService {
 
     /** 搜索角色 */
     public async search(): Promise<void> {
+        this.searchModel.skip = this.pageSize * (this.pageIndex - 1);
+        this.searchModel.take = this.pageSize;
         let params = new HttpParams();
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {

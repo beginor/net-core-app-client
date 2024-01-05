@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+
+import { AccountService } from 'app-shared';
 
 import { RolesService, AppRoleModel } from '../roles.service';
 
@@ -29,8 +31,9 @@ export class DetailComponent implements OnInit {
     public model: AppRoleModel = { id: '0', name: '' };
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
-        public vm: RolesService
+        private drawerRef: NzDrawerRef,
+        public vm: RolesService,
+        public account: AccountService,
     ) { }
 
     public async ngOnInit(): Promise<void> {
@@ -43,7 +46,7 @@ export class DetailComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
@@ -53,7 +56,7 @@ export class DetailComponent implements OnInit {
         else {
             await this.vm.create(this.model);
         }
-        this.activeOffcanvas.close('ok')
+        this.drawerRef.close('ok')
     }
 
 }

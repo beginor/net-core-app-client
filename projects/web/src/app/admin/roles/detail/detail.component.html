@@ -1,74 +1,69 @@
-<form class="card detail" #detailForm="ngForm">
-  <div class="card-header d-flex justify-content-between align-content-center">
-    <h5 class="card-title mb-0">{{title}}</h5>
-    <div class="btn-group btn-group-sm">
-      <button *ngIf="editable" type="button" class="btn btn-sm btn-outline-primary"
+<nz-card *ngIf="(account.info | async) as info"
+  class="ant-card-data-detail m-0"
+  [nzTitle]="title" [nzExtra]="toolsTpl"
+  [nzActions]="editable ? [okTpl, cancelTpl] : []" >
+  <ng-template #toolsTpl>
+    <nz-button-group>
+      <button *ngIf="info.privileges['app_roles.update'] && editable"
+        type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon iconPath="bi/check"></svg-icon> 保存
+        <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
       </button>
-      <button type="button" class="btn btn-sm btn-outline-secondary"
-        (click)="cancel()">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <button type="button" nz-button nzType="default" (click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
       </button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="mb-3" [class.is-valid]="name.valid"
-      [class.is-invalid]="!(name.valid || name.pristine)">
-      <label class="form-label text-muted" for="name">角色名称 <i class="text-danger">*</i></label>
-      <input class="form-control" type="text" id="name" name="name"
-        placeholder="请输入角色名称 ..." [(ngModel)]="model.name"
-        [class.is-invalid]="!(name.valid || name.pristine)"
-        [class.is-valid]="name.valid"
-        required #name="ngModel" [disabled]="!editable || id !=='0'"
-      />
-    </div>
-    <div class="mb-3" [class.is-valid]="description.valid"
-      [class.is-invalid]="!(description.valid || description.pristine)">
-      <label class="form-label text-muted" for="description">角色描述 <i class="text-danger">*</i></label>
-      <input class="form-control" type="text" id="description" name="description"
-        placeholder="请输入角色描述 ..." [(ngModel)]="model.description"
-        [class.is-invalid]="!(description.valid || description.pristine)"
-        [class.is-valid]="description.valid"
-        required #description="ngModel" [disabled]="!editable"
-      />
-    </div>
+    </nz-button-group>
+  </ng-template>
+  <form nz-form nzLayout="vertical" #detailForm="ngForm">
+    <nz-form-item>
+      <nz-form-label nzFor="name" [nzRequired]="true">角色名称</nz-form-label>
+      <nz-form-control [nzHasFeedback]="true">
+        <input nz-input type="text" id="name" name="name"
+          placeholder="请输入角色名称 ..." [(ngModel)]="model.name"
+          [disabled]="!editable || id !=='0'"
+          [required]="true"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="description" [nzRequired]="true">角色描述</nz-form-label>
+      <nz-form-control [nzHasFeedback]="true">
+        <input nz-input type="text" id="description" name="description"
+          placeholder="请输入角色描述 ..." [(ngModel)]="model.description"
+          [disabled]="!editable" [required]="true"
+        />
+      </nz-form-control>
+    </nz-form-item>
     <div class="row">
       <div class="col">
-        <div class="mb-3">
-          <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input"
-              id="isDefault" name="isDefault"
-              [(ngModel)]="model.isDefault" [disabled]="!editable">
-            <label class="form-check-label text-muted"
-              for="isDefault">
-              是否默认
-            </label>
-          </div>
-        </div>
+        <nz-form-item>
+          <label nz-checkbox nzId="isDefault" for="isDefault" id="isDefault"
+            name="isDefault" [(ngModel)]="model.isDefault" [nzDisabled]="!editable">
+            是否默认
+          </label>
+        </nz-form-item>
       </div>
       <div class="col">
-        <div class="mb-3">
-          <div class="form-check form-switch">
-            <input type="checkbox" class="form-check-input"
-              id="isAnonymous" name="isAnonymous"
-              [(ngModel)]="model.isAnonymous" [disabled]="!editable">
-            <label class="form-check-label text-muted"
-              for="isAnonymous">
-              是否匿名
-            </label>
-          </div>
-        </div>
+        <nz-form-item>
+          <label nz-checkbox nzId="isAnonymous" for="isAnonymous" id="isAnonymous"
+            name="isAnonymous" [(ngModel)]="model.isAnonymous" [nzDisabled]="!editable">
+            是否默认
+          </label>
+        </nz-form-item>
       </div>
     </div>
-  </div>
-  <div *ngIf="editable" class="card-footer d-flex justify-content-between">
-    <button type="button" class="btn btn-sm btn-outline-primary"
+  </form>
+  <ng-template #okTpl>
+    <button *ngIf="info.privileges['app_roles.update'] && editable"
+      class="float-start ms-4" type="button" nz-button nzType="primary"
       (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon iconPath="bi/check"></svg-icon> 保存
+      <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
     </button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="cancel()">
-      <svg-icon iconPath="bi/x"></svg-icon> 取消
+  </ng-template>
+  <ng-template #cancelTpl>
+    <button class="float-end me-4" type="button" nz-button nzType="default"
+      (click)="cancel()">
+      <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
     </button>
-  </div>
-</form>
+  </ng-template>
+</nz-card>

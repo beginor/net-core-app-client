@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { RolesService } from '../roles.service';
 
@@ -14,7 +14,7 @@ export class PrivilegeComponent implements OnInit {
     public id = '0';
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public vm: RolesService
     ) { }
 
@@ -23,16 +23,12 @@ export class PrivilegeComponent implements OnInit {
         await this.vm.getAllPrivileges();
     }
 
-    public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+    public close(): void {
+        this.drawerRef.close('');
     }
 
-    public async togglePrivilege(e: Event): Promise<void> {
-        e.preventDefault();
-        e.stopPropagation();
-        const checkbox = e.target as HTMLInputElement;
-        const privilege = checkbox.value;
-        await this.vm.toggleRolePrivilege(this.id, privilege);
+    public async togglePrivilege(name: string): Promise<void> {
+        await this.vm.toggleRolePrivilege(this.id, name);
     }
 
 }
