@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppSharedModule } from 'app-shared';
 import { AntdModule } from '../../antd.module';
-import { NgbModule } from '../../ngb.module';
 import { AppCommonModule } from '../../common';
 
 import { UsersRoutingModule } from './users-routing.module';
@@ -27,7 +26,6 @@ import { RolesComponent } from './roles/roles.component';
     FormsModule,
     ReactiveFormsModule,
     AntdModule,
-    NgbModule,
     AppCommonModule,
     AppSharedModule,
     UsersRoutingModule
