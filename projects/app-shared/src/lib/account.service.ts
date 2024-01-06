@@ -3,6 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 
 import { BehaviorSubject, Subscription, interval, lastValueFrom } from 'rxjs';
 import { Base64UrlService } from './base64-url.service';
+import { API_ROOT } from './inject-tokens';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +28,7 @@ export class AccountService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private base64Url: Base64UrlService
     ) {
         this.interval$ = interval(1000 * 60 * 5).subscribe(

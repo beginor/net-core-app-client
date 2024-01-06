@@ -5,6 +5,8 @@ import {
     NgbDate, NgbCalendar, NgbDateParserFormatter
 } from '@ng-bootstrap/ng-bootstrap';
 
+import { API_ROOT } from 'app-shared';
+
 import { UiService } from 'projects/web/src/app/common';
 
 /** 应用程序日志服务 */
@@ -30,7 +32,7 @@ export class AppLogService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private ui: UiService,
         private errorHandler: ErrorHandler,
         private formatter: NgbDateParserFormatter,

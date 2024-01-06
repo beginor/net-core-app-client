@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
-import { Base64UrlService } from 'app-shared';
+import { Base64UrlService, API_ROOT } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
 import { RolesService, AppRoleModel } from '../roles/roles.service';
 
@@ -37,7 +37,7 @@ export class UsersService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private ui: UiService,
         private errorHandler: ErrorHandler,
         private base64Url: Base64UrlService

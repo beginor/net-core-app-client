@@ -5,6 +5,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
+import { API_ROOT } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
 
 @Injectable({
@@ -28,7 +29,7 @@ export class AuditLogsService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') apiRoot: string,
+        @Inject(API_ROOT) apiRoot: string,
         private ui: UiService,
         private errorHandler: ErrorHandler,
         private formatter: NgbDateParserFormatter,

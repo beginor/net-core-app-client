@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 
 import { AccountService } from './account.service';
+import { API_ROOT } from './inject-tokens';
 
 @Injectable()
 export class HttpErrorHandler implements ErrorHandler {
@@ -13,7 +14,7 @@ export class HttpErrorHandler implements ErrorHandler {
     constructor(
         private location: Location,
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         @Inject('isProduction') private isProduction: boolean,
         private account: AccountService
     ) {

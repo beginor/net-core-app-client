@@ -4,12 +4,13 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AccountService } from './account.service';
+import { API_ROOT } from './inject-tokens';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
     constructor(
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private account: AccountService
     ) { }
 

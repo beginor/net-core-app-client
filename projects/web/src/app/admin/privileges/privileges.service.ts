@@ -2,6 +2,8 @@ import { Injectable, Inject, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
+import { API_ROOT } from 'app-shared';
+
 import { UiService} from 'projects/web/src/app/common';
 
 /** 系统权限 服务 */
@@ -25,7 +27,7 @@ export class AppPrivilegeService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private ui: UiService,
         private errorHandler: ErrorHandler
     ) {

@@ -2,6 +2,7 @@ import { ErrorHandler, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { lastValueFrom } from 'rxjs';
+import { API_ROOT } from 'app-shared';
 
 import { UiService } from './ui.service';
 
@@ -12,7 +13,7 @@ export class StorageService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private errorHandler: ErrorHandler,
         private ui: UiService
     ) { }

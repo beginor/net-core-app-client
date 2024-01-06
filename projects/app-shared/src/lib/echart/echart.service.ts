@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { EChartsOption } from 'echarts';
+import { API_ROOT } from '../inject-tokens';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ export class EchartService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
     ) { }
 
     public async loadConfig(config: string): Promise<EchartProps> {

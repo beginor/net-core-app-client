@@ -2,6 +2,8 @@ import { Injectable, Inject, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
+import { API_ROOT } from 'app-shared';
+
 import { UiService } from 'projects/web/src/app/common';
 import { RolesService, AppRoleModel } from '../roles/roles.service';
 
@@ -26,7 +28,7 @@ export class AppStorageService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private ui: UiService,
         private errorHandler: ErrorHandler
     ) {

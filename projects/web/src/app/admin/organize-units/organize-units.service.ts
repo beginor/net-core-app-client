@@ -1,9 +1,11 @@
 ﻿import { Injectable, Inject, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+
+import { API_ROOT } from 'app-shared';
 
 import { UiService } from 'projects/web/src/app/common';
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 /** 组织单元服务 */
 @Injectable({
@@ -24,7 +26,7 @@ export class OrganizeUnitService {
 
     constructor(
         private http: HttpClient,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private ui: UiService,
         private errorHandler: ErrorHandler
     ) {

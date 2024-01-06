@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideNzI18n, zh_CN } from 'ng-zorro-antd/i18n';
 
 import {
-    AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd
+    AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
+    API_ROOT,
 } from 'app-shared';
 import { AntdModule } from './antd.module';
 import { NgbModule } from './ngb.module';
@@ -43,20 +44,20 @@ import { AppComponent } from './app.component';
             useValue: 'zh-Hans'
         },
         {
-            provide: 'contextRoot',
+            provide: CONTEXT_ROOT,
             useValue: '/net-core-app'
         },
         {
             provide: APP_BASE_HREF,
             useFactory: (): string => {
-                const contextRoot = inject<string>('contextRoot' as any);
+                const contextRoot = inject(CONTEXT_ROOT);
                 return `${contextRoot}/web/`;
             },
         },
         {
-            provide: 'apiRoot',
+            provide: API_ROOT,
             useFactory: (): string => {
-                const contextRoot = inject<string>('contextRoot' as any);
+                const contextRoot = inject(CONTEXT_ROOT);
                 return `${contextRoot}/api`;
             },
         },

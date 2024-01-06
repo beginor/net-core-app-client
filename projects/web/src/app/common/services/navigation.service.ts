@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
-import { AccountService } from 'app-shared';
+import { API_ROOT, AccountService } from 'app-shared';
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,7 @@ export class NavigationService {
         private title: Title,
         private location: Location,
         private account: AccountService,
-        @Inject('apiRoot') private apiRoot: string,
+        @Inject(API_ROOT) private apiRoot: string,
         private errorHandler: ErrorHandler
     ) {
         this.currentUrl = location.path();
