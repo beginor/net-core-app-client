@@ -1,6 +1,6 @@
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,12 +43,22 @@ import { AppComponent } from './app.component';
             useValue: 'zh-Hans'
         },
         {
+            provide: 'contextRoot',
+            useValue: '/net-core-app'
+        },
+        {
             provide: APP_BASE_HREF,
-            useValue: '/net-core-app/web/',
+            useFactory: (): string => {
+                const contextRoot = inject<string>('contextRoot' as any);
+                return `${contextRoot}/web/`;
+            },
         },
         {
             provide: 'apiRoot',
-            useValue: '/net-core-app/api'
+            useFactory: (): string => {
+                const contextRoot = inject<string>('contextRoot' as any);
+                return `${contextRoot}/api`;
+            },
         },
         {
             provide: 'isProduction',
