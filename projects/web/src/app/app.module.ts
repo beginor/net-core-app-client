@@ -8,7 +8,7 @@ import { provideNzI18n, zh_CN } from 'ng-zorro-antd/i18n';
 
 import {
     AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
-    API_ROOT,
+    API_ROOT, IS_PRODUCTION
 } from 'app-shared';
 import { AntdModule } from './antd.module';
 import { NgbModule } from './ngb.module';
@@ -16,7 +16,6 @@ import { AppCommonModule } from './common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IS_PRODUCTION } from "../../../app-shared/src/lib/inject-tokens";
 
 @NgModule({
     declarations: [
