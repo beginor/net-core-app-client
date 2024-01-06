@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
+import { NgModule, ErrorHandler, LOCALE_ID, inject } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 
 import {
-    AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd
+    AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
+    API_ROOT, IS_PRODUCTION,
 } from 'app-shared';
 
 import { MatModule } from './mat/mat.module';
@@ -40,17 +41,31 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
             useValue: 'zh-Hans'
         },
         {
-            provide: 'apiRoot',
-            useValue: '/net-core-app/api'
+            provide: CONTEXT_ROOT,
+            useValue: '/net-core-app'
         },
         {
-            provide: 'isProduction',
+            provide: APP_BASE_HREF,
+            useFactory: (): string => {
+                const contextRoot = inject(CONTEXT_ROOT);
+                return `${contextRoot}/handset/`;
+            },
+        },
+        {
+            provide: API_ROOT,
+            useFactory: (): string => {
+                const contextRoot = inject(CONTEXT_ROOT);
+                return `${contextRoot}/api`;
+            },
+        },
+        {
+            provide: IS_PRODUCTION,
             useFactory: isProd
         },
         {
             provide: ErrorHandler,
             useClass: HttpErrorHandler
-        }
+        },
     ],
     bootstrap: [AppComponent]
 })

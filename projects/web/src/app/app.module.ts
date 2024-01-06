@@ -16,6 +16,7 @@ import { AppCommonModule } from './common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { IS_PRODUCTION } from "../../../app-shared/src/lib/inject-tokens";
 
 @NgModule({
     declarations: [
@@ -62,7 +63,7 @@ import { AppComponent } from './app.component';
             },
         },
         {
-            provide: 'isProduction',
+            provide: IS_PRODUCTION,
             useFactory: isProd
         },
         {
