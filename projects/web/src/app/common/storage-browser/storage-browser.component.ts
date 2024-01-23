@@ -11,7 +11,7 @@ import { StorageService, StorageContent } from '../services/storage.service';
 export class StorageBrowserComponent implements OnInit {
 
     public title?: string = '选择图标';
-    public params: StorageContent = inject(NZ_MODAL_DATA);
+    public params = inject<StorageContent>(NZ_MODAL_DATA);
 
     public filteredItems: FolderItem[] = [];
     private allItems: FolderItem[] = [];
