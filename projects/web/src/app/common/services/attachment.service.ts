@@ -13,9 +13,10 @@ import { UiService } from './ui.service';
 export class AttachmentService {
 
     public uploadList: AttachmentUploadResultModel[] = [];
+    public loading = false;
 
     private baseUrl: string;
-    private bufferSize = 1024 * 100 * 1;
+    private bufferSize = 1024 * 1024 * 2;
 
     constructor(
         private http: HttpClient,
@@ -24,6 +25,50 @@ export class AttachmentService {
         private ui: UiService
     ) {
         this.baseUrl = `${apiRoot}/attachments`;
+    }
+
+    public getContentUrl(id: string): string {
+        return `${this.baseUrl}/${id}`;
+    }
+
+    public getDownloadUrl(id: string): string {
+        return `${this.baseUrl}/${id}?action=download`;
+    }
+
+    public getThumbnailUrl(id: string): string {
+        return `${this.baseUrl}/${id}/thumbnail`;
+    }
+
+    public async searchAttachments(
+        searchModel: AttachmentSearchModel
+    ): Promise<AttachmentSearchResultModel> {
+        const { businessId } = searchModel;
+        if (!businessId) {
+            throw new Error('businessId is required!');
+        }
+        try {
+            this.loading = true;
+            let params = new HttpParams();
+            for (const key in searchModel) {
+                if (searchModel.hasOwnProperty(key)) {
+                    const val = searchModel[key];
+                    params = params.set(key, val as string);
+                }
+            }
+            const result = await lastValueFrom(
+                this.http.get<AttachmentSearchResultModel>(
+                    this.baseUrl, { params }
+                )
+            );
+            return result;
+        }
+        catch (ex) {
+            this.errorHandler.handleError(ex);
+            this.ui.showAlert(
+                { type: 'danger', message: '获取附件列表出错！' }
+            );
+            return { data: [] } as unknown as AttachmentSearchResultModel;
+        }
     }
 
     public setFiles(files: FileList): void {
@@ -90,7 +135,9 @@ export class AttachmentService {
                         item => item.fileName === file.name
                     )!;
                     item.uploadedSize = end;
-                    item.percent = Math.round(item.uploadedSize / item.length * 100);
+                    item.percent = Math.round(
+                        item.uploadedSize / item.length * 100
+                    );
                 }
             }
         }
@@ -124,6 +171,7 @@ export class AttachmentService {
             }
         });
     }
+
 }
 
 /** 附件信息 */
@@ -147,7 +195,17 @@ export interface AttachmentModel {
 }
 
 export interface AttachmentSearchModel {
+    [key: string]: undefined | number | string;
+    skip: number;
+    take: number;
     businessId?: string;
+}
+
+export interface AttachmentSearchResultModel {
+    skip: number;
+    take: number;
+    total: number;
+    data: AttachmentModel[];
 }
 
 /** 附件上传模型 */
