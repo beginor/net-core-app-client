@@ -21,11 +21,11 @@ export class ListComponent implements OnInit {
     ) { }
 
     public async ngOnInit(): Promise<void> {
-        await this.vm.search();
+        // await this.vm.search();
     }
 
     public loadData({
-        pageSize = 10,
+        pageSize = 50,
         pageIndex = 1,
         // sort = [],
         // filter = [],

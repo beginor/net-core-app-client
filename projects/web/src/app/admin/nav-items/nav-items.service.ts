@@ -15,7 +15,7 @@ export class NavItemsService {
 
     public searchModel: AppNavItemSearchModel = {
         skip: 0,
-        take: 10
+        take: 50
     };
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<NavItemModel[]>([]);
@@ -23,7 +23,7 @@ export class NavItemsService {
     public showPagination = false;
     public roles: AppRoleModel[] = [];
 
-    public pageSize = 10;
+    public pageSize = 50;
     public pageIndex = 1;
 
     private baseUrl: string;

@@ -1,0 +1,26 @@
+<ng-container *ngIf="(accountSvc.info | async) as info">
+  @if (info.privileges['app_attachments.create']) {
+    <button type="button" nz-button [nzType]="buttonType" [nzSize]="buttonSize"
+            (click)="chooseFile()" [nzShape]="buttonShape">
+      <svg-icon [class]="iconClass" [iconPath]="iconPath"></svg-icon>
+      {{buttonText}}
+    </button>
+    <input class="d-none" type="file" #fileInput [accept]="accept" [multiple]="multiple"
+       (change)="onFileChange($event)"
+    />
+  } @else {
+    <span class="text-warning">{{noPrivilegeText}}</span>
+  }
+</ng-container>
+<nz-modal nzTitle="上传附件" [nzVisible]="uploading" [nzClosable]="false"
+  [nzKeyboard]="false"
+  [nzFooter]="null">
+  <ng-container *nzModalContent>
+    @for (item of vm.uploadList; track item.fileName) {
+      <div>{{item.fileName}}</div>
+      <nz-progress [nzPercent]="item.percent"
+        [nzStatus]="getItemUploadStatus(item)"
+      />
+    }
+  </ng-container>
+</nz-modal>

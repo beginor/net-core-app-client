@@ -17,7 +17,9 @@ import {
     StorageBrowserComponent
 } from './storage-browser/storage-browser.component';
 import { NavCardComponent } from './nav-card/nav-card.component';
-
+import {
+    AttachmentUploadComponent
+} from './attachment-upload/attachment-upload.component';
 @NgModule({
     declarations: [
         NavTopBarComponent,
@@ -26,6 +28,7 @@ import { NavCardComponent } from './nav-card/nav-card.component';
         IframeComponent,
         StorageBrowserComponent,
         NavCardComponent,
+        AttachmentUploadComponent,
     ],
     imports: [
         CommonModule,
@@ -42,6 +45,7 @@ import { NavCardComponent } from './nav-card/nav-card.component';
         NavSidebarComponent,
         IframeComponent,
         NavCardComponent,
+        AttachmentUploadComponent,
     ],
 })
 export class AppCommonModule { }
