@@ -1,88 +1,52 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">首页</a></li>
-    <li class="breadcrumb-item"><a routerLink="/admin">管理</a></li>
-    <li class="breadcrumb-item active" aria-current="page">系统权限</li>
-  </ol>
-</nav>
+<nz-breadcrumb class="m-3">
+  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item><a routerLink="/admin">管理</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>系统权限</nz-breadcrumb-item>
+</nz-breadcrumb>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12">
-      <div *ngIf="(account.info | async) as info" class="card">
-        <div class="card-header d-flex justify-content-between">
-          <h5 class="card-title mb-0">系统权限</h5>
-          <div class="btn-group btn-group-sm">
-            <button *ngIf="info.privileges['app_privileges.create']"
-              type="button" class="btn btn-outline-primary"
-              (click)="showDetail('0', true)">
-              <svg-icon iconPath="bi/plus"></svg-icon> 新建系统权限
-            </button>
-            <button type="button" class="btn btn-outline-secondary"
-              (click)="loadData()">
-              <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
-            </button>
-          </div>
-        </div>
-        <form class="p-2 bg-light">
-          <div class="row">
-            <div class="col-6">
-              <div class="row g-0 align-items-center">
-                <label for="pageSize" class="col-auto col-form-label col-form-label-sm">
-                  显示：
-                </label>
-                <div class="col-auto">
-                  <select id="pageSize" name="pageSize"
-                    class="form-select form-select-sm"
-                    [(ngModel)]="vm.searchModel.take"
-                    (change)="vm.onPageSizeChange()">
-                    <option [value]="10">10</option>
-                    <option [value]="25">25</option>
-                    <option [value]="50">50</option>
-                    <option [value]="100">100</option>
-                  </select>
-                </div>
-                <div class="col-auto text-muted px-2 py-1">条记录</div>
-                <div class="col-auto text-muted px-2">
-                  <ng-container *ngIf="vm.loading">
-                    <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
-                  </ng-container>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="row g-0">
-                <div class="col">
-                  <!-- <span class="text-muted">其它工具栏</span> -->
-                </div>
-                <div class="col">
-                  <!-- <span class="text-muted">其它工具栏</span> -->
-                </div>
-                <div class="col">
-                  <div class="row g-0">
-                    <label class="col-auto col-form-label col-form-label-sm" for="module">
-                      模块：
-                    </label>
-                    <div class="col">
-                      <select id="module" name="module"
-                        class="form-select form-select-sm"
-                        [(ngModel)]="vm.searchModel.module"
-                        (change)="vm.search()">
-                        <option value="">全部</option>
-                        <option *ngFor="let m of (vm.modules | async)" [value]="m">
-                          {{m}}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="table-responsive">
-          <table class="table table-striped mb-0">
+    <div class="col">
+      <nz-card *ngIf="(account.info | async) as info"
+        class="ant-card-data-list" nzTitle="导航菜单" [nzExtra]="cardExtra">
+        <ng-template #cardExtra>
+          <form nz-form>
+            <nz-space>
+              <nz-select *nzSpaceItem name="module" style="width: 200px;"
+                [(ngModel)]="vm.searchModel.module"
+                (ngModelChange)="vm.search()">
+                <nz-option nzLabel="全部模块" nzValue=""></nz-option>
+                <nz-option *ngFor="let m of vm.modules | async"
+                  [nzValue]="m" [nzLabel]="m">
+                </nz-option>
+              </nz-select>
+              <nz-button-group *nzSpaceItem>
+                <button *ngIf="info.privileges['app_privileges.create']"
+                  type="button" nz-button nzType="primary"
+                  (click)="showDetail('0', true)">
+                  <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建系统权限
+                </button>
+                <button type="button" nz-button nzType="default"
+                  (click)="vm.search()">
+                  <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+                </button>
+              </nz-button-group>
+            </nz-space>
+          </form>
+        </ng-template>
+        <ng-container *ngIf="(vm.data | async) as data">
+          <nz-table nzSize="small" [nzFrontPagination]="false"
+            [nzShowSizeChanger]="true"
+            [nzShowPagination]="true"
+            [nzShowQuickJumper]="true"
+            [nzData]="data"
+            [nzTotal]="(vm.total | async)!"
+            [nzShowTotal]="totalTpl"
+            [nzLoading]="vm.loading"
+            [nzPageSize]="vm.pageSize"
+            [nzPageSizeOptions]="vm.pageSizeOptions"
+            (nzQueryParams)="loadData($event)">
             <thead>
-              <tr>
+              <tr class="sticky-top">
                 <th scope="col" class="text-end text-nowrap text-muted table-row-num-col">#</th>
                 <th scope="col" class="text-start text-nowrap text-muted">权限模块</th>
                 <th scope="col" class="text-start text-nowrap text-muted">权限名称</th>
@@ -91,7 +55,7 @@
                 <th scope="col" class="text-center text-nowrap text-muted table-action-col-3">操作</th>
               </tr>
             </thead>
-            <tbody *ngIf="(vm.data | async) as data">
+            <tbody>
               <tr *ngFor="let item of data; let i = index;">
                 <th scope="row" class="text-end text-muted">{{i+1+vm.searchModel.skip}}</th>
                 <td class="text-start">{{item.module}}</td>
@@ -99,57 +63,33 @@
                 <td class="text-start">{{item.description}}</td>
                 <td class="text-center" [class.text-danger]="item.isRequired">{{item.isRequired ? '是' : '否'}}</td>
                 <td class="text-center">
-                  <div class="btn-group btn-group-sm">
+                  <nz-button-group>
                     <button *ngIf="info.privileges['app_privileges.read']"
-                      class="btn btn-outline-secondary" ngbTooltip="详情"
-                      placement="top" [openDelay]="300"
-                      (click)="showDetail(item.id, false)">
+                      class="px-2" type="button" nz-button nzType="default"
+                      nz-tooltip="详情" (click)="showDetail(item.id, false)">
                       <svg-icon iconPath="bi/info-square"></svg-icon>
                     </button>
                     <button *ngIf="info.privileges['app_privileges.update']"
-                      class="btn btn-outline-secondary" ngbTooltip="编辑"
-                      placement="top" [openDelay]="300"
-                      (click)="showDetail(item.id, true)">
+                      class="px-2" type="button" nz-button nzType="default"
+                      nz-tooltip="编辑" (click)="showDetail(item.id, true)">
                       <svg-icon iconPath="bi/pencil-square"></svg-icon>
                     </button>
                     <button *ngIf="info.privileges['app_privileges.delete']"
-                      class="btn btn-outline-secondary" ngbTooltip="删除" placement="top" [openDelay]="300"
+                      class="px-2" type="button" nz-button nzType="default"
+                      nz-tooltip="删除"
                       (click)="delete(item.id)">
                       <svg-icon iconPath="bi/trash"></svg-icon>
                     </button>
-                  </div>
+                  </nz-button-group>
                 </td>
               </tr>
             </tbody>
-          </table>
-        </div>
-        <div class="card-footer">
-          <div *ngIf="(vm.data | async) as data" class="row g-0">
-            <div class="col-6 d-flex align-items-center">
-              <div [class]="data.length > 0 ? 'text-muted' : 'text-warning'">
-                <ng-container *ngIf="data.length > 0;else emptyTpl">
-                  显示 {{vm.total | async}} 条记录中的第 {{vm.searchModel.skip + 1}} 至 {{vm.searchModel.skip + data.length}} 条
-                </ng-container>
-                <ng-template #emptyTpl>无数据！</ng-template>
-              </div>
-            </div>
-            <div class="col-6">
-              <ngb-pagination *ngIf="vm.showPagination"
-                class="d-flex justify-content-end"
-                size="sm"
-                [collectionSize]="(vm.total | async) || 0"
-                [page]="(vm.searchModel.skip / vm.searchModel.take) + 1"
-                [pageSize]="vm.searchModel.take"
-                [maxSize]="5"
-                [rotate]="true"
-                [boundaryLinks]="true"
-                [ellipses]="true"
-                (pageChange)="vm.onPageChange($event)">
-              </ngb-pagination>
-            </div>
-          </div>
-        </div>
-      </div>
+          </nz-table>
+        </ng-container>
+      </nz-card>
+      <ng-template #totalTpl let-total let-range="range">
+        当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+      </ng-template>
     </div>
   </div>
 </div>

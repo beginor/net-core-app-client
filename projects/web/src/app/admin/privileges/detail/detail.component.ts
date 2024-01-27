@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap'
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 import { AppPrivilegeModel, AppPrivilegeService } from '../privileges.service';
@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit {
     public model: AppPrivilegeModel = { id: '0', name: '' };
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: AppPrivilegeService
     ) { }
@@ -44,7 +44,7 @@ export class DetailComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
@@ -54,7 +54,7 @@ export class DetailComponent implements OnInit {
         else {
             await this.vm.create(this.model);
         }
-        this.activeOffcanvas.close('ok');
+        this.drawerRef.close('ok');
     }
 
 }

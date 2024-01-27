@@ -4,7 +4,7 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
 import { API_ROOT } from 'app-shared';
 
-import { UiService} from 'projects/web/src/app/common';
+import { UiService } from 'projects/web/src/app/common';
 
 /** 系统权限 服务 */
 @Injectable({
@@ -12,11 +12,16 @@ import { UiService} from 'projects/web/src/app/common';
 })
 export class AppPrivilegeService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
     public searchModel: AppPrivilegeSearchModel = {
-        skip: 0,
-        take: 10,
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize,
         module: ''
     };
+
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<AppPrivilegeModel[]>([]);
     public modules = new BehaviorSubject<string[]>([]);
@@ -36,6 +41,9 @@ export class AppPrivilegeService {
 
     /** 搜索系统权限 */
     public async search(): Promise<void> {
+        this.searchModel.skip = this.pageSize * (this.pageIndex - 1);
+        this.searchModel.take = this.pageSize;
+
         let params = new HttpParams();
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {
