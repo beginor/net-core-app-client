@@ -77,6 +77,8 @@
             [nzTotal]="(vm.total | async)!"
             [nzShowTotal]="totalTpl"
             [nzLoading]="vm.loading"
+            [nzPageSize]="vm.pageSize"
+            [nzPageSizeOptions]="vm.pageSizeOptions"
             (nzQueryParams)="loadData($event)">
             <thead>
               <tr class="sticky-top">

@@ -21,18 +21,20 @@
             </button>
           </nz-button-group>
         </ng-template>
-        <div class="table-responsive" *ngIf="(vm.data | async) as data">
+        <ng-container *ngIf="(vm.data | async) as data">
           <nz-table nzSize="small" [nzFrontPagination]="false"
             [nzShowSizeChanger]="true"
-            [nzShowPagination]="false"
+            [nzShowPagination]="true"
             [nzShowQuickJumper]="true"
             [nzData]="data"
             [nzTotal]="(vm.total | async)!"
             [nzShowTotal]="totalTpl"
             [nzLoading]="vm.loading"
+            [nzPageSize]="vm.pageSize"
+            [nzPageSizeOptions]="vm.pageSizeOptions"
             (nzQueryParams)="loadData($event)">
             <thead>
-              <tr>
+              <tr class="sticky-top">
                 <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
                 <th scope="col" class="text-start text-nowrap">名称</th>
                 <th scope="col" class="text-start text-nowrap">描述</th>
@@ -82,7 +84,7 @@
               </tr>
             </tbody>
           </nz-table>
-        </div>
+        </ng-container>
       </nz-card>
       <ng-template #totalTpl let-total let-range="range">
         当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条

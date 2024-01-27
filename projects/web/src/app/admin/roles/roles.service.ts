@@ -16,19 +16,21 @@ import {
 })
 export class RolesService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
     public searchModel: AppRoleSearchModel = {
-        skip: 0,
-        take: 10
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize
     };
+
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<AppRoleModel[]>([]);
     public loading = false;
     public showPagination = false;
     public privileges: ModulePrivileges[] = [];
     public rolePrivileges: { [key: string]: boolean } = {};
-
-    public pageSize = 10;
-    public pageIndex = 1;
 
     private baseUrl: string;
     private privilegeService: AppPrivilegeService;

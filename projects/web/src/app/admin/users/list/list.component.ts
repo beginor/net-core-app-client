@@ -46,7 +46,7 @@ export class ListComponent implements OnInit {
     }
 
     public async loadData({
-        pageSize = 10,
+        pageSize = 20,
         pageIndex = 1,
         // sort = [],
         // filter = [],

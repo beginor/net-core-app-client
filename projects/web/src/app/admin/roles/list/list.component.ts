@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
@@ -13,7 +13,7 @@ import { PrivilegeComponent } from '../privilege/privilege.component';
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnDestroy {
 
     constructor(
         private drawerService: NzDrawerService,
@@ -21,16 +21,12 @@ export class ListComponent implements OnInit, OnDestroy {
         public vm: RolesService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
-        await this.vm.search();
-    }
-
     public ngOnDestroy(): void {
         this.vm.cleanUp();
     }
 
     public async loadData({
-        pageSize = 10,
+        pageSize = 20,
         pageIndex = 1,
         // sort = [],
         // filter = [],

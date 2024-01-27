@@ -6,4 +6,6 @@
   padding: 0;
   overflow-x: hidden;
   overflow-y: auto;
+
+  --app-data-list-table-content-max-height: calc(100vh - 188px);
 }
