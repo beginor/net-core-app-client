@@ -3,7 +3,7 @@
   [nzTitle]="title" [nzExtra]="toolsTpl" [nzActions]="editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
     <nz-button-group>
-      <button *ngIf="info.privileges['app_privileges.update'] && editable"
+      <button *ngIf="info.privileges['app_nav_items.update'] && editable"
         type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
@@ -16,7 +16,7 @@
   <form nz-form nzLayout="vertical" #detailForm="ngForm">
     <div class="row">
       <div class="col">
-        <nz-form-item class="mb-3">
+        <nz-form-item>
           <nz-form-label nzFor="parentId" [nzRequired]="true">父节点</nz-form-label>
           <nz-form-control nzHasFeedback="true">
             <nz-select nzId="parentId" name="parentId" [(ngModel)]="model.parentId"
@@ -135,7 +135,7 @@
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    <button *ngIf="info.privileges['app_privileges.update'] && editable"
+    <button *ngIf="info.privileges['app_nav_items.update'] && editable"
       class="float-start ms-4" type="button" nz-button nzType="primary"
       (click)="save()" [disabled]="!detailForm.valid">
       <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
