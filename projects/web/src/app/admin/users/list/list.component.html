@@ -68,7 +68,7 @@
             </nz-space>
           </form>
         </ng-template>
-        <div class="table-responsive" *ngIf="(vm.data | async) as data">
+        <ng-container *ngIf="(vm.data | async) as data">
           <nz-table nzSize="small" [nzFrontPagination]="false"
             [nzShowSizeChanger]="true"
             [nzShowPagination]="true"
@@ -79,8 +79,9 @@
             [nzLoading]="vm.loading"
             (nzQueryParams)="loadData($event)">
             <thead>
-              <tr>
+              <tr class="sticky-top">
                 <th scope="col" class="text-end table-row-num-col">#</th>
+                <th scope="col" class="text-start">组织单元</th>
                 <th scope="col" class="text-start">用户名</th>
                 <th scope="col" class="text-center">电话</th>
                 <th scope="col" class="text-center">创建时间</th>
@@ -92,10 +93,17 @@
             <tbody>
               <tr *ngFor="let item of data; let i = index;">
                 <th scope="row" class="text-end">{{i + 1}}</th>
+                <td class="text-center">{{item.organizeUnit?.name}}</td>
                 <td class="text-start">
-                  {{getFullname(item)}}
-                  <svg-icon class="text-danger" style="cursor: pointer;" iconPath="bi/lock-fill"
-                    *ngIf="isLockout(item)" ngbTooltip="该用户已经被锁定！"></svg-icon>
+                  @if (isLockout(item)) {
+                    <span class="clickable" nz-tooltip="该用户已经被锁定！" nzTooltipPlacement="right">
+                      {{getFullname(item)}}
+                      <svg-icon class="text-danger clickable" iconPath="bi/ban" />
+                    </span>
+                  }
+                  @else {
+                    {{getFullname(item)}}
+                  }
                 </td>
                 <td class="text-center">{{item.phoneNumber}}</td>
                 <td class="text-center">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
@@ -151,7 +159,7 @@
               </tr>
             </tbody>
           </nz-table>
-        </div>
+        </ng-container>
       </nz-card>
       <ng-template #totalTpl let-total let-range="range">
         当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条

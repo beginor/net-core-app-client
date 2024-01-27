@@ -7,6 +7,7 @@
   --app-nav-sidebar-width: 220px;
   --app-nav-sidebar-collapsed-width: 54px;
   --app-nav-sidebar-item-height: 48px;
+  --app-data-list-table-content-max-height: calc(100vh - 238px);
 }
 
 /* Styles for BootStrap Icons */
@@ -136,9 +137,13 @@ ngb-pagination ul.pagination {
   z-index: 1056 !important;
 }
 
-.ant-card-data-list {
-  height: calc(100vh - 120px);
-  overflow: auto;
+.ant-card-data-list .ant-table-content {
+  max-height: var(--app-data-list-table-content-max-height);
+  overflow-y: auto;
+}
+
+.ant-card-data-list .ant-pagination-options-quick-jumper {
+  padding-right: 1.5rem;
 }
 
 .ant-card-data-list .ant-card-body {

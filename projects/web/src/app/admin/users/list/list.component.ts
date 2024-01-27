@@ -21,6 +21,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
     styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit {
+
     public organizeUnit?: StringIdNameModel;
 
     constructor(
@@ -42,7 +43,6 @@ export class ListComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         this.vm.searchModel.organizeUnitId = '';
         await this.loadOrganizeUnit();
-        await this.vm.search();
     }
 
     public async loadData({
@@ -226,7 +226,7 @@ export class ListComponent implements OnInit {
                 id: event.node.key,
                 name: event.node.title
             };
-            this.vm.searchModel.organizeUnitId = this.organizeUnit.id;
+            this.vm.searchModel['organizeUnitId'] = this.organizeUnit.id;
             void this.vm.search();
         }
     }

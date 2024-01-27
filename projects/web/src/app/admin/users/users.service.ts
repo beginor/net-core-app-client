@@ -12,8 +12,13 @@ import { RolesService, AppRoleModel } from '../roles/roles.service';
 })
 export class UsersService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
     public searchModel: UserSearchModel = {
-        skip: 0, take: 10, filter: '', sortBy: '', roleName: ''
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize
     };
 
     public total = new BehaviorSubject<number>(0);
@@ -29,9 +34,6 @@ export class UsersService {
     ];
     public roles = new BehaviorSubject<AppRoleModel[]>([]);
 
-    public pageSize = 10;
-    public pageIndex = 1;
-
     private baseUrl: string;
     private rolesSvc: RolesService;
 
@@ -43,7 +45,7 @@ export class UsersService {
         private base64Url: Base64UrlService
     ) {
         this.baseUrl = this.apiRoot + '/users';
-        this.searchModel.sortBy = this.sortMethods[0].value;
+        this.searchModel['sortBy'] = this.sortMethods[0].value;
         this.rolesSvc = new RolesService(http, apiRoot, ui, errorHandler);
         this.rolesSvc.data.subscribe(data => {
             this.roles.next(data);
@@ -241,8 +243,7 @@ export class UsersService {
     /** 获取全部角色 */
     public async getRoles(): Promise<void> {
         try {
-            this.rolesSvc.searchModel.organizeUnitId
-                = this.searchModel.organizeUnitId;
+            this.rolesSvc.searchModel.organizeUnitId = this.searchModel['organizeUnitId'] as string; // eslint-disable-line max-len
             this.rolesSvc.searchModel.skip = 0;
             this.rolesSvc.searchModel.take = 999;
             await this.rolesSvc.search();

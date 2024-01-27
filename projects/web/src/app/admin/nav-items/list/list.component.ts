@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
@@ -12,7 +12,7 @@ import { DetailComponent } from '../detail/detail.component';
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
     constructor(
         private drawerService: NzDrawerService,
@@ -20,12 +20,8 @@ export class ListComponent implements OnInit {
         public vm: NavItemsService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
-        // await this.vm.search();
-    }
-
     public loadData({
-        pageSize = 50,
+        pageSize = 20,
         pageIndex = 1,
         // sort = [],
         // filter = [],

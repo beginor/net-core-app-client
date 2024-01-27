@@ -113,8 +113,8 @@
     <div class="row">
       <div class="col">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="dateOfBirth">出生日期</nz-form-label>
-          <nz-form-control nzHasFeedback>
+          <nz-form-label nzFor="dateOfBirth">出生日期</nz-form-label>
+          <nz-form-control>
             <nz-date-picker class="w-100" id="dateOfBirth" nzId="dateOfBirth" name="dateOfBirth"
               nzPlaceHolder="请选择出生日期 ..." [(ngModel)]="dateOfBirthDate"
               [nzDisabled]="!editable"></nz-date-picker>
@@ -123,8 +123,8 @@
       </div>
       <div class="col">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="gender">性别</nz-form-label>
-          <nz-form-control nzHasFeedback>
+          <nz-form-label nzFor="gender">性别</nz-form-label>
+          <nz-form-control>
             <nz-radio-group id="gender" name="gender" nzName="gender"
               [(ngModel)]="model.gender" [nzDisabled]="!editable">
               <label id="gender1" for="gender1" nz-radio nzValue="保密">保密</label>
@@ -136,10 +136,10 @@
       </div>
     </div>
     <nz-form-item>
-      <nz-form-label nzRequired nzFor="streetAddress">地址</nz-form-label>
-      <nz-form-control nzHasFeedback>
+      <nz-form-label nzFor="streetAddress">地址</nz-form-label>
+      <nz-form-control>
         <input nz-input type="text" id="streetAddress" name="streetAddress"
-          placeholder="请输入用户地址 ..." required
+          placeholder="请输入用户地址 ..."
           [disabled]="!editable"
           [(ngModel)]="model.streetAddress"
         />

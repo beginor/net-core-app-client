@@ -13,18 +13,20 @@ import { RolesService, AppRoleModel } from '../roles/roles.service';
 })
 export class NavItemsService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
     public searchModel: AppNavItemSearchModel = {
-        skip: 0,
-        take: 50
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize
     };
+
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<NavItemModel[]>([]);
     public loading = false;
     public showPagination = false;
     public roles: AppRoleModel[] = [];
-
-    public pageSize = 50;
-    public pageIndex = 1;
 
     private baseUrl: string;
     private rolesSvc: RolesService;
