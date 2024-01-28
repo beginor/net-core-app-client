@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 
@@ -32,7 +32,7 @@ export class DetailComponent implements OnInit {
     public model: AppStorageModel = { id: '0', aliasName: '', rootFolder: '', readonly: true, roles: [] }; // eslint-disable-line max-len
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: AppStorageService
     ) { }
@@ -48,7 +48,7 @@ export class DetailComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
@@ -61,7 +61,7 @@ export class DetailComponent implements OnInit {
         else {
             await this.vm.create(this.model);
         }
-        this.activeOffcanvas.close('ok');
+        this.drawerRef.close('ok');
     }
 
     public isRoleChecked(role: string): boolean {

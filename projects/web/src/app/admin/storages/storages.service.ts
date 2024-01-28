@@ -13,9 +13,13 @@ import { RolesService, AppRoleModel } from '../roles/roles.service';
 })
 export class AppStorageService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
     public searchModel: AppStorageSearchModel = {
-        skip: 0,
-        take: 10
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize
     };
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<AppStorageModel[]>([]);
@@ -43,6 +47,8 @@ export class AppStorageService {
 
     /** 搜索应用存储 */
     public async search(): Promise<void> {
+        this.searchModel.skip = this.pageSize * (this.pageIndex - 1);
+        this.searchModel.take = this.pageSize;
         let params = new HttpParams();
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {
@@ -72,18 +78,6 @@ export class AppStorageService {
         finally {
             this.loading = false;
         }
-    }
-
-    /** 更改页码分页查询 */
-    public async onPageChange(p: number): Promise<void> {
-        this.searchModel.skip = (p - 1) * this.searchModel.take;
-        await this.search();
-    }
-
-    /** 更改分页大小 */
-    public async onPageSizeChange(): Promise<void> {
-        this.searchModel.skip = 0;
-        await this.search();
     }
 
     /** 创建应用存储 */

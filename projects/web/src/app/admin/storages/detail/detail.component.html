@@ -1,73 +1,72 @@
-<form class="card detail" *ngIf="(account.info | async) as info" #detailForm="ngForm">
-  <div class="card-header d-flex justify-content-between align-content-center">
-    <h5 class="card-title mb-0">{{title}}</h5>
-    <div class="btn-group btn-group-sm">
+<nz-card *ngIf="(account.info | async) as info"
+  class="ant-card-data-detail m-0"
+  [nzTitle]="title" [nzExtra]="toolsTpl"
+  [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  <ng-template #toolsTpl>
+    <nz-button-group>
       <button *ngIf="info.privileges['app_storages.update'] && editable"
-        type="button" class="btn btn-sm btn-outline-primary"
+        type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon iconPath="bi/check"></svg-icon> 保存
+        <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
       </button>
-      <button type="button" class="btn btn-sm btn-outline-secondary"
-        (click)="cancel()">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <button type="button" nz-button nzType="default" (click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
       </button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="mb-3">
-      <label class="form-label text-muted" for="aliasName">别名  <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="aliasName" name="aliasName"
-        placeholder="请输入存储目录别名 ..." required
-        [disabled]="!editable"
-        [(ngModel)]="model.aliasName"
-        #aliasName="ngModel"
-        [class.is-invalid]="!(aliasName.valid || aliasName.pristine)"
-        [class.is-valid]="aliasName.valid"
-      />
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="rootFolder">目录  <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="rootFolder" name="rootFolder"
-        placeholder="请输入存储目录路径 ..." required
-        [disabled]="!editable"
-        [(ngModel)]="model.rootFolder"
-        #rootFolder="ngModel"
-        [class.is-invalid]="!(rootFolder.valid || rootFolder.pristine)"
-        [class.is-valid]="rootFolder.valid"
-      />
-    </div>
-    <div class="mb-3">
-      <div class="form-check form-switch">
-        <input type="checkbox" class="form-check-input"
-          id="readonly" name="readonly"
-          [(ngModel)]="model.readonly" [disabled]="!editable">
-        <label class="form-check-label text-muted"
-          for="readonly">
-          是否只读
+    </nz-button-group>
+  </ng-template>
+  <form nz-form nzLayout="vertical" #detailForm="ngForm">
+    <nz-form-item>
+      <nz-form-label nzFor="aliasName" [nzRequired]="true">
+        别名
+      </nz-form-label>
+      <nz-form-control [nzHasFeedback]="true">
+        <input nz-input type="text" id="aliasName" name="aliasName"
+          placeholder="请输入存储目录别名 ..." [required]="true"
+          [disabled]="!editable"
+          [(ngModel)]="model.aliasName"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="rootFolder" [nzRequired]="true">
+        目录
+      </nz-form-label>
+      <nz-form-control [nzHasFeedback]="true">
+        <input nz-input type="text" id="rootFolder" name="rootFolder"
+          placeholder="请输入存储目录路径 ..." [required]="true"
+          [disabled]="!editable"
+          [(ngModel)]="model.rootFolder"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <label id="readonly" name="readonly" for="readonly" nz-checkbox
+        [(ngModel)]="model.readonly" [nzDisabled]="!editable">是否只读</label>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="roles">允许的的角色</nz-form-label>
+      <nz-form-control>
+        <label *ngFor="let role of vm.roles" class="m-0"
+          nz-checkbox [nzId]="role.id" [for]="role.id"
+          [nzDisabled]="!editable" [nzValue]="role.name"
+          [nzChecked]="isRoleChecked(role.name)"
+          (nzCheckedChange)="toggleCheckedRole(role.name)">
+          {{role.description}}
         </label>
-      </div>
-    </div>
-    <div class="mb-3">
-      <div class="form-label text-muted">允许的的角色 </div>
-      <div class="mt-0">
-        <div class="form-check form-check-inline form-switch" *ngFor="let role of vm.roles">
-          <input class="form-check-input" type="checkbox" [id]="role.id"
-            [name]="role.name" [disabled]="!editable" [value]="role.name"
-            [checked]="isRoleChecked(role.name)" (change)="toggleCheckedRole(role.name)" />
-          <label class="form-check-label text-muted" [for]="role.id">{{role.description}}</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="info.privileges['app_storages.update'] && editable"
-    class="card-footer d-flex justify-content-between">
-    <button type="button" class="btn btn-sm btn-outline-primary"
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #okTpl>
+    <button *ngIf="info.privileges['app_storages.update'] && editable"
+      class="float-start ms-4" type="button" nz-button nzType="primary"
       (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon iconPath="bi/check"></svg-icon> 保存
+      <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
     </button>
-    <button type="button" class="btn btn-sm btn-outline-secondary"
+  </ng-template>
+  <ng-template #cancelTpl>
+    <button class="float-end me-4" type="button" nz-button nzType="default"
       (click)="cancel()">
-      <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
     </button>
-  </div>
-</form>
+  </ng-template>
+</nz-card>

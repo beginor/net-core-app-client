@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
 
@@ -11,34 +13,42 @@ import { DetailComponent } from '../detail/detail.component';
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
     constructor(
-        private offcanvas: NgbOffcanvas,
+        private drawerService: NzDrawerService,
         public account: AccountService,
         public vm: AppStorageService
     ) { }
 
-    public ngOnInit(): void {
-        void this.loadData();
-    }
-
-    public loadData(): void {
+    public loadData({
+        pageSize = 20,
+        pageIndex = 1,
+        // sort = [],
+        // filter = [],
+    }: Partial<NzTableQueryParams>): void {
+        this.vm.pageSize = pageSize;
+        this.vm.pageIndex = pageIndex;
         void this.vm.search();
     }
 
     public showDetail(id: string, editable: boolean): void {
-        const ref = this.offcanvas.open(
+        const ref = this.drawerService.create<
             DetailComponent,
-            { position: 'end', panelClass: 'offcanvas-vw-40' }
-        );
-        const detail = ref.componentInstance as DetailComponent;
-        detail.editable = editable;
-        detail.id = id;
-        void ref.result.then(() => {
-            void this.vm.search();
-        }).catch(ex => {
-            console.log(`offcanvas canceled with reason ${ex}`)
+            Partial<DetailComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: DetailComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: { id, editable },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
         });
     }
 
@@ -48,16 +58,6 @@ export class ListComponent implements OnInit {
                 void this.vm.search();
             }
         });
-    }
-
-    public onKeywordsChanged(): void {
-        this.vm.searchModel.skip = 0;
-        void this.vm.search();
-    }
-
-    public clearKeywords(): void {
-        this.vm.searchModel.keywords = '';
-        void this.vm.search();
     }
 
 }
