@@ -40,7 +40,6 @@ export class DetailComponent implements OnInit {
 
     constructor(
         private modal: NzModalService,
-        private viewContainerRef: ViewContainerRef,
         private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: NavItemsService

@@ -1,6 +1,7 @@
 <nz-card *ngIf="(account.info | async) as info"
   class="ant-card-data-detail m-0"
-  [nzTitle]="title" [nzExtra]="toolsTpl" [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  [nzTitle]="title" [nzExtra]="toolsTpl"
+  [nzActions]="editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
     <nz-button-group>
       <button *ngIf="info.privileges['app_nav_items.update'] && editable"
