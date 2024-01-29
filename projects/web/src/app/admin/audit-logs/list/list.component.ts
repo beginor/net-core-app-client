@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Component } from '@angular/core';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { differenceInCalendarDays } from 'date-fns'
 
 import { AuditLogsService } from '../audit-logs.service';
 
@@ -8,14 +9,21 @@ import { AuditLogsService } from '../audit-logs.service';
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
     constructor(
-        public vm: AuditLogsService
+        public vm: AuditLogsService,
     ) { }
 
-    public async ngOnInit(): Promise<void> {
-        await this.vm.search();
+    public loadData({
+        pageSize = 20,
+        pageIndex = 1,
+        // sort = [],
+        // filter = [],
+    }: Partial<NzTableQueryParams>): void {
+        this.vm.pageSize = pageSize;
+        this.vm.pageIndex = pageIndex;
+        void this.vm.search();
     }
 
     public getRequestMethodClasses(method: string): string {
@@ -64,33 +72,24 @@ export class ListComponent implements OnInit {
         return classes.join(' ');
     }
 
-    public async onSelectDate(d: NgbDate): Promise<void> {
-        // this.vm.searchDate = d;
-        this.vm.searchModel.skip = 0;
-        await this.vm.search();
-    }
-
-    public async onPageChange(p: number): Promise<void> {
-        this.vm.searchModel.skip = (p - 1) * this.vm.searchModel.take;
-        await this.vm.search();
-    }
-
-    public async onPageSizeChange(e: Event): Promise<void> {
-        const el = e.target as HTMLSelectElement;
-        const pageSize = parseInt(el.value, 10);
-        this.vm.searchModel.take = pageSize;
-        this.vm.searchModel.skip = 0;
+    public async onSelectDate(): Promise<void> {
+        this.vm.pageIndex = 1;
         await this.vm.search();
     }
 
     public onUserNameChanged(): void {
-        this.vm.searchModel.skip = 0;
+        this.vm.pageIndex = 1;
         void this.vm.search();
     }
 
     public resetUsername(): void {
         this.vm.searchModel.userName = '';
+        this.vm.pageIndex = 1;
         void this.vm.search();
     }
+
+    public disabledDate = (current: Date): boolean =>
+        // Can not select days before today and today
+        differenceInCalendarDays(current, new Date()) > 0;
 
 }

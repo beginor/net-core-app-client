@@ -1,109 +1,62 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">首页</a></li>
-    <li class="breadcrumb-item"><a routerLink="/admin">管理</a></li>
-    <li class="breadcrumb-item active" aria-current="page">审计日志</li>
-  </ol>
-</nav>
+<nz-breadcrumb class="m-3">
+  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item><a routerLink="/admin">管理</a></nz-breadcrumb-item>
+  <nz-breadcrumb-item>审计日志</nz-breadcrumb-item>
+</nz-breadcrumb>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header d-flex justify-content-between">
-          <h5 class="card-title mb-0">审计日志</h5>
-          <div class="btn-group btn-group-sm">
-            <button type="button" class="btn btn-outline-primary"
-              (click)="this.vm.search()">
-              <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
-            </button>
-          </div>
-        </div>
-        <form class="p-2 bg-light">
-          <div class="row">
-            <div class="col-6">
-              <div class="row g-0 align-items-center">
-                <label for="pageSize" class="col-auto col-form-label col-form-label-sm">
-                  显示：
-                </label>
-                <div class="col-auto">
-                  <select id="pageSize" name="pageSize" class="form-select form-select-sm"
-                    [(ngModel)]="vm.searchModel.take"
-                    (change)="onPageSizeChange($event)">
-                    <option [value]="10">10</option>
-                    <option [value]="25">25</option>
-                    <option [value]="50">50</option>
-                    <option [value]="100">100</option>
-                  </select>
-                </div>
-                <div class="col-auto text-muted px-2">条记录</div>
-                <div class="col-auto text-muted px-2">
-                  <ng-container *ngIf="vm.loading">
-                    <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
-                  </ng-container>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="row g-0">
-                <div class="col pe-2">
-                  <div class="row g-0">
-                    <label for="startDate" class="col-auto col-form-label col-form-label-sm">开始：</label>
-                    <div class="col">
-                      <div class="input-group input-group-sm">
-                        <input class="form-control form-control-sm" type="text"
-                          name="startDate" id="startDate" ngbDatepicker #sd="ngbDatepicker"
-                          [(ngModel)]="vm.startDate"
-                          [maxDate]="vm.endDate"
-                          (dateSelect)="onSelectDate($event)" readonly />
-                        <button class="btn btn-outline-secondary" type="button"
-                          (click)="sd.toggle()">
-                          <svg-icon iconPath="bi/calendar3"></svg-icon>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col pe-2">
-                  <div class="row g-0">
-                    <label class="col-auto col-form-label col-form-label-sm" for="endDate">结束：</label>
-                    <div class="col">
-                      <div class="input-group input-group-sm">
-                        <input class="form-control form-control-sm" type="text"
-                          name="endDate" id="endDate"
-                          ngbDatepicker #ed="ngbDatepicker"
-                          [(ngModel)]="vm.endDate"
-                          [minDate]="vm.startDate"
-                          [maxDate]="vm.maxDate"
-                          (dateSelect)="onSelectDate($event)" readonly />
-                        <button class="btn btn-outline-secondary" type="button"
-                          (click)="ed.toggle()">
-                          <svg-icon iconPath="bi/calendar3"></svg-icon>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="input-group input-group-sm">
-                    <input class="form-control form-control-sm" type="text"
-                      placeholder="用户名搜索" name="userName"
-                      [(ngModel)]="vm.searchModel.userName"
-                      (keyup.enter)="onUserNameChanged()">
-                    <button *ngIf="!!vm.searchModel.userName"
-                      class="btn btn-outline-secondary" type="button"
-                      (click)="resetUsername()">
-                      <svg-icon iconPath="bi/x"></svg-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="table-responsive">
-          <table class="table table-striped mb-0">
+    <div class="col">
+      <nz-card class="ant-card-data-list"
+        nzTitle="审计日志" [nzExtra]="cardExtra">
+        <ng-template #cardExtra>
+          <form nz-form>
+            <nz-space>
+              <nz-range-picker *nzSpaceItem
+                name="dateRange" [nzDisabledDate]="disabledDate"
+                [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
+                [nzAllowClear]="false">
+              </nz-range-picker>
+              <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOnTpl">
+                <input name="userName" type="text" nz-input
+                  placeholder="按用户名搜索"
+                  [(ngModel)]="vm.searchModel.userName"
+                  (keyup.enter)="onUserNameChanged()"
+                />
+                <ng-template #userNameAddOnTpl>
+                  <button *ngIf="vm.searchModel.userName"
+                    class="px-2" type="button" nz-button nzType="default"
+                    (click)="resetUsername()">
+                    <svg-icon iconPath="bi/x"></svg-icon>
+                  </button>
+                  <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
+                    <svg-icon iconPath="bi/search"></svg-icon>
+                  </button>
+                </ng-template>
+              </nz-input-group>
+              <nz-button-group *nzSpaceItem>
+                <button type="button" nz-button nzType="default"
+                  (click)="this.vm.search()">
+                  <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+                </button>
+              </nz-button-group>
+            </nz-space>
+          </form>
+        </ng-template>
+        <ng-container *ngIf="(vm.data | async) as data">
+          <nz-table nzSize="small" [nzFrontPagination]="false"
+            [nzShowSizeChanger]="true"
+            [nzShowPagination]="true"
+            [nzShowQuickJumper]="true"
+            [nzData]="data"
+            [nzTotal]="(vm.total | async)!"
+            [nzShowTotal]="totalTpl"
+            [nzLoading]="vm.loading"
+            [nzPageIndex]="vm.pageIndex"
+            [nzPageSize]="vm.pageSize"
+            [nzPageSizeOptions]="vm.pageSizeOptions"
+            (nzQueryParams)="loadData($event)">
             <thead>
-              <tr>
+              <tr class="sticky-top">
                 <th scope="col" class="text-end text-nowrap text-muted border-left-0">#</th>
                 <th scope="col" class="text-start text-nowrap text-muted">IP地址</th>
                 <th scope="col" class="text-start text-nowrap text-muted">主机名</th>
@@ -134,35 +87,12 @@
                 <td class="text-start">{{item.description}}</td>
               </tr>
             </tbody>
-          </table>
-        </div>
-        <div class="card-footer">
-          <div *ngIf="(vm.data | async) as data" class="row g-0">
-            <div class="col-6 d-flex align-items-center">
-              <div [class]="data.length > 0 ? 'text-muted' : 'text-warning'">
-                <ng-container *ngIf="data.length > 0;else emptyTpl">
-                  显示 {{vm.total | async}} 条记录中的第 {{vm.searchModel.skip + 1}} 至 {{vm.searchModel.skip + data.length}} 条
-                </ng-container>
-                <ng-template #emptyTpl>无数据！</ng-template>
-              </div>
-            </div>
-            <div class="col-6">
-              <ngb-pagination *ngIf="vm.showPagination"
-                class="d-flex justify-content-end"
-                size="sm"
-                [collectionSize]="(vm.total | async) || 0"
-                [page]="(vm.searchModel.skip / vm.searchModel.take) + 1"
-                [pageSize]="vm.searchModel.take"
-                [maxSize]="5"
-                [rotate]="true"
-                [boundaryLinks]="true"
-                [ellipses]="true"
-                (pageChange)="onPageChange($event)">
-              </ngb-pagination>
-            </div>
-          </div>
-        </div>
-      </div>
+          </nz-table>
+        </ng-container>
+      </nz-card>
+      <ng-template #totalTpl let-total let-range="range">
+        当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+      </ng-template>
     </div>
 
   </div>

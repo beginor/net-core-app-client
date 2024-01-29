@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { NgbActiveOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 
@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit {
     public model: AppLogModel = { id: '' };
 
     constructor(
-        private activeOffcanvas: NgbActiveOffcanvas,
+        private drawerRef: NzDrawerRef,
         public account: AccountService,
         public vm: AppLogService
     ) { }
@@ -46,7 +46,7 @@ export class DetailComponent implements OnInit {
     }
 
     public cancel(): void {
-        this.activeOffcanvas.dismiss('');
+        this.drawerRef.close('');
     }
 
 }

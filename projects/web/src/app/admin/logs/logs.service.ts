@@ -1,13 +1,11 @@
-﻿import { Injectable, Inject, ErrorHandler } from '@angular/core';
+﻿import { Injectable, Inject, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import {
-    NgbDate, NgbCalendar, NgbDateParserFormatter
-} from '@ng-bootstrap/ng-bootstrap';
 
 import { API_ROOT } from 'app-shared';
 
 import { UiService } from 'projects/web/src/app/common';
+import { formatDate } from "@angular/common";
 
 /** 应用程序日志服务 */
 @Injectable({
@@ -15,40 +13,53 @@ import { UiService } from 'projects/web/src/app/common';
 })
 export class AppLogService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
     public searchModel: AppLogSearchModel = {
-        skip: 0,
-        take: 10,
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize,
         level: ''
     };
-    public startDate: NgbDate;
-    public endDate: NgbDate;
-    public maxDate:NgbDate;
+
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<AppLogModel[]>([]);
     public loading = false;
     public showPagination = false;
+
+    public dateRange: Date[];
 
     private baseUrl: string;
 
     constructor(
         private http: HttpClient,
         @Inject(API_ROOT) private apiRoot: string,
+        @Inject(LOCALE_ID) private locale: string,
         private ui: UiService,
         private errorHandler: ErrorHandler,
-        private formatter: NgbDateParserFormatter,
-        calendar: NgbCalendar
     ) {
         this.baseUrl = `${this.apiRoot}/logs`;
-        const today = calendar.getToday();
-        this.endDate = today;
-        this.maxDate = today;
-        this.startDate = calendar.getPrev(today, 'd', 3);
+        const now = new Date();
+        const startDate = new Date(
+            now.getFullYear(), now.getMonth(), now.getDate() - 2
+        );
+        const today = new Date(
+            now.getFullYear(), now.getMonth(), now.getDate()
+        );
+        this.dateRange = [startDate, today];
     }
 
     /** 搜索应用程序日志 */
     public async search(): Promise<void> {
-        this.searchModel.startDate = this.formatter.format(this.startDate);
-        this.searchModel.endDate = this.formatter.format(this.endDate);
+        this.searchModel.skip = this.pageSize * (this.pageIndex - 1);
+        this.searchModel.take = this.pageSize;
+        this.searchModel.startDate = formatDate(
+            this.dateRange[0], 'yyyy-MM-dd', this.locale
+        );
+        this.searchModel.endDate = formatDate(
+            this.dateRange[1], 'yyyy-MM-dd', this.locale
+        );
         let params = new HttpParams();
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {

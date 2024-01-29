@@ -77,6 +77,7 @@
             [nzTotal]="(vm.total | async)!"
             [nzShowTotal]="totalTpl"
             [nzLoading]="vm.loading"
+            [nzPageIndex]="vm.pageIndex"
             [nzPageSize]="vm.pageSize"
             [nzPageSizeOptions]="vm.pageSizeOptions"
             (nzQueryParams)="loadData($event)">

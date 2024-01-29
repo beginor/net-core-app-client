@@ -1,50 +1,61 @@
-﻿<form class="card detail" *ngIf="(account.info | async) as info" #detailForm="ngForm">
-  <div class="card-header d-flex justify-content-between align-content-center">
-    <h5 class="card-title mb-0">{{title}}</h5>
-    <div class="btn-group btn-group-sm">
-      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="cancel()">
-        <svg-icon iconPath="bi/x"></svg-icon> 关闭
+﻿<nz-card *ngIf="(account.info | async) as info"
+  class="ant-card-data-detail m-0"
+  [nzTitle]="title" [nzExtra]="toolsTpl">
+  <ng-template #toolsTpl>
+    <nz-button-group>
+      <button type="button" nz-button nzType="default" (click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 关闭
       </button>
-    </div>
-  </div>
-  <div class="card-body">
+    </nz-button-group>
+  </ng-template>
+  <form nz-form nzLayout="vertical" #detailForm="ngForm">
     <div class="row">
-      <div class="col mb-3">
-        <div class="form-label text-muted">日志ID </div>
-        <div class="form-control-plaintext">{{model.id}}</div>
+      <div class="col">
+        <nz-form-item>
+          <nz-form-label>日志ID</nz-form-label>
+          <nz-form-control>
+            {{model.id}}
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col mb-3">
-        <div class="form-label text-muted">创建时间 </div>
-        <div class="form-control-plaintext">{{model.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+      <div class="col">
+        <nz-form-item>
+          <nz-form-label>创建时间</nz-form-label>
+          <nz-form-control>
+            {{model.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </div>
     <div class="row">
-      <div class="col mb-3">
-        <div class="form-label text-muted">线程 </div>
-        <div class="form-control-plaintext">{{model.thread}}</div>
+      <div class="col">
+        <nz-form-item>
+          <nz-form-label>线程</nz-form-label>
+          <nz-form-control>{{model.thread}}</nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col mb-3">
-        <div class="form-label text-muted">日志级别 </div>
-        <div class="form-control-plaintext">{{model.level}}</div>
+      <div class="col">
+        <nz-form-item>
+          <nz-form-label>日志级别</nz-form-label>
+          <nz-form-control>{{model.level}}</nz-form-control>
+        </nz-form-item>
       </div>
     </div>
-    <div class="mb-3">
-      <div class="form-label text-muted">记录者 </div>
-      <div class="form-control-plaintext">{{model.logger}}</div>
-    </div>
-    <div class="mb-3">
-      <div class="form-label text-muted">日志消息 </div>
-      <textarea class="form-control" id="message" readonly>{{model.message}}</textarea>
-    </div>
-    <div class="mb-3">
-      <div class="form-label text-muted">异常信息 </div>
-      <textarea class="form-control" id="exception" readonly rows="10" placeholder="无异常信息...">{{model.exception}}</textarea>
-    </div>
-  </div>
-  <div class="card-footer d-flex justify-content-end">
-    <button type="button" class="btn btn-sm btn-outline-secondary"
-      (click)="cancel()">
-      <svg-icon iconPath="bi/x"></svg-icon> 关闭
-    </button>
-  </div>
-</form>
+    <nz-form-item>
+      <nz-form-label>记录者</nz-form-label>
+      <nz-form-control>{{model.logger}}</nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>日志消息</nz-form-label>
+      <nz-form-control>
+        {{model.message || '无日志消息'}}
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>异常信息</nz-form-label>
+      <nz-form-control>
+        {{model.exception || '无日志信息'}}
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

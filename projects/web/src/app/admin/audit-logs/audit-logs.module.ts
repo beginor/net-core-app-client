@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppSharedModule } from 'app-shared';
-import { NgbModule } from '../../ngb.module';
+import { AntdModule } from '../../antd.module';
 import { AppCommonModule } from '../../common';
 
 import { AuditLogsRoutingModule } from './audit-logs-routing.module';
@@ -16,7 +16,7 @@ import { ListComponent } from './list/list.component';
         CommonModule,
         FormsModule,
         HttpClientModule,
-        NgbModule,
+        AntdModule,
         AppSharedModule,
         AppCommonModule,
         AuditLogsRoutingModule
