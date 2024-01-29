@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { formatDate } from '@angular/common';
+import {
+    FormGroup, Validators, FormBuilder, FormControl
+} from '@angular/forms';
 
 import {
-    AccountService, UserInfo, ChangePasswordModel, confirmTo
+    AccountService, UserInfo, confirmTo
 } from 'app-shared';
 import { UiService } from '../../common';
 
@@ -15,7 +17,7 @@ import { UiService } from '../../common';
 export class UserInfoComponent implements OnInit {
 
     public user: UserInfo = { id: '' };
-    public dob?: NgbDate;
+    public dob?: Date;
     public loading = false;
     public loadingMessage = '';
     public updatingPwd = false;
@@ -33,21 +35,21 @@ export class UserInfoComponent implements OnInit {
     }
 
     constructor(
-        fb: FormBuilder,
+        formBuilder: FormBuilder,
         public account: AccountService,
         private ui: UiService,
-        private formatter: NgbDateParserFormatter
+        @Inject(LOCALE_ID) private localId: string
     ) {
-        this.pwdForm = fb.group({
-            currentPassword: fb.control(
+        this.pwdForm = formBuilder.group({
+            currentPassword: formBuilder.control(
                 { value: '', disabled: false },
                 [Validators.required]
             ),
-            newPassword: fb.control(
+            newPassword: formBuilder.control(
                 { value: '', disabled: false},
                 [Validators.required, Validators.minLength(8)]
             ),
-            confirmPassword: fb.control(
+            confirmPassword: formBuilder.control(
                 { value: '', disabled: false },
                 [Validators.required, confirmTo('newPassword')]
             )
@@ -60,9 +62,9 @@ export class UserInfoComponent implements OnInit {
             this.loadingMessage = '正在加载用户信息 ...';
             const user = await this.account.getUser();
             this.user = user;
-            this.dob = NgbDate.from(
-                this.formatter.parse(user.dateOfBirth as string)
-            ) as NgbDate;
+            if (user.dateOfBirth) {
+                this.dob = new Date(user.dateOfBirth)
+            }
         }
         catch (ex: unknown) {
             this.ui.showAlert(
@@ -81,9 +83,12 @@ export class UserInfoComponent implements OnInit {
         try {
             this.loading = true;
             this.loadingMessage = '正在更新用户信息 ...';
-            this.user.dateOfBirth = this.formatter.format(this.dob as NgbDate);
-            var user = await this.account.updateUser(this.user);
-            this.user = user;
+            if (this.dob) {
+                this.user.dateOfBirth = formatDate(
+                    this.dob, 'yyyy-MM-dd', this.localId
+                );
+            }
+            this.user = await this.account.updateUser(this.user);
         }
         catch (ex: unknown) {
             this.ui.showAlert(

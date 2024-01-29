@@ -3,85 +3,84 @@
     <div class="col-2 text-end text-muted">
       账户信息
     </div>
-    <form class="col-8" #detailForm="ngForm">
-      <div class="row mb-3">
+    <form class="col-8" nz-form #detailForm="ngForm" nzLayout="vertical">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="surname">姓氏 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="surname" name="surname"
-            placeholder="请输入用户姓氏 ..." [(ngModel)]="user.surname"
-            [class.is-invalid]="!(surname.valid || surname.pristine)"
-            [class.is-valid]="surname.valid"
-            required #surname="ngModel" />
+          <nz-form-item>
+            <nz-form-label nzFor="surname" [nzRequired]="true">姓氏</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="text" id="surname" name="surname"
+                placeholder="请输入用户姓氏 ..." [(ngModel)]="user.surname"
+                [required]="true" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
         <div class="col">
-          <label class="form-label text-muted" for="givenName">名称 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="givenName" name="givenName"
-            placeholder="请输入用户名称 ..." [(ngModel)]="user.givenName"
-            [class.is-invalid]="!(givenName.valid || givenName.pristine)"
-            [class.is-valid]="givenName.valid"
-            required #givenName="ngModel" />
+          <nz-form-item>
+            <nz-form-label nzFor="givenName" [nzRequired]="true">名称</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="text" id="givenName" name="givenName"
+                placeholder="请输入用户名称 ..." [(ngModel)]="user.givenName"
+                [required]="true" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="email">电子邮箱 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="email" name="email"
-            placeholder="请输入用户电子邮箱 ..." [(ngModel)]="user.email"
-            [class.is-invalid]="!(email.valid || email.pristine)"
-            [class.is-valid]="email.valid"
-            required #email="ngModel" />
+          <nz-form-item>
+            <nz-form-label nzFor="email" [nzRequired]="true">电子邮箱</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="text" id="email" name="email"
+                placeholder="请输入用户电子邮箱 ..." [(ngModel)]="user.email"
+                [required]="true" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
         <div class="col">
-          <label class="form-label text-muted" for="phoneNumber">电话号码 <i class="text-danger">*</i></label>
-          <input class="form-control" type="text" id="phoneNumber" name="phoneNumber"
-            placeholder="请输入用户电话号码 ..." [(ngModel)]="user.phoneNumber"
-            [class.is-invalid]="!(phoneNumber.valid || phoneNumber.pristine)"
-            [class.is-valid]="phoneNumber.valid"
-            required #phoneNumber="ngModel" />
+          <nz-form-item>
+            <nz-form-label nzFor="phoneNumber" [nzRequired]="true">电话号码</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="text" id="phoneNumber" name="phoneNumber"
+                placeholder="请输入用户电话号码 ..." [(ngModel)]="user.phoneNumber"
+                [required]="true" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
       <hr />
-      <div class="row mb-3">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="dateOfBirth">出生日期</label>
-          <div class="input-group">
-            <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth"
-              placeholder="请选择出生日期 ..." [(ngModel)]="dob"
-              ngbDatepicker container="body" #dp="ngbDatepicker"
-              #dateOfBirth="ngModel" />
-            <button class="btn btn-outline-secondary calendar"
-              (click)="dp.toggle()">
-              <svg-icon iconPath="bi/calendar3"></svg-icon>
-            </button>
-          </div>
+          <nz-form-item>
+            <nz-form-label nzFor="dateOfBirth">出生日期</nz-form-label>
+            <nz-form-item>
+              <nz-date-picker id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dob"/>
+            </nz-form-item>
+          </nz-form-item>
         </div>
         <div class="col">
-          <label class="form-label text-muted" for="gender">性别</label>
-          <div class="form-control-plaintext">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="gender1" value="保密"
-                [(ngModel)]="user.gender">
-              <label for="gender1" class="form-check-label">保密</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="gender2" value="男"
-                [(ngModel)]="user.gender">
-              <label for="gender2" class="form-check-label">男</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="gender3" value="女"
-                [(ngModel)]="user.gender">
-              <label for="gender3" class="form-check-label">女</label>
-            </div>
-          </div>
+          <nz-form-item>
+            <nz-form-label nzFor="gender">性别</nz-form-label>
+            <nz-form-control>
+              <nz-radio-group id="gender" name="gender" [(ngModel)]="user.gender">
+                <label id="gender0" for="gender0" nz-radio nzValue="保密">保密</label>
+                <label id="gender1" for="gender1" nz-radio nzValue="男">男</label>
+                <label id="gender2" for="gender2" nz-radio nzValue="女">女</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="streetAddress">地址</label>
-          <input class="form-control" type="text" id="streetAddress" name="streetAddress"
-            placeholder="请输入用户地址 ..." [(ngModel)]="user.streetAddress"
-          />
+          <nz-form-item>
+            <nz-form-label nzFor="streetAddress">地址</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="text" id="streetAddress" name="streetAddress"
+                placeholder="请输入用户地址 ..." [(ngModel)]="user.streetAddress"
+              />
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
       <div class="row">
@@ -90,9 +89,9 @@
             <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
             {{loadingMessage}}
           </div>
-          <button class="btn btn-sm btn-outline-primary" type="button"
+          <button type="button" nz-button nzType="primary"
             (click)="saveUser()" [disabled]="!detailForm.valid || loading">
-            <svg-icon iconPath="bi/check"></svg-icon> 保存
+            <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
           </button>
         </div>
       </div>
@@ -102,38 +101,47 @@
     <div class="col-2 text-end text-muted p-3">
       修改密码
     </div>
-    <form class="mt-3 col-8" [formGroup]="pwdForm">
-      <div class="row mb-3">
+    <form class="mt-3 col-8" [formGroup]="pwdForm" nz-form nzLayout="vertical">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="currentPassword">当前密码 <i class="text-danger">*</i></label>
-          <input class="form-control" type="password" id="currentPassword" name="currentPassword"
-            placeholder="请输入当前密码" required autocomplete="current-password"
-            formControlName="currentPassword"
-            [class.is-valid]="currentPassword.valid"
-            [class.is-invalid]="!(currentPassword.valid || currentPassword.pristine)"
-          />
+          <nz-form-item>
+            <nz-form-label nzFor="currentPassword" [nzRequired]="true">当前密码</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="password" id="currentPassword" name="currentPassword"
+                placeholder="请输入当前密码" [required]="true"
+                autocomplete="current-password"
+                formControlName="currentPassword"
+              />
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="newPassword">新密码 <i class="text-danger">*</i></label>
-          <input class="form-control" type="password" id="newPassword" name="newPassword"
-            placeholder="请输入新密码" required autocomplete="new-password"
-            formControlName="newPassword"
-            [class.is-valid]="newPassword.valid"
-            [class.is-invalid]="!(newPassword.valid || newPassword.pristine)"
-          />
+          <nz-form-item>
+            <nz-form-label nzFor="newPassword" [nzRequired]="true">新密码</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="password" id="newPassword" name="newPassword"
+                placeholder="请输入新密码" [required]="true"
+                autocomplete="new-password"
+                formControlName="newPassword"
+              />
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col">
-          <label class="form-label text-muted" for="confirmPassword">确认密码 <i class="text-danger">*</i></label>
-          <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
-            placeholder="请再输入一次新密码以进行确认" required autocomplete="new-password"
-            formControlName="confirmPassword"
-            [class.is-valid]="confirmPassword.valid"
-            [class.is-invalid]="!(confirmPassword.valid || confirmPassword.pristine)"
-          />
+          <nz-form-item>
+            <nz-form-label nzFor="confirmPassword" [nzRequired]="true">确认密码</nz-form-label>
+            <nz-form-control [nzHasFeedback]="true">
+              <input nz-input type="password" id="confirmPassword" name="confirmPassword"
+                placeholder="请再输入一次新密码以进行确认" [required]="true"
+                autocomplete="new-password"
+                formControlName="confirmPassword"
+              />
+            </nz-form-control>
+          </nz-form-item>
         </div>
       </div>
       <div class="row">
@@ -142,9 +150,9 @@
             <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
             正在修改密码 ...
           </div>
-          <button class="btn btn-sm btn-outline-primary" type="button"
+          <button type="button" nz-button nzType="primary"
             (click)="changePassword()" [disabled]="!pwdForm.valid || updatingPwd">
-            <svg-icon iconPath="bi/check"></svg-icon> 保存
+            <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
           </button>
         </div>
       </div>
