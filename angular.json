@@ -251,7 +251,7 @@
             ],
             "styles": [
               {
-                "input": "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+                "input": "node_modules/ng-zorro-antd/ng-zorro-antd.variable.css",
                 "bundleName": "ng-zorro-antd",
                 "inject": true
               },
