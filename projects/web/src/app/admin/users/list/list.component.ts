@@ -181,12 +181,12 @@ export class ListComponent implements OnInit {
 
     public cleanUserSearch(): void {
         this.vm.searchModel.userName = '';
-        this.vm.searchModel.skip = 0;
+        this.vm.pageIndex = 1;
         void this.vm.search();
     }
 
     public research(): void {
-        this.vm.searchModel.skip = 0;
+        this.vm.pageIndex = 1;
         void this.vm.search();
     }
 

@@ -194,8 +194,8 @@ export class RolesService {
             if (this.privileges.length > 0) {
                 return;
             }
-            this.privilegeService.searchModel.skip = 0;
-            this.privilegeService.searchModel.take = 999;
+            this.privilegeService.pageIndex = 1;
+            this.privilegeService.pageSize = 9999;
             this.privilegeService.searchModel.module = '';
             await this.privilegeService.search();
         }

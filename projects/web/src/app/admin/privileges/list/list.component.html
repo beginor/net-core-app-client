@@ -13,7 +13,7 @@
             <nz-space>
               <nz-select *nzSpaceItem name="module" style="width: 200px;"
                 [(ngModel)]="vm.searchModel.module"
-                (ngModelChange)="vm.search()">
+                (ngModelChange)="loadData({})">
                 <nz-option nzLabel="全部模块" nzValue=""></nz-option>
                 <nz-option *ngFor="let m of vm.modules | async"
                   [nzValue]="m" [nzLabel]="m">
@@ -26,7 +26,7 @@
                   <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建系统权限
                 </button>
                 <button type="button" nz-button nzType="default"
-                  (click)="vm.search()">
+                  (click)="loadData({})">
                   <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
                 </button>
               </nz-button-group>
