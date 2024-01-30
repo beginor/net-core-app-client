@@ -77,16 +77,6 @@ export class AppPrivilegeService {
         }
     }
 
-    public async onPageChange(p: number): Promise<void> {
-        this.searchModel.skip = (p - 1) * this.searchModel.take;
-        await this.search();
-    }
-
-    public async onPageSizeChange(): Promise<void> {
-        this.searchModel.skip = 0;
-        await this.search();
-    }
-
     /** 创建 系统权限 */
     public async create(
         model: AppPrivilegeModel
