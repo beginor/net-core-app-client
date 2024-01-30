@@ -1,14 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {
-    trigger, transition, useAnimation, AnimationEvent
-} from '@angular/animations';
-import { Router, ActivatedRoute } from '@angular/router';
-import {
-    NgbCalendar, NgbDateParserFormatter, NgbDateStruct, NgbDate
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { differenceInCalendarDays} from 'date-fns';
 
 import {
-    slideInRight, slideOutRight, AccountService, UserTokenModel, AppRole,
+    AccountService, UserTokenModel, AppRole,
     AppPrivilege
 } from 'app-shared';
 import { TokenService } from '../token.service';
@@ -19,40 +15,32 @@ import { UiService } from '../../common';
     selector: 'app-token-detail',
     templateUrl: './token-detail.component.html',
     styleUrl: './token-detail.component.css',
-    animations: [
-        trigger('animation', [
-            transition(':enter', useAnimation(slideInRight)),
-            transition(':leave', useAnimation(slideOutRight))
-        ])
-    ]
 })
 export class TokenDetailComponent implements OnInit {
 
-    public animation = '';
-    public title = '';
-    public model: UserTokenModel = { id: '', name: '', value: '' };
+    public id = '0';
+    public get title(): string {
+        return this.id === '0' ? '新建凭证' : '凭证信息';
+    }
+    public editable = true;
+
+    public model: UserTokenModel = { id: '0', name: '', value: '' };
     public roles: AppRole[] = [];
     public privileges: Array<{ module: string; privileges: AppPrivilege[] }> = []; // eslint-disable-line max-len
-    public tokenExpiresAt: NgbDateStruct | null = null;
+    public tokenExpiresAt?: Date;
     public tokenUrls: string[] = [];
-    private id = '';
+
     private reloadList = false;
     private checkedRoles: string[] = [];
     private checkedPrivileges: string[] = [];
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
+        private drawerRef: NzDrawerRef,
         private account: AccountService,
         private ui: UiService,
-        private dateFormatter: NgbDateParserFormatter,
-        public calendar: NgbCalendar,
+        @Inject(LOCALE_ID) private local: string,
         public vm: TokenService
-    ) {
-        const { id } = route.snapshot.params;
-        this.title = id === '0' ? '新建凭证' : '凭证信息';
-        this.id = id as string;
-    }
+    ) { }
 
     public async ngOnInit(): Promise<void> {
         const rap = await  this.account.getRolesAndPrivileges();
@@ -83,9 +71,7 @@ export class TokenDetailComponent implements OnInit {
                     ) as string[];
                 }
                 if (!!model.expiresAt) {
-                    this.tokenExpiresAt = this.dateFormatter.parse(
-                        model.expiresAt
-                    );
+                    this.tokenExpiresAt = new Date(model.expiresAt);
                 }
                 if (!!model.urls && model.urls.length > 0) {
                     this.tokenUrls = JSON.parse(
@@ -99,25 +85,16 @@ export class TokenDetailComponent implements OnInit {
         }
     }
 
-    public async onAnimationEvent(e: AnimationEvent): Promise<void> {
-        if (e.fromState === '' && e.toState === 'void') {
-            await this.router.navigate(['../'], { relativeTo: this.route });
-            if (this.reloadList) {
-                void this.vm.loadTokens();
-            }
-        }
-    }
-
-    public goBack(): void {
-        this.animation = 'void';
+    public cancel(): void {
+        this.drawerRef.close('');
     }
 
     public async save(): Promise<void> {
         this.model.roles = this.checkedRoles;
         this.model.privileges = this.checkedPrivileges;
         if (!!this.tokenExpiresAt) {
-            this.model.expiresAt = this.dateFormatter.format(
-                this.tokenExpiresAt
+            this.model.expiresAt = formatDate(
+                this.tokenExpiresAt, 'yyyy-MM-dd', this.local
             );
         }
         this.model.urls = this.tokenUrls;
@@ -127,8 +104,7 @@ export class TokenDetailComponent implements OnInit {
         else {
             await this.vm.create(this.model);
         }
-        this.reloadList = true;
-        this.goBack();
+        this.drawerRef.close('ok');
     }
 
     public async newTokenValue(): Promise<void> {
@@ -154,7 +130,7 @@ export class TokenDetailComponent implements OnInit {
     }
 
     public toggleChecked(
-        $event: Event,
+        checked: boolean,
         roleName: string,
         propName: ArrPropName
     ): void {
@@ -162,8 +138,7 @@ export class TokenDetailComponent implements OnInit {
             this[propName] = [];
         }
         const arr = this[propName];
-        const target = $event.target as HTMLInputElement;
-        if (target.checked) {
+        if (checked) {
             arr.push(roleName);
         }
         else {
@@ -190,6 +165,10 @@ export class TokenDetailComponent implements OnInit {
             this.tokenUrls.splice(idx, 1);
         }
     }
+
+    public disabledDate = (current: Date): boolean =>
+        // Can not select days before today and today
+        differenceInCalendarDays(current, new Date()) < 1;
 
 }
 

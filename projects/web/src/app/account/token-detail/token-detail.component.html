@@ -1,107 +1,121 @@
-<form class="card detail" #detailForm="ngForm"
-  [@animation]="animation" (@animation.done)="onAnimationEvent($event)"
->
-  <div class="card-header d-flex justify-content-between align-content-center">
-    <h5 class="card-title mb-0">{{title}}</h5>
-    <div class="btn-group btn-group-sm">
-      <button class="btn btn-sm btn-outline-primary" type="button" (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon iconPath="bi/check"></svg-icon> 保存
+<nz-card class="ant-card-data-detail m-0"
+  [nzTitle]="title" [nzExtra]="toolsTpl"
+  [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  <ng-template #toolsTpl>
+    <nz-button-group>
+      <button type="button" nz-button nzType="primary"
+        (click)="save()" [disabled]="!detailForm.valid">
+        <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
       </button>
-      <button class="btn btn-sm btn-outline-secondary" type="button" (click)="goBack()">
-        <svg-icon iconPath="bi/x"></svg-icon> 取消
+      <button type="button" nz-button nzType="default" (click)="cancel()">
+        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
       </button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="mb-3">
-      <label class="form-label text-muted" for="name">凭证名称 <i class="text-danger">*</i> </label>
-      <input class="form-control" type="text" id="name" name="name"
-        placeholder="请输入凭证名称 ..." required
-        [(ngModel)]="model.name"
-        #name="ngModel"
-        [class.is-invalid]="!(name.valid || name.pristine)"
-        [class.is-valid]="name.valid"
-      />
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="value">凭证值 <i class="text-danger">*</i> </label>
-      <div class="input-group">
-        <input class="form-control" type="text" id="value" name="value"
-          placeholder="请输入凭证值 ..." required readonly
+    </nz-button-group>
+  </ng-template>
+  <form nz-form nzLayout="vertical" #detailForm="ngForm">
+    <nz-form-item>
+      <nz-form-label nzFor="name" [nzRequired]="true">
+        凭证名称
+      </nz-form-label>
+      <nz-form-control [nzHasFeedback]="true">
+        <input nz-input type="text" id="name" name="name"
+          placeholder="请输入凭证名称 ..."
+          [(ngModel)]="model.name" [required]="true"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="value" [nzRequired]="true">
+        凭证值
+      </nz-form-label>
+      <nz-input-group nzSearch [nzAddOnAfter]="refreshValueTpl">
+        <input nz-input type="text" id="value" name="value"
+          placeholder="请输入凭证值 ..." [required]="true" readonly
           [(ngModel)]="model.value"
           #value="ngModel"
-          [class.is-invalid]="!(value.valid || value.pristine)"
-          [class.is-valid]="value.valid"
         />
-        <button class="btn btn-outline-secondary" type="button" ngbTooltip="刷新凭证值" container="body" (click)="newTokenValue()">
-          <svg-icon iconPath="bi/arrow-repeat"></svg-icon>
-        </button>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="expiresAt">过期时间 </label>
-      <div class="input-group">
-        <input class="form-control" type="text" id="expiresAt" name="expiresAt"
-          placeholder="设置凭证的过期时间，否者将永不过期。" readonly
-          [(ngModel)]="tokenExpiresAt" ngbDatepicker #exp="ngbDatepicker" [minDate]="calendar.getToday()"
-        />
-        <button class="btn btn-outline-secondary" (click)="exp.toggle()">
-          <svg-icon iconPath="bi/calendar3"></svg-icon>
-        </button>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted">凭证角色</label>
-      <div class="form-text">
-        <div class="form-check form-check-inline form-switch" *ngFor="let role of roles">
-          <input class="form-check-input" type="checkbox" [id]="role.id" [name]="role.name" [value]="role.name"
-            [checked]="isChecked(role.name, 'checkedRoles')" (change)="toggleChecked($event, role.name, 'checkedRoles')"
-          />
-          <label class="form-check-label" [for]="role.id">{{role.description}}</label>
-        </div>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="privileges">凭证权限 </label>
-      <div class="form-text">
+        <ng-template #refreshValueTpl>
+          <button class="px-2" type="button" nzSearch nz-button nzType="default"
+            nz-tooltip="刷新凭证值" (click)="newTokenValue()">
+            <svg-icon iconPath="bi/arrow-repeat"></svg-icon>
+          </button>
+        </ng-template>
+      </nz-input-group>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="expiresAt">
+        过期时间
+      </nz-form-label>
+      <nz-form-control>
+        <nz-date-picker class="w-100" id="expiresAt" nzId="expiresAt" name="expiresAt"
+          nzPlaceHolder="设置凭证的过期时间，否者将永不过期。" [(ngModel)]="tokenExpiresAt"
+          [nzDisabledDate]="disabledDate"
+          [nzDisabled]="!editable" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>凭证角色</nz-form-label>
+      <nz-form-control>
+        <label *ngFor="let role of roles" class="m-0"
+          nz-checkbox [nzId]="role.id" [for]="role.id"
+          [nzDisabled]="!editable" [nzValue]="role.name"
+          [nzChecked]="isChecked(role.name, 'checkedRoles')"
+          (nzCheckedChange)="toggleChecked($event, role.name, 'checkedRoles')">
+          {{role.description}}
+        </label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>凭证权限</nz-form-label>
+      <nz-form-control>
         <div class="m-1" *ngFor="let mp of privileges">
-          <h6>{{mp.module}}</h6>
-          <div class="form-check form-check-inline" *ngFor="let p of mp.privileges">
-            <input class="form-check-input" type="checkbox" [id]="p.id" [name]="p.name" [value]="p.name"
-              [checked]="isChecked(p.name, 'checkedPrivileges')" (change)="toggleChecked($event, p.name, 'checkedPrivileges')"
-            />
-            <label class="form-check-label" [for]="p.id">{{p.description}}</label>
-          </div>
+          <div class="fw-bolder">{{mp.module}}</div>
+          <label *ngFor="let p of mp.privileges" class="m-0"
+            nz-checkbox [nzId]="p.id" [for]="p.id"
+            [nzDisabled]="!editable" [nzValue]="p.name"
+            [nzChecked]="isChecked(p.name, 'checkedPrivileges')"
+            (nzCheckedChange)="toggleChecked($event, p.name, 'checkedPrivileges')">
+            {{p.description}}
+          </label>
         </div>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-muted" for="urls">允许的 url 地址 </label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>允许的 url 地址 </nz-form-label>
       <div class="mx-2">
-        <div class="input-group mb-2">
-          <input class="form-control" type="text" id="newUrl" name="newUrl"
+        <nz-input-group class="mb-1" [nzAddOnAfter]="addUrlBtnTpl">
+          <input type="text" nz-input id="newUrl" name="newUrl"
             placeholder="http:// ..."
             #newUrl
           />
-          <button class="btn btn-outline-secondary" type="button" (click)="addTokenUrl(newUrl)">
-            <svg-icon iconPath="bi/plus"></svg-icon>
-          </button>
-        </div>
-        <div class="input-group mb-1" *ngFor="let url of tokenUrls">
-          <input class="form-control" type="text" readonly [value]="url" />
-          <button class="btn btn-outline-secondary" type="button" (click)="removeTokenUrl(url)">
-            <svg-icon iconPath="bi/x"></svg-icon>
-          </button>
-        </div>
+          <ng-template #addUrlBtnTpl>
+            <svg-icon class="clickable" iconPath="bi/plus"
+              (click)="addTokenUrl(newUrl)"
+            />
+          </ng-template>
+        </nz-input-group>
+        <nz-input-group class="mb-1" *ngFor="let url of tokenUrls" [nzAddOnAfter]="delUrlTpl">
+          <input type="text" nz-input readonly [value]="url" />
+          <ng-template #delUrlTpl>
+            <svg-icon class="clickable" iconPath="bi/x"
+              (click)="removeTokenUrl(url)"
+            />
+          </ng-template>
+        </nz-input-group>
       </div>
-    </div>
-  </div>
-  <div class="card-footer d-flex justify-content-between">
-    <button type="button" class="btn btn-sm btn-outline-primary" (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon iconPath="bi/check"></svg-icon> 保存
+    </nz-form-item>
+  </form>
+  <ng-template #okTpl>
+    <button *ngIf="editable"
+      class="float-start ms-4" type="button" nz-button nzType="primary"
+      (click)="save()" [disabled]="!detailForm.valid">
+      <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
     </button>
-    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="goBack()">
-      <svg-icon iconPath="bi/x"></svg-icon> 取消
+  </ng-template>
+  <ng-template #cancelTpl>
+    <button class="float-end me-4" type="button" nz-button nzType="default"
+      (click)="cancel()">
+      <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
     </button>
-  </div>
-</form>
+  </ng-template>
+</nz-card>

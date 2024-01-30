@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppSharedModule } from 'app-shared';
 
-import { NgbModule } from '../ngb.module';
 import { AntdModule } from '../antd.module';
 
 import { AppCommonModule } from '../common';
@@ -23,7 +22,6 @@ import { TokenDetailComponent } from './token-detail/token-detail.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule,
         AntdModule,
         AppCommonModule,
         AppSharedModule,

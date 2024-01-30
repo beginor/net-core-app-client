@@ -10,20 +10,31 @@ import { UiService } from '../common';
 })
 export class TokenService {
 
+    public pageSizeOptions = [20, 40, 60, 80, 100, 200];
+    public pageSize = this.pageSizeOptions[0];
+    public pageIndex = 1;
+
+    public model: UserTokenSearchModel = {
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize,
+        keywords: ''
+    };
+
     public total = 0;
     public tokens: UserTokenModel[] = [];
 
     public loading = false;
-    public model: UserTokenSearchModel = { skip: 0, take: 100, keywords: '' };
 
     constructor(
         private account: AccountService,
         private ui: UiService
     ) { }
 
-    public async loadTokens(): Promise<void> {
+    public async search(): Promise<void> {
         try {
             this.loading = true;
+            this.model.skip = this.pageSize * (this.pageIndex - 1);
+            this.model.take = this.pageSize;
             const result = await this.account.searchUserTokens(this.model);
             this.total = result.total ?? 0;
             this.tokens = result.data ?? [];

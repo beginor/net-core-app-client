@@ -1,88 +1,93 @@
-<div class="container mt-3 mb-5">
+<div class="container mt-3">
   <div class="row g-0">
-    <div class="card border-bottom-0">
-      <div class="card-header d-flex justify-content-between">
-        <h5 class="card-title mb-0">我的凭证</h5>
-        <div class="btn-group btn-group-sm">
-          <button class="btn btn-outline-primary" type="button" (click)="showDetail('0')">
-            <svg-icon iconPath="bi/plus"></svg-icon> 新建凭证
-          </button>
-          <button type="button" class="btn btn-outline-secondary" (click)="vm.loadTokens()">
-            <svg-icon iconPath="bi/arrow-repeat"></svg-icon> 刷新
-          </button>
-        </div>
-      </div>
-      <form class="p-2 bg-light">
-        <div class="row">
-          <div class="col-6">
-            <ng-container *ngIf="vm.loading;else tokenCountTpl;">
-              <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 加载中...
-            </ng-container>
-            <ng-template #tokenCountTpl>
-              <div class="text-muted">全部凭证，共 {{vm.total}} 条记录。</div>
-            </ng-template>
-          </div>
-          <div class="offset-4 col-2 d-flex justify-content-end">
-            <div class="input-group input-group-sm">
-              <input class="form-control" name="keywords" type="text" placeholder="输入关键字进行搜索"
-                [(ngModel)]="vm.model.keywords" (keyup.enter)="vm.loadTokens()"
-              />
-              <button class="btn btn-sm btn-outline-secondary" type="button"
-                *ngIf="vm.model.keywords" (click)="resetSearch()">
+    <nz-card class="ant-card-data-list" nzTitle="我的凭证" [nzExtra]="cardExtra">
+      <ng-template #cardExtra>
+        <nz-space>
+          <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="standalone">
+            <input type="text" nz-input placeholder="输入关键字进行搜索"
+              name="userName" [(ngModel)]="vm.model.keywords"
+              [ngModelOptions]="{ standalone: true }"
+              (keyup.enter)="loadData({})"
+            />
+            <ng-template #standalone>
+              <button *ngIf="vm.model.keywords"
+                class="px-2" type="button" nz-button nzType="default"
+                (click)="resetSearch()">
                 <svg-icon iconPath="bi/x"></svg-icon>
               </button>
-            </div>
-          </div>
-        </div>
-      </form>
-      <div class="table-responsive">
-        <table class="table table-striped mb-0">
-          <thead>
-            <tr>
-              <th scope="col" class="text-end text-nowrap text-muted">#</th>
-              <th scope="col" class="text-start text-nowrap text-muted">名称</th>
-              <th scope="col" class="text-center text-nowrap text-muted">凭证值</th>
-              <th scope="col" class="text-end text-nowrap text-muted">权限</th>
-              <th scope="col" class="text-end text-nowrap text-muted">代表的角色</th>
-              <th scope="col" class="text-end text-nowrap text-muted">允许的地址</th>
-              <th scope="col" class="text-center text-nowrap text-muted">更新时间</th>
-              <th scope="col" class="text-center text-nowrap text-muted">过期时间</th>
-              <th scope="col" class="text-center text-nowrap text-muted">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let token of vm.tokens;let i = index;">
-              <th scope="row" class="text-end text-muted">{{i+1}}</th>
-              <td class='text-start'>{{token.name}}</td>
-              <td class='text-center'>{{token.value}}</td>
-              <td class='text-end'>{{token.privileges?.length}}</td>
-              <td class='text-end'>{{token.roles?.length}}</td>
-              <td class='text-end'>{{token.urls?.length}}</td>
-              <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
-              <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
-              <td class="text-center">
-                <div class="btn-group btn-group-sm">
-                  <button class="btn btn-outline-secondary"
-                    ngbTooltip="编辑" placement="top" [openDelay]="300" container="body"
-                    (click)="showDetail(token.id)"
-                  >
-                    <svg-icon iconPath="bi/pencil-square"></svg-icon>
-                  </button>
-                  <button class="btn btn-outline-secondary"
-                    ngbTooltip="删除" placement="top" [openDelay]="300" container="body"
-                    (click)="deleteToken(token.id)"
-                  >
-                    <svg-icon iconPath="bi/trash"></svg-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+              <button class="px-2" type="button" nz-button nzType="default" nzSearch
+                (click)="loadData({})">
+                <svg-icon iconPath="bi/search"></svg-icon>
+              </button>
+            </ng-template>
+          </nz-input-group>
+          <nz-button-group *nzSpaceItem>
+            <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
+              <svg-icon class="me-1" iconPath="bi/plus" /> 新建凭证
+            </button>
+            <button type="button" nz-button nzType="default" (click)="loadData({})">
+              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+            </button>
+          </nz-button-group>
+        </nz-space>
+      </ng-template>
+      <nz-table nzSize="small" [nzFrontPagination]="false"
+        [nzShowSizeChanger]="true"
+        [nzShowPagination]="true"
+        [nzShowQuickJumper]="true"
+        [nzData]="vm.tokens"
+        [nzTotal]="vm.total"
+        [nzShowTotal]="totalTpl"
+        [nzLoading]="vm.loading"
+        [nzPageIndex]="vm.pageIndex"
+        [nzPageSize]="vm.pageSize"
+        [nzPageSizeOptions]="vm.pageSizeOptions"
+        (nzQueryParams)="loadData($event)">
+        <thead>
+        <tr class="sticky-top">
+          <th scope="col" class="text-end">#</th>
+          <th scope="col" class="text-start">名称</th>
+          <th scope="col" class="text-center">凭证值</th>
+          <th scope="col" class="text-end">权限</th>
+          <th scope="col" class="text-end">代表的角色</th>
+          <th scope="col" class="text-end">允许的地址</th>
+          <th scope="col" class="text-center">更新时间</th>
+          <th scope="col" class="text-center">过期时间</th>
+          <th scope="col" class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let token of vm.tokens;let i = index;">
+          <th scope="row" class="text-end text-muted">{{i+1}}</th>
+          <td class='text-start'>{{token.name}}</td>
+          <td class='text-center'>{{token.value}}</td>
+          <td class='text-end'>{{token.privileges?.length}}</td>
+          <td class='text-end'>{{token.roles?.length}}</td>
+          <td class='text-end'>{{token.urls?.length}}</td>
+          <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
+          <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
+          <td class="text-center">
+            <nz-button-group>
+              <button class="px-2" type="button"
+                nz-button nzType="default"
+                nz-tooltip="编辑" nzTooltipPlacement="top"
+                (click)="showDetail(token.id, true)">
+                <svg-icon iconPath="bi/pencil-square"></svg-icon>
+              </button>
+              <button class="px-2" type="button"
+                nz-button nzType="default"
+                nz-tooltip="删除" nzTooltipPlacement="top"
+                (click)="delete(token.id)">
+                <svg-icon iconPath="bi/trash"></svg-icon>
+              </button>
+            </nz-button-group>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+    <ng-template #totalTpl let-total let-range="range">
+      当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+    </ng-template>
   </div>
-</div>
-<div class="detail-container">
-  <router-outlet></router-outlet>
 </div>

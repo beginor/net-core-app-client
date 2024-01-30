@@ -1,40 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
-import {
-    AccountService, UserTokenModel, UserTokenSearchModel
-} from 'app-shared';
-import { UiService } from '../../common';
 import { TokenService } from '../token.service';
+import { TokenDetailComponent } from '../token-detail/token-detail.component';
 
 @Component({
     selector: 'app-token-list',
     templateUrl: './token-list.component.html',
     styleUrl: './token-list.component.css',
 })
-export class TokenListComponent implements OnInit {
+export class TokenListComponent {
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
+        private drawerService: NzDrawerService,
         public vm: TokenService
     ) { }
 
-    public ngOnInit(): void {
-        void this.vm.loadTokens();
+    public loadData({
+        pageSize = 20,
+        pageIndex = 1,
+        // sort = [],
+        // filter = [],
+    }: Partial<NzTableQueryParams>): void {
+        this.vm.pageSize = pageSize;
+        this.vm.pageIndex = pageIndex;
+        void this.vm.search();
     }
 
-    public showDetail(id: string): void {
-        void this.router.navigate(
-            ['./', id],
-            { relativeTo: this.route, skipLocationChange: true }
-        );
+    public showDetail(id: string, editable: boolean): void {
+        const ref = this.drawerService.create<
+            TokenDetailComponent,
+            Partial<TokenDetailComponent>,
+            string
+        >({
+            nzClosable: false,
+            nzPlacement: 'right',
+            nzWidth: '40vw',
+            nzContent: TokenDetailComponent,
+            nzBodyStyle: { padding: '0' },
+            nzData: { id, editable },
+        });
+        ref.afterClose.subscribe(result => {
+            if (result === 'ok') {
+                void this.vm.search();
+            }
+        });
     }
 
-    public async deleteToken(id: string): Promise<void> {
+    public async delete(id: string): Promise<void> {
         const deleted = await this.vm.delete(id);
         if (deleted) {
-            void this.vm.loadTokens();
+            void this.vm.search();
         }
     }
 
@@ -48,7 +65,8 @@ export class TokenListComponent implements OnInit {
 
     public resetSearch(): void {
         this.vm.model.keywords = '';
-        void this.vm.loadTokens();
+        this.vm.pageIndex = 1;
+        void this.vm.search();
     }
 
 }
