@@ -41,7 +41,7 @@
                   </button>
                 </ng-template>
               </nz-input-group>
-              <nz-select *nzSpaceItem name="roleName"
+              <nz-select *nzSpaceItem name="roleName" style="width: 160px;"
                 [(ngModel)]="vm.searchModel.roleName" (ngModelChange)="research()">
                 <nz-option nzValue="" nzLabel="全部用户"></nz-option>
                 <nz-option *ngFor="let r of vm.roles | async"
