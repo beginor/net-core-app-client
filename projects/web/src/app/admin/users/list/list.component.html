@@ -14,7 +14,7 @@
           </button>
         </ng-template>
         <ng-container *ngIf="(organizeUnitSvc.treeNodes | async) as treeNodes">
-          <nz-tree [nzData]="treeNodes" (nzClick)="onOrganizeUnitClick($event)"></nz-tree>
+          <nz-tree class="organize-unit-tree" [nzData]="treeNodes" (nzClick)="onOrganizeUnitClick($event)"></nz-tree>
         </ng-container>
       </nz-card>
     </div>

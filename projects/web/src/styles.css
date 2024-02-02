@@ -8,6 +8,7 @@
   --app-nav-sidebar-collapsed-width: 54px;
   --app-nav-sidebar-item-height: 48px;
   --app-data-list-table-content-max-height: calc(100vh - 238px);
+  --app-organize-unit-tree-max-height: calc(100vh - 190px);
 }
 
 /* Styles for BootStrap Icons */
@@ -48,11 +49,6 @@
   to { transform: rotate(1turn); }
 }
 
-/* disable caret */
-.dropdown-toggle::after {
-  display: none !important;
-}
-
 html, body {
   width: 100%; height: 100%;
   margin: 0; padding: 0;
@@ -78,39 +74,8 @@ html, body {
   line-height: 48px;
 }
 
-.breadcrumb {
-  padding: .75rem 1rem;
-  margin-bottom: 0 !important;
-}
-
 .clickable {
   cursor: pointer !important;
-}
-
-ngb-pagination ul.pagination {
-  margin-bottom: 0 !important;
-}
-
-.detail-container {
-  position: absolute;
-  top: var(--app-navbar-height);
-  right: 0;
-  height: calc(100vh - var(--app-navbar-height));
-  bottom: 0;
-  z-index: var(--app-detail-zIndex);
-}
-
-.detail {
-  height: 100%;
-  background-color: var(--bs-light);
-}
-
-.detail .card-body {
-  overflow-y: auto;
-}
-
-.offcanvas-vw-40 {
-  --bs-offcanvas-width: 40vw;
 }
 
 .table-row-num-col {
@@ -131,10 +96,6 @@ ngb-pagination ul.pagination {
 
 .table-action-col-4 {
   width: 144px;
-}
-
-.cdk-overlay-container {
-  z-index: 1056 !important;
 }
 
 .ant-card-data-list .ant-table-content {
@@ -161,4 +122,13 @@ ngb-pagination ul.pagination {
   display: block;
   overflow-x: auto;
   overflow-y: auto;
+}
+
+.organize-unit-tree {
+  max-height: var(--app-organize-unit-tree-max-height);
+  overflow: auto;
+}
+
+.organize-unit-tree .ant-tree-title {
+  text-wrap: nowrap !important;
 }
