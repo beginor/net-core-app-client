@@ -103,8 +103,8 @@ html, body {
   overflow-y: auto;
 }
 
-.ant-card-data-list .ant-pagination-options-quick-jumper {
-  padding-right: 1.5rem;
+.ant-card-data-list .ant-table-pagination.ant-pagination {
+  margin: 16px 16px;
 }
 
 .ant-card-data-list .ant-card-body {
