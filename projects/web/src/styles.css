@@ -132,3 +132,67 @@ html, body {
 .organize-unit-tree .ant-tree-title {
   text-wrap: nowrap !important;
 }
+
+.cdk-overlay-container {
+  z-index: 2000;
+}
+.cdk-global-overlay-wrapper {
+  z-index: 2000;
+}
+.cdk-overlay-pane {
+  z-index: 2000;
+}
+.cdk-overlay-backdrop {
+  z-index: 2000;
+}
+.cdk-overlay-connected-position-bounding-box {
+  z-index: 2000;
+}
+.ant-picker-dropdown {
+  z-index: 2050;
+}
+.ant-drawer {
+  z-index: 2000;
+}
+.ant-dropdown {
+  z-index: 2050;
+}
+.ant-dropdown-menu-submenu-popup {
+  z-index: 2050;
+}
+.ant-menu-submenu-popup {
+  z-index: 2050;
+}
+.ant-mentions-dropdown {
+  z-index: 2050;
+}
+.ant-message {
+  z-index: 2010;
+}
+.ant-modal-mask {
+  z-index: 2000;
+}
+.ant-modal-wrap {
+  z-index: 2000;
+}
+.ant-notification {
+  z-index: 2010;
+}
+.ant-popover {
+  z-index: 2030;
+}
+.ant-select-dropdown {
+  z-index: 2050;
+}
+.ant-tabs-dropdown {
+  z-index: 2050;
+}
+.ant-tooltip {
+  z-index: 2070;
+}
+.ant-image-preview-mask {
+  z-index: 2000;
+}
+.ant-image-preview-wrap {
+  z-index: 2080;
+}
