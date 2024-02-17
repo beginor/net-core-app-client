@@ -2,9 +2,9 @@
   "name": "app-shared",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^17.1.0",
-    "@angular/core": "^17.1.0",
-    "@angular/router": "^17.1.0",
+    "@angular/common": "^17.2.0",
+    "@angular/core": "^17.2.0",
+    "@angular/router": "^17.2.0",
     "echarts": "^5.4.3"
   },
   "dependencies": {
