@@ -196,3 +196,7 @@ html, body {
 .ant-image-preview-wrap {
   z-index: 2080;
 }
+nz-alert.login-error-alert .ant-alert-content {
+  max-height: 100px;
+  overflow: auto;
+}

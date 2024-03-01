@@ -35,7 +35,7 @@
             </button>
           </nz-form-item>
           @if (message | async; as msg) {
-            <nz-alert nzType="error"
+            <nz-alert class="login-error-alert" nzType="error"
               [nzCloseable]="true" (nzOnClose)="clearMessage()"
               [nzShowIcon]="true"
               [nzMessage]="msg">
