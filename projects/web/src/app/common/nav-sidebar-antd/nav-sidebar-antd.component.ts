@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
@@ -11,7 +11,7 @@ import {
   templateUrl: './nav-sidebar-antd.component.html',
   styleUrl: './nav-sidebar-antd.component.css'
 })
-export class NavSidebarAntdComponent {
+export class NavSidebarAntdComponent implements OnInit {
 
     private isCollapsed = true;
     @Input()
@@ -34,6 +34,14 @@ export class NavSidebarAntdComponent {
         public router: Router,
         public vm: NavigationService
     ) { }
+
+    public ngOnInit(): void {
+        if (!this.collapsed) {
+            this.appTitle.next(
+                this.isCollapsed ? '' : this.vm.root.getValue().title!
+            )
+        }
+    }
 
     public async goTo(url: string): Promise<void> {
         await this.router.navigateByUrl(url);
