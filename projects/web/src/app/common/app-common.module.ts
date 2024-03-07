@@ -23,6 +23,7 @@ import { NavCardComponent } from './nav-card/nav-card.component';
 import {
     AttachmentUploadComponent
 } from './attachment-upload/attachment-upload.component';
+
 @NgModule({
     declarations: [
         NavTopBarComponent,
