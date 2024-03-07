@@ -1,0 +1,55 @@
+@if (vm.root | async; as root) {
+  @if (root.title) {
+    <div class="logo text-white text-center">
+      <div class="logo-icon" [class.collapsed]="collapsed">
+        <svg-icon iconClass="bi bi-4x" [iconPath]="root.icon"></svg-icon>
+      </div>
+      @if (!collapsed) {
+        <div class="logo-title fs-4">{{appTitle | async}}</div>
+      }
+    </div>
+  }
+  @if (root.children?.length) {
+    <ul class="side-menu mt-4" nz-menu nzTheme="dark" nzMode="inline"
+      [nzInlineCollapsed]="collapsed">
+      <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: root.children, level: 1 }}">
+      </ng-container>
+      <ng-template #menuTpl let-data>
+        <ng-container *ngFor="let menu of data.menus">
+          <li *ngIf="!menu.children && !menu.isHidden"
+            nz-menu-item nzMatchRouter
+            [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
+            [nzSelected]="menu.url && router.url.startsWith(menu.url)"
+            [class.ant-menu-item-selected]="menu.url && router.url.startsWith(menu.url)"
+            (click)="goTo(menu.url)">
+            <span title class="d-inline-flex align-items-center"
+              nzTooltipPlacement="right"
+              nz-tooltip [nzTooltipTitle]="data.title">
+              <span *ngIf="data.level === 1" nz-icon>
+                <svg-icon *ngIf="menu.icon" [iconPath]="menu.icon || 'bi/question-circle'"></svg-icon>
+              </span>
+              <span>{{ menu.title }}</span>
+            </span>
+          </li>
+          <li *ngIf="menu.children && !menu.isHidden"
+            nz-submenu [nzTitle]="subTitleTpl"
+            [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
+            [nzOpen]="menu.url && router.url.startsWith(menu.url + '/')">
+            <ng-template #subTitleTpl>
+              <span title class="d-inline-flex align-items-center" [class.text-white]="router.url.startsWith(menu.url + '/')">
+                <span *ngIf="data.level === 1" nz-icon>
+                  <svg-icon *ngIf="menu.icon" [iconPath]="menu.icon || 'question-circle'"></svg-icon>
+                </span>
+                <span>{{ menu.title }}</span>
+              </span>
+            </ng-template>
+            <ul>
+              <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: menu.children, level: data.level + 1 } }">
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ul>
+  }
+}

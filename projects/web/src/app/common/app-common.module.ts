@@ -12,6 +12,9 @@ import { AntdModule } from '../antd.module';
 import { NavTopBarComponent } from './nav-topbar/nav-topbar.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
 import { NavItemComponent } from './nav-item/nav-item.component';
+import {
+    NavSidebarAntdComponent
+} from './nav-sidebar-antd/nav-sidebar-antd.component';
 import { IframeComponent } from './iframe/iframe.component';
 import {
     StorageBrowserComponent
@@ -25,6 +28,7 @@ import {
         NavTopBarComponent,
         NavSidebarComponent,
         NavItemComponent,
+        NavSidebarAntdComponent,
         IframeComponent,
         StorageBrowserComponent,
         NavCardComponent,
@@ -43,6 +47,7 @@ import {
     exports: [
         NavTopBarComponent,
         NavSidebarComponent,
+        NavSidebarAntdComponent,
         IframeComponent,
         NavCardComponent,
         AttachmentUploadComponent,

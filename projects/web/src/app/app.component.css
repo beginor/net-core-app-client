@@ -17,3 +17,22 @@
   left: 50%;
   z-index: 9999;
 }
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+}

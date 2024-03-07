@@ -247,6 +247,11 @@
                 "input": "node_modules/@fortawesome/fontawesome-free/svgs",
                 "glob": "**/*.svg",
                 "output": "assets/icons/fa"
+              },
+              {
+                "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "glob": "**/*.svg",
+                "output": "assets/icons/antd/assets"
               }
             ],
             "styles": [

@@ -7,7 +7,7 @@
   --app-nav-sidebar-width: 220px;
   --app-nav-sidebar-collapsed-width: 54px;
   --app-nav-sidebar-item-height: 48px;
-  --app-data-list-table-content-max-height: calc(100vh - 238px);
+  --app-data-list-table-content-max-height: calc(100vh - 184px);
   --app-organize-unit-tree-max-height: calc(100vh - 190px);
 }
 
@@ -59,7 +59,7 @@ html, body {
   display: block;
   width: 100%; height: 100%;
   margin: 0;
-  padding: 54px 0 0 0;
+  padding: 0;
 }
 
 #loading-indicator {

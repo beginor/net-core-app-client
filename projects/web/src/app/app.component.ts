@@ -9,6 +9,7 @@ import {
 import { AccountService } from 'app-shared';
 import { UiService } from './common/services/ui.service';
 import { NavigationService } from './common/services/navigation.service';
+import { ThemeType } from './common/';
 
 @Component({
     selector: 'app-root',
@@ -20,6 +21,9 @@ import { NavigationService } from './common/services/navigation.service';
     ]
 })
 export class AppComponent {
+
+    public collapsed = false;
+    public theme: ThemeType = 'dark';
 
     constructor(
         account: AccountService,

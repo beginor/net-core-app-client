@@ -1,0 +1,59 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logo {
+  background: var(--ant-primary-color);
+  height: 7.5rem;
+}
+
+.logo-icon {
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  transition: padding .3s;
+}
+
+.logo-icon.collapsed {
+  padding: 2rem 0.5rem 1.5rem 0.5rem;
+}
+
+.logo-title {
+	opacity: 0;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-delay: .3s;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.side-menu {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.side-menu::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+.side-menu::-webkit-scrollbar-thumb:vertical {
+  height: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: var(--ant-primary-7);
+}
+.side-menu::-webkit-scrollbar-thumb:horizontal {
+  width: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: var(--ant-primary-7);
+}
