@@ -12,9 +12,11 @@
 </div>
 -->
 <nz-layout class="app-main">
-  <nz-sider [nzTheme]="theme" nzCollapsible [(nzCollapsed)]="collapsed" [nzWidth]="220">
-    <app-nav-sidebar-antd [collapsed]="collapsed"></app-nav-sidebar-antd>
-  </nz-sider>
+  @if (ui.showSidebar) {
+    <nz-sider [nzTheme]="theme" nzCollapsible [(nzCollapsed)]="collapsed" [nzWidth]="220">
+      <app-nav-sidebar-antd [collapsed]="collapsed"></app-nav-sidebar-antd>
+    </nz-sider>
+  }
   <nz-layout>
     <nz-content class="router-main flex-grow-1">
       <router-outlet></router-outlet>

@@ -13,6 +13,8 @@ export class UiService {
         private nzMessage: NzMessageService,
     ) { }
 
+    public showSidebar = true;
+
     public showAlert(alert: Alert): void {
         const option = {
             nzDuration: 3000,

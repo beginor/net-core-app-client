@@ -1,16 +1,17 @@
-import { Component, ErrorHandler } from '@angular/core';
+import { Component, ErrorHandler, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-import { AccountService, LoginModel } from 'app-shared';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
+
+import { AccountService, LoginModel } from 'app-shared';
+import { UiService } from '../../common/'
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
 
     public model: LoginModel = {};
     public loading = false;
@@ -20,8 +21,17 @@ export class LoginComponent {
         private router: Router,
         private route: ActivatedRoute,
         private acntSvc: AccountService,
-        private errorHandler: ErrorHandler
+        private errorHandler: ErrorHandler,
+        private ui: UiService,
     ) { }
+
+    public ngOnInit(): void {
+        this.ui.showSidebar = false;
+    }
+
+    public ngOnDestroy(): void {
+        this.ui.showSidebar = true;
+    }
 
     public async login(): Promise<void> {
         try {

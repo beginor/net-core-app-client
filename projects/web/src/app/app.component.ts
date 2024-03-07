@@ -26,7 +26,7 @@ export class AppComponent {
     public theme: ThemeType = 'dark';
 
     constructor(
-        account: AccountService,
+        public account: AccountService,
         public ui: UiService,
         public navigation: NavigationService,
         errorHandler: ErrorHandler,
