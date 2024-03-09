@@ -1,16 +1,17 @@
 @if (vm.root | async; as root) {
   @if (root.title) {
-    <div class="logo text-white text-center">
+    <div class="d-flex align-items-center justify-content-center p-3"
+      [class.text-white]="theme === 'dark'"
+      [class.text-black]="theme === 'light'">
       <div class="logo-icon" [class.collapsed]="collapsed">
-        <svg-icon iconClass="bi bi-4x" [iconPath]="root.icon"></svg-icon>
+        <svg-icon iconClass="bi bi-xxl" [iconPath]="root.icon"></svg-icon>
       </div>
-      @if (!collapsed) {
-        <div class="logo-title fs-4">{{appTitle | async}}</div>
-      }
+        <div class="logo-title ps-2 fs-5 text-nowrap text-truncate"
+          [class.d-none]="collapsed">{{root.title}}</div>
     </div>
   }
   @if (root.children?.length) {
-    <ul class="side-menu mt-4" nz-menu nzTheme="dark" nzMode="inline"
+    <ul class="side-menu" nz-menu [nzTheme]="theme" nzMode="inline"
       [nzInlineCollapsed]="collapsed">
       <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: root.children, level: 1 }}">
       </ng-container>
@@ -22,9 +23,7 @@
                 [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
                 [nzOpen]="menu.url && router.url.startsWith(menu.url + '/')">
                 <ng-template #subTitleTpl>
-                  <span title
-                    class="d-inline-flex align-items-center"
-                    [class.text-white]="router.url.startsWith(menu.url + '/')">
+                  <span title class="d-inline-flex align-items-center">
                     @if (data.level === 1) {
                       <span nz-icon>
                         <svg-icon [iconPath]="menu.icon || 'question-circle'"></svg-icon>
