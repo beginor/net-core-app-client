@@ -6,12 +6,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppSharedModule } from 'app-shared';
-import { NgbModule } from '../ngb.module';
 import { AntdModule } from '../antd.module';
 
-import { NavTopBarComponent } from './nav-topbar/nav-topbar.component';
-import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
-import { NavItemComponent } from './nav-item/nav-item.component';
 import {
     NavSidebarAntdComponent
 } from './nav-sidebar-antd/nav-sidebar-antd.component';
@@ -26,9 +22,6 @@ import {
 
 @NgModule({
     declarations: [
-        NavTopBarComponent,
-        NavSidebarComponent,
-        NavItemComponent,
         NavSidebarAntdComponent,
         IframeComponent,
         StorageBrowserComponent,
@@ -41,13 +34,10 @@ import {
         RouterModule,
         LayoutModule,
         ScrollingModule,
-        NgbModule,
         AntdModule,
         AppSharedModule,
     ],
     exports: [
-        NavTopBarComponent,
-        NavSidebarComponent,
         NavSidebarAntdComponent,
         IframeComponent,
         NavCardComponent,

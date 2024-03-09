@@ -11,7 +11,6 @@ import {
     API_ROOT, IS_PRODUCTION
 } from 'app-shared';
 import { AntdModule } from './antd.module';
-import { NgbModule } from './ngb.module';
 import { AppCommonModule } from './common';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +27,6 @@ import { AppComponent } from './app.component';
         FormsModule,
         HttpClientModule,
         AntdModule,
-        NgbModule,
         AppSharedModule,
         AppCommonModule,
         AppRoutingModule
