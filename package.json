@@ -48,7 +48,6 @@
     "bootstrap": "~5.3.2",
     "bootstrap-icons": "^1.11.3",
     "@popperjs/core": "^2.11.8",
-    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@angular/cdk": "^17.2.0",
     "@angular/material": "^17.2.0",
