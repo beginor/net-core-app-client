@@ -14,7 +14,7 @@
 <nz-layout class="app-main">
   @if (ui.showSidebar) {
     <nz-sider [nzTheme]="theme" nzCollapsible [(nzCollapsed)]="collapsed" [nzWidth]="220">
-      <app-nav-sidebar-antd [collapsed]="collapsed"></app-nav-sidebar-antd>
+      <app-nav-sidebar-antd [collapsed]="collapsed" [theme]="theme"></app-nav-sidebar-antd>
     </nz-sider>
   }
   <nz-layout>
