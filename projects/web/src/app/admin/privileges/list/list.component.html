@@ -1,13 +1,8 @@
-<nz-breadcrumb class="m-3">
-  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
-  <nz-breadcrumb-item><a routerLink="/admin">管理</a></nz-breadcrumb-item>
-  <nz-breadcrumb-item>系统权限</nz-breadcrumb-item>
-</nz-breadcrumb>
 <div class="container-fluid">
   <div class="row">
     <div class="col">
       <nz-card *ngIf="(account.info | async) as info"
-        class="ant-card-data-list" nzTitle="导航菜单" [nzExtra]="cardExtra">
+        class="ant-card-data-list" nzTitle="权限管理" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
           <form nz-form>
             <nz-space>

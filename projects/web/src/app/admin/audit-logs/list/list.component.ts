@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInCalendarDays } from 'date-fns'
 
+import { UiService } from 'projects/web/src/app/common';
 import { AuditLogsService } from '../audit-logs.service';
 
 @Component({
@@ -12,8 +13,15 @@ import { AuditLogsService } from '../audit-logs.service';
 export class ListComponent {
 
     constructor(
+        public ui: UiService,
         public vm: AuditLogsService,
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin' },
+            { label: '审计日志' }
+        ];
+    }
 
     public loadData({
         pageSize = 20,

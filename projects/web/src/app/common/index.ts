@@ -7,3 +7,4 @@ export * from './services/storage.service';
 export * from './nav-card/nav-card.component';
 export * from './services/attachment.service';
 export * from './nav-sidebar-antd/nav-sidebar-antd.component';
+export * from './header/header.component';

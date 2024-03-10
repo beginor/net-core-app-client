@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.trigger {
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.trigger:hover {
+  color: var(--ant-primary-color);
+}

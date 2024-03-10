@@ -2,6 +2,7 @@
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import {
     AppOrganizeUnitModel,
@@ -23,9 +24,16 @@ export class ListComponent implements OnInit {
 
     constructor(
         private drawerService: NzDrawerService,
+        public ui: UiService,
         public account: AccountService,
         public vm: OrganizeUnitService
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin' },
+            { label: '组织单元' }
+        ];
+    }
 
     public listData: TreeNodeInterface[] = [];
 

@@ -3,7 +3,6 @@ import { Component, ErrorHandler } from '@angular/core';
 import { AccountService } from 'app-shared';
 import { UiService } from './common/services/ui.service';
 import { NavigationService } from './common/services/navigation.service';
-import { ThemeType } from './common/';
 
 @Component({
     selector: 'app-root',
@@ -12,9 +11,6 @@ import { ThemeType } from './common/';
     providers: []
 })
 export class AppComponent {
-
-    public collapsed = false;
-    public theme: ThemeType = 'dark';
 
     constructor(
         public account: AccountService,

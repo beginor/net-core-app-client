@@ -4,6 +4,8 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
+
 import { NavItemsService } from '../nav-items.service';
 import { DetailComponent } from '../detail/detail.component';
 
@@ -16,9 +18,16 @@ export class ListComponent {
 
     constructor(
         private drawerService: NzDrawerService,
+        public ui: UiService,
         public account: AccountService,
         public vm: NavItemsService
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin' },
+            { label: '导航菜单' }
+        ];
+    }
 
     public loadData({
         pageSize = 20,

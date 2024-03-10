@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { AccountService } from 'app-shared';
-import { NavigationService } from '../../common';
+import { NavigationService, UiService } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -12,7 +12,13 @@ export class DashboardComponent {
 
     constructor(
         public account: AccountService,
+        public ui: UiService,
         public navigation: NavigationService
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/'},
+            { label: '管理' }
+        ];
+    }
 
 }

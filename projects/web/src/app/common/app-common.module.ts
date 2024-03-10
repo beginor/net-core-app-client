@@ -19,6 +19,7 @@ import { NavCardComponent } from './nav-card/nav-card.component';
 import {
     AttachmentUploadComponent
 } from './attachment-upload/attachment-upload.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import {
         StorageBrowserComponent,
         NavCardComponent,
         AttachmentUploadComponent,
+        HeaderComponent,
     ],
     imports: [
         CommonModule,
@@ -39,6 +41,7 @@ import {
     ],
     exports: [
         NavSidebarAntdComponent,
+        HeaderComponent,
         IframeComponent,
         NavCardComponent,
         AttachmentUploadComponent,

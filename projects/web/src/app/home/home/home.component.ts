@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+
+import { UiService } from 'projects/web/src/app/common';
 import { HomeService } from './home.service';
 
 @Component({
@@ -9,7 +11,12 @@ import { HomeService } from './home.service';
 export class HomeComponent {
 
     constructor(
+        public ui: UiService,
         public vm: HomeService,
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页' }
+        ];
+    }
 
 }

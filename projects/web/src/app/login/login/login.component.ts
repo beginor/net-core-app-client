@@ -26,11 +26,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        this.ui.showSidebar = false;
+        this.ui.showSider = false;
+        this.ui.showHeader = false;
     }
 
     public ngOnDestroy(): void {
-        this.ui.showSidebar = true;
+        this.ui.showSider = true;
+        this.ui.showHeader = true;
     }
 
     public async login(): Promise<void> {

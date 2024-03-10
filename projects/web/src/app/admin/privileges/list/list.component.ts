@@ -3,6 +3,8 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
+
 import { AppPrivilegeService } from '../privileges.service';
 import { DetailComponent } from '../detail/detail.component';
 
@@ -16,8 +18,15 @@ export class ListComponent implements OnInit {
     constructor(
         private drawerService: NzDrawerService,
         public account: AccountService,
+        public ui: UiService,
         public vm: AppPrivilegeService
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin' },
+            { label: '权限管理' }
+        ];
+    }
 
     public async ngOnInit(): Promise<void> {
         await this.vm.getModules();

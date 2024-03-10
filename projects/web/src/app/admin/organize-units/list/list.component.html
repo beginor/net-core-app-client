@@ -1,10 +1,4 @@
-﻿<script src="../detail/detail.component.ts"></script>
-<nz-breadcrumb class="m-3">
-  <nz-breadcrumb-item><a routerLink="/">首页</a></nz-breadcrumb-item>
-  <nz-breadcrumb-item><a routerLink="/admin">管理</a></nz-breadcrumb-item>
-  <nz-breadcrumb-item aria-current="page">组织单元</nz-breadcrumb-item>
-</nz-breadcrumb>
-<div class="container-fluid">
+﻿<div class="container-fluid">
   <div class="row">
     <div class="col">
       <nz-card *ngIf="account.info | async as info"

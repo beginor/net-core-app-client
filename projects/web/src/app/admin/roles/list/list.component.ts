@@ -3,6 +3,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import { RolesService, AppRoleModel } from '../roles.service';
 import { DetailComponent } from '../detail/detail.component';
@@ -18,8 +19,15 @@ export class ListComponent implements OnDestroy {
     constructor(
         private drawerService: NzDrawerService,
         public account: AccountService,
+        public ui: UiService,
         public vm: RolesService
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin' },
+            { label: '角色管理' }
+        ];
+    }
 
     public ngOnDestroy(): void {
         this.vm.cleanUp();
