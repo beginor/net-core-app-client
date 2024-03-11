@@ -4,6 +4,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import { UsersService, UserModel, StringIdNameModel } from '../users.service';
 import { DetailComponent } from '../detail/detail.component';
@@ -27,10 +28,16 @@ export class ListComponent implements OnInit {
     constructor(
         route: ActivatedRoute,
         private drawerService: NzDrawerService,
+        private ui: UiService,
         public account: AccountService,
         public vm: UsersService,
         public organizeUnitSvc: OrganizeUnitService,
     ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin' },
+            { label: '用户管理' }
+        ];
         const { roleName } = route.snapshot.params;
         if (!!roleName) {
             vm.searchModel.roleName = roleName as string;
