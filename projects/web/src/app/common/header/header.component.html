@@ -17,5 +17,35 @@
     }
   </nz-breadcrumb>
 </div>
-<div></div>
+<div>
+  @if (account.info | async; as user) {
+    @if (user.id) {
+      <button type="button" nz-button nzType="text"
+        nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="accountMenu">
+        {{account.fullName | async}}
+      </button>
+      <nz-dropdown-menu #accountMenu>
+        <ul nz-menu>
+          @if (nav.accountNodes | async; as accountNodes) {
+            @for (node of accountNodes; track node.id) {
+              <li nz-menu-item [routerLink]="node.url">
+                <svg-icon [iconPath]="node.icon"></svg-icon>
+                {{node.title}}
+              </li>
+            }
+            @if (accountNodes.length > 0) {
+              <li nz-menu-divider></li>
+            }
+          }
+          <li nz-menu-item (click)="logout()">
+            <svg-icon iconPath="bi/door-open"></svg-icon>
+            注销
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    } @else {
+      <a nz-button nzType="link" routerLink="/login">登录</a>
+    }
+  }
+</div>
 
