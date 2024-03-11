@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
+import { UiService } from 'projects/web/src/app/common';
+
 import { TokenService } from '../token.service';
 import { TokenDetailComponent } from '../token-detail/token-detail.component';
 
@@ -14,8 +16,14 @@ export class TokenListComponent {
 
     constructor(
         private drawerService: NzDrawerService,
+        private ui: UiService,
         public vm: TokenService
-    ) { }
+    ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '我的凭证' }
+        ];
+    }
 
     public loadData({
         pageSize = 20,

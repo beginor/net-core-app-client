@@ -7,7 +7,7 @@ import {
 import {
     AccountService, UserInfo, confirmTo
 } from 'app-shared';
-import { UiService } from '../../common';
+import { UiService } from 'projects/web/src/app/common';
 
 @Component({
   selector: 'app-user-info',
@@ -40,6 +40,10 @@ export class UserInfoComponent implements OnInit {
         private ui: UiService,
         @Inject(LOCALE_ID) private localId: string
     ) {
+        ui.breadcrumbs = [
+            { label: '首页', url: '/' },
+            { label: '用户信息' }
+        ];
         this.pwdForm = formBuilder.group({
             currentPassword: formBuilder.control(
                 { value: '', disabled: false },
