@@ -7,8 +7,8 @@
   --app-nav-sidebar-width: 220px;
   --app-nav-sidebar-collapsed-width: 54px;
   --app-nav-sidebar-item-height: 48px;
-  --app-data-list-table-content-max-height: calc(100vh - 184px);
-  --app-organize-unit-tree-max-height: calc(100vh - 190px);
+  --app-data-list-table-content-max-height: calc(100vh - 202px);
+  --app-organize-unit-tree-max-height: calc(100vh - 154px);
 }
 
 /* Styles for BootStrap Icons */
