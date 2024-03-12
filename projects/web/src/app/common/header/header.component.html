@@ -21,7 +21,8 @@
   @if (account.info | async; as user) {
     @if (user.id) {
       <button type="button" nz-button nzType="text"
-        nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="accountMenu">
+        nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="accountMenu" nzTrigger="click">
+        <svg-icon iconPath="bi/person-circle" class="me-1"></svg-icon>
         {{account.fullName | async}}
       </button>
       <nz-dropdown-menu #accountMenu>
