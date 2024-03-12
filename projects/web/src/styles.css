@@ -200,3 +200,7 @@ nz-alert.login-error-alert .ant-alert-content {
   max-height: 100px;
   overflow: auto;
 }
+
+div.ant-message div.ant-message-notice-content span.anticon {
+  vertical-align: 1px !important;
+}
