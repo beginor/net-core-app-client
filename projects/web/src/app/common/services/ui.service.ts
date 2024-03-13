@@ -14,7 +14,7 @@ export class UiService {
         private nzMessage: NzMessageService,
     ) { }
 
-    public siderCollapsed = false;
+    public siderCollapsed = true;
     public siderTheme: ThemeType = 'dark';
     public showSider = true;
     public showHeader = true;

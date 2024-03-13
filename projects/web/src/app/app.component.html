@@ -2,6 +2,7 @@
   @if (ui.showSider) {
     <nz-sider [nzTheme]="ui.siderTheme" [nzWidth]="220"
       nzCollapsible [(nzCollapsed)]="ui.siderCollapsed"
+      nzBreakpoint="xxl"
       [nzTrigger]="null">
       <app-nav-sidebar-antd [collapsed]="ui.siderCollapsed"
         [theme]="ui.siderTheme">

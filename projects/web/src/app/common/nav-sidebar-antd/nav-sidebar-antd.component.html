@@ -21,7 +21,7 @@
             @if (menu.children) {
               <li nz-submenu [nzTitle]="subTitleTpl"
                 [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
-                [nzOpen]="menu.url && router.url.startsWith(menu.url + '/')">
+                [nzOpen]="collapsed ? false : (menu.url && router.url.startsWith(menu.url + '/'))">
                 <ng-template #subTitleTpl>
                   <span title class="d-inline-flex align-items-center">
                     @if (data.level === 1) {
