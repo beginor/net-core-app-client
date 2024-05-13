@@ -3,13 +3,13 @@ import {
     ErrorHandler, LOCALE_ID, inject, ApplicationConfig
 } from '@angular/core';
 import {
-    HTTP_INTERCEPTORS, provideHttpClient, withFetch
+    provideHttpClient, withFetch, withInterceptors,
 } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
 import {
-    ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
+    apiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
     API_ROOT, IS_PRODUCTION,
 } from 'app-shared';
 
@@ -18,13 +18,8 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes),
-        provideHttpClient(withFetch()),
+        provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
         provideAnimations(),
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ApiInterceptor,
-            multi: true
-        },
         {
             provide: LOCALE_ID,
             useValue: 'zh-Hans'

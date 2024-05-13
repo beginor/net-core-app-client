@@ -2,7 +2,7 @@
  * Public API Surface of services
  */
 export * from './lib/auth.guard';
-export * from './lib/api.interceptor';
+export * from './lib/api-interceptor';
 export * from './lib/account.service';
 export * from './lib/validators';
 export * from './lib/http-error.handler';
