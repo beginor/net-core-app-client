@@ -1,8 +1,8 @@
 <mat-list>
-  <mat-list-item>
-    <img mat-list-avatar src="./assets/user.png" alt="User" />
-    <span mat-line [matMenuTriggerFor]="userMenu">{{(accountSvc.info | async)?.userName}}</span>
-    <button mat-icon-button (click)="toggleDrawer()">
+  <mat-list-item class="d-flex align-items-start">
+    <img matListItemAvatar src="./assets/user.png" alt="User" />
+    <div matListItemTitle [matMenuTriggerFor]="userMenu">{{(accountSvc.info | async)?.userName}}</div>
+    <button matListItemMeta mat-icon-button (click)="toggleDrawer()">
       <mat-icon>chevron_left</mat-icon>
     </button>
   </mat-list-item>
@@ -14,7 +14,7 @@
 <mat-nav-list>
   <a mat-list-item *ngFor="let item of vm.menuItems | async"
     (click)="toggleDrawer()" [routerLink]="item.link">
-    <mat-icon class="nav-item-icon">{{item.icon}}</mat-icon>
-    <span>{{item.text}}</span>
+    <mat-icon class="me-3" matListItemIcon>{{item.icon}}</mat-icon>
+    <div>{{item.text}}</div>
   </a>
 </mat-nav-list>

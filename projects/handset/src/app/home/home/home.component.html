@@ -2,29 +2,29 @@
   <button mat-icon-button (click)="toggleDrawer()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>首页</span>
+  <div>首页</div>
 </mat-toolbar>
 
 <div class="page-body">
   <mat-grid-list cols="2" rowHeight="5rem" style="margin-top: 16px;">
     <mat-grid-tile>
-      <mat-card class="left" matBadge="22" matBadgeColor="accent">
-        任务
+      <mat-card class="ms-3" matBadge="22" matBadgeColor="accent">
+        <mat-card-content class="p-3">任务</mat-card-content>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="right" matBadge="4">
-        活动
+      <mat-card class="me-3" matBadge="4">
+        <mat-card-content class="p-3">活动</mat-card-content>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="left" matBadge="4">
-        轨迹
+      <mat-card class="ms-3" matBadge="4" matBadgeColor="warn">
+        <mat-card-content class="p-3">轨迹</mat-card-content>
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="right" matBadge="4">
-        活动
+      <mat-card class="me-3" matBadge="4">
+        <mat-card-content class="p-3">活动</mat-card-content>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
