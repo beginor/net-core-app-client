@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 import { AccountService } from 'app-shared';
 
 import { UiService } from '../services/ui.service';
 import { NavMenuService } from './nav-menu.service';
+import { MatModule } from '../mat/mat.module';
 
 @Component({
     selector: 'app-nav-menu',
+    standalone: true,
+    imports: [
+        CommonModule, RouterModule,
+        MatModule,
+    ],
     templateUrl: './nav-menu.component.html',
     styleUrl: './nav-menu.component.css',
 })

@@ -1,36 +1,25 @@
-import { APP_BASE_HREF, CommonModule } from '@angular/common';
-import { NgModule, ErrorHandler, LOCALE_ID, inject } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
+import {
+    ErrorHandler, LOCALE_ID, inject, ApplicationConfig
+} from '@angular/core';
+import {
+    HTTP_INTERCEPTORS, provideHttpClient, withFetch
+} from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
 import {
-    AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
+    ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
     API_ROOT, IS_PRODUCTION,
 } from 'app-shared';
 
-import { MatModule } from './mat/mat.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { routes } from './app-routing.module';
 
-@NgModule({
-    declarations: [
-        AppComponent,
-        NavMenuComponent
-    ],
-    imports: [
-        BrowserAnimationsModule,
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        AppSharedModule,
-        AppRoutingModule,
-        MatModule
-    ],
+export const appConfig: ApplicationConfig = {
     providers: [
+        provideRouter(routes),
+        provideHttpClient(withFetch()),
+        provideAnimations(),
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ApiInterceptor,
@@ -66,7 +55,5 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
             provide: ErrorHandler,
             useClass: HttpErrorHandler
         },
-    ],
-    bootstrap: [AppComponent]
-})
-export class AppModule { }
+    ]
+};

@@ -1,13 +1,13 @@
-import {inject, NgModule} from '@angular/core';
+import { inject } from '@angular/core';
 import {
-    Routes, RouterModule, Route, UrlSegment, ActivatedRouteSnapshot,
+    Routes, Route, UrlSegment, ActivatedRouteSnapshot,
     RouterStateSnapshot
 } from '@angular/router';
 
-import { AuthGuard, isProd } from 'app-shared';
+import { AuthGuard } from 'app-shared';
 
 /* eslint-disable max-len */
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
         path: 'home',
@@ -46,11 +46,3 @@ const routes: Routes = [
     }
 ];
 /* eslint-enable max-len */
-@NgModule({
-    imports: [RouterModule.forRoot(routes, {
-        useHash: false,
-        enableTracing: isProd()
-    })],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
