@@ -1,10 +1,24 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import {
+    Component, ElementRef, OnInit, ViewChild, inject
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 
+import { SvgIconComponent } from 'app-shared';
+
+import { AntdModule } from '../../antd.module';
 import { StorageService, StorageContent } from '../services/storage.service';
 
 @Component({
     selector: 'app-storage-browser',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ScrollingModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './storage-browser.component.html',
     styleUrl: './storage-browser.component.css',
 })

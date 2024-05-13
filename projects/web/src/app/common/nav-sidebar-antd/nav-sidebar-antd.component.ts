@@ -1,14 +1,25 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
+import { SvgIconComponent } from 'app-shared';
+
+import { AntdModule } from '../../antd.module';
 import {
-    NavigationService} from '../services/navigation.service';
+    NavigationService
+} from '../services/navigation.service';
 
 @Component({
-  selector: 'app-nav-sidebar-antd',
-  standalone: false,
-  templateUrl: './nav-sidebar-antd.component.html',
-  styleUrl: './nav-sidebar-antd.component.css'
+    selector: 'app-nav-sidebar-antd',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
+    templateUrl: './nav-sidebar-antd.component.html',
+    styleUrl: './nav-sidebar-antd.component.css'
 })
 export class NavSidebarAntdComponent {
 

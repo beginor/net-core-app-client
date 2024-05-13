@@ -1,13 +1,16 @@
 import {
     Component, ElementRef, EventEmitter, Input, Output, ViewChild
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import {
     NzButtonType, NzButtonSize, NzButtonShape
 } from 'ng-zorro-antd/button';
 import { NzProgressStatusType } from 'ng-zorro-antd/progress';
 
-import { AccountService, waitFor } from 'app-shared';
-
+import { AccountService, waitFor, SvgIconComponent } from 'app-shared';
+import { AntdModule } from '../../antd.module';
 import {
     AttachmentService,
     AttachmentUploadResultModel
@@ -15,7 +18,13 @@ import {
 
 @Component({
     selector: 'app-attachment-upload',
-    standalone: false,
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './attachment-upload.component.html',
     styleUrl: './attachment-upload.component.css'
 })

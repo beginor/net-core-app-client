@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
+import { AntdModule } from '../../antd.module';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({
     selector: 'app-nav-card',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        AntdModule,
+    ],
     template: `@if (nav.sidebarNodes | async; as nodes) {
       <div class="row g-0">
         @for (node of nodes; track node.id) {
