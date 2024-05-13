@@ -1,10 +1,6 @@
-import { inject } from '@angular/core';
-import {
-    Routes, Route, UrlSegment, ActivatedRouteSnapshot,
-    RouterStateSnapshot
-} from '@angular/router';
+import { Routes } from '@angular/router';
 
-import { AuthGuard } from 'app-shared';
+import { matchAfterAuth, activateAfterAuth } from 'app-shared';
 
 /* eslint-disable max-len */
 export const routes: Routes = [
@@ -12,31 +8,15 @@ export const routes: Routes = [
     {
         path: 'home',
         loadChildren: () => import('./home/home.routes'),
-        canMatch: [
-            (route: Route, segments: UrlSegment[]): Promise<boolean> => {
-                return inject(AuthGuard).canLoad(route, segments);
-            }
-        ],
-        canActivate: [
-            (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> => {
-                return inject(AuthGuard).canActivate(route, state);
-            }
-        ],
+        canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
         data: { },
     },
     {
         path: 'about',
         loadChildren: () => import('./about/about.routes'), // eslint-disable-line max-len
-        canMatch: [
-            (route: Route, segments: UrlSegment[]): Promise<boolean> => {
-                return inject(AuthGuard).canLoad(route, segments);
-            }
-        ],
-        canActivate: [
-            (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> => {
-                return inject(AuthGuard).canActivate(route, state);
-            }
-        ],
+        canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
         data: { }
     },
     {
