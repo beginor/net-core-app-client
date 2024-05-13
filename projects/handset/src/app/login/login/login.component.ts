@@ -1,11 +1,22 @@
 import { Component, ErrorHandler } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AccountService, LoginModel } from 'app-shared';
 
+import { MatModule } from '../../mat/mat.module';
+
 @Component({
     selector: 'app-login',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        MatModule,
+    ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
 })
@@ -32,7 +43,7 @@ export class LoginComponent {
             await this.accountSvc.getInfo();
             let returnUrl = this.route.snapshot.params['returnUrl'] as string;
             if (!returnUrl) {
-                returnUrl = 'home';
+                returnUrl = '/home';
             }
             void this.router.navigate(
                 [`/${returnUrl}`],
@@ -41,7 +52,11 @@ export class LoginComponent {
         }
         catch (ex: any) {
             this.errorHandler.handleError(ex);
-            this.snackBar.open(ex.toString(), '确定', { duration: 3000 });
+            this.snackBar.open(
+                ex.error ?? ex.toString(),
+                '确定',
+                { duration: 3000 }
+            );
         }
         finally {
             this.loading = false;

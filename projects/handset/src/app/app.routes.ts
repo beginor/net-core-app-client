@@ -11,7 +11,7 @@ export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        loadChildren: () => import('./home/home-routing.module'),
         canMatch: [
             (route: Route, segments: UrlSegment[]): Promise<boolean> => {
                 return inject(AuthGuard).canLoad(route, segments);
@@ -41,7 +41,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        loadChildren: () => import('./login/login-routing.module'),
         canMatch: []
     }
 ];

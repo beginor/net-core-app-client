@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 
 import { UiService } from '../../services/ui.service';
+import { MatModule } from '../../mat/mat.module';
 
 @Component({
     selector: 'app-home',
+    standalone: true,
+    imports: [
+        MatModule
+    ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
