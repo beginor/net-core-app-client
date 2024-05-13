@@ -6,6 +6,7 @@ import { EChartsType, EChartsOption, init } from 'echarts';
 import { EchartService } from './echart.service';
 
 @Component({
+    standalone: true,
     selector: 'lib-echart',
     template: '<div class="echart" #echart>App Echart works!</div>',
     styles: [`

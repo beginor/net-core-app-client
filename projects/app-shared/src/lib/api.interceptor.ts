@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
 import { AccountService } from './account.service';
 import { API_ROOT } from './inject-tokens';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ApiInterceptor implements HttpInterceptor {
 
     constructor(

@@ -6,7 +6,9 @@ import { lastValueFrom } from 'rxjs';
 import { AccountService } from './account.service';
 import { API_ROOT, IS_PRODUCTION } from './inject-tokens';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class HttpErrorHandler implements ErrorHandler {
 
     private url: string;
