@@ -11,7 +11,7 @@ export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
         path: 'home',
-        loadChildren: () => import('./home/home-routing.module'),
+        loadChildren: () => import('./home/home.routes'),
         canMatch: [
             (route: Route, segments: UrlSegment[]): Promise<boolean> => {
                 return inject(AuthGuard).canLoad(route, segments);
@@ -26,7 +26,7 @@ export const routes: Routes = [
     },
     {
         path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule), // eslint-disable-line max-len
+        loadChildren: () => import('./about/about.routes'), // eslint-disable-line max-len
         canMatch: [
             (route: Route, segments: UrlSegment[]): Promise<boolean> => {
                 return inject(AuthGuard).canLoad(route, segments);
@@ -41,7 +41,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        loadChildren: () => import('./login/login-routing.module'),
+        loadChildren: () => import('./login/login.routes'),
         canMatch: []
     }
 ];
