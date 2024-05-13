@@ -4,8 +4,7 @@ import zhEx from '@angular/common/locales/extra/zh-Hans';
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
-import { appConfig } from './app/app.module';
-
+import { appConfig } from './app/app.config';
 
 const params = new URLSearchParams(self.location.search);
 const tmpToken = params.get('tmpToken');
