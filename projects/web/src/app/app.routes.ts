@@ -29,7 +29,7 @@ export const routes: Routes = [
     },
     {
         path: 'iframe/:src',
-        loadComponent: () => import('./common/iframe/iframe.component').then(m => m.IframeComponent),
+        loadComponent: () => import('./common').then(m => m.IframeComponent),
         canMatch: []
     },
     {

@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { IframeComponent } from '../common';
-
 import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
@@ -11,8 +9,8 @@ const routes: Routes = [
     },
     {
         path: ':src',
-        component: IframeComponent,
-        canLoad: []
+        loadComponent: () => import('../common').then(m => m.IframeComponent),
+        canMatch: []
     }
 ];
 
