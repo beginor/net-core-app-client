@@ -5,8 +5,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInCalendarDays } from 'date-fns'
 
 import { SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/antd.module';
-import { UiService } from 'projects/web/src/app/common';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 import { AuditLogsService } from '../audit-logs.service';
 

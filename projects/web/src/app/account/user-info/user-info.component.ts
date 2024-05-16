@@ -8,8 +8,7 @@ import {
 import {
     AccountService, SvgIconComponent, UserInfo, confirmTo
 } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
-import { AntdModule } from 'projects/web/src/app/antd.module';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 @Component({
   selector: 'app-user-info',

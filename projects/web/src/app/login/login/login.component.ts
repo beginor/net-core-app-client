@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { AccountService, LoginModel, SvgIconComponent } from 'app-shared';
-import { UiService } from '../../common/'
-import { AntdModule } from '../../antd.module';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-login',

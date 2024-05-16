@@ -10,7 +10,7 @@ import {
 import { NzProgressStatusType } from 'ng-zorro-antd/progress';
 
 import { AccountService, waitFor, SvgIconComponent } from 'app-shared';
-import { AntdModule } from '../../antd.module';
+import { AntdModule } from 'projects/web/src/app/common';
 import {
     AttachmentService,
     AttachmentUploadResultModel

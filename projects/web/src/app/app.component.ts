@@ -2,7 +2,7 @@ import { Component, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AccountService } from 'app-shared';
-import { AntdModule } from './antd.module';
+import { AntdModule } from 'projects/web/src/app/common';
 
 import {
     NavSidebarAntdComponent

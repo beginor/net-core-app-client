@@ -6,9 +6,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { AccountService, SvgIconComponent } from 'app-shared';
 import {
-    StorageBrowserComponent, StorageContent
+    AntdModule, StorageBrowserComponent, StorageContent
 } from 'projects/web/src/app/common';
-import { AntdModule } from 'projects/web/src/app/antd.module';
 import {
     NavItemsService, NavItemModel, MenuOption
 } from '../nav-items.service';

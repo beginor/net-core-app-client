@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { AccountService, EchartComponent } from 'app-shared';
 
-import { AntdModule } from 'projects/web/src/app/antd.module';
 import {
     NavigationService, UiService, NavCardComponent,
+    AntdModule,
 } from 'projects/web/src/app/common';
 
 @Component({

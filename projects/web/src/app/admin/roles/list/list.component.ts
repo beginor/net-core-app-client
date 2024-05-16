@@ -6,8 +6,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AccountService, SvgIconComponent } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
-import { AntdModule } from 'projects/web/src/app/antd.module';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 import { RolesService, AppRoleModel } from '../roles.service';
 import { DetailComponent } from '../detail/detail.component';

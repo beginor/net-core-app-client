@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AntdModule } from 'projects/web/src/app/antd.module';
 import { SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/common';
 
 import { RolesService } from '../roles.service';
 

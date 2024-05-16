@@ -5,8 +5,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { SvgIconComponent } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
-import { AntdModule } from 'projects/web/src/app/antd.module';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 import { TokenService } from '../token.service';
 import { TokenDetailComponent } from '../token-detail/token-detail.component';

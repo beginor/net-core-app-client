@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/antd.module';
+import { AntdModule } from 'projects/web/src/app/common';
 
 import { RolesService, AppRoleModel } from '../roles.service';
 

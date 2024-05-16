@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { AntdModule } from '../../antd.module';
+import { AntdModule } from 'projects/web/src/app/common';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({

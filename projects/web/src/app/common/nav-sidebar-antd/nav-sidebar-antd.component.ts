@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 import { SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/common';
 
-import { AntdModule } from '../../antd.module';
 import {
     NavigationService
 } from '../services/navigation.service';

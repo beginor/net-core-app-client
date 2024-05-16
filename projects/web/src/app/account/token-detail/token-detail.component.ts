@@ -9,8 +9,7 @@ import {
     AppPrivilege,
     SvgIconComponent
 } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
-import { AntdModule } from 'projects/web/src/app/antd.module';
+import { UiService, AntdModule } from 'projects/web/src/app/common';
 
 import { TokenService } from '../token.service';
 

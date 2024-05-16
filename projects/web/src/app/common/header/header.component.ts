@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 import { AccountService, SvgIconComponent } from 'app-shared';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
-import { AntdModule } from '../../antd.module';
-import { UiService } from '../services/ui.service';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({

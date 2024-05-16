@@ -6,8 +6,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 
 import { SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/common';
 
-import { AntdModule } from '../../antd.module';
 import { StorageService, StorageContent } from '../services/storage.service';
 
 @Component({
