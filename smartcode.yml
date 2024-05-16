@@ -61,24 +61,6 @@ TableFilter:
   IgnoreView: true
 
 Build:
-  Module:
-    Type: Table
-    Module: Data
-    TemplateEngine:
-      Path: Module.cshtml
-    Output:
-      Path: '{{Items.CurrentTable.ConvertedName}}'
-      Name: '{{Items.CurrentTable.ConvertedName}}.module'
-      Extension: '.ts'
-  ModuleRouting:
-    Type: Table
-    Module: Data
-    TemplateEngine:
-      Path: Module.Routing.cshtml
-    Output:
-      Path: '{{Items.CurrentTable.ConvertedName}}'
-      Name: '{{Items.CurrentTable.ConvertedName}}-routing.module'
-      Extension: '.ts'
   Service:
     Type: Table
     Module: Data
