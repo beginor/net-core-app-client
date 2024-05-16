@@ -1,10 +1,22 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { AccountService } from 'app-shared';
-import { NavigationService, UiService } from 'projects/web/src/app/common';
+import { AccountService, EchartComponent } from 'app-shared';
+
+import { AntdModule } from 'projects/web/src/app/antd.module';
+import {
+    NavigationService, UiService, NavCardComponent,
+} from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-admin-dashboard',
+    standalone: true,
+    imports: [
+        CommonModule,
+        EchartComponent,
+        AntdModule,
+        NavCardComponent,
+    ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
 })

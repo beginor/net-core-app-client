@@ -1,42 +1,28 @@
-import { CommonModule, APP_BASE_HREF } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, LOCALE_ID, ErrorHandler, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_BASE_HREF } from '@angular/common';
+import {
+    ErrorHandler, LOCALE_ID, inject, ApplicationConfig
+} from '@angular/core';
+import {
+    provideHttpClient, withFetch, withInterceptors,
+} from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { provideNzI18n, zh_CN } from 'ng-zorro-antd/i18n';
 
 import {
-    AppSharedModule, ApiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
+    apiInterceptor, HttpErrorHandler, isProd, CONTEXT_ROOT,
     API_ROOT, IS_PRODUCTION
 } from 'app-shared';
-import { AntdModule } from './antd.module';
-import { AppCommonModule } from './common';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { routes } from './app.routes';
 
-@NgModule({
-    declarations: [
-        AppComponent,
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        FormsModule,
-        HttpClientModule,
-        AntdModule,
-        AppSharedModule,
-        AppCommonModule,
-        AppRoutingModule
-    ],
+export const appConfig: ApplicationConfig = {
     providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ApiInterceptor,
-            multi: true
-        },
+        provideRouter(routes),
+        provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
+        provideAnimations(),
         {
             provide: LOCALE_ID,
             useValue: 'zh-Hans'
@@ -68,7 +54,13 @@ import { AppComponent } from './app.component';
             useClass: HttpErrorHandler
         },
         provideNzI18n(zh_CN),
-    ],
-    bootstrap: [AppComponent]
-})
-export class AppModule {}
+        {
+            provide: NzModalService,
+            useClass: NzModalService,
+        },
+        {
+            provide: NzMessageService,
+            useClass: NzMessageService,
+        }
+    ]
+};

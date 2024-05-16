@@ -1,13 +1,22 @@
 import { Component, ErrorHandler, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 
-import { AccountService, LoginModel } from 'app-shared';
+import { AccountService, LoginModel, SvgIconComponent } from 'app-shared';
 import { UiService } from '../../common/'
+import { AntdModule } from '../../antd.module';
 
 @Component({
     selector: 'app-login',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
 })

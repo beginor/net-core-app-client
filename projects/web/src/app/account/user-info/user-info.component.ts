@@ -1,16 +1,26 @@
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import {
-    FormGroup, Validators, FormBuilder, FormControl
+    FormGroup, Validators, FormBuilder, FormControl, ReactiveFormsModule,
+    FormsModule
 } from '@angular/forms';
 
 import {
-    AccountService, UserInfo, confirmTo
+    AccountService, SvgIconComponent, UserInfo, confirmTo
 } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 
 @Component({
   selector: 'app-user-info',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AntdModule,
+    SvgIconComponent,
+  ],
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.css',
 })

@@ -1,16 +1,27 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
-    FormGroup, FormControl, Validators
+    FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators
 } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import {
-    AccountService, confirmTo
+    AccountService, confirmTo, SvgIconComponent
 } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/antd.module';
+
 import { UsersService } from '../users.service';
 
 @Component({
     selector: 'app-user-password',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './password.component.html',
     styleUrl: './password.component.css',
 })

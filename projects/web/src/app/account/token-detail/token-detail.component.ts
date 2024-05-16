@@ -1,18 +1,28 @@
 import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { differenceInCalendarDays} from 'date-fns';
 
 import {
     AccountService, UserTokenModel, AppRole,
-    AppPrivilege
+    AppPrivilege,
+    SvgIconComponent
 } from 'app-shared';
-import { TokenService } from '../token.service';
-import { UiService } from '../../common';
+import { UiService } from 'projects/web/src/app/common';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 
+import { TokenService } from '../token.service';
 
 @Component({
     selector: 'app-token-detail',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './token-detail.component.html',
     styleUrl: './token-detail.component.css',
 })

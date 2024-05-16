@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 
 import {
     AppStorageService, AppStorageModel
@@ -9,6 +12,13 @@ import {
 
 @Component({
     selector: 'app-storage-detail',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',
 })

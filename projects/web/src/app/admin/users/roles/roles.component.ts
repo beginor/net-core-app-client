@@ -1,11 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/antd.module';
+
 import { UsersService } from '../users.service';
 
 @Component({
     selector: 'app-user-roles',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './roles.component.html',
     styleUrl: './roles.component.css',
 })

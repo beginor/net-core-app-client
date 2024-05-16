@@ -1,16 +1,26 @@
 ﻿import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInCalendarDays } from 'date-fns';
 
-import { AccountService } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 
 import { AppLogService } from '../logs.service';
 import { DetailComponent } from '../detail/detail.component';
 
 @Component({
     selector: 'app-log-list',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })

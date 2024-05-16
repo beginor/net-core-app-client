@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { AccountService } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
+import {
+    StorageBrowserComponent, StorageContent
+} from 'projects/web/src/app/common';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 import {
     NavItemsService, NavItemModel, MenuOption
 } from '../nav-items.service';
-import { StorageBrowserComponent, StorageContent } from '../../../common';
 
 @Component({
     selector: 'app-nav-item-detail',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',
 })

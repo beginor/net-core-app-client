@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { IframeComponent } from '../common';
 
@@ -17,8 +16,4 @@ const routes: Routes = [
     }
 ];
 
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AboutRoutingModule { }
+export default routes;

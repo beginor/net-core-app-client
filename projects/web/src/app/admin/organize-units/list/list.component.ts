@@ -1,8 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
-import { AccountService } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 
 import {
     AppOrganizeUnitModel,
@@ -17,6 +20,13 @@ export interface TreeNodeInterface extends AppOrganizeUnitModel {
 
 @Component({
     selector: 'app-organize-unit-list',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })

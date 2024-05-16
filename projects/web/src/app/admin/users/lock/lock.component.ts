@@ -1,12 +1,26 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {
+    FormGroup, FormControl, Validators, FormsModule,
+    ReactiveFormsModule
+} from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/antd.module';
+
 import { UsersService } from '../users.service';
 
 @Component({
     selector: 'app-user-lock',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './lock.component.html',
     styleUrl: './lock.component.css',
 })

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+
 import { UserInfoComponent } from './user-info/user-info.component';
 import { TokenListComponent } from './token-list/token-list.component';
 import { TokenDetailComponent } from './token-detail/token-detail.component';
@@ -16,8 +16,4 @@ const routes: Routes = [
     },
 ];
 
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
-})
-export class AccountRoutingModule { }
+export default routes;

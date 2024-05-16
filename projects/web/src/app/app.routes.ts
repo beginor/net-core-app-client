@@ -1,52 +1,32 @@
-import { inject, NgModule } from '@angular/core';
-import {
-    ActivatedRouteSnapshot, Route, RouterModule, RouterStateSnapshot, Routes,
-    UrlSegment
-} from '@angular/router';
+import { Routes } from '@angular/router';
 
-import { AuthGuard, isProd } from 'app-shared';
+import { matchAfterAuth, activateAfterAuth } from 'app-shared';
 
-import { IframeComponent } from './common';
+import { IframeComponent } from './common/iframe/iframe.component';
 
 /* eslint-disable max-len */
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
         path: 'home',
-        loadChildren: () => import('./home/home.module'),
-        canMatch: [],
+        loadChildren: () => import('./home/home.routes'),
+        canMatch: [matchAfterAuth],
     },
     {
         path: 'about',
-        loadChildren: () => import('./about/about.module'),
-        canMatch: [
-            (route: Route, segments: UrlSegment[]): Promise<boolean> => {
-                return inject(AuthGuard).canLoad(route, segments);
-            }
-        ],
-        canActivate: [
-            (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> => {
-                return inject(AuthGuard).canActivate(route, state);
-            }
-        ],
+        loadChildren: () => import('./about/about.routes'),
+        canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
     },
     {
         path: 'admin',
-        loadChildren: () => import('./admin/admin.module'),
-        canMatch: [
-            (route: Route, segments: UrlSegment[]): Promise<boolean> => {
-                return inject(AuthGuard).canLoad(route, segments);
-            }
-        ],
-        canActivate: [
-            (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> => {
-                return inject(AuthGuard).canActivate(route, state);
-            }
-        ]
+        loadChildren: () => import('./admin/admin.routes'),
+        canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
     },
     {
         path: 'login',
-        loadChildren: () => import('./login/login.module'),
+        loadChildren: () => import('./login/login.routes'),
         canMatch: []
     },
     {
@@ -56,22 +36,8 @@ const routes: Routes = [
     },
     {
         path: 'account',
-        loadChildren: () => import('./account/account.module'),
-        canMatch: [
-            (route: Route, segments: UrlSegment[]): Promise<boolean> => {
-                return inject(AuthGuard).canLoad(route, segments);
-            }
-        ],
+        loadChildren: () => import('./account/account.routes'),
+        canMatch: [matchAfterAuth],
     }
 ];
 /* eslint-enable max-len */
-@NgModule({
-    imports: [
-        RouterModule.forRoot(
-            routes,
-            { useHash: false, enableTracing: isProd() }
-        )
-    ],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }

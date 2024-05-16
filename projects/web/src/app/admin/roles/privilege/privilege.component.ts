@@ -1,10 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+
+import { AntdModule } from 'projects/web/src/app/antd.module';
+import { SvgIconComponent } from 'app-shared';
 
 import { RolesService } from '../roles.service';
 
 @Component({
     selector: 'app-role-privilege',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './privilege.component.html',
     styleUrl: './privilege.component.css',
 })

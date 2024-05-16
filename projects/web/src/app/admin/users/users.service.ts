@@ -5,6 +5,7 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
 import { Base64UrlService, API_ROOT } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
+
 import { RolesService, AppRoleModel } from '../roles/roles.service';
 
 @Injectable({

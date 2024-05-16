@@ -1,12 +1,24 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInCalendarDays } from 'date-fns'
 
+import { SvgIconComponent } from 'app-shared';
+import { AntdModule } from 'projects/web/src/app/antd.module';
 import { UiService } from 'projects/web/src/app/common';
+
 import { AuditLogsService } from '../audit-logs.service';
 
 @Component({
     selector: 'app-audits-list',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
