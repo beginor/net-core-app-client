@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 
 import { matchAfterAuth, activateAfterAuth } from 'app-shared';
 
-import { IframeComponent } from './common/iframe/iframe.component';
-
 /* eslint-disable max-len */
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,7 +29,7 @@ export const routes: Routes = [
     },
     {
         path: 'iframe/:src',
-        component: IframeComponent,
+        loadComponent: () => import('./common/iframe/iframe.component').then(m => m.IframeComponent),
         canMatch: []
     },
     {
