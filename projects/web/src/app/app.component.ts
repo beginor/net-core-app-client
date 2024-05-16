@@ -1,15 +1,12 @@
 import { Component, ErrorHandler } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NavigationError, Router, RouterModule } from '@angular/router';
+import { first } from 'rxjs';
 
 import { AccountService } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
-
 import {
-    NavSidebarAntdComponent
-} from './common/nav-sidebar-antd/nav-sidebar-antd.component';
-import { HeaderComponent } from './common/header/header.component';
-import { UiService } from './common/services/ui.service';
-import { NavigationService } from './common/services/navigation.service';
+    AntdModule, NavSidebarAntdComponent, HeaderComponent, UiService,
+    NavigationService
+ } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +27,14 @@ export class AppComponent {
         public ui: UiService,
         public navigation: NavigationService,
         errorHandler: ErrorHandler,
+        router: Router,
     ) {
+        router.events
+            .pipe(first(e => e instanceof NavigationError))
+            .subscribe((e) => {
+                const ne = e as NavigationError;
+                void router.navigate(['/login', { returnUrl: ne.url }]);
+            })
         account.getInfo().catch(ex => {
             errorHandler.handleError(ex);
         });
