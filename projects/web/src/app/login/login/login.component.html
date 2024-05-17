@@ -24,7 +24,7 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <button nz-button nzType="primary" nzSize="large"
+            <button nz-button nzType="primary" nzSize="large" nzBlock
               [disabled]="(!loginForm.valid) || loading"
               type="button" (click)="login()">
               @if (loading) {
