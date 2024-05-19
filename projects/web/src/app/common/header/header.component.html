@@ -6,15 +6,13 @@
 }
 <div class="flex-grow-1">
   <nz-breadcrumb>
-    @for (item of ui.breadcrumbs; track item.url) {
-      <nz-breadcrumb-item>
-        @if (item.url) {
-          <a [routerLink]="item.url">{{item.label}}</a>
-        } @else {
-          {{item.label}}
-        }
-      </nz-breadcrumb-item>
-    }
+    <nz-breadcrumb-item *ngFor="let item of ui.breadcrumbs">
+      @if (item.url) {
+        <a [routerLink]="item.url">{{item.label}}</a>
+      } @else {
+        {{item.label}}
+      }
+    </nz-breadcrumb-item>
   </nz-breadcrumb>
 </div>
 <div>
