@@ -1,5 +1,5 @@
 import {
-    Component, ElementRef, OnInit, ViewChild, inject
+    Component, ElementRef, Inject, OnInit, ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -24,9 +24,7 @@ import { StorageService, StorageContent } from '../services/storage.service';
 })
 export class StorageBrowserComponent implements OnInit {
 
-    public title?: string = '选择图标';
-    public params = inject<StorageContent>(NZ_MODAL_DATA);
-
+    public title = this.params.title;
     public filteredItems: FolderItem[] = [];
     private allItems: FolderItem[] = [];
     public selectedItem?: FolderItem;
@@ -38,6 +36,7 @@ export class StorageBrowserComponent implements OnInit {
 
     constructor(
         public modal: NzModalRef,
+        @Inject(NZ_MODAL_DATA) public params: StorageContent,
         private service: StorageService
     ) { }
 

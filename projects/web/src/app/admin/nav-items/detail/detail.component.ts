@@ -114,6 +114,7 @@ export class DetailComponent implements OnInit {
             nzTitle: undefined,
             nzFooter: null,
             nzData: {
+                title: '选择图标',
                 alias: 'icons',
                 path: '/',
                 filter: '*.svg'

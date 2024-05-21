@@ -43,6 +43,7 @@ export class StorageService {
 }
 
 export interface StorageContent {
+    title: string;
     alias: string;
     path: string;
     filter?: string;
