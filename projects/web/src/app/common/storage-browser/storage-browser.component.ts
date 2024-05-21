@@ -107,6 +107,10 @@ export class StorageBrowserComponent implements OnInit {
         this.modal.close(path);
     }
 
+    public cancel(): void {
+        this.modal.close();
+    }
+
     public search(e: KeyboardEvent): void {
         const input = e.target as HTMLInputElement;
         const filter = input.value;
