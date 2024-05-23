@@ -108,7 +108,7 @@ export class DetailComponent implements OnInit {
             string
         >({
             nzClosable: false,
-            nzWidth: '1056',
+            nzWidth: '1056px',
             nzBodyStyle: { padding: '0' },
             nzContent: StorageBrowserComponent,
             nzTitle: undefined,
