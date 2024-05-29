@@ -82,27 +82,28 @@
     </nz-form-item>
     <nz-form-item>
       <nz-form-label>允许的 url 地址 </nz-form-label>
-      <div class="mx-2">
-        <nz-input-group class="mb-1" [nzAddOnAfter]="addUrlBtnTpl">
+      <nz-form-control>
+        <nz-input-group class="mb-1" [nzAddOnAfter]="addUrlBtnTpl" nzSearch>
           <input type="text" nz-input id="newUrl" name="newUrl"
-            placeholder="http:// ..."
-            #newUrl
-          />
+            placeholder="http:// ..." (keyup.enter)="addTokenUrl(newUrl)"
+            #newUrl />
           <ng-template #addUrlBtnTpl>
-            <svg-icon class="clickable" iconPath="bi/plus"
-              (click)="addTokenUrl(newUrl)"
-            />
+            <button class="px-2" type="button" nz-button nzType="default"
+              (click)="addTokenUrl(newUrl)">
+              <svg-icon iconPath="bi/plus" />
+            </button>
           </ng-template>
         </nz-input-group>
-        <nz-input-group class="mb-1" *ngFor="let url of tokenUrls" [nzAddOnAfter]="delUrlTpl">
+        <nz-input-group class="mb-1" *ngFor="let url of tokenUrls" [nzAddOnAfter]="delUrlTpl" nzSearch>
           <input type="text" nz-input readonly [value]="url" />
           <ng-template #delUrlTpl>
-            <svg-icon class="clickable" iconPath="bi/x"
-              (click)="removeTokenUrl(url)"
-            />
+            <button class="px-2" type="button" nz-button nzType="default"
+              (click)="removeTokenUrl(url)" nz-tooltip="点击删除这个地址">
+              <svg-icon class="clickable" iconPath="bi/x" />
+            </button>
           </ng-template>
         </nz-input-group>
-      </div>
+      </nz-form-control>
     </nz-form-item>
   </form>
   <ng-template #okTpl>
