@@ -24,7 +24,7 @@ import { StorageService, StorageContent } from '../services/storage.service';
 })
 export class StorageBrowserComponent implements OnInit {
 
-    public title = this.params.title;
+    public title: string;
     public filteredItems: FolderItem[] = [];
     private allItems: FolderItem[] = [];
     public selectedItem?: FolderItem;
@@ -38,7 +38,9 @@ export class StorageBrowserComponent implements OnInit {
         public modal: NzModalRef,
         @Inject(NZ_MODAL_DATA) public params: StorageContent,
         private service: StorageService
-    ) { }
+    ) {
+        this.title = this.params.title;
+    }
 
     public async ngOnInit(): Promise<void> {
         await this.loadData();

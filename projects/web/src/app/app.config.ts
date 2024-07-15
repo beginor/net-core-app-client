@@ -1,6 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import {
-    ErrorHandler, LOCALE_ID, inject, ApplicationConfig
+    ErrorHandler, LOCALE_ID, inject, ApplicationConfig, provideZoneChangeDetection
 } from '@angular/core';
 import {
     provideHttpClient, withFetch, withInterceptors,
@@ -20,6 +20,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
         provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
         provideAnimations(),

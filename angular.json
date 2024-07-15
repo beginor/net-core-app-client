@@ -106,12 +106,15 @@
             "browser": "projects/handset/src/main.ts",
             "polyfills": [
               "zone.js",
+              "@angular/localize/init",
               "projects/handset/src/polyfills.ts"
             ],
             "tsConfig": "projects/handset/tsconfig.app.json",
             "assets": [
-              "projects/handset/src/favicon.ico",
-              "projects/handset/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/handset/public"
+              },
               {
                 "input": "node_modules/bootstrap-icons/icons",
                 "glob": "*.svg",
@@ -148,13 +151,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2KB",
+                  "maximumError": "4KB"
                 }
               ],
               "outputHashing": "all"
@@ -184,10 +187,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "handset:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         }
       }
     },
@@ -232,12 +232,15 @@
             "browser": "projects/web/src/main.ts",
             "polyfills": [
               "zone.js",
+              "@angular/localize/init",
               "projects/web/src/polyfills.ts"
             ],
             "tsConfig": "projects/web/tsconfig.app.json",
             "assets": [
-              "projects/web/src/favicon.ico",
-              "projects/web/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/web/public"
+              },
               {
                 "input": "node_modules/bootstrap-icons/icons",
                 "glob": "*.svg",
@@ -274,13 +277,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "5MB",
+                  "maximumError": "10MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2KB",
+                  "maximumError": "4KB"
                 }
               ],
               "outputHashing": "all"
@@ -310,10 +313,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "web:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         }
       }
     }
