@@ -44,7 +44,6 @@
     "@angular/localize": "^18.1.0",
     "bootstrap": "~5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "@popperjs/core": "^2.11.8",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@angular/cdk": "^18.1.0",
     "@angular/material": "^18.1.0",
