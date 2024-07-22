@@ -6,13 +6,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "ng": "ng",
-    "build": "pnpm run build-shared && pnpm run build-web && pnpm run build-handset",
-    "build-shared": "ng build app-shared --configuration production",
-    "build-web": "ng build web --configuration production",
-    "build-handset": "ng build handset --configuration production",
-    "start": "pnpm run serve-web",
-    "serve-web": "ng serve web",
-    "serve-handset": "ng serve handset"
+    "start": "ng serve",
+    "build": "ng build"
   },
   "repository": {
     "type": "git",
