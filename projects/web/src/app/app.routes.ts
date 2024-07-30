@@ -7,35 +7,35 @@ export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
         path: 'home',
-        loadChildren: () => import('./home/home.routes'),
+        loadComponent: () => import('./home/home/home.component').then(m => m.HomeComponent),
         canMatch: [matchAfterAuth],
     },
     {
         path: 'about',
-        loadChildren: () => import('./about/about.routes'),
+        loadComponent: () => import('./about/about/about.component').then(m => m.AboutComponent),
         canMatch: [matchAfterAuth],
         canActivate: [activateAfterAuth],
     },
     {
-        path: 'admin',
-        loadChildren: () => import('./admin/admin.routes'),
-        canMatch: [matchAfterAuth],
-        canActivate: [activateAfterAuth],
-    },
-    {
-        path: 'login',
-        loadChildren: () => import('./login/login.routes'),
+        path: 'about/:src',
+        loadComponent: () => import('./common').then(m => m.IframeComponent),
         canMatch: []
     },
     {
-        path: 'iframe/:src',
-        loadComponent: () => import('./common').then(m => m.IframeComponent),
+        path: 'login',
+        loadComponent: () => import('./login/login/login.component').then(m => m.LoginComponent),
         canMatch: []
     },
     {
         path: 'account',
         loadChildren: () => import('./account/account.routes'),
         canMatch: [matchAfterAuth],
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.routes'),
+        canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
     }
 ];
 /* eslint-enable max-len */
