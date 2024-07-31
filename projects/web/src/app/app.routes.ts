@@ -9,6 +9,7 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () => import('./home/home/home.component').then(m => m.HomeComponent),
         canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
     },
     {
         path: 'about',
@@ -19,17 +20,18 @@ export const routes: Routes = [
     {
         path: 'about/:src',
         loadComponent: () => import('./common').then(m => m.IframeComponent),
-        canMatch: []
+        canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
     },
     {
         path: 'login',
         loadComponent: () => import('./login/login/login.component').then(m => m.LoginComponent),
-        canMatch: []
     },
     {
         path: 'account',
         loadChildren: () => import('./account/account.routes'),
         canMatch: [matchAfterAuth],
+        canActivate: [activateAfterAuth],
     },
     {
         path: 'admin',
