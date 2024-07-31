@@ -58,7 +58,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let token of vm.tokens;let i = index;">
-          <th scope="row" class="text-end text-muted">{{i+1}}</th>
+          <th scope="row" class="text-end">{{i+1}}</th>
           <td class='text-start'>{{token.name}}</td>
           <td class='text-center'>{{token.value}}</td>
           <td class='text-end'>{{token.privileges?.length}}</td>

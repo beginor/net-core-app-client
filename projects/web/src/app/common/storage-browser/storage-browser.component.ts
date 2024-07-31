@@ -76,7 +76,7 @@ export class StorageBrowserComponent implements OnInit {
         if (item.type === 'file' && item.ext === 'svg') {
             return 'text-info';
         }
-        return 'text-muted';
+        return '';
     }
 
     public getFolderItemIconPath(item: FolderItem): string {

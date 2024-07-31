@@ -123,7 +123,7 @@ export class AppLogService {
         if (level === 'FATAL') {
             return 'text-danger';
         }
-        return 'text-muted';
+        return '';
     }
 
 }
