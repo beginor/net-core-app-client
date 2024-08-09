@@ -1,16 +1,16 @@
 <nz-layout class="app-main">
-  @if (ui.showSider) {
-    <nz-sider [nzTheme]="ui.siderTheme" nzWidth="var(--app-nav-sidebar-width)"
+  @if (ui.showSider()) {
+    <nz-sider [nzTheme]="ui.siderTheme()" nzWidth="var(--app-nav-sidebar-width)"
       nzCollapsible [(nzCollapsed)]="ui.siderCollapsed"
       nzBreakpoint="xxl"
       [nzTrigger]="null">
-      <app-nav-sidebar-antd [collapsed]="ui.siderCollapsed"
-        [theme]="ui.siderTheme">
+      <app-nav-sidebar-antd [collapsed]="ui.siderCollapsed()"
+        [theme]="ui.siderTheme()">
       </app-nav-sidebar-antd>
     </nz-sider>
   }
   <nz-layout>
-    @if (ui.showHeader) {
+    @if (ui.showHeader()) {
       <nz-header class="layout-header mb-3">
         <app-header></app-header>
       </nz-header>

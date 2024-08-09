@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UiService } from 'projects/web/src/app/common';
@@ -13,15 +13,17 @@ import { HomeService } from './home.service';
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
     constructor(
-        public ui: UiService,
-        public vm: HomeService,
-    ) {
-        ui.breadcrumbs = [
+        private ui: UiService,
+        protected vm: HomeService,
+    ) {}
+
+    public ngOnInit(): void {
+        this.ui.breadcrumbs.set([
             { label: '首页' }
-        ];
+        ]);
     }
 
 }

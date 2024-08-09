@@ -1,6 +1,7 @@
 import { APP_BASE_HREF } from '@angular/common';
 import {
-    ErrorHandler, LOCALE_ID, inject, ApplicationConfig, provideZoneChangeDetection
+    ErrorHandler, LOCALE_ID, inject, ApplicationConfig,
+    provideZoneChangeDetection
 } from '@angular/core';
 import {
     provideHttpClient, withFetch, withInterceptors,

@@ -42,11 +42,6 @@ export class ListComponent implements OnInit {
         public vm: UsersService,
         public organizeUnitSvc: OrganizeUnitService,
     ) {
-        ui.breadcrumbs = [
-            { label: '首页', url: '/' },
-            { label: '管理', url: '/admin' },
-            { label: '用户管理' }
-        ];
         const { roleName } = route.snapshot.params;
         if (!!roleName) {
             vm.searchModel.roleName = roleName as string;
@@ -57,6 +52,11 @@ export class ListComponent implements OnInit {
     }
 
     public async ngOnInit(): Promise<void> {
+        this.ui.breadcrumbs.set([
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin/dashboard' },
+            { label: '用户管理' }
+        ]);
         this.vm.searchModel.organizeUnitId = '';
         await this.loadOrganizeUnit();
     }

@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     public loading = false;
     public message = new Subject<string | undefined>();
 
+    private siderShown = false;
+    private headerShown = false;
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -34,13 +37,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        this.ui.showSider = false;
-        this.ui.showHeader = false;
+        this.siderShown = this.ui.showSider();
+        this.headerShown = this.ui.showHeader();
+        this.ui.showHeader.set(false);
+        this.ui.showSider.set(false);
     }
 
     public ngOnDestroy(): void {
-        this.ui.showSider = true;
-        this.ui.showHeader = true;
+        this.ui.showSider.set(this.siderShown);
+        this.ui.showHeader.set(this.headerShown);
     }
 
     public async login(): Promise<void> {

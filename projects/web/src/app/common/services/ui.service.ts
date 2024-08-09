@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+
 import { ThemeType } from '../nav-sidebar-antd/nav-sidebar-antd.component';
 
 @Injectable({
@@ -14,11 +15,11 @@ export class UiService {
         private nzMessage: NzMessageService,
     ) { }
 
-    public siderCollapsed = true;
-    public siderTheme: ThemeType = 'dark';
-    public showSider = true;
-    public showHeader = true;
-    public breadcrumbs: Breadcrumb[] = [];
+    public siderCollapsed = signal(true);
+    public siderTheme = signal<ThemeType>('dark');
+    public showSider = signal(true);
+    public showHeader = signal(true);
+    public breadcrumbs = signal<Breadcrumb[]>([]);
 
     public showAlert(alert: Alert): void {
         const option = {
@@ -57,7 +58,7 @@ export class UiService {
     }
 
     public toggleSider(): void {
-        this.siderCollapsed = !this.siderCollapsed;
+        this.siderCollapsed.update(collapsed => !collapsed);
     }
 }
 

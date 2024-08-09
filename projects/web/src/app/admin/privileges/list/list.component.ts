@@ -26,18 +26,17 @@ export class ListComponent implements OnInit {
 
     constructor(
         private drawerService: NzDrawerService,
+        private ui: UiService,
         public account: AccountService,
-        public ui: UiService,
         public vm: AppPrivilegeService
-    ) {
-        ui.breadcrumbs = [
-            { label: '首页', url: '/' },
-            { label: '管理', url: '/admin' },
-            { label: '权限管理' }
-        ];
-    }
+    ) { }
 
     public async ngOnInit(): Promise<void> {
+        this.ui.breadcrumbs.set([
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin/dashboard' },
+            { label: '权限管理' }
+        ]);
         await this.vm.getModules();
     }
 

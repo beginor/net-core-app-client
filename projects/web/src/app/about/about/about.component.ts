@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UiService } from 'projects/web/src/app/common';
@@ -12,15 +12,17 @@ import { UiService } from 'projects/web/src/app/common';
     templateUrl: './about.component.html',
     styleUrl: './about.component.css',
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit {
 
     constructor(
         private ui: UiService,
-    ) {
-        ui.breadcrumbs = [
+    ) { }
+
+    public ngOnInit(): void {
+        this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
             { label: '关于' }
-        ];
+        ]);
     }
 
 }

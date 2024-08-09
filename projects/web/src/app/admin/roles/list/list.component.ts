@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -25,19 +25,21 @@ import { PrivilegeComponent } from '../privilege/privilege.component';
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
-export class ListComponent implements OnDestroy {
+export class ListComponent implements OnInit, OnDestroy {
 
     constructor(
         private drawerService: NzDrawerService,
+        private ui: UiService,
         public account: AccountService,
-        public ui: UiService,
         public vm: RolesService
-    ) {
-        ui.breadcrumbs = [
+    ) { }
+
+    public ngOnInit(): void {
+        this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
-            { label: '管理', url: '/admin' },
+            { label: '管理', url: '/admin/dashboard' },
             { label: '角色管理' }
-        ];
+        ]);
     }
 
     public ngOnDestroy(): void {

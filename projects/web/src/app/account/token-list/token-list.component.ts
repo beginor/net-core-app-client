@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -22,17 +22,19 @@ import { TokenDetailComponent } from '../token-detail/token-detail.component';
     templateUrl: './token-list.component.html',
     styleUrl: './token-list.component.css',
 })
-export class TokenListComponent {
+export class TokenListComponent implements OnInit {
 
     constructor(
         private drawerService: NzDrawerService,
         private ui: UiService,
         public vm: TokenService
-    ) {
-        ui.breadcrumbs = [
+    ) { }
+
+    public ngOnInit(): void {
+        this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
             { label: '我的凭证' }
-        ];
+        ]);
     }
 
     public loadData({

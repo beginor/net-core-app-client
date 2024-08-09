@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -22,19 +22,21 @@ import { DetailComponent } from '../detail/detail.component';
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
 
     constructor(
         private drawerService: NzDrawerService,
         public account: AccountService,
-        public ui: UiService,
+        private ui: UiService,
         public vm: AppStorageService
-    ) {
-        ui.breadcrumbs = [
+    ) { }
+
+    public ngOnInit(): void {
+        this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
-            { label: '管理', url: '/admin' },
+            { label: '管理', url: '/admin/dashboard' },
             { label: '存储管理' }
-        ];
+        ]);
     }
 
     public loadData({

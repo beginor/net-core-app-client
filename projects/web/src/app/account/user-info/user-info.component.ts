@@ -45,14 +45,10 @@ export class UserInfoComponent implements OnInit {
 
     constructor(
         formBuilder: FormBuilder,
-        public account: AccountService,
         private ui: UiService,
+        public account: AccountService,
         @Inject(LOCALE_ID) private localId: string
     ) {
-        ui.breadcrumbs = [
-            { label: '首页', url: '/' },
-            { label: '用户信息' }
-        ];
         this.pwdForm = formBuilder.group({
             currentPassword: formBuilder.control(
                 { value: '', disabled: false },
@@ -70,6 +66,10 @@ export class UserInfoComponent implements OnInit {
     }
 
     public async ngOnInit(): Promise<void> {
+        this.ui.breadcrumbs.set([
+            { label: '首页', url: '/' },
+            { label: '用户信息' }
+        ]);
         try {
             this.loading = true;
             this.loadingMessage = '正在加载用户信息 ...';

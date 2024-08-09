@@ -31,20 +31,26 @@ export interface TreeNodeInterface extends AppOrganizeUnitModel {
 })
 export class ListComponent implements OnInit {
 
+    public listData: TreeNodeInterface[] = [];
+
     constructor(
         private drawerService: NzDrawerService,
-        public ui: UiService,
+        private ui: UiService,
         public account: AccountService,
         public vm: OrganizeUnitService
-    ) {
-        ui.breadcrumbs = [
-            { label: '首页', url: '/' },
-            { label: '管理', url: '/admin' },
-            { label: '组织单元' }
-        ];
-    }
+    ) { }
 
-    public listData: TreeNodeInterface[] = [];
+    public ngOnInit(): void {
+        this.ui.breadcrumbs.set([
+            { label: '首页', url: '/' },
+            { label: '管理', url: '/admin/dashboard' },
+            { label: '组织单元' }
+        ]);
+        this.vm.data.subscribe((data) => {
+            this.listData = this.convertTreeToList(data);
+        });
+        void this.loadData();
+    }
 
     public convertTreeToList(
         treeList: AppOrganizeUnitModel[],
@@ -77,13 +83,6 @@ export class ListComponent implements OnInit {
                 this.collapseChild(child.children);
             });
         }
-    }
-
-    public ngOnInit(): void {
-        this.vm.data.subscribe((data) => {
-            this.listData = this.convertTreeToList(data);
-        });
-        void this.loadData();
     }
 
     public loadData(): void {
