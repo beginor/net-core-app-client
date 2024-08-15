@@ -1,6 +1,6 @@
 import { Component, ErrorHandler } from '@angular/core';
-import { NavigationError, Router, RouterModule } from '@angular/router';
-import { first } from 'rxjs';
+import { Router, RouterModule, EventType } from '@angular/router';
+import { first, filter } from 'rxjs';
 
 import { AccountService } from 'app-shared';
 import {
@@ -23,19 +23,31 @@ import {
 export class AppComponent {
 
     constructor(
-        public account: AccountService,
-        public ui: UiService,
-        public navigation: NavigationService,
+        protected account: AccountService,
+        protected ui: UiService,
+        protected navigation: NavigationService,
         errorHandler: ErrorHandler,
         router: Router,
     ) {
-        router.events
-            .pipe(first(e => e instanceof NavigationError))
-            .subscribe((e) => {
-                const ne = e as NavigationError;
-                void router.navigate(['/login', { returnUrl: ne.url }]);
+        const login = '/login'
+        let currentUrl = '';
+        router.events.pipe(
+            first(e => e.type === EventType.NavigationError)
+        ).subscribe(e => {
+            void router.navigate([login, { returnUrl: e.url }]);
+        });
+        router.events.pipe(
+            filter(e => e.type == EventType.NavigationEnd)
+        ).subscribe(e => {
+            currentUrl = e.url;
+        });
+        account.getInfo().then(() => {
+            account.info.subscribe(user => {
+                if (!user.id && !currentUrl.startsWith(login)) {
+                    void router.navigate([login, { returnUrl: currentUrl }]);
+                }
             })
-        account.getInfo().catch(ex => {
+        }).catch(ex => {
             errorHandler.handleError(ex);
         });
     }
