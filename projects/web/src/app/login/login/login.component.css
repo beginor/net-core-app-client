@@ -12,3 +12,7 @@
 .col-login {
   max-width: 24rem;
 }
+
+.captcha-item ::ng-deep span.ant-input-group-addon {
+  padding: 0 0 !important;
+}

@@ -77,7 +77,8 @@ export class AccountService {
         const loginModel: LoginModel = {
             userName: this.base64Url.encode(model.userName as string),
             password: this.base64Url.encode(model.password as string),
-            isPersistent: model.isPersistent
+            isPersistent: model.isPersistent,
+            captcha: model.captcha,
         };
         const token = await lastValueFrom(
             this.http.post(url, loginModel, { responseType: 'text' })
@@ -243,6 +244,7 @@ export interface LoginModel {
     userName?: string;
     password?: string;
     isPersistent?: boolean;
+    captcha?: string;
 }
 
 /** 用户凭证 */
