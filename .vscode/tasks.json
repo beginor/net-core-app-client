@@ -7,7 +7,7 @@
       "command": "pnpm",
       "args": ["build", "app-shared"],
       "problemMatcher": ["$tsc"],
-      "group": "build",
+      "group": "build"
     },
     {
       "label": "pnpm:build:web",
@@ -15,7 +15,7 @@
       "command": "pnpm",
       "args": ["build", "web"],
       "problemMatcher": ["$tsc"],
-      "group": "build",
+      "group": "build"
     },
     {
       "label": "pnpm:start:web",
@@ -23,7 +23,7 @@
       "command": "pnpm",
       "args": ["start", "web"],
       "problemMatcher": ["$tsc"],
-      "group": "none",
+      "group": "test",
       "isBackground": true
     }
   ]
