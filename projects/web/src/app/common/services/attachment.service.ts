@@ -107,7 +107,6 @@ export class AttachmentService {
                 length: file.size,
                 offset: 0,
                 businessId,
-                contentType: file.type
             };
             if (file.size <= buffSize) {
                 model.content = await this.readAsBase64(file);
@@ -212,8 +211,6 @@ export interface AttachmentSearchResultModel {
 export interface AttachmentUploadModel {
     /** 文件名 */
     fileName: string;
-    /** 内容类型（HTTP Content Type） */
-    contentType: string;
     /** 附件大小 */
     length: number;
     /** 附件所属的业务ID */
