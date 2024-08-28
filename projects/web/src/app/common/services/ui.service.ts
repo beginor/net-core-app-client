@@ -20,6 +20,7 @@ export class UiService {
     public showSider = signal(true);
     public showHeader = signal(true);
     public breadcrumbs = signal<Breadcrumb[]>([]);
+    public showLoginForm = signal(true);
 
     public showAlert(alert: Alert): void {
         const option = {

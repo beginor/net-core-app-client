@@ -1,17 +1,18 @@
-import { Component, ErrorHandler, OnDestroy, OnInit, Inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+    Component, ErrorHandler, OnDestroy, OnInit, Inject, signal
+} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
 
-import { AccountService, LoginModel, SvgIconComponent, API_ROOT } from 'app-shared';
+import {
+    AccountService, LoginModel, SvgIconComponent, API_ROOT
+} from 'app-shared';
 import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
     imports: [
-        CommonModule,
         FormsModule,
         AntdModule,
         SvgIconComponent,
@@ -21,9 +22,9 @@ import { AntdModule, UiService } from 'projects/web/src/app/common';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-    public model: LoginModel = {};
-    public loading = false;
-    public message = new Subject<string | undefined>();
+    protected model: LoginModel = {};
+    protected loading = signal(false);
+    protected message = signal('');
 
     protected captchaImageUrl = signal('');
 
@@ -33,9 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private acntSvc: AccountService,
+        private account: AccountService,
         private errorHandler: ErrorHandler,
-        private ui: UiService,
+        protected ui: UiService,
         @Inject(API_ROOT) private apiRoot: string,
     ) {
         this.updateCaptcha();
@@ -55,9 +56,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     public async login(): Promise<void> {
         try {
-            this.loading = true;
-            await this.acntSvc.login(this.model);
-            await this.acntSvc.getInfo();
+            this.loading.set(true);
+            await this.account.login(this.model);
+            await this.account.getInfo();
             let { returnUrl } = this.route.snapshot.params;
             if (!returnUrl) {
                 returnUrl = 'home';
@@ -70,17 +71,17 @@ export class LoginComponent implements OnInit, OnDestroy {
         catch (ex: any) {
             this.errorHandler.handleError(ex);
             const message = typeof ex.error === 'string' ? ex.error : '无法登录！'; // eslint-disable-line max-len, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-            this.message.next(message);
+            this.message.set(message);
             this.model.captcha = '';
             this.updateCaptcha();
         }
         finally {
-            this.loading = false;
+            this.loading.set(false);
         }
     }
 
     public clearMessage(): void {
-        this.message.next(undefined);
+        this.message.set('');
     }
 
     public passwordKeyUp(e: KeyboardEvent, loginForm: NgForm): void {
