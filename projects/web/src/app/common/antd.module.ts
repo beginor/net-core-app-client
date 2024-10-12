@@ -28,6 +28,8 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 
 @NgModule({
     imports: [
@@ -59,6 +61,8 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
         NzSwitchModule,
         NzDropDownModule,
         NzProgressModule,
+        NzListModule,
+        NzOutletModule,
     ],
     exports: [
         NzTableModule,
@@ -88,7 +92,9 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
         NzBreadCrumbModule,
         NzSwitchModule,
         NzDropDownModule,
-        NzProgressModule
+        NzProgressModule,
+        NzListModule,
+        NzOutletModule,
     ]
 })
 export class AntdModule {

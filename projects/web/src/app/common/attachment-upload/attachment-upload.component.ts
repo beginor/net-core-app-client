@@ -1,5 +1,5 @@
 import {
-    Component, ElementRef, EventEmitter, Input, Output, ViewChild
+    Component, ElementRef, input, output, signal, ViewChild
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -30,21 +30,22 @@ import {
 })
 export class AttachmentUploadComponent {
 
-    @Input() public businessId!: string;
-    @Input() public iconPath = 'bi/upload';
-    @Input() public iconClass = 'me-2';
-    @Input() public buttonText = '上传附件';
-    @Input() public buttonShape: NzButtonShape = null;
-    @Input() public buttonType: NzButtonType = 'default';
-    @Input() public buttonSize: NzButtonSize = 'default';
-    @Input() public accept = 'image/*';
-    @Input() public multiple = false;
-    @Input() public noPrivilegeText = '没有权限上传!';
+    public businessId = input('0');
+    public iconPath = input('bi/upload');
+    public iconClass = input('me-2');
+    public buttonText = input('上传附件');
+    public buttonShape = input<NzButtonShape>(null);
+    public buttonType = input<NzButtonType>('default');
+    public buttonSize = input<NzButtonSize>('default');
+    public accept = input('image/*');
+    public multiple = input(false);
+    public noPrivilegeText = input('没有权限上传!');
+    public modalTitle = input('');
 
-    @Output() public fileSelected = new EventEmitter<FileList>();
-    @Output() public uploadCompleted = new EventEmitter<void>();
+    public fileSelected = output<FileList>();
+    public uploadCompleted = output<void>();
 
-    protected uploading = false;
+    protected uploading = signal(false);
 
     @ViewChild('fileInput', { static: false })
     private fileInputRef?: ElementRef<HTMLInputElement>;
@@ -70,18 +71,18 @@ export class AttachmentUploadComponent {
             return;
         }
         this.vm.setFiles(files);
-        this.fileSelected.next(files);
-        if (this.businessId) {
-            await this.uploadAttachments(this.businessId);
+        this.fileSelected.emit(files);
+        if (this.businessId()) {
+            await this.uploadAttachments(this.businessId());
         }
     }
 
     public async uploadAttachments(businessId: string): Promise<void> {
-        this.uploading = true;
+        this.uploading.set(true);
         await this.vm.uploadAttachments(businessId);
         await waitFor(500);
-        this.uploading = false;
-        this.uploadCompleted.next();
+        this.uploading.set(false);
+        this.uploadCompleted.emit();
     }
 
     public getItemUploadStatus(

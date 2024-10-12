@@ -71,6 +71,26 @@ export class AttachmentService {
         }
     }
 
+    public async delete(id: string): Promise<boolean> {
+        const confirm = await this.ui.showConfirm('确认删除么？');
+        if (!confirm) {
+            return false;
+        }
+        try {
+            await lastValueFrom(
+                this.http.delete(`${this.baseUrl}/${id}`)
+            );
+            return true;
+        }
+        catch (ex: unknown) {
+            this.errorHandler.handleError(ex);
+            this.ui.showAlert(
+                { type: 'danger', message: '删除附件出错！' }
+            );
+            return false;
+        }
+    }
+
     public setFiles(files: FileList): void {
         this.uploadList = [];
         for (let i = 0; i < files.length; i++) {
@@ -191,6 +211,8 @@ export interface AttachmentModel {
     businessId?: string;
     /** 文件路 */
     filePath?: string;
+    /** 附件ID */
+    id: string;
 }
 
 export interface AttachmentSearchModel {

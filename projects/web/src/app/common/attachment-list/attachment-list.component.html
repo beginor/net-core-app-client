@@ -1,0 +1,26 @@
+<nz-list [nzBordered]="listBordered()" [nzSize]="listSize()"
+  [nzFooter]="listFooter()">
+  <nz-list-header class="d-flex">
+    {{listHeader()}}
+    <button class="ms-auto px-1" type="button" nz-button nzSize="small"
+      (click)="loadAttachments()">
+      <svg-icon iconPath="bi/arrow-repeat" />
+    </button>
+  </nz-list-header>
+  @let showDel = accountService.currentUser().privileges['app_attachments.delete'] && allowDelete();
+  @for (att of attachments(); track att.id) {
+    <nz-list-item class="d-flex">
+      {{att.fileName}}
+      @if (showDel) {
+        <button class="ms-auto px-1" type="button" nz-button nzSize="small"
+          (click)="deleteAttachment(att.id)" nz-tooltip="删除">
+          <svg-icon iconPath="bi/x" />
+        </button>
+      }
+    </nz-list-item>
+  } @empty {
+    <nz-list-item>
+      无数据！
+    </nz-list-item>
+  }
+</nz-list>

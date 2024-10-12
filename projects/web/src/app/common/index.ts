@@ -9,3 +9,4 @@ export * from './services/attachment.service';
 export * from './nav-sidebar-antd/nav-sidebar-antd.component';
 export * from './header/header.component';
 export * from './attachment-upload/attachment-upload.component';
+export * from './attachment-list/attachment-list.component';
