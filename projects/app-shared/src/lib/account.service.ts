@@ -189,6 +189,10 @@ export class AccountService {
         localStorage.removeItem(this.tokenKey);
     }
 
+    public currentUser(): AccountInfo {
+        return this.info.getValue();
+    }
+
 }
 
 export interface AccountInfo {
