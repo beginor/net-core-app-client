@@ -145,7 +145,7 @@ html, body {
   z-index: 2000;
 }
 .cdk-global-overlay-wrapper {
-  z-index: 2000;
+  z-index: 2000 !important;
 }
 .cdk-overlay-pane {
   z-index: 2000;
