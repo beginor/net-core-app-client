@@ -10,3 +10,6 @@ export * from './nav-sidebar-antd/nav-sidebar-antd.component';
 export * from './header/header.component';
 export * from './attachment-upload/attachment-upload.component';
 export * from './attachment-list/attachment-list.component';
+export * from './services/json-data.service';
+export * from './json-data-list/json-data-list.component';
+export * from './json-data-upload/json-data-upload.component';

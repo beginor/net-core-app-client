@@ -1,8 +1,6 @@
 import {
     Component, ElementRef, input, output, signal, ViewChild
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import {
     NzButtonType, NzButtonSize, NzButtonShape
@@ -20,8 +18,6 @@ import {
     selector: 'app-attachment-upload',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
         AntdModule,
         SvgIconComponent,
     ],

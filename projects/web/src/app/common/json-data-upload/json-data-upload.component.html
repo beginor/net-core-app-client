@@ -1,0 +1,12 @@
+@let user = accountService.currentUser();
+@if (user.privileges['app_json_data.create']) {
+  <button type="button" nz-button [nzType]="buttonType()" [nzSize]="buttonSize()"
+    [nzShape]="buttonShape()" (click)="chooseFile()">
+     <svg-icon [class]="iconClass()" [iconPath]="iconPath()" />
+    {{buttonText()}}
+  </button>
+  <input class="d-none" type="file" #fileInput [accept]="accept()"
+    (change)="onFileChange($event)" />
+} @else {
+  <span class="text-warning">{{noPrivilegeText()}}</span>
+}

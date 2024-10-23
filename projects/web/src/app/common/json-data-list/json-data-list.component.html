@@ -1,0 +1,38 @@
+<nz-list [nzBordered]="listBordered()" [nzSize]="listSize()"
+  [nzFooter]="listFooter()">
+  <nz-list-header class="d-flex">
+    {{listHeader()}}
+    <button class="ms-auto px-1" type="button" nz-button nzSize="small"
+      (click)="loadData()">
+      <svg-icon iconPath="bi/arrow-repeat" />
+    </button>
+  </nz-list-header>
+  @let showDel = accountService.currentUser().privileges['app_json_data.delete'] && allowDelete();
+  @let showUpdate = accountService.currentUser().privileges['app_json_data.update'] && allowUpdate();
+  @for (item of data(); track item.id) {
+    <nz-list-item class="d-flex flex-row">
+      {{item.name}}
+      <nz-button-group class="ms-auto" nzSize="small">
+        @if (showUpdate) {
+          <button class="px-1" type="button" nz-button nzSize="small"
+            (click)="update(item.id!)" nz-tooltip="更新">
+            <svg-icon iconPath="bi/pencil-square" />
+          </button>
+        }
+        @if (showDel) {
+          <button class="px-1" type="button" nz-button nzSize="small"
+            (click)="delete(item.id!)" nz-tooltip="删除">
+            <svg-icon iconPath="bi/x" />
+          </button>
+        }
+      </nz-button-group>
+    </nz-list-item>
+  } @empty {
+    <nz-list-item>
+      无数据！
+    </nz-list-item>
+  }
+</nz-list>
+<input class="d-none" type="file" #fileInput accept="accept"
+  (change)="onFileChange($event)"
+/>
