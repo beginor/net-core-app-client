@@ -60,6 +60,7 @@ export class AttachmentService {
                     this.baseUrl, { params }
                 )
             );
+            this.loading = false;
             return result;
         }
         catch (ex) {
