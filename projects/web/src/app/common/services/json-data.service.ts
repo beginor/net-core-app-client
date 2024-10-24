@@ -162,6 +162,7 @@ export interface JsonDataModel {
     businessId?: string;
     name?: string;
     value?: any;
+    updatedAt?: Date;
 }
 
 export interface JsonDataSearchModel {

@@ -11,7 +11,9 @@
   @let showUpdate = accountService.currentUser().privileges['app_json_data.update'] && allowUpdate();
   @for (item of data(); track item.id) {
     <nz-list-item class="d-flex flex-row">
-      {{item.name}}
+      <span>{{item.name}}
+        <i class="text-muted">(更新时间：{{item.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}})</i>
+      </span>
       <nz-button-group class="ms-auto" nzSize="small">
         @if (showUpdate) {
           <button class="px-1" type="button" nz-button nzSize="small"
@@ -33,6 +35,6 @@
     </nz-list-item>
   }
 </nz-list>
-<input class="d-none" type="file" #fileInput accept="accept"
+<input class="d-none" type="file" #fileInput [accept]="accept()"
   (change)="onFileChange($event)"
 />

@@ -33,6 +33,8 @@ export class JsonDataListComponent implements OnInit {
     public allowUpdate = input(true);
     public take = input(99);
 
+    public accept = input('.json');
+
     protected data = signal<JsonDataModel[]>([]);
 
     @ViewChild('fileInput', { static: false })
