@@ -26,7 +26,7 @@ module.exports = {
       ]
     },
     {
-      "files": ["*.js"],
+      "files": ["*.js", "*.mjs"],
       "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": "latest"
