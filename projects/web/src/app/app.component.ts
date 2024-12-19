@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
             first(e => e.type === EventType.NavigationError)
         ).subscribe(e => {
             void router.navigate([this.loginUrl, { returnUrl: e.url }]);
-
         });
         router.events.pipe(
             filter(e => e.type == EventType.NavigationEnd)
