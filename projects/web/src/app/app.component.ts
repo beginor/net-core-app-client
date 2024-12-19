@@ -1,11 +1,10 @@
-import { Component, ErrorHandler } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, EventType } from '@angular/router';
 import { first, filter } from 'rxjs';
 
 import { AccountService } from 'app-shared';
 import {
     AntdModule, NavSidebarAntdComponent, HeaderComponent, UiService,
-    NavigationService
  } from 'projects/web/src/app/common';
 
 @Component({
@@ -20,35 +19,41 @@ import {
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+    private currentUserId = '';
+    private currentUrl = '';
+    private loginUrl = '/login';
 
     constructor(
-        protected account: AccountService,
         protected ui: UiService,
-        protected navigation: NavigationService,
-        errorHandler: ErrorHandler,
-        router: Router,
+        private account: AccountService,
+        private router: Router,
     ) {
-        const login = '/login'
-        let currentUrl = '';
         router.events.pipe(
             first(e => e.type === EventType.NavigationError)
         ).subscribe(e => {
-            void router.navigate([login, { returnUrl: e.url }]);
+            void router.navigate([this.loginUrl, { returnUrl: e.url }]);
+
         });
         router.events.pipe(
             filter(e => e.type == EventType.NavigationEnd)
         ).subscribe(e => {
-            currentUrl = e.url;
+            this.currentUrl = e.url;
         });
-        account.getInfo().then(() => {
-            account.info.subscribe(user => {
-                if (!user.id && !currentUrl.startsWith(login)) {
-                    void router.navigate([login, { returnUrl: currentUrl }]);
-                }
-            })
-        }).catch(ex => {
-            errorHandler.handleError(ex);
+    }
+
+    public ngOnInit(): void {
+        this.account.info.subscribe(user => {
+            if (this.currentUserId && !user.id) {
+                void this.router.navigate([
+                    '/login',
+                    { returnUrl: this.currentUrl }
+                ]);
+            }
+            else {
+                this.currentUserId = user.id;
+            }
         });
     }
 

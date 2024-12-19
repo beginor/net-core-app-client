@@ -30,7 +30,6 @@ export class HeaderComponent {
 
     public async logout(): Promise<void> {
         await this.account.logout();
-        await this.router.navigateByUrl('/');
     }
 
 
