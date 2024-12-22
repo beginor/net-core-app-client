@@ -24,7 +24,7 @@ export class EchartComponent implements AfterViewInit, OnDestroy {
 
     private echart!: EChartsType;
 
-    private rb = new ResizeObserver(entires => {
+    private rb = new ResizeObserver(() => {
         this.zone.runOutsideAngular(() => {
             this.echart?.resize();
         });
@@ -32,7 +32,7 @@ export class EchartComponent implements AfterViewInit, OnDestroy {
 
     constructor(private vm: EchartService, private zone: NgZone) { }
 
-    public async ngAfterViewInit(): Promise<void> {
+    public ngAfterViewInit():void {
         this.initChart();
         this.rb.observe(this.chartElRef.nativeElement);
         void this.updateChartFromConfig();
