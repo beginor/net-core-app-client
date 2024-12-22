@@ -1,10 +1,15 @@
 // @ts-check
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 
-const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const angular = require('angular-eslint');
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import angular from 'angular-eslint';
 
-module.exports = tseslint.config(
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default tseslint.config(
   {
     'files': ['**/*.ts'],
     'languageOptions': {

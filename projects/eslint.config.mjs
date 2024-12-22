@@ -1,8 +1,8 @@
-const tseslint = require('typescript-eslint');
+import tseslint from 'typescript-eslint';
 
-const rootConfig = require('../eslint.config');
+import rootConfig from '../eslint.config.mjs';
 
-module.exports = tseslint.config(
+export default tseslint.config(
   ...rootConfig,
   {
     'files': ['**/*.ts'],
@@ -55,6 +55,22 @@ module.exports = tseslint.config(
       '@typescript-eslint/explicit-module-boundary-types': [
         'warn'
       ],
+      "@angular-eslint/directive-selector": [
+        "error",
+        {
+          "type": "attribute",
+          "prefix": "app",
+          "style": "camelCase"
+        }
+      ],
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          "type": "element",
+          "prefix": "app",
+          "style": "kebab-case"
+        }
+      ]
     }
   },
   {
