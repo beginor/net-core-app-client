@@ -1,104 +1,96 @@
-import { Component, ElementRef, AfterViewInit, Input } from '@angular/core';
+import {
+    Component, ElementRef, AfterViewInit, signal, input, effect, untracked
+} from '@angular/core';
 
 import { SvgIconService } from './svg-icon.service';
 
+// eslint-disable-next-line max-len
+const defaultIcon = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-app" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11 2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/></svg>';
+
 @Component({
     standalone: true,
-    selector: 'svg-icon', // eslint-disable-line @angular-eslint/component-selector, max-len
-    template: '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-app" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11 2H5a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/></svg>', // eslint-disable-line max-len
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'svg-icon',
+    template: defaultIcon,
     styles: []
 })
 export class SvgIconComponent implements AfterViewInit {
 
-    private _viewInited = false;
-    private _iconPath = '';
-    private _svgIconClass?: string;
+    private viewInited = signal(false);
 
-    public get iconPath(): string | undefined { return this._iconPath; }
-    @Input() public set iconPath(val: string | undefined) {
-        if (!val) {
-            return;
-        }
-        if (val !== this._iconPath) {
-            this._iconPath = val;
-            if (!!this._iconPath && this._viewInited) {
-                void this.updateIcon();
-            }
-        }
-    }
-    @Input() public size = '1rem';
+    public iconPath = input('');
+    public iconSize = input('1rem');
+    public iconClass = input('');
 
-    public get iconClass(): string | undefined { return this._svgIconClass }
-    @Input() public set iconClass(val: string | undefined) {
-        if (val === this._svgIconClass) {
-            return;
-        }
-        const oldClasses = this._svgIconClass;
-        this._svgIconClass = val;
-        if (!this._viewInited) {
-            return;
-        }
-        const svg = this.el.nativeElement.firstChild as SVGElement;
-        if (!!svg) {
-            this.removeClasses(svg, oldClasses);
-            this.addClasses(svg, val);
-        }
-    }
+    private svgClass = '';
+    private currentIcon = '';
 
     constructor(
         private el: ElementRef<HTMLElement>,
         private svg: SvgIconService
-    ) { }
-
-    public async ngAfterViewInit(): Promise<void> {
-        this._viewInited = true;
-        const svg = this.el.nativeElement.firstChild as SVGElement;
-        this.setIconProps(svg);
-        if (!!this._iconPath) {
-            await this.updateIcon();
-        }
+    ) {
+        effect(() => {
+            const viewInited = this.viewInited();
+            if (!viewInited) {
+                return;
+            }
+            const iconPath = this.iconPath();
+            const iconSize = this.iconSize();
+            const iconClass = this.iconClass();
+            untracked(() => {
+                if (iconPath) {
+                    void this.updateIcon(iconPath).then(() => {
+                        this.updateIconClass(iconClass);
+                        this.updateIconSize(iconSize);
+                    });
+                }
+                else {
+                    this.el.nativeElement.innerHTML = defaultIcon;
+                    this.updateIconClass(iconClass);
+                    this.updateIconSize(iconSize);
+                }
+            });
+        });
     }
 
-    private async updateIcon(): Promise<void> {
-        if (!this.iconPath) {
+    public ngAfterViewInit(): void {
+        const svg = this.el.nativeElement.firstChild as SVGElement;
+        this.svgClass = svg.getAttribute('class') ?? '';
+        this.viewInited.set(true);
+    }
+
+    private async updateIcon(iconPath: string): Promise<void> {
+        if (this.currentIcon === iconPath) {
             return;
         }
+        this.currentIcon = iconPath;
         let svg = this.el.nativeElement.firstChild as SVGElement;
-        const xml = await this.svg.loadSvgFile(this.iconPath);
+        const xml = await this.svg.loadSvgFile(iconPath);
         svg.remove();
         this.el.nativeElement.innerHTML = xml;
         svg = this.el.nativeElement.firstChild as SVGElement;
-        this.setIconProps(svg);
-    }
-
-    private setIconProps(svg: SVGElement): void {
-        if (!!this.size) {
-            svg.setAttribute('width', this.size);
-            svg.setAttribute('height', this.size);
-        }
-        this.addClasses(svg, this._svgIconClass);
         svg.setAttribute('fill', 'currentColor');
+        this.svgClass = svg.getAttribute('class') ?? '';
     }
 
-    private removeClasses(el: SVGElement, classes?: string): void {
-        if (!classes) {
+    private updateIconClass(iconClass: string): void {
+        const svg = this.el.nativeElement.firstChild as SVGElement;
+        if (!svg) {
             return;
         }
-        classes.split(' ').forEach(c => {
-            if (el.classList.contains(c)) {
-                el.classList.remove(c);
-            }
-        });
+        svg.setAttribute('class', `${this.svgClass} ${iconClass}`);
     }
 
-    private addClasses(el: SVGElement, classes?: string): void {
-        if (!classes) {
+    private updateIconSize(iconSize: string): void {
+        const svg = this.el.nativeElement.firstChild as SVGElement;
+        if (!svg) {
             return;
         }
-        classes.split(' ').forEach(c => {
-            if (!el.classList.contains(c)) {
-                el.classList.add(c);
-            }
-        });
+        if (!iconSize) {
+            return;
+        }
+        svg.setAttribute('width', iconSize);
+        svg.setAttribute('height', iconSize);
     }
+
 }

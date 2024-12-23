@@ -30,7 +30,7 @@
           @if (nav.accountNodes | async; as accountNodes) {
             @for (node of accountNodes; track node.id) {
               <li nz-menu-item [routerLink]="node.url">
-                <svg-icon [iconPath]="node.icon"></svg-icon>
+                <svg-icon [iconPath]="node.icon!"></svg-icon>
                 {{node.title}}
               </li>
             }
