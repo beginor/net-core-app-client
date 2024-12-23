@@ -12,13 +12,6 @@ export default tseslint.config(
   ...rootConfig,
   {
     "files": ["**/*.ts"],
-    // 'languageOptions': {
-    //   'parserOptions': {
-    //     'project': ['./tsconfig.lib.json'],
-    //     'tsconfigRootDir': __dirname,
-    //     'createDefaultProgram': true,
-    //   }
-    // },
     "rules": {
       "@angular-eslint/directive-selector": [
         "error",
