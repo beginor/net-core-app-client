@@ -19,8 +19,8 @@ export const apiInterceptor: HttpInterceptorFn = (
     const account = inject(AccountService);
     if (req.url.startsWith(apiRoot) ||
         req.url.startsWith(makeAbsoluteUrl(apiRoot))
-    ) { // eslint-disable-line max-len
-        const setHeaders: { [key: string]: string } = {
+    ) {
+        const setHeaders: Record<string, string> = {
             'X-Requested-With': 'XMLHttpRequest'
         };
         if (!!account.token) {

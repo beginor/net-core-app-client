@@ -66,6 +66,7 @@ export class AccountService {
             }
             return info;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         catch (ex: any) {
             localStorage.removeItem(this.tokenKey);
             throw new Error('Can not get account info!');
@@ -175,7 +176,7 @@ export class AccountService {
         );
     }
 
-    public addAuthTokenTo(headers: { [key: string]: any}): void {
+    public addAuthTokenTo(headers: Record<string, any>): void {
         if (!!this.token) {
             headers['Authorization'] = `Bearer ${this.token}`
         }
@@ -200,8 +201,8 @@ export interface AccountInfo {
     userName?: string;
     givenName?: string;
     surname?: string;
-    roles: { [key: string]: boolean };
-    privileges: { [key: string]: boolean };
+    roles: Record<string, boolean>;
+    privileges: Record<string, boolean>;
     token?: string;
 }
 
