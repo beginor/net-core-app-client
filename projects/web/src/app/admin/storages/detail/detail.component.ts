@@ -47,7 +47,11 @@ export class DetailComponent implements OnInit {
         public vm: AppStorageService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
+        void this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
         await this.vm.getAllRoles();
         if (this.id !== '0') {
             const model = await this.vm.getById(this.id);

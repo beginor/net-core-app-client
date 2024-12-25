@@ -42,8 +42,8 @@ export class StorageBrowserComponent implements OnInit {
         this.title = this.params.title;
     }
 
-    public async ngOnInit(): Promise<void> {
-        await this.loadData();
+    public ngOnInit(): void {
+        void this.loadData();
     }
 
     public async getFolderContentByPath(path: string): Promise<void> {

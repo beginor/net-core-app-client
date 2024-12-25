@@ -1,4 +1,6 @@
-import { Component, OnInit, input, signal, TemplateRef, ViewChild, ElementRef } from '@angular/core';
+import {
+    Component, OnInit, input, signal, TemplateRef, ViewChild, ElementRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NzSizeLDSType } from 'ng-zorro-antd/core/types';
@@ -46,8 +48,8 @@ export class JsonDataListComponent implements OnInit {
         protected accountService: AccountService,
     ) { }
 
-    public async ngOnInit(): Promise<void> {
-        await this.loadData();
+    public ngOnInit(): void {
+        void this.loadData();
     }
 
     protected async delete(id: string): Promise<void> {

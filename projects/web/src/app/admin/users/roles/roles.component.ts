@@ -29,7 +29,7 @@ export class RolesComponent implements OnInit {
     }
     public editable = true;
 
-    private userRoles: { [key: string]: boolean } = {};
+    private userRoles: Record<string, boolean> = {};
 
     constructor(
         private drawerRef: NzDrawerRef,
@@ -37,7 +37,11 @@ export class RolesComponent implements OnInit {
         public vm: UsersService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
+        void this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
         await this.vm.getRoles();
         const roles = await this.vm.getUserRoles(this.userId);
         for (const role of roles) {

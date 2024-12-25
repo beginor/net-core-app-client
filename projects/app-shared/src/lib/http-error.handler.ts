@@ -33,7 +33,8 @@ export class HttpErrorHandler implements ErrorHandler {
         };
         if (this.isProduction) {
             lastValueFrom(this.http.post(this.url, err)).catch(ex => {
-                console.error('Can not send error to server. ', err);
+                console.error(err);
+                console.error('Can not send error to server. ', ex);
             });
         }
         else {

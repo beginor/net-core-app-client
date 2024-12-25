@@ -35,7 +35,7 @@ export class TokenDetailComponent implements OnInit {
 
     public model: UserTokenModel = { id: '0', name: '', value: '' };
     public roles: AppRole[] = [];
-    public privileges: Array<{ module: string; privileges: AppPrivilege[] }> = []; // eslint-disable-line max-len
+    public privileges: { module: string; privileges: AppPrivilege[] }[] = []; // eslint-disable-line max-len
     public tokenExpiresAt?: Date;
     public tokenUrls: string[] = [];
 
@@ -51,8 +51,12 @@ export class TokenDetailComponent implements OnInit {
         public vm: TokenService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
-        const rap = await  this.account.getRolesAndPrivileges();
+    public ngOnInit(): void {
+        void this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
+        const rap = await this.account.getRolesAndPrivileges();
         this.roles = rap.roles;
         this.privileges = [];
         for (const p of rap.privileges) {
@@ -124,6 +128,7 @@ export class TokenDetailComponent implements OnInit {
             }
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '生成新凭证值出错！' }
             );

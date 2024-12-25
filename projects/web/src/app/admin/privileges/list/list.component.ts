@@ -31,13 +31,13 @@ export class ListComponent implements OnInit {
         public vm: AppPrivilegeService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
         this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
             { label: '管理', url: '/admin/dashboard' },
             { label: '权限管理' }
         ]);
-        await this.vm.getModules();
+        void this.vm.getModules();
     }
 
     public loadData({

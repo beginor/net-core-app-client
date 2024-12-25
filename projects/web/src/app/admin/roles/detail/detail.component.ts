@@ -46,7 +46,11 @@ export class DetailComponent implements OnInit {
         public account: AccountService,
     ) { }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
+        void this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
         if (this.id !== '0') {
             const model = await this.vm.getById(this.id);
             if (!!model) {

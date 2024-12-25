@@ -20,7 +20,7 @@ export class AboutComponent {
 
     public toggleDrawer(): void {
         this.ui.drawer.subscribe(drawer => {
-            drawer.toggle();
+            void drawer.toggle();
         });
     }
 

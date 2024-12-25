@@ -56,7 +56,11 @@ export class DetailComponent implements OnInit {
         public vm: NavItemsService
     ) { }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
+        void this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
         await this.vm.getAllRoles();
         this.parents = await this.vm.getMenuOptions();
         if (this.id !== '0') {

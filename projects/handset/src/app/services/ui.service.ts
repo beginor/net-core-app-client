@@ -10,8 +10,6 @@ export class UiService {
 
     public drawer = new AsyncSubject<MatDrawer>();
 
-    constructor() { }
-
     public setDrawer(drawer: MatDrawer): void {
         this.drawer.next(drawer);
         this.drawer.complete();

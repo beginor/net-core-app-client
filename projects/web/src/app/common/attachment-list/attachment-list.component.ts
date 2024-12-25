@@ -40,8 +40,8 @@ export class AttachmentListComponent implements OnInit {
         protected accountService: AccountService,
     ) { }
 
-    public async ngOnInit(): Promise<void> {
-        await this.loadAttachments();
+    public ngOnInit(): void {
+        void this.loadAttachments();
     }
 
     protected async deleteAttachment(id: string): Promise<void> {

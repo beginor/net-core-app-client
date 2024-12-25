@@ -65,7 +65,11 @@ export class UserInfoComponent implements OnInit {
         });
     }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
+        void this.loadData();
+    }
+
+    private async loadData(): Promise<void> {
         this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
             { label: '用户信息' }
@@ -80,6 +84,7 @@ export class UserInfoComponent implements OnInit {
             }
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '无法获取用户信息！' }
             );
@@ -104,6 +109,7 @@ export class UserInfoComponent implements OnInit {
             this.user = await this.account.updateUser(this.user);
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '无法更新用户信息！' }
             );
@@ -123,6 +129,7 @@ export class UserInfoComponent implements OnInit {
             this.pwdForm.reset();
         }
         catch(ex) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '修改密码出错！' }
             );

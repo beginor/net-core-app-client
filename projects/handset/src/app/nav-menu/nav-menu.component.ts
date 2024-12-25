@@ -29,7 +29,7 @@ export class NavMenuComponent {
 
     public toggleDrawer(): void {
         this.ui.drawer.subscribe(drawer => {
-            drawer.close();
+            void drawer.close();
         });
     }
 
