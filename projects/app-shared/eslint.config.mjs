@@ -11,15 +11,15 @@ const __dirname = dirname(__filename);
 export default tseslint.config(
   ...rootConfig,
   {
-    "files": ["**/*.ts"],
-    "rules": {
-      "@angular-eslint/directive-selector": [
-        "error",
-        { "type": "attribute", "prefix": "lib", "style": "camelCase" }
+    files: ['**/*.ts'],
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        { type: 'attribute', prefix: 'lib', style: 'camelCase' }
       ],
-      "@angular-eslint/component-selector": [
-        "error",
-        { "type": "element", "prefix": "lib", "style": "kebab-case" }
+      '@angular-eslint/component-selector': [
+        'error',
+        { type: 'element', prefix: 'lib', style: 'kebab-case' }
       ]
     }
   }

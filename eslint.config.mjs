@@ -11,15 +11,15 @@ const __dirname = dirname(__filename);
 
 export default tseslint.config(
   {
-    'files': ['**/*.ts'],
-    'languageOptions': {
-      'parserOptions': {
-        'project': ['./tsconfig.json'],
-        'tsconfigRootDir': __dirname,
-        'createDefaultProgram': true,
+    files: ['projects/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        tsconfigRootDir: __dirname,
+        createDefaultProgram: true,
       }
     },
-    'extends': [
+    extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
@@ -29,8 +29,8 @@ export default tseslint.config(
     rules: {},
   },
   {
-    'files': ['**/*.html'],
-    'extends': [
+    files: ['projects/**/*.html'],
+    extends: [
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,
     ],
