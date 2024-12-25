@@ -36,4 +36,14 @@ export default tseslint.config(
     ],
     rules: {},
   },
+  {
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      '.angular/**',
+      '.idea/**',
+      '.vscode/**',
+      '.git/**',
+    ]
+  }
 );
