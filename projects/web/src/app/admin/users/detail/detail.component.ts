@@ -62,10 +62,10 @@ export class DetailComponent implements OnInit {
     private async loadData(): Promise<void> {
         if (this.id !== '0') {
             const model = await this.vm.getById(this.id);
-            if (!!model) {
+            if (model) {
                 this.model = model;
             }
-            if (!!this.model.dateOfBirth) {
+            if (this.model.dateOfBirth) {
                 this.dateOfBirthDate = new Date(this.model.dateOfBirth);
             }
         }
@@ -83,7 +83,6 @@ export class DetailComponent implements OnInit {
 
     public async save(): Promise<void> {
         const d = this.dateOfBirthDate;
-        // eslint-disable-next-line max-len
         this.model.dateOfBirth = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
         if (this.id !== '0') {
             await this.vm.update(this.id, this.model);

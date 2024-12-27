@@ -52,7 +52,7 @@ export class DetailComponent implements OnInit {
     private async loadData(): Promise<void> {
         if (this.id !== '0') {
             const model = await this.vm.getById(this.id);
-            if (!!model) {
+            if (model) {
                 this.model = model;
             }
         }

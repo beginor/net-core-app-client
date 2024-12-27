@@ -6,9 +6,9 @@ import {
     NzButtonType, NzButtonSize, NzButtonShape
 } from 'ng-zorro-antd/button';
 
-import { AccountService, waitFor, SvgIconComponent } from 'app-shared';
+import { AccountService, SvgIconComponent } from 'app-shared';
 import { AntdModule, UiService } from 'projects/web/src/app/common';
-import { JsonDataService, JsonDataModel } from '../services/json-data.service';
+import { JsonDataService } from '../services/json-data.service';
 
 @Component({
     selector: 'app-json-data-upload',
@@ -32,7 +32,7 @@ export class JsonDataUploadComponent {
     public accept = input('.json');
     public noPrivilegeText = input('没有权限上传!');
 
-    public uploadCompleted = output<void>();
+    public uploadCompleted = output();
 
     protected uploading = signal(false);
 
@@ -61,7 +61,7 @@ export class JsonDataUploadComponent {
         }
         const input = e.target as HTMLInputElement;
         const files = input.files;
-        if (!files || !files.length) {
+        if (!files?.length) {
             return;
         }
         try {

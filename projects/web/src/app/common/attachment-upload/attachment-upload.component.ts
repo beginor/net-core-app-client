@@ -39,7 +39,7 @@ export class AttachmentUploadComponent {
     public modalTitle = input('');
 
     public fileSelected = output<FileList>();
-    public uploadCompleted = output<void>();
+    public uploadCompleted = output();
 
     protected uploading = signal(false);
 

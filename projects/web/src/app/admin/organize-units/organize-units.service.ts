@@ -45,7 +45,9 @@ export class OrganizeUnitService {
         this.loading = true;
         try {
             const result = await lastValueFrom(
-                this.http.get<AppOrganizeUnitResultModel>(this.baseUrl, { params }) // eslint-disable-line max-len
+                this.http.get<AppOrganizeUnitResultModel>(
+                    this.baseUrl, { params }
+                )
             );
             const total = result.total ?? 0;
             const data = result.data ?? [];
@@ -73,7 +75,7 @@ export class OrganizeUnitService {
     ): Promise<AppOrganizeUnitModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.post<AppOrganizeUnitModel>(this.baseUrl, model) // eslint-disable-line max-len
+                this.http.post<AppOrganizeUnitModel>(this.baseUrl, model)
             );
             return result;
         }
@@ -91,7 +93,7 @@ export class OrganizeUnitService {
         : Promise<AppOrganizeUnitModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.get<AppOrganizeUnitModel>(`${this.baseUrl}/${id}`) // eslint-disable-line max-len
+                this.http.get<AppOrganizeUnitModel>(`${this.baseUrl}/${id}`)
             );
             return result;
         }
@@ -112,7 +114,7 @@ export class OrganizeUnitService {
         }
         try {
             await lastValueFrom(
-                this.http.delete(`${this.baseUrl}/${id}`) // eslint-disable-line max-len
+                this.http.delete(`${this.baseUrl}/${id}`)
             );
             return true;
         }
@@ -132,7 +134,7 @@ export class OrganizeUnitService {
     ): Promise<AppOrganizeUnitModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.put<AppOrganizeUnitModel>(`${this.baseUrl}/${id}`, model) // eslint-disable-line max-len
+                this.http.put<AppOrganizeUnitModel>(`${this.baseUrl}/${id}`, model)
             );
             return result;
         }

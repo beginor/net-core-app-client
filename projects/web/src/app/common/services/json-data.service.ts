@@ -62,7 +62,7 @@ export class JsonDataService {
         return `${this.baseUrl}/${id}`;
     }
 
-    public async getContent(id: string): Promise<any> {
+    public async getContent(id: string): Promise<unknown> {
         try {
             const url = this.getContentUrl(id);
             return await lastValueFrom(
@@ -74,6 +74,7 @@ export class JsonDataService {
             this.ui.showAlert(
                 { type: 'danger', message: '获取JSON数据内容出错！' }
             );
+            return undefined;
         }
     }
 
@@ -161,7 +162,7 @@ export interface JsonDataModel {
     id?: string;
     businessId?: string;
     name?: string;
-    value?: any;
+    value?: unknown;
     updatedAt?: Date;
 }
 

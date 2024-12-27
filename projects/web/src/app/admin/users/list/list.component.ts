@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
         public organizeUnitSvc: OrganizeUnitService,
     ) {
         const { roleName } = route.snapshot.params;
-        if (!!roleName) {
+        if (roleName) {
             vm.searchModel.roleName = roleName as string;
         }
         else {
@@ -179,10 +179,10 @@ export class ListComponent implements OnInit {
 
     public getFullname(user: UserModel): string {
         const fullname = [];
-        if (!!user.surname) {
+        if (user.surname) {
             fullname.push(user.surname);
         }
-        if (!!user.givenName) {
+        if (user.givenName) {
             fullname.push(user.givenName);
         }
         if (fullname.length > 0) {
@@ -231,7 +231,7 @@ export class ListComponent implements OnInit {
 
     public getUserCount(): number {
         const usersCount = this.vm.roles.getValue()
-            .map(r => r.userCount || 0)
+            .map(r => r.userCount ?? 0)
             .reduce((prev, curr) => prev + curr, 0);
         return usersCount;
     }
@@ -242,7 +242,7 @@ export class ListComponent implements OnInit {
                 id: event.node.key,
                 name: event.node.title
             };
-            this.vm.searchModel['organizeUnitId'] = this.organizeUnit.id;
+            this.vm.searchModel.organizeUnitId = this.organizeUnit.id;
             void this.vm.search();
         }
     }

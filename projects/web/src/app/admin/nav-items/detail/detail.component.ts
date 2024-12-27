@@ -65,7 +65,7 @@ export class DetailComponent implements OnInit {
         this.parents = await this.vm.getMenuOptions();
         if (this.id !== '0') {
             const model = await this.vm.getById(this.id);
-            if (!!model) {
+            if (model) {
                 this.model = model;
             }
         }
@@ -89,7 +89,7 @@ export class DetailComponent implements OnInit {
         if (!this.model.roles) {
             return false;
         }
-        return this.model.roles.indexOf(role) > -1;
+        return this.model.roles.includes(role);
     }
 
     public toggleCheckedRole(role: string): void {
@@ -125,7 +125,10 @@ export class DetailComponent implements OnInit {
             }
         });
         modalRef.afterClose.subscribe(result => {
-            let icon = result!;
+            if (!result) {
+                return;
+            }
+            let icon = result;
             if (icon.endsWith('.svg')) {
                 icon = icon.substring(0, icon.length - 4);
                 this.model.icon = icon;

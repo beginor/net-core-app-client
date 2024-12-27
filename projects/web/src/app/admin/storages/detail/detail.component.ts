@@ -39,7 +39,7 @@ export class DetailComponent implements OnInit {
         return title;
     }
     public editable = false;
-    public model: AppStorageModel = { id: '0', aliasName: '', rootFolder: '', readonly: true, roles: [] }; // eslint-disable-line max-len
+    public model: AppStorageModel = { id: '0', aliasName: '', rootFolder: '', readonly: true, roles: [] };
 
     constructor(
         private drawerRef: NzDrawerRef,
@@ -55,7 +55,7 @@ export class DetailComponent implements OnInit {
         await this.vm.getAllRoles();
         if (this.id !== '0') {
             const model = await this.vm.getById(this.id);
-            if (!!model) {
+            if (model) {
                 this.model = model;
             }
         }
@@ -82,7 +82,7 @@ export class DetailComponent implements OnInit {
         if (!this.model.roles) {
             return false;
         }
-        return this.model.roles.indexOf(role) > -1;
+        return this.model.roles.includes(role);
     }
 
     public toggleCheckedRole(role: string): void {

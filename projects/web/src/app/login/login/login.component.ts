@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
         catch (ex: any) {
             this.errorHandler.handleError(ex);
-            const message = typeof ex.error === 'string' ? ex.error : '无法登录！'; // eslint-disable-line max-len, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+            const message = typeof ex.error === 'string' ? ex.error : '无法登录！';
             this.message.set(message);
             this.model.captcha = '';
             this.updateCaptcha();

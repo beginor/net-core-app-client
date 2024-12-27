@@ -24,8 +24,8 @@ export class StorageService {
         try {
             const url = `${this.apiRoot}/storages/${params.alias}/browse`;
             const httpParams = new HttpParams()
-                .set('path', params.path as string)
-                .set('filter', params.filter as string);
+                .set('path', params.path)
+                .set('filter', params.filter ?? '');
             const result = await lastValueFrom(
                 this.http.get<StorageContent>(url, { params: httpParams })
             );

@@ -60,7 +60,9 @@ export class NavItemsService {
         this.loading = true;
         try {
             const result = await lastValueFrom(
-                this.http.get<AppNavItemResultModel>(this.baseUrl, { params: params }) // eslint-disable-line max-len
+                this.http.get<AppNavItemResultModel>(
+                    this.baseUrl, { params: params }
+                )
             );
             const total = result.total ?? 0;
             const data = result.data ?? [];

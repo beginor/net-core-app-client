@@ -46,7 +46,7 @@ export class UsersService {
         private base64Url: Base64UrlService
     ) {
         this.baseUrl = this.apiRoot + '/users';
-        this.searchModel['sortBy'] = this.sortMethods[0].value;
+        this.searchModel.sortBy = this.sortMethods[0].value;
         this.rolesSvc = new RolesService(http, apiRoot, ui, errorHandler);
         this.rolesSvc.data.subscribe(data => {
             this.roles.next(data);
@@ -232,7 +232,8 @@ export class UsersService {
     /** 获取全部角色 */
     public async getRoles(): Promise<void> {
         try {
-            this.rolesSvc.searchModel.organizeUnitId = this.searchModel['organizeUnitId'] as string; // eslint-disable-line max-len
+            // eslint-disable-next-line @stylistic/max-len
+            this.rolesSvc.searchModel.organizeUnitId = this.searchModel.organizeUnitId;
             this.rolesSvc.searchModel.skip = 0;
             this.rolesSvc.searchModel.take = 999;
             await this.rolesSvc.search();

@@ -48,7 +48,7 @@ export class AppPrivilegeService {
         for (const key in this.searchModel) {
             if (this.searchModel.hasOwnProperty(key)) {
                 const val = this.searchModel[key];
-                if (!!val) {
+                if (val) {
                     params = params.set(key, val as string);
                 }
             }
@@ -56,7 +56,7 @@ export class AppPrivilegeService {
         this.loading = true;
         try {
             const result = await lastValueFrom(
-                this.http.get<AppPrivilegeResultModel>(this.baseUrl, { params }) // eslint-disable-line max-len
+                this.http.get<AppPrivilegeResultModel>(this.baseUrl, { params })
             );
             const total = result.total ?? 0;
             const data = result.data ?? [];

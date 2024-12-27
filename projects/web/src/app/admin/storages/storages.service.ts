@@ -59,7 +59,7 @@ export class AppStorageService {
         this.loading = true;
         try {
             const result = await lastValueFrom(
-                this.http.get<AppStorageResultModel>(this.baseUrl, { params }) // eslint-disable-line max-len
+                this.http.get<AppStorageResultModel>(this.baseUrl, { params })
             );
             const total = result.total ?? 0;
             const data = result.data ?? [];
@@ -72,7 +72,7 @@ export class AppStorageService {
             this.total.next(0);
             this.data.next([]);
             this.ui.showAlert(
-                { type: 'danger', message: '加载应用存储数据出错!'}
+                { type: 'danger', message: '加载应用存储数据出错!' }
             );
         }
         finally {
@@ -86,7 +86,7 @@ export class AppStorageService {
     ): Promise<AppStorageModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.post<AppStorageModel>(this.baseUrl, model) // eslint-disable-line max-len
+                this.http.post<AppStorageModel>(this.baseUrl, model)
             );
             return result;
         }
@@ -103,7 +103,7 @@ export class AppStorageService {
     public async getById(id: string): Promise<AppStorageModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.get<AppStorageModel>(`${this.baseUrl}/${id}`) // eslint-disable-line max-len
+                this.http.get<AppStorageModel>(`${this.baseUrl}/${id}`)
             );
             return result;
         }
@@ -123,9 +123,7 @@ export class AppStorageService {
             return false;
         }
         try {
-            await lastValueFrom(
-                this.http.delete(`${this.baseUrl}/${id}`) // eslint-disable-line max-len
-            );
+            await lastValueFrom(this.http.delete(`${this.baseUrl}/${id}`));
             return true;
         }
         catch (ex: unknown) {
@@ -144,7 +142,7 @@ export class AppStorageService {
     ): Promise<AppStorageModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.put<AppStorageModel>(`${this.baseUrl}/${id}`, model) // eslint-disable-line max-len
+                this.http.put<AppStorageModel>(`${this.baseUrl}/${id}`, model)
             );
             return result;
         }

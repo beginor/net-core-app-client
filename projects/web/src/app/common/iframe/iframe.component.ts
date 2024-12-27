@@ -30,7 +30,7 @@ export class IframeComponent {
             }
             else {
                 const iframeUrl = nav.findCurrentIframeUrl();
-                if (!!iframeUrl) {
+                if (iframeUrl) {
                     this.safeUrl = domSanitizer.bypassSecurityTrustResourceUrl(
                         iframeUrl
                     );

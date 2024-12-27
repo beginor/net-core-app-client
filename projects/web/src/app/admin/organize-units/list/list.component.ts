@@ -77,7 +77,7 @@ export class ListComponent implements OnInit {
     }
 
     public collapseChild(childs?: TreeNodeInterface[]): void {
-        if (!!childs) {
+        if (childs) {
             childs.forEach((child) => {
                 child.expand = false;
                 this.collapseChild(child.children);

@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 
 import { matchAfterAuth, activateAfterAuth } from 'app-shared';
 
-/* eslint-disable max-len */
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     {
@@ -40,4 +39,4 @@ export const routes: Routes = [
         canActivate: [activateAfterAuth],
     }
 ];
-/* eslint-enable max-len */
+

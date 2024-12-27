@@ -40,6 +40,7 @@ export class TokenService {
             this.tokens = result.data ?? [];
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '加载凭证列表出错！' }
             );
@@ -62,6 +63,7 @@ export class TokenService {
             await this.account.createUserToken(model);
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '创建凭证出错！' }
             );
@@ -73,6 +75,7 @@ export class TokenService {
             await this.account.updateUserToken(id, model);
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '更新凭证出错！' }
             );
@@ -89,6 +92,7 @@ export class TokenService {
             return true;
         }
         catch (ex: unknown) {
+            console.error(ex);
             this.ui.showAlert(
                 { type: 'danger', message: '删除用户凭证出错！' }
             );

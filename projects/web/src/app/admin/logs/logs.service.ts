@@ -69,7 +69,7 @@ export class AppLogService {
         this.loading = true;
         try {
             const result = await lastValueFrom(
-                this.http.get<AppLogResultModel>(this.baseUrl, { params }) // eslint-disable-line max-len
+                this.http.get<AppLogResultModel>(this.baseUrl, { params })
             );
             const total = result.total ?? 0;
             const data = result.data ?? [];
@@ -94,7 +94,7 @@ export class AppLogService {
     public async getById(id: string): Promise<AppLogModel | undefined> {
         try {
             const result = await lastValueFrom(
-                this.http.get<AppLogModel>(`${this.baseUrl}/${id}`) // eslint-disable-line max-len
+                this.http.get<AppLogModel>(`${this.baseUrl}/${id}`)
             );
             return result;
         }

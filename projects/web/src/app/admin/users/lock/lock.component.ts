@@ -66,7 +66,6 @@ export class LockComponent {
 
     public save(): void {
         const d = this.lockoutEnd.value as Date;
-        // eslint-disable-next-line max-len
         const lockEndTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} 23:59:59`;
         void this.vm.lockUser(this.userId, lockEndTime).then(
             () => this.drawerRef.close('ok')

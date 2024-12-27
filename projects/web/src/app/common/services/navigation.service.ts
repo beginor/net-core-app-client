@@ -41,12 +41,15 @@ export class NavigationService {
     }
 
     public isActiveNode(node: NavigationNode): boolean {
-        return this.location.path().includes(node.url as string);
+        if (!node.url) {
+            return false;
+        }
+        return this.location.path().includes(node.url);
     }
 
     public findCurrentIframeUrl(): string | undefined {
         const root = this.root.getValue();
-        return this.findIframeUrl(root.children || [], this.currentUrl);
+        return this.findIframeUrl(root.children ?? [], this.currentUrl);
     }
 
     private findIframeUrl(
@@ -57,7 +60,7 @@ export class NavigationService {
             if (node.url === url) {
                 return node.frameUrl;
             }
-            if (url.startsWith(node.url as string) && !!node.children) {
+            if (node.url && url.startsWith(node.url) && !!node.children) {
                 return this.findIframeUrl(node.children, url);
             }
         }
@@ -68,7 +71,7 @@ export class NavigationService {
         this.root.next(rootNode);
         this.topbarNodes.next(rootNode.children);
         this.updateAccountNodes(rootNode);
-        if (!!rootNode.children) {
+        if (rootNode.children) {
             this.sidebarNodes.next(
                 this.findSidebarNavigationNodes(rootNode.children)
             );
@@ -113,8 +116,8 @@ export class NavigationService {
     ): NavigationNode[] {
         const path = this.location.path(false);
         for (const child of topNodes) {
-            if (!!child.url && path.startsWith(child.url)) {
-                if (!!child.children) {
+            if (child.url && path.startsWith(child.url)) {
+                if (child.children) {
                     return child.children;
                 }
             }
@@ -132,7 +135,7 @@ export class NavigationService {
             this.http.get<NavigationNode>(menuUrl)
         ).then(node => {
             this.setupNavigationNodes(node);
-            this.updateTitle(node.title as string);
+            this.updateTitle(node.title ?? '');
             if (!this.initialized) {
                 this.initialized = true;
             }

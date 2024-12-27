@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-/* eslint-disable max-len */
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     {
@@ -40,5 +39,5 @@ const routes: Routes = [
         loadComponent: () => import('./organize-units/list/list.component').then(m => m.ListComponent)
     }
 ];
-/* eslint-enable max-len */
+
 export default routes;

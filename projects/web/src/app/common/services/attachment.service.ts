@@ -94,8 +94,7 @@ export class AttachmentService {
 
     public setFiles(files: FileList): void {
         this.uploadList = [];
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
+        for (const file of files) {
             this.uploadList.push(
                 {
                     fileName: file.name,
@@ -111,9 +110,8 @@ export class AttachmentService {
     public async uploadAttachments(
         businessId: string
     ): Promise<void> {
-        for (let i = 0; i < this.uploadList.length; i++) {
-            const file = this.uploadList[i].file;
-            await this.uploadAttachment(file, businessId);
+        for (const item of this.uploadList) {
+            await this.uploadAttachment(item.file, businessId);
         }
     }
 
@@ -136,9 +134,11 @@ export class AttachmentService {
                 );
                 const item = this.uploadList.find(
                     item => item.fileName === file.name
-                )!;
-                item.uploadedSize = file.size;
-                item.percent = 100;
+                );
+                if (item) {
+                    item.uploadedSize = file.size;
+                    item.percent = 100;
+                }
             }
             else {
                 let start = 0;
@@ -153,11 +153,13 @@ export class AttachmentService {
                     start = end;
                     const item = this.uploadList.find(
                         item => item.fileName === file.name
-                    )!;
-                    item.uploadedSize = end;
-                    item.percent = Math.round(
-                        item.uploadedSize / item.length * 100
                     );
+                    if (item) {
+                        item.uploadedSize = end;
+                        item.percent = Math.round(
+                            item.uploadedSize / item.length * 100
+                        );
+                    }
                 }
             }
         }
@@ -168,9 +170,10 @@ export class AttachmentService {
             );
             const item = this.uploadList.find(
                 item => item.fileName === file.name
-            )!;
-            item.error = true;
-            return;
+            );
+            if (item) {
+                item.error = true;
+            }
         }
     }
 

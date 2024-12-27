@@ -1,6 +1,4 @@
-import {
-    Component, ElementRef, Inject, OnInit, ViewChild
-} from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
@@ -116,9 +114,9 @@ export class StorageBrowserComponent implements OnInit {
     public search(e: KeyboardEvent): void {
         const input = e.target as HTMLInputElement;
         const filter = input.value;
-        if (!!filter) {
+        if (filter) {
             this.filteredItems = this.allItems.filter(
-                x => x.name.indexOf(filter) > -1
+                x => x.name.includes(filter)
             );
         }
         else {
@@ -127,7 +125,7 @@ export class StorageBrowserComponent implements OnInit {
     }
 
     private async loadData(): Promise<void> {
-        if (!!this.searchEl) {
+        if (this.searchEl) {
             this.searchEl.nativeElement.value = '';
         }
         this.allItems = [];

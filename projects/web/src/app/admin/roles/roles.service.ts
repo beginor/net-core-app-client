@@ -30,7 +30,7 @@ export class RolesService {
     public loading = false;
     public showPagination = false;
     public privileges: ModulePrivileges[] = [];
-    public rolePrivileges: { [key: string]: boolean } = {};
+    public rolePrivileges: Record<string, boolean> = {};
 
     private baseUrl: string;
     private privilegeService: AppPrivilegeService;
@@ -233,7 +233,7 @@ export class RolesService {
         privilege: string
     ): Promise<void> {
         const url = `${this.baseUrl}/${roleId}/privileges/${privilege}`;
-        if (!!this.rolePrivileges[privilege]) {
+        if (this.rolePrivileges[privilege]) {
             try {
                 // remove privilege from role;
                 await lastValueFrom(this.http.delete(url));

@@ -35,7 +35,7 @@ export class TokenDetailComponent implements OnInit {
 
     public model: UserTokenModel = { id: '0', name: '', value: '' };
     public roles: AppRole[] = [];
-    public privileges: { module: string; privileges: AppPrivilege[] }[] = []; // eslint-disable-line max-len
+    public privileges: { module: string; privileges: AppPrivilege[] }[] = [];
     public tokenExpiresAt?: Date;
     public tokenUrls: string[] = [];
 
@@ -71,7 +71,7 @@ export class TokenDetailComponent implements OnInit {
         }
         if (this.id !== '0') {
             const model = this.vm.getById(this.id);
-            if (!!model) {
+            if (model) {
                 this.model = model;
                 if (!!model.roles && model.roles.length > 0) {
                     this.checkedRoles = JSON.parse(
@@ -83,7 +83,7 @@ export class TokenDetailComponent implements OnInit {
                         JSON.stringify(model.privileges)
                     ) as string[];
                 }
-                if (!!model.expiresAt) {
+                if (model.expiresAt) {
                     this.tokenExpiresAt = new Date(model.expiresAt);
                 }
                 if (!!model.urls && model.urls.length > 0) {
@@ -105,7 +105,7 @@ export class TokenDetailComponent implements OnInit {
     public async save(): Promise<void> {
         this.model.roles = this.checkedRoles;
         this.model.privileges = this.checkedPrivileges;
-        if (!!this.tokenExpiresAt) {
+        if (this.tokenExpiresAt) {
             this.model.expiresAt = formatDate(
                 this.tokenExpiresAt, 'yyyy-MM-dd', this.local
             );
@@ -123,7 +123,7 @@ export class TokenDetailComponent implements OnInit {
     public async newTokenValue(): Promise<void> {
         try {
             const val = await this.account.newTokenValue();
-            if (!!val) {
+            if (val) {
                 this.model.value = val;
             }
         }
@@ -140,7 +140,7 @@ export class TokenDetailComponent implements OnInit {
         if (!arr) {
             return false;
         }
-        return arr.indexOf(roleName) > -1;
+        return arr.includes(roleName);
     }
 
     public toggleChecked(

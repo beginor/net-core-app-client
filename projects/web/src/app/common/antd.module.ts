@@ -94,7 +94,7 @@ import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
         NzOutletModule,
     ]
 })
-export class AntdModule {
+export class AntdModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
     constructor(nzIconService: NzIconService) {
         // antd 写死了路，参数只能添加到 assets/ 的前面，所以多了个assets文件夹
         nzIconService.changeAssetsSource('assets/icons/antd');
