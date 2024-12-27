@@ -17,7 +17,7 @@ export class AccountService {
     public fullName = new BehaviorSubject<string>('匿名用户');
 
     public get token(): string {
-        return localStorage.getItem(this.tokenKey) as string;
+        return localStorage.getItem(this.tokenKey) ?? '';
     }
 
     private get tokenKey(): string {
@@ -45,7 +45,7 @@ export class AccountService {
                 sessionStorage.removeItem('tmpToken');
             }
             const info = await lastValueFrom(this.http.get<AccountInfo>(url));
-            if (!!info.token) {
+            if (info.token) {
                 this.saveToken(info.token);
                 delete info.token;
             }
@@ -53,10 +53,10 @@ export class AccountService {
             if (currInfo.id !== info.id) {
                 this.info.next(info);
                 const fullname = [];
-                if (!!info.surname) {
+                if (info.surname) {
                     fullname.push(info.surname);
                 }
-                if (!!info.givenName) {
+                if (info.givenName) {
                     fullname.push(info.givenName);
                 }
                 if (fullname.length === 0) {
@@ -66,8 +66,9 @@ export class AccountService {
             }
             return info;
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catch (ex: any) {
+            console.error(ex);
             localStorage.removeItem(this.tokenKey);
             throw new Error('Can not get account info!');
         }
@@ -76,8 +77,8 @@ export class AccountService {
     public async login(model: LoginModel): Promise<void> {
         const url = this.apiRoot + '/account';
         const loginModel: LoginModel = {
-            userName: this.base64Url.encode(model.userName as string),
-            password: this.base64Url.encode(model.password as string),
+            userName: this.base64Url.encode(model.userName),
+            password: this.base64Url.encode(model.password),
             isPersistent: model.isPersistent,
             captcha: model.captcha,
         };
@@ -107,14 +108,13 @@ export class AccountService {
     }
 
     public async changePassword(model: ChangePasswordModel): Promise<void> {
+        const currentPassword = this.base64Url.encode(model.currentPassword);
+        const newPassword = this.base64Url.encode(model.newPassword);
+        const confirmPassword = this.base64Url.encode(model.confirmPassword);
         await lastValueFrom(
             this.http.put(
                 `${this.apiRoot}/account/password`,
-                {
-                    currentPassword: this.base64Url.encode(model.currentPassword), // eslint-disable-line max-len
-                    newPassword: this.base64Url.encode(model.newPassword),
-                    confirmPassword: this.base64Url.encode(model.confirmPassword) // eslint-disable-line max-len
-                }
+                { currentPassword, newPassword, confirmPassword }
             )
         );
     }
@@ -130,7 +130,7 @@ export class AccountService {
             }
         }
         const result = await lastValueFrom(
-            this.http.get<UserTokenResultModel>(`${this.apiRoot}/account/tokens`, { params }) // eslint-disable-line max-len
+            this.http.get<UserTokenResultModel>(`${this.apiRoot}/account/tokens`, { params })
         );
         return result;
     }
@@ -139,7 +139,7 @@ export class AccountService {
         model: UserTokenModel
     ): Promise<UserTokenModel> {
         const result = await lastValueFrom(
-            this.http.post<UserTokenModel>(`${this.apiRoot}/account/tokens`, model) // eslint-disable-line max-len
+            this.http.post<UserTokenModel>(`${this.apiRoot}/account/tokens`, model)
         );
         return result;
     }
@@ -149,14 +149,14 @@ export class AccountService {
         model: UserTokenModel
     ): Promise<UserTokenModel> {
         const result = await lastValueFrom(
-            this.http.put<UserTokenModel>(`${this.apiRoot}/account/tokens/${id}`, model) // eslint-disable-line max-len
+            this.http.put<UserTokenModel>(`${this.apiRoot}/account/tokens/${id}`, model)
         );
         return result;
     }
 
     public async deleteUserToken(id: string): Promise<void> {
         await lastValueFrom(
-            this.http.delete(`${this.apiRoot}/account/tokens/${id}`) // eslint-disable-line max-len
+            this.http.delete(`${this.apiRoot}/account/tokens/${id}`)
         );
     }
 
@@ -172,12 +172,12 @@ export class AccountService {
 
     public async getRolesAndPrivileges(): Promise<RoleAndPrivilege> {
         return await lastValueFrom(
-            this.http.get<RoleAndPrivilege>(`${this.apiRoot}/account/roles-and-privileges`) // eslint-disable-line max-len
+            this.http.get<RoleAndPrivilege>(`${this.apiRoot}/account/roles-and-privileges`)
         );
     }
 
-    public addAuthTokenTo(headers: Record<string, any>): void {
-        if (!!this.token) {
+    public addAuthTokenTo(headers: Record<string, string>): void {
+        if (this.token) {
             headers['Authorization'] = `Bearer ${this.token}`
         }
     }
@@ -246,8 +246,8 @@ export interface UserInfo {
 }
 
 export interface LoginModel {
-    userName?: string;
-    password?: string;
+    userName: string;
+    password: string;
     isPersistent?: boolean;
     captcha?: string;
 }

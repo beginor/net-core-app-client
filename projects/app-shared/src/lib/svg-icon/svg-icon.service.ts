@@ -22,13 +22,13 @@ export class SvgIconService {
     public loadSvgFile(path: string): Promise<string> {
         const key = `svg-icon:${path}`;
         const loadedItem = sessionStorage.getItem(key);
-        if (!!loadedItem) {
+        if (loadedItem) {
             return Promise.resolve(loadedItem);
         }
         if (this.loadingMap.has(key)) {
-            const op = this.loadingMap.get(key) as Observable<string>;
+            const op = this.loadingMap.get(key);
             return new Promise<string>((resolve, reject) => {
-                op.subscribe({
+                op?.subscribe({
                     next: val => resolve(val),
                     error: ex => reject(ex)
                 });

@@ -55,5 +55,5 @@ import { MatBadgeModule } from '@angular/material/badge';
         MatGridListModule,
         MatBadgeModule
     ]
-  })
-export class MatModule { }
+})
+export class MatModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class

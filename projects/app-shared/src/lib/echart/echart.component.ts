@@ -68,7 +68,7 @@ export class EchartComponent implements AfterViewInit, OnDestroy {
                         type: 'group',
                         left: 'center',
                         top: 'center',
-                        children: columns as any[]
+                        children: columns as any[], // eslint-disable-line @typescript-eslint/no-explicit-any
                     }
                 ]
             }
@@ -85,7 +85,7 @@ export class EchartComponent implements AfterViewInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             this.echart.clear();
             this.echart.resize();
-            if (!!props.beforeSetChartOptions) {
+            if (props.beforeSetChartOptions) {
                 props.beforeSetChartOptions(opts);
             }
             this.echart.setOption(opts);

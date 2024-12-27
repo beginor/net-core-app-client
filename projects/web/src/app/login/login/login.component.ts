@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 { replaceUrl: true }
             );
         }
-        catch (ex: any) {
+        catch (ex: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             this.errorHandler.handleError(ex);
             const message = typeof ex.error === 'string' ? ex.error : '无法登录！';
             this.message.set(message);

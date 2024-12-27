@@ -1,10 +1,10 @@
 export function isProd(): boolean {
     const mode = getQueryString('mode');
-    if (!!mode) {
+    if (mode) {
         if (mode === 'prod') { return true; }
         if (mode === 'dev') { return false; }
     }
-    return ['127.0.0.1', 'localhost'].indexOf(location.hostname) === -1;
+    return !['127.0.0.1', 'localhost'].includes(location.hostname);
 }
 
 function getQueryString(key: string): string | null {

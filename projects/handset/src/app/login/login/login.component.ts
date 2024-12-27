@@ -50,10 +50,10 @@ export class LoginComponent {
                 { replaceUrl: true }
             );
         }
-        catch (ex: any) {
+        catch (ex: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             this.errorHandler.handleError(ex);
             this.snackBar.open(
-                ex.error ?? ex.toString(), // eslint-disable-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, max-len
+                ex.error ?? ex.toString(),
                 '确定',
                 { duration: 3000 }
             );

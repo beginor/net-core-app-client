@@ -1,9 +1,14 @@
 // @ts-check
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 
 import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin'
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default tseslint.config(
   {
@@ -14,8 +19,8 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-        createDefaultProgram: true,
+        tsconfigRootDir: __dirname,
+        project: 'tsconfig.json',
       }
     },
     extends: [
@@ -26,8 +31,9 @@ export default tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      'no-debugger': 'error',
+      'no-debugger': ['error'],
       'no-console': ['warn', { allow: ['error'] }],
+      'no-prototype-builtins': ['off'],
       '@stylistic/max-len': [
         'error', {
           code: 80,
@@ -41,6 +47,7 @@ export default tseslint.config(
         }
       ],
       '@stylistic/quotes': ['error', 'single'],
+      '@typescript-eslint/no-explicit-any': ['warn'],
       '@typescript-eslint/explicit-function-return-type': [
         'error',
         {
@@ -67,11 +74,11 @@ export default tseslint.config(
       ],
       "@angular-eslint/directive-selector": [
         "error",
-        { type: "attribute", prefix: "app", style: "camelCase" }
+        { type: "attribute", style: "camelCase" }
       ],
       "@angular-eslint/component-selector": [
         "error",
-        { type: "element", prefix: "app", style: "kebab-case" }
+        { type: "element", style: "kebab-case" }
       ]
     },
   },
