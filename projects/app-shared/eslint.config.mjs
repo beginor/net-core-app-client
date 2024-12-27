@@ -3,7 +3,7 @@ import { dirname } from 'node:path';
 
 import tseslint from 'typescript-eslint';
 
-import rootConfig from '../eslint.config.mjs';
+import rootConfig from '../../eslint.config.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
