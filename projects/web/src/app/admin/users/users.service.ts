@@ -232,8 +232,7 @@ export class UsersService {
     /** 获取全部角色 */
     public async getRoles(): Promise<void> {
         try {
-            // eslint-disable-next-line @stylistic/max-len
-            this.rolesSvc.searchModel.organizeUnitId = this.searchModel.organizeUnitId;
+            this.rolesSvc.searchModel.organizeUnitId = this.searchModel.organizeUnitId; // eslint-disable-line @stylistic/max-len
             this.rolesSvc.searchModel.skip = 0;
             this.rolesSvc.searchModel.take = 999;
             await this.rolesSvc.search();

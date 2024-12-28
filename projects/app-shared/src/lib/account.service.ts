@@ -66,8 +66,7 @@ export class AccountService {
             }
             return info;
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        catch (ex: any) {
+        catch (ex: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             console.error(ex);
             localStorage.removeItem(this.tokenKey);
             throw new Error('Can not get account info!');

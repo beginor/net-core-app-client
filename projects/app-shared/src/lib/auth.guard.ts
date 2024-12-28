@@ -7,10 +7,8 @@ import {
 import { AccountService } from './account.service';
 
 export const matchAfterAuth: CanMatchFn = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    route: Route,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    segments: UrlSegment[]
+    route: Route, // eslint-disable-line @typescript-eslint/no-unused-vars
+    segments: UrlSegment[] // eslint-disable-line @typescript-eslint/no-unused-vars
 ): Promise<boolean> => {
     const account = inject(AccountService);
     const errorHandler = inject(ErrorHandler);
@@ -21,10 +19,8 @@ export const matchAfterAuth: CanMatchFn = (
 }
 
 export const activateAfterAuth: CanActivateFn = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    route: ActivatedRouteSnapshot,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot, // eslint-disable-line @typescript-eslint/no-unused-vars
+    state: RouterStateSnapshot // eslint-disable-line @typescript-eslint/no-unused-vars
 ): Promise<boolean> => {
     const account = inject(AccountService);
     const errorHandler = inject(ErrorHandler);
