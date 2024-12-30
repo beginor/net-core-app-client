@@ -100,18 +100,6 @@ export class RolesService {
         }
     }
 
-    /** 更改页码分页查询 */
-    public async onPageChange(p: number): Promise<void> {
-        this.searchModel.skip = (p - 1) * this.searchModel.take;
-        await this.search();
-    }
-
-    /** 更改分页大小 */
-    public async onPageSizeChange(): Promise<void> {
-        this.searchModel.skip = 0;
-        await this.search();
-    }
-
     /** 创建角色 */
     public async create(
         model: AppRoleModel
