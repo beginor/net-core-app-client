@@ -22,7 +22,7 @@ import { MatModule } from '../../mat/mat.module';
 })
 export class LoginComponent {
 
-    public model: LoginModel = { };
+    public model: LoginModel = { userName: '', password: '' };
     public loading = false;
 
     constructor(

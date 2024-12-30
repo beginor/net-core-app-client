@@ -22,7 +22,7 @@ import { AntdModule, UiService } from 'projects/web/src/app/common';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-    protected model: LoginModel = {};
+    protected model: LoginModel = { userName: '', password: '' };
     protected loading = signal(false);
     protected message = signal('');
 
