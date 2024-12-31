@@ -1,47 +1,49 @@
+@let user = account.currentUser();
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <nz-card *ngIf="(account.info | async) as info"
-        class="ant-card-data-list" nzTitle="角色" [nzExtra]="cardExtra">
+      <nz-card class="ant-card-data-list" nzTitle="角色" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
           <nz-button-group>
-            <button *ngIf="info.privileges['app_roles.create']"
-              type="button" nz-button nzType="primary"
-              (click)="showDetail('0', true)">
-              <svg-icon class="me-1" iconPath="bi/plus" /> 新建角色
-            </button>
+            @if (user.privileges['app_roles.create']) {
+              <button type="button" nz-button nzType="primary"
+                (click)="showDetail('0', true)">
+                <svg-icon class="me-1" iconPath="bi/plus" /> 新建角色
+              </button>
+            }
             <button type="button" nz-button nzType="default"
               (click)="vm.search()">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
           </nz-button-group>
         </ng-template>
-        <ng-container *ngIf="(vm.data | async) as data">
-          <nz-table nzSize="small" [nzFrontPagination]="false"
-            [nzShowSizeChanger]="true"
-            [nzShowPagination]="true"
-            [nzShowQuickJumper]="true"
-            [nzData]="data"
-            [nzTotal]="(vm.total | async)!"
-            [nzShowTotal]="totalTpl"
-            [nzLoading]="vm.loading"
-            [nzPageIndex]="vm.pageIndex"
-            [nzPageSize]="vm.pageSize"
-            [nzPageSizeOptions]="vm.pageSizeOptions"
-            (nzQueryParams)="loadData($event)">
-            <thead>
-              <tr class="sticky-top">
-                <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
-                <th scope="col" class="text-start text-nowrap">名称</th>
-                <th scope="col" class="text-start text-nowrap">描述</th>
-                <th scope="col" class="text-center text-nowrap">是否默认</th>
-                <th scope="col" class="text-center text-nowrap">是否匿名</th>
-                <th scope="col" class="text-end text-nowrap">用户数</th>
-                <th scope="col" class="text-center text-nowrap table-action-col-4">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of data; let i = index;">
+        @let data = (vm.data | async)!;
+        <nz-table nzSize="small" [nzFrontPagination]="false"
+          [nzShowSizeChanger]="true"
+          [nzShowPagination]="true"
+          [nzShowQuickJumper]="true"
+          [nzData]="data"
+          [nzTotal]="(vm.total | async)!"
+          [nzShowTotal]="totalTpl"
+          [nzLoading]="vm.loading"
+          [nzPageIndex]="vm.pageIndex"
+          [nzPageSize]="vm.pageSize"
+          [nzPageSizeOptions]="vm.pageSizeOptions"
+          (nzQueryParams)="loadData($event)">
+          <thead>
+            <tr class="sticky-top">
+              <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
+              <th scope="col" class="text-start text-nowrap">名称</th>
+              <th scope="col" class="text-start text-nowrap">描述</th>
+              <th scope="col" class="text-center text-nowrap">是否默认</th>
+              <th scope="col" class="text-center text-nowrap">是否匿名</th>
+              <th scope="col" class="text-end text-nowrap">用户数</th>
+              <th scope="col" class="text-center text-nowrap table-action-col-4">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of data; track item.id; let i = $index;) {
+              <tr>
                 <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
                 <td class="text-start">{{item.name}}</td>
                 <td class="text-start">{{item.description}}</td>
@@ -50,37 +52,41 @@
                 <td class="text-end"><a [routerLink]="['../users', {roleName: item.name}]">{{item.userCount}}</a></td>
                 <td class="text-center">
                   <nz-button-group>
-                    <button *ngIf="info.privileges['app_roles.read']"
-                      class="px-2" type="button" nz-button nzType="default"
-                      nz-tooltip="详情" nzTooltipPlacement="top"
-                      (click)="showDetail(item.id, false)">
-                      <svg-icon iconPath="bi/info-square" />
-                    </button>
-                    <button *ngIf="info.privileges['app_roles.update']"
-                      class="px-2" type="button" nz-button nzType="default"
-                      nz-tooltip="编辑" nzTooltipPlacement="top"
-                      (click)="showDetail(item.id, true)">
-                      <svg-icon iconPath="bi/pencil-square" />
-                    </button>
-                    <button *ngIf="info.privileges['app_roles.read_role_privileges']"
-                      class="px-2" type="button" nz-button nzType="default"
-                      nz-tooltip="角色权限" nzTooltipPlacement="top"
-                      (click)="showPrivileges(item)">
-                      <svg-icon iconPath="bi/shield-lock" />
-                    </button>
-                    <button *ngIf="info.privileges['app_roles.delete']"
-                      class="px-2" type="button" nz-button nzType="default"
-                      nz-tooltip="删除" nzTooltipPlacement="top"
-                      (click)="delete(item.id)"
-                      [disabled]="$any(item.userCount) > 0">
-                      <svg-icon iconPath="bi/trash" />
-                    </button>
+                    @if (user.privileges['app_roles.read_by_id']) {
+                      <button class="px-2" type="button" nz-button nzType="default"
+                        nz-tooltip="详情" nzTooltipPlacement="top"
+                        (click)="showDetail(item.id, false)">
+                        <svg-icon iconPath="bi/info-square" />
+                      </button>
+                    }
+                    @if (user.privileges['app_roles.update']) {
+                      <button class="px-2" type="button" nz-button nzType="default"
+                        nz-tooltip="编辑" nzTooltipPlacement="top"
+                        (click)="showDetail(item.id, true)">
+                        <svg-icon iconPath="bi/pencil-square" />
+                      </button>
+                    }
+                    @if (user.privileges['app_roles.read_role_privileges']) {
+                      <button class="px-2" type="button" nz-button nzType="default"
+                        nz-tooltip="角色权限" nzTooltipPlacement="top"
+                        (click)="showPrivileges(item)">
+                        <svg-icon iconPath="bi/shield-lock" />
+                      </button>
+                    }
+                    @if (user.privileges['app_roles.delete']) {
+                      <button class="px-2" type="button" nz-button nzType="default"
+                        nz-tooltip="删除" nzTooltipPlacement="top"
+                        (click)="delete(item.id)"
+                        [disabled]="$any(item.userCount) > 0">
+                        <svg-icon iconPath="bi/trash" />
+                      </button>
+                    }
                   </nz-button-group>
                 </td>
               </tr>
-            </tbody>
-          </nz-table>
-        </ng-container>
+            }
+          </tbody>
+        </nz-table>
       </nz-card>
       <ng-template #totalTpl let-total let-range="range">
         当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条

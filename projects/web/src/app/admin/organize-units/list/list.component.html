@@ -1,40 +1,35 @@
-﻿<div class="container-fluid">
+﻿@let user = account.currentUser();
+<div class="container-fluid">
   <div class="row">
     <div class="col">
-      <nz-card *ngIf="account.info | async as info"
-        class="ant-card-data-list" nzTitle="组织单元" [nzExtra]="cardExtra">
+      <nz-card class="ant-card-data-list" nzTitle="组织单元" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
-          <nz-button-group class="btn-group btn-group-sm">
-            <button
-              *ngIf="info.privileges['app_organize_units.create']"
-              type="button" nz-button nzType="primary"
-              (click)="showDetail('0', true)"
-            >
-              <svg-icon class="me-1" iconPath="bi/plus" /> 新建组织单元
-            </button>
-            <button
-              type="button" nz-button nzType="default"
-              (click)="loadData()"
-            >
+          <nz-button-group>
+            @if (user.privileges['app_organize_units.create']) {
+              <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
+                <svg-icon class="me-1" iconPath="bi/plus" /> 新建组织单元
+              </button>
+            }
+            <button type="button" nz-button nzType="default" (click)="loadData()">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
           </nz-button-group>
         </ng-template>
-        <div class="table-responsive">
-          <nz-table #expandTable
-            [nzData]="listData" [nzShowPagination]="false"
-            nzSize="small" [nzPageSize]="listData.length">
-            <thead>
-              <tr>
-                <th>名称</th>
-                <th>说明</th>
-                <th class="text-end">顺序</th>
-                <th class="table-action-col-3 text-center">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let item of expandTable.data">
-                <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+        <nz-table #expandTable
+          [nzData]="listData" [nzShowPagination]="false"
+          nzSize="small" [nzPageSize]="listData.length">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>说明</th>
+              <th class="text-end">顺序</th>
+              <th class="table-action-col-3 text-center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of expandTable.data; track item.id;) {
+              @if ((item.parent && item.parent.expand) || !item.parent) {
+                <tr>
                   <td [nzIndentSize]="item.level! * 16"
                     [nzShowExpand]="item.children && item.children.length > 0"
                     [nzExpand]="item.expand"
@@ -45,37 +40,35 @@
                   <td class="text-end">{{ item.sequence }}</td>
                   <td>
                     <nz-button-group>
-                      <button
-                        *ngIf="info.privileges['app_organize_units.read_by_id']"
-                        class="px-2" nz-button nzType="default"
-                        nz-tooltip="详情" nzTooltipPlacement="top"
-                        (click)="showDetail(item.id, false)">
-                        <svg-icon iconPath="bi/info-square" />
-                      </button>
-                      <button
-                        *ngIf="info.privileges['app_organize_units.update']"
-                        class="px-2" nz-button nzType="default"
-                        nz-tooltip="编辑" nzTooltipPlacement="top"
-                        (click)="showDetail(item.id, true)"
-                      >
-                        <svg-icon iconPath="bi/pencil-square" />
-                      </button>
-                      <button
-                        *ngIf="info.privileges['app_organize_units.delete']"
-                        class="px-2" nz-button nzType="default"
-                        nz-tooltip="删除" nzTooltipPlacement="top"
-                        [disabled]="item.children && item.children.length > 0"
-                        (click)="delete(item.id)"
-                      >
-                        <svg-icon iconPath="bi/trash" />
-                      </button>
+                      @if (user.privileges['app_organize_units.read_by_id']) {
+                        <button class="px-2" nz-button nzType="default"
+                          nz-tooltip="详情" nzTooltipPlacement="top"
+                          (click)="showDetail(item.id, false)">
+                          <svg-icon iconPath="bi/info-square" />
+                        </button>
+                      }
+                      @if (user.privileges['app_organize_units.update']) {
+                        <button class="px-2" nz-button nzType="default"
+                          nz-tooltip="编辑" nzTooltipPlacement="top"
+                          (click)="showDetail(item.id, true)">
+                          <svg-icon iconPath="bi/pencil-square" />
+                        </button>
+                      }
+                      @if (user.privileges['app_organize_units.delete']) {
+                        <button class="px-2" nz-button nzType="default"
+                          nz-tooltip="删除" nzTooltipPlacement="top"
+                          [disabled]="item.children && item.children.length > 0"
+                          (click)="delete(item.id)">
+                          <svg-icon iconPath="bi/trash" />
+                        </button>
+                      }
                     </nz-button-group>
                   </td>
                 </tr>
-              </ng-container>
-            </tbody>
-          </nz-table>
-        </div>
+              }
+            }
+          </tbody>
+        </nz-table>
       </nz-card>
     </div>
   </div>

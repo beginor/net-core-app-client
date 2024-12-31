@@ -109,7 +109,7 @@
                 <td class="text-end">{{item.loginCount}}</td>
                 <td class="text-center">
                   <nz-button-group>
-                    <button *ngIf="info.privileges['app_users.read']"
+                    <button *ngIf="info.privileges['app_users.read_by_id']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="详情" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, false)">

@@ -1,14 +1,14 @@
-<nz-card *ngIf="(account.info | async) as info"
-  class="ant-card-data-detail m-0"
-  [nzTitle]="title" [nzExtra]="toolsTpl"
+@let user = account.currentUser();
+<nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl"
   [nzActions]="editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
     <nz-button-group>
-      <button *ngIf="info.privileges['app_nav_items.update'] && editable"
-        type="button" nz-button nzType="primary"
-        (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
-      </button>
+      @if (user.privileges['app_nav_items.update'] && editable) {
+        <button type="button" nz-button nzType="primary"
+          (click)="save()" [disabled]="!detailForm.valid">
+          <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        </button>
+      }
       <button type="button" nz-button nzType="default" (click)="cancel()">
         <svg-icon class="me-1" iconPath="bi/x" /> 取消
       </button>
@@ -22,9 +22,9 @@
           <nz-form-control nzHasFeedback="true">
             <nz-select nzId="parentId" name="parentId" [(ngModel)]="model.parentId"
               [nzDisabled]="!editable">
-              <nz-option *ngFor="let p of parents"
-                [nzValue]="p.id" [nzLabel]="p.title!"
-              />
+              @for (p of parents; track p.id) {
+                <nz-option [nzValue]="p.id" [nzLabel]="p.title!" />
+              }
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -58,9 +58,9 @@
           <nz-form-control [nzHasFeedback]="true">
             <nz-select nzId="target" name="target"
               [(ngModel)]="model.target" [disabled]="!editable">
-              <nz-option *ngFor="let _t of targets"
-                [nzValue]="_t.value" [nzLabel]="_t.name"
-              />
+              @for (_t of targets; track _t.value) {
+                <nz-option [nzValue]="_t.value" [nzLabel]="_t.name" />
+              }
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -77,15 +77,17 @@
         </nz-form-item>
       </div>
     </div>
-    <nz-form-item *ngIf="model.target === '_iframe'">
-      <nz-form-label nzFor="frame_url" [nzRequired]="true">内嵌窗口地址</nz-form-label>
-      <nz-form-control [nzHasFeedback]="true">
-        <input type="text" id="frame_url" name="frameUrl"
-          placeholder="请输入内嵌窗口地址 ..." nz-input [(ngModel)]="model.frameUrl"
-          required [disabled]="!editable"
-        />
-      </nz-form-control>
-    </nz-form-item>
+    @if (model.target === '_iframe') {
+      <nz-form-item>
+        <nz-form-label nzFor="frame_url" [nzRequired]="true">内嵌窗口地址</nz-form-label>
+        <nz-form-control [nzHasFeedback]="true">
+          <input type="text" id="frame_url" name="frameUrl"
+            placeholder="请输入内嵌窗口地址 ..." nz-input [(ngModel)]="model.frameUrl"
+            required [disabled]="!editable"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    }
     <div class="row">
       <div class="col-4">
         <nz-form-item>
@@ -98,12 +100,12 @@
               />
             </nz-input-group>
             <ng-template #iconLibBtn>
-              <ng-container *ngIf="editable && info.privileges['app_storages.read_folder_content']">
+              @if (editable && user.privileges['app_storages.read_folder_content']) {
                 <button class="px-2" type="button" nz-button nzType="default" nzSearch
                   nz-tooltip="从图标库查找图标" (click)="showIconDialog()">
                   <svg-icon iconPath="bi/search" />
                 </button>
-              </ng-container>
+              }
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -127,24 +129,28 @@
     <nz-form-item>
       <nz-form-label nzFor="roles">菜单角色</nz-form-label>
       <nz-form-control>
-        <label *ngFor="let role of vm.roles" class="m-0"
-          nz-checkbox [nzId]="role.id" [for]="role.id"
-          [nzDisabled]="!editable" [nzValue]="role.name"
-          [nzChecked]="isRoleChecked(role.name)"
-          (nzCheckedChange)="toggleCheckedRole(role.name)">{{role.description}}</label>
+        @for (role of vm.roles; track role.id) {
+          <label class="m-0"
+            nz-checkbox [nzId]="role.id" [for]="role.id"
+            [nzDisabled]="!editable" [nzValue]="role.name"
+            [nzChecked]="isRoleChecked(role.name)"
+            (nzCheckedChange)="toggleCheckedRole(role.name)">
+            {{role.description}}
+          </label>
+        }
       </nz-form-control>
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    <button *ngIf="info.privileges['app_nav_items.update'] && editable"
-      class="float-start ms-4" type="button" nz-button nzType="primary"
-      (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon class="me-1" iconPath="bi/check" /> 保存
-    </button>
+    @if (user.privileges['app_nav_items.update'] && editable) {
+      <button class="float-start ms-4" type="button" nz-button nzType="primary"
+        (click)="save()" [disabled]="!detailForm.valid">
+        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+      </button>
+    }
   </ng-template>
   <ng-template #cancelTpl>
-    <button class="float-end me-4" type="button" nz-button nzType="default"
-      (click)="cancel()">
+    <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
       <svg-icon class="me-1" iconPath="bi/x" /> 取消
     </button>
   </ng-template>

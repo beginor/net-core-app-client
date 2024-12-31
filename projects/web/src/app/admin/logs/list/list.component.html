@@ -1,8 +1,8 @@
-﻿<div class="container-fluid">
+﻿@let user = account.currentUser();
+<div class="container-fluid">
   <div class="row">
     <div class="col">
-      <nz-card *ngIf="(account.info | async) as info"
-        class="ant-card-data-list" nzTitle="运行日志" [nzExtra]="cardExtra">
+      <nz-card class="ant-card-data-list" nzTitle="运行日志" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
           <form nz-form>
             <nz-space>
@@ -29,31 +29,32 @@
             </nz-space>
           </form>
         </ng-template>
-        <ng-container *ngIf="(vm.data | async) as data">
-          <nz-table nzSize="small" [nzFrontPagination]="false"
-            [nzShowSizeChanger]="true"
-            [nzShowPagination]="true"
-            [nzShowQuickJumper]="true"
-            [nzData]="data"
-            [nzTotal]="(vm.total | async)!"
-            [nzShowTotal]="totalTpl"
-            [nzLoading]="vm.loading"
-            [nzPageIndex]="vm.pageIndex"
-            [nzPageSize]="vm.pageSize"
-            [nzPageSizeOptions]="vm.pageSizeOptions"
-            (nzQueryParams)="loadData($event)">
-            <thead>
-              <tr class="sticky-top">
-                <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
-                <th scope="col" class="text-start text-nowrap">产生时间</th>
-                <th scope="col" class="text-start text-nowrap">日志级别</th>
-                <th scope="col" class="text-start text-nowrap">记录者</th>
-                <th scope="col" class="text-start text-nowrap">日志消息</th>
-                <th scope="col" class="text-center text-nowrap table-action-col-1">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of data; let i = index;">
+        @let data = (vm.data | async)!;
+        <nz-table nzSize="small" [nzFrontPagination]="false"
+          [nzShowSizeChanger]="true"
+          [nzShowPagination]="true"
+          [nzShowQuickJumper]="true"
+          [nzData]="data"
+          [nzTotal]="(vm.total | async)!"
+          [nzShowTotal]="totalTpl"
+          [nzLoading]="vm.loading"
+          [nzPageIndex]="vm.pageIndex"
+          [nzPageSize]="vm.pageSize"
+          [nzPageSizeOptions]="vm.pageSizeOptions"
+          (nzQueryParams)="loadData($event)">
+          <thead>
+            <tr class="sticky-top">
+              <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
+              <th scope="col" class="text-start text-nowrap">产生时间</th>
+              <th scope="col" class="text-start text-nowrap">日志级别</th>
+              <th scope="col" class="text-start text-nowrap">记录者</th>
+              <th scope="col" class="text-start text-nowrap">日志消息</th>
+              <th scope="col" class="text-center text-nowrap table-action-col-1">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of data; track $index; let i = $index;) {
+              <tr>
                 <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
                 <td class='text-start'>{{item.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td [class]="'text-start ' + vm.getTextClass(item.level)">{{item.level}}</td>
@@ -61,18 +62,19 @@
                 <td class='text-start text-truncate' style="max-width: 30rem;">{{item.message}}</td>
                 <td class="text-center">
                   <nz-button-group>
-                    <button *ngIf="info.privileges['app_logs.read_by_id']"
-                      class="px-2" type="button" nz-button nzType="default"
-                      nz-tooltip="详情" nzTooltipPlacement="top"
-                      (click)="showDetail(item.id, false)">
-                      <svg-icon iconPath="bi/info-square" />
-                    </button>
+                    @if (user.privileges['app_logs.read_by_id']) {
+                      <button class="px-2" type="button" nz-button nzType="default"
+                        nz-tooltip="详情" nzTooltipPlacement="top"
+                        (click)="showDetail(item.id, false)">
+                        <svg-icon iconPath="bi/info-square" />
+                      </button>
+                    }
                   </nz-button-group>
                 </td>
               </tr>
-            </tbody>
-          </nz-table>
-        </ng-container>
+            }
+          </tbody>
+        </nz-table>
       </nz-card>
       <ng-template #totalTpl let-total let-range="range">
         当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条

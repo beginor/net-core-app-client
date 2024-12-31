@@ -3,18 +3,19 @@
     <nz-card class="ant-card-data-list" nzTitle="我的凭证" [nzExtra]="cardExtra">
       <ng-template #cardExtra>
         <nz-space>
-          <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="standalone">
+          <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOn">
             <input type="text" nz-input placeholder="输入关键字进行搜索"
               name="userName" [(ngModel)]="vm.model.keywords"
               [ngModelOptions]="{ standalone: true }"
               (keyup.enter)="loadData({})"
             />
-            <ng-template #standalone>
-              <button *ngIf="vm.model.keywords"
-                class="px-2" type="button" nz-button nzType="default"
-                (click)="resetSearch()">
-                <svg-icon iconPath="bi/x" />
-              </button>
+            <ng-template #userNameAddOn>
+              @if (vm.model.keywords) {
+                <button class="px-2" type="button" nz-button nzType="default"
+                  (click)="resetSearch()">
+                  <svg-icon iconPath="bi/x" />
+                </button>
+              }
               <button class="px-2" type="button" nz-button nzType="default" nzSearch
                 (click)="loadData({})">
                 <svg-icon iconPath="bi/search" />
@@ -57,32 +58,34 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let token of vm.tokens;let i = index;">
-          <th scope="row" class="text-end">{{i+1}}</th>
-          <td class='text-start'>{{token.name}}</td>
-          <td class='text-center'>{{token.value}}</td>
-          <td class='text-end'>{{token.privileges?.length}}</td>
-          <td class='text-end'>{{token.roles?.length}}</td>
-          <td class='text-end'>{{token.urls?.length}}</td>
-          <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
-          <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
-          <td class="text-center">
-            <nz-button-group>
-              <button class="px-2" type="button"
-                nz-button nzType="default"
-                nz-tooltip="编辑" nzTooltipPlacement="top"
-                (click)="showDetail(token.id, true)">
-                <svg-icon iconPath="bi/pencil-square" />
-              </button>
-              <button class="px-2" type="button"
-                nz-button nzType="default"
-                nz-tooltip="删除" nzTooltipPlacement="top"
-                (click)="delete(token.id)">
-                <svg-icon iconPath="bi/trash" />
-              </button>
-            </nz-button-group>
-          </td>
-        </tr>
+        @for (token of vm.tokens; track token.id; let i = $index;) {
+          <tr>
+            <th scope="row" class="text-end">{{i+1}}</th>
+            <td class='text-start'>{{token.name}}</td>
+            <td class='text-center'>{{token.value}}</td>
+            <td class='text-end'>{{token.privileges?.length}}</td>
+            <td class='text-end'>{{token.roles?.length}}</td>
+            <td class='text-end'>{{token.urls?.length}}</td>
+            <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
+            <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
+            <td class="text-center">
+              <nz-button-group>
+                <button class="px-2" type="button"
+                  nz-button nzType="default"
+                  nz-tooltip="编辑" nzTooltipPlacement="top"
+                  (click)="showDetail(token.id, true)">
+                  <svg-icon iconPath="bi/pencil-square" />
+                </button>
+                <button class="px-2" type="button"
+                  nz-button nzType="default"
+                  nz-tooltip="删除" nzTooltipPlacement="top"
+                  (click)="delete(token.id)">
+                  <svg-icon iconPath="bi/trash" />
+                </button>
+              </nz-button-group>
+            </td>
+          </tr>
+        }
         </tbody>
       </nz-table>
     </nz-card>

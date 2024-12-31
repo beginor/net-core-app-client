@@ -1,28 +1,31 @@
-﻿<nz-card *ngIf="(account.info | async) as info"
-  class="ant-card-data-detail m-0"
+﻿@let user = account.currentUser();
+<nz-card class="ant-card-data-detail m-0"
   [nzTitle]="title" [nzExtra]="toolsTpl" [nzActions]="editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
     <nz-button-group>
-      <button *ngIf="info.privileges['app_organize_units.update'] && editable"
-        type="button" nz-button nzType="primary"
-        (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
-      </button>
+      @if (user.privileges['app_organize_units.update'] && editable) {
+        <button type="button" nz-button nzType="primary"
+          (click)="save()" [disabled]="!detailForm.valid">
+          <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        </button>
+      }
       <button type="button" nz-button nzType="default" (click)="cancel()">
         <svg-icon class="me-1" iconPath="bi/x" /> 取消
       </button>
     </nz-button-group>
   </ng-template>
   <form nz-form nzLayout="vertical" #detailForm="ngForm">
-    <nz-form-item *ngIf="(vm.treeNodes | async) as treeNodes">
-      <nz-form-label nzRequired>上级组织单元</nz-form-label>
-      <nz-form-control>
-        <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large"
-          [(ngModel)]="model.parentId" [nzDisabled]="!editable"
-          nzPlaceHolder="请选择上级组织单元" [nzNodes]="treeNodes" nzShowSearch>
-        </nz-tree-select>
-      </nz-form-control>
-    </nz-form-item>
+    @if (vm.treeNodes | async; as treeNodes) {
+      <nz-form-item>
+        <nz-form-label nzRequired>上级组织单元</nz-form-label>
+        <nz-form-control>
+          <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large"
+            [(ngModel)]="model.parentId" [nzDisabled]="!editable"
+            nzPlaceHolder="请选择上级组织单元" [nzNodes]="treeNodes" nzShowSearch>
+          </nz-tree-select>
+        </nz-form-control>
+      </nz-form-item>
+    }
     <div nz-row [nzGutter]="8">
       <div nz-col nzFlex="1">
         <nz-form-item>
@@ -60,15 +63,15 @@
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    <button *ngIf="info.privileges['app_organize_units.update'] && editable"
-      class="float-start ms-4" type="button" nz-button nzType="primary"
-      (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon class="me-1" iconPath="bi/check" /> 保存
-    </button>
+    @if (user.privileges['app_organize_units.update'] && editable) {
+      <button class="float-start ms-4" type="button" nz-button nzType="primary"
+        (click)="save()" [disabled]="!detailForm.valid">
+        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+      </button>
+    }
   </ng-template>
   <ng-template #cancelTpl>
-    <button class="float-end me-4" type="button" nz-button nzType="default"
-      (click)="cancel()">
+    <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
       <svg-icon class="me-1" iconPath="bi/x" /> 取消
     </button>
   </ng-template>

@@ -56,28 +56,32 @@
     <nz-form-item>
       <nz-form-label>凭证角色</nz-form-label>
       <nz-form-control>
-        <label *ngFor="let role of roles" class="m-0"
-          nz-checkbox [nzId]="role.id" [for]="role.id"
-          [nzDisabled]="!editable" [nzValue]="role.name"
-          [nzChecked]="isChecked(role.name, 'checkedRoles')"
-          (nzCheckedChange)="toggleChecked($event, role.name, 'checkedRoles')">
-          {{role.description}}
-        </label>
+        @for (role of roles; track role.id) {
+          <label class="m-0" nz-checkbox [nzId]="role.id" [for]="role.id"
+            [nzDisabled]="!editable" [nzValue]="role.name"
+            [nzChecked]="isChecked(role.name, 'checkedRoles')"
+            (nzCheckedChange)="toggleChecked($event, role.name, 'checkedRoles')">
+            {{role.description}}
+          </label>
+        }
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label>凭证权限</nz-form-label>
       <nz-form-control>
-        <div class="m-1" *ngFor="let mp of privileges">
-          <div class="fw-bolder">{{mp.module}}</div>
-          <label *ngFor="let p of mp.privileges" class="m-0"
-            nz-checkbox [nzId]="p.id" [for]="p.id"
-            [nzDisabled]="!editable" [nzValue]="p.name"
-            [nzChecked]="isChecked(p.name, 'checkedPrivileges')"
-            (nzCheckedChange)="toggleChecked($event, p.name, 'checkedPrivileges')">
-            {{p.description}}
-          </label>
-        </div>
+        @for (mp of privileges; track mp.module) {
+          <div class="m-1">
+            <div class="fw-bolder">{{mp.module}}</div>
+            @for (p of mp.privileges; track p.id) {
+              <label class="m-0" nz-checkbox [nzId]="p.id" [for]="p.id"
+                [nzDisabled]="!editable" [nzValue]="p.name"
+                [nzChecked]="isChecked(p.name, 'checkedPrivileges')"
+                (nzCheckedChange)="toggleChecked($event, p.name, 'checkedPrivileges')">
+                {{p.description}}
+              </label>
+            }
+          </div>
+        }
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -94,28 +98,30 @@
             </button>
           </ng-template>
         </nz-input-group>
-        <nz-input-group class="mb-1" *ngFor="let url of tokenUrls" [nzAddOnAfter]="delUrlTpl" nzSearch>
-          <input type="text" nz-input readonly [value]="url" />
-          <ng-template #delUrlTpl>
-            <button class="px-2" type="button" nz-button nzType="default"
-              (click)="removeTokenUrl(url)" nz-tooltip="点击删除这个地址">
-              <svg-icon class="clickable" iconPath="bi/x" />
-            </button>
-          </ng-template>
-        </nz-input-group>
+        @for (url of tokenUrls; track url) {
+          <nz-input-group class="mb-1" [nzAddOnAfter]="delUrlTpl" nzSearch>
+            <input type="text" nz-input readonly [value]="url" />
+            <ng-template #delUrlTpl>
+              <button class="px-2" type="button" nz-button nzType="default"
+                (click)="removeTokenUrl(url)" nz-tooltip="点击删除这个地址">
+                <svg-icon class="clickable" iconPath="bi/x" />
+              </button>
+            </ng-template>
+          </nz-input-group>
+        }
       </nz-form-control>
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    <button *ngIf="editable"
-      class="float-start ms-4" type="button" nz-button nzType="primary"
-      (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon class="me-1" iconPath="bi/check" /> 保存
-    </button>
+    @if (editable) {
+      <button class="float-start ms-4" type="button" nz-button nzType="primary"
+        (click)="save()" [disabled]="!detailForm.valid">
+        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+      </button>
+    }
   </ng-template>
   <ng-template #cancelTpl>
-    <button class="float-end me-4" type="button" nz-button nzType="default"
-      (click)="cancel()">
+    <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
       <svg-icon class="me-1" iconPath="bi/x" /> 取消
     </button>
   </ng-template>

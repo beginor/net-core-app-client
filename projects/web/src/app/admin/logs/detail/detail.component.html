@@ -1,6 +1,4 @@
-﻿<nz-card *ngIf="(account.info | async) as info"
-  class="ant-card-data-detail m-0"
-  [nzTitle]="title" [nzExtra]="toolsTpl">
+﻿<nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl">
   <ng-template #toolsTpl>
     <nz-button-group>
       <button type="button" nz-button nzType="default" (click)="cancel()">
@@ -8,7 +6,7 @@
       </button>
     </nz-button-group>
   </ng-template>
-  <form nz-form nzLayout="vertical" #detailForm="ngForm">
+  <form nz-form nzLayout="vertical">
     <div class="row">
       <div class="col">
         <nz-form-item>
