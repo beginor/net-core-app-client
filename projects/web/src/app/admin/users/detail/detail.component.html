@@ -7,10 +7,10 @@
       <button *ngIf="info.privileges['app_users.update'] && editable"
         type="button" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
+        <svg-icon class="me-1" iconPath="bi/check" /> 保存
       </button>
       <button type="button" nz-button nzType="default" (click)="cancel()">
-        <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
+        <svg-icon class="me-1" iconPath="bi/x" /> 取消
       </button>
     </nz-button-group>
   </ng-template>
@@ -158,13 +158,13 @@
     <button *ngIf="info.privileges['app_users.update'] && editable"
       class="float-start ms-4" type="button" nz-button nzType="primary"
       (click)="save()" [disabled]="!detailForm.valid">
-      <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
+      <svg-icon class="me-1" iconPath="bi/check" /> 保存
     </button>
   </ng-template>
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default"
       (click)="cancel()">
-      <svg-icon class="me-1" iconPath="bi/x"></svg-icon> 取消
+      <svg-icon class="me-1" iconPath="bi/x" /> 取消
     </button>
   </ng-template>
 </nz-card>

@@ -42,7 +42,7 @@
                 [disabled]="(!loginForm.valid) || loading()"
                 type="button" (click)="login()">
                 @if (loading()) {
-                  <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon> 登录中 ...
+                  <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" /> 登录中 ...
                 } @else {
                   登录
                 }

@@ -8,11 +8,11 @@
             <button *ngIf="info.privileges['app_storages.create']"
               type="button" nz-button nzType="primary"
               (click)="showDetail('0', true)">
-              <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建存储目录
+              <svg-icon class="me-1" iconPath="bi/plus" /> 新建存储目录
             </button>
             <button type="button" nz-button nzType="default"
               (click)="loadData({})">
-              <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
           </nz-button-group>
         </ng-template>
@@ -52,19 +52,19 @@
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="详情" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, false)">
-                      <svg-icon iconPath="bi/info-square"></svg-icon>
+                      <svg-icon iconPath="bi/info-square" />
                     </button>
                     <button *ngIf="info.privileges['app_storages.update']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="编辑" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, true)">
-                      <svg-icon iconPath="bi/pencil-square"></svg-icon>
+                      <svg-icon iconPath="bi/pencil-square" />
                     </button>
                     <button *ngIf="info.privileges['app_storages.delete']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="删除" nzTooltipPlacement="top"
                       (click)="delete(item.id)">
-                      <svg-icon iconPath="bi/trash"></svg-icon>
+                      <svg-icon iconPath="bi/trash" />
                     </button>
                   </nz-button-group>
                 </td>

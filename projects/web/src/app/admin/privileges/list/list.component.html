@@ -18,11 +18,11 @@
                 <button *ngIf="info.privileges['app_privileges.create']"
                   type="button" nz-button nzType="primary"
                   (click)="showDetail('0', true)">
-                  <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建系统权限
+                  <svg-icon class="me-1" iconPath="bi/plus" /> 新建系统权限
                 </button>
                 <button type="button" nz-button nzType="default"
                   (click)="loadData({})">
-                  <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+                  <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
                 </button>
               </nz-button-group>
             </nz-space>
@@ -63,18 +63,18 @@
                     <button *ngIf="info.privileges['app_privileges.read']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="详情" (click)="showDetail(item.id, false)">
-                      <svg-icon iconPath="bi/info-square"></svg-icon>
+                      <svg-icon iconPath="bi/info-square" />
                     </button>
                     <button *ngIf="info.privileges['app_privileges.update']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="编辑" (click)="showDetail(item.id, true)">
-                      <svg-icon iconPath="bi/pencil-square"></svg-icon>
+                      <svg-icon iconPath="bi/pencil-square" />
                     </button>
                     <button *ngIf="info.privileges['app_privileges.delete']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="删除"
                       (click)="delete(item.id)">
-                      <svg-icon iconPath="bi/trash"></svg-icon>
+                      <svg-icon iconPath="bi/trash" />
                     </button>
                   </nz-button-group>
                 </td>

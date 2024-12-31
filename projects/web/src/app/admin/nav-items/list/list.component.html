@@ -8,11 +8,11 @@
             <button *ngIf="info.privileges['app_nav_items.create']"
               type="button" nz-button nzType="primary"
               (click)="showDetail('0', true)">
-              <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建菜单项
+              <svg-icon class="me-1" iconPath="bi/plus" /> 新建菜单项
             </button>
             <button type="button" nz-button nzType="default"
               (click)="loadData({})">
-              <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
           </nz-button-group>
         </ng-template>
@@ -45,7 +45,7 @@
                 <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
                 <td class='text-start'>{{item.title}}</td>
                 <td class='text-start'>{{item.tooltip}}</td>
-                <td class='text-start'><svg-icon *ngIf="item.icon" iconClass="bi" [iconPath]="item.icon"></svg-icon> {{item.icon}}</td>
+                <td class='text-start'><svg-icon *ngIf="item.icon" iconClass="bi" [iconPath]="item.icon" /> {{item.icon}}</td>
                 <td class='text-start'>{{item.url}}</td>
                 <td class='text-end'>{{item.sequence}}</td>
                 <td class="text-center">
@@ -54,19 +54,19 @@
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="详情" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, false)">
-                      <svg-icon iconPath="bi/info-square"></svg-icon>
+                      <svg-icon iconPath="bi/info-square" />
                     </button>
                     <button *ngIf="info.privileges['app_nav_items.update']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="编辑" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, true)">
-                      <svg-icon iconPath="bi/pencil-square"></svg-icon>
+                      <svg-icon iconPath="bi/pencil-square" />
                     </button>
                     <button *ngIf="info.privileges['app_nav_items.delete']"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="删除" nzTooltipPlacement="top"
                       (click)="delete(item.id)">
-                      <svg-icon iconPath="bi/trash"></svg-icon>
+                      <svg-icon iconPath="bi/trash" />
                     </button>
                   </nz-button-group>
                 </td>

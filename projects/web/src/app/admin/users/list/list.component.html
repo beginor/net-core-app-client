@@ -5,7 +5,7 @@
         <ng-template #orgUnitExtraTpl>
           <button class="px-2" type="button" nz-button nzType="default"
             (click)="loadOrganizeUnit()">
-            <svg-icon iconPath="bi/arrow-repeat"></svg-icon>
+            <svg-icon iconPath="bi/arrow-repeat" />
           </button>
         </ng-template>
         <ng-container *ngIf="(organizeUnitSvc.treeNodes | async) as treeNodes">
@@ -29,10 +29,10 @@
                   <button *ngIf="vm.searchModel.userName"
                     class="px-2" type="button" nz-button nzType="default"
                     (click)="cleanUserSearch()">
-                    <svg-icon iconPath="bi/x"></svg-icon>
+                    <svg-icon iconPath="bi/x" />
                   </button>
                   <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
-                    <svg-icon iconPath="bi/search"></svg-icon>
+                    <svg-icon iconPath="bi/search" />
                   </button>
                 </ng-template>
               </nz-input-group>
@@ -54,10 +54,10 @@
                 <button *ngIf="info.privileges['app_users.create']"
                   type="button" nz-button nzType="primary"
                   (click)="showDetail('0', true)">
-                  <svg-icon class="me-1" iconPath="bi/plus"></svg-icon> 新建用户
+                  <svg-icon class="me-1" iconPath="bi/plus" /> 新建用户
                 </button>
                 <button type="button" nz-button nzType="default" (click)="loadData({})">
-                  <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+                  <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
                 </button>
               </nz-button-group>
             </nz-space>
@@ -113,42 +113,42 @@
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="详情" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, false)">
-                      <svg-icon iconPath="bi/info-square"></svg-icon>
+                      <svg-icon iconPath="bi/info-square" />
                     </button>
                     <button *ngIf="canViewGears()"
                       class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="更多操作" nzTooltipPlacement="top"
                       nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenuTpl">
-                      <svg-icon iconPath="bi/three-dots"></svg-icon>
+                      <svg-icon iconPath="bi/three-dots" />
                     </button>
                     <nz-dropdown-menu #userMenuTpl="nzDropdownMenu">
                       <div nz-menu>
                         <li nz-menu-item *ngIf="info.privileges['app_users.update']"
                           (click)="showDetail(item.id, true)">
-                          <svg-icon class="me-2" iconPath="bi/pencil-square"></svg-icon> 编辑
+                          <svg-icon class="me-2" iconPath="bi/pencil-square" /> 编辑
                         </li>
                         @if (isLockout(item)) {
                           <li nz-menu-item *ngIf="info.privileges['app_users.unlock']"
                             (click)="vm.unlockUser(item.id)">
-                            <svg-icon class="me-2" iconPath="bi/unlock"></svg-icon> 解锁
+                            <svg-icon class="me-2" iconPath="bi/unlock" /> 解锁
                           </li>
                         } @else {
                           <li nz-menu-item *ngIf="info.privileges['app_users.lock']"
                             (click)="showLock(item)">
-                            <svg-icon class="me-2" iconPath="bi/lock"></svg-icon> 锁定
+                            <svg-icon class="me-2" iconPath="bi/lock" /> 锁定
                           </li>
                         }
                         <li nz-menu-item *ngIf="info.privileges['app_users.reset_pass']"
                           (click)="showPassword(item)">
-                          <svg-icon class="me-2" iconPath="bi/key"></svg-icon> 重置密码
+                          <svg-icon class="me-2" iconPath="bi/key" /> 重置密码
                         </li>
                         <li nz-menu-item *ngIf="info.privileges['app_users.read_user_roles']"
                           (click)="showRoles(item)">
-                          <svg-icon class="me-2" iconPath="bi/shield-check"></svg-icon> 角色
+                          <svg-icon class="me-2" iconPath="bi/shield-check" /> 角色
                         </li>
                         <li nz-menu-item *ngIf="info.privileges['app_users.delete']"
                           (click)="delete(item.id)">
-                          <svg-icon class="me-2" iconPath="bi/trash"></svg-icon> 删除
+                          <svg-icon class="me-2" iconPath="bi/trash" /> 删除
                         </li>
                       </div>
                     </nz-dropdown-menu>

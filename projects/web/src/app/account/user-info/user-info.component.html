@@ -86,12 +86,12 @@
       <div class="row">
         <div class="col d-flex justify-content-end">
           <div class="me-auto" *ngIf="loading">
-            <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
+            <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" />
             {{loadingMessage}}
           </div>
           <button type="button" nz-button nzType="primary"
             (click)="saveUser()" [disabled]="!detailForm.valid || loading">
-            <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
+            <svg-icon class="me-1" iconPath="bi/check" /> 保存
           </button>
         </div>
       </div>
@@ -147,12 +147,12 @@
       <div class="row">
         <div class="col d-flex justify-content-end">
           <div class="me-auto" *ngIf="updatingPwd">
-            <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin"></svg-icon>
+            <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" />
             正在修改密码 ...
           </div>
           <button type="button" nz-button nzType="primary"
             (click)="changePassword()" [disabled]="!pwdForm.valid || updatingPwd">
-            <svg-icon class="me-1" iconPath="bi/check"></svg-icon> 保存
+            <svg-icon class="me-1" iconPath="bi/check" /> 保存
           </button>
         </div>
       </div>

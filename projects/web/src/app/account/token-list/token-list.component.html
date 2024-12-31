@@ -13,11 +13,11 @@
               <button *ngIf="vm.model.keywords"
                 class="px-2" type="button" nz-button nzType="default"
                 (click)="resetSearch()">
-                <svg-icon iconPath="bi/x"></svg-icon>
+                <svg-icon iconPath="bi/x" />
               </button>
               <button class="px-2" type="button" nz-button nzType="default" nzSearch
                 (click)="loadData({})">
-                <svg-icon iconPath="bi/search"></svg-icon>
+                <svg-icon iconPath="bi/search" />
               </button>
             </ng-template>
           </nz-input-group>
@@ -72,13 +72,13 @@
                 nz-button nzType="default"
                 nz-tooltip="编辑" nzTooltipPlacement="top"
                 (click)="showDetail(token.id, true)">
-                <svg-icon iconPath="bi/pencil-square"></svg-icon>
+                <svg-icon iconPath="bi/pencil-square" />
               </button>
               <button class="px-2" type="button"
                 nz-button nzType="default"
                 nz-tooltip="删除" nzTooltipPlacement="top"
                 (click)="delete(token.id)">
-                <svg-icon iconPath="bi/trash"></svg-icon>
+                <svg-icon iconPath="bi/trash" />
               </button>
             </nz-button-group>
           </td>

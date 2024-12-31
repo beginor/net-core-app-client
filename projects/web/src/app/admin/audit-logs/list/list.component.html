@@ -21,17 +21,17 @@
                   <button *ngIf="vm.searchModel.userName"
                     class="px-2" type="button" nz-button nzType="default"
                     (click)="resetUsername()">
-                    <svg-icon iconPath="bi/x"></svg-icon>
+                    <svg-icon iconPath="bi/x" />
                   </button>
                   <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
-                    <svg-icon iconPath="bi/search"></svg-icon>
+                    <svg-icon iconPath="bi/search" />
                   </button>
                 </ng-template>
               </nz-input-group>
               <nz-button-group *nzSpaceItem>
                 <button type="button" nz-button nzType="default"
                   (click)="loadData({})">
-                  <svg-icon class="me-1" iconPath="bi/arrow-repeat"></svg-icon> 刷新
+                  <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
                 </button>
               </nz-button-group>
             </nz-space>
