@@ -1,7 +1,4 @@
-<nz-card *ngIf="(account.info | async) as info"
-  class="ant-card-data-detail m-0"
-  [nzTitle]="title" [nzExtra]="toolsTpl"
-  >
+<nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl">
   <ng-template #toolsTpl>
     <nz-button-group>
       <button type="button" nz-button nzType="primary" (click)="save()">
@@ -15,12 +12,13 @@
   <form nz-form>
     <nz-form-item>
       <nz-form-control>
-        <label *ngFor="let role of vm.roles | async" class="m-0"
-          nz-checkbox [nzId]="role.id" [for]="role.id" [nzValue]="role.name"
-          [nzChecked]="isChecked(role.name)"
-          (nzCheckedChange)="toggleUserRole($event, role.name)">
-          {{role.description}}
-        </label>
+        @for (role of vm.roles | async; track role.id;) {
+          <label class="m-0" nz-checkbox [nzId]="role.id" [for]="role.id"
+            [nzValue]="role.name" [nzChecked]="isChecked(role.name)"
+            (nzCheckedChange)="toggleUserRole($event, role.name)">
+            {{role.description}}
+          </label>
+        }
       </nz-form-control>
     </nz-form-item>
   </form>

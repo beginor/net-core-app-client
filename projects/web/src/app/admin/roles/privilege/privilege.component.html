@@ -8,16 +8,19 @@
     </nz-button-group>
   </ng-template>
   <form nz-form nzLayout="vertical" #privilegeForm="ngForm">
-    <nz-form-item *ngFor="let mp of vm.privileges" class="mb-2 p-0">
-      <nz-form-label class="fs-6 fw-bolder">{{mp.module}}</nz-form-label>
-      <nz-form-control>
-        <label *ngFor="let p of mp.privileges" class="m-0"
-          [for]="p.id" nz-checkbox [nzValue]="p.name"
-          [nzChecked]="vm.rolePrivileges[p.name]"
-          (nzCheckedChange)="togglePrivilege(p.name)">
-          {{p.description || p.name}}
-        </label>
-      </nz-form-control>
-    </nz-form-item>
+    @for (mp of vm.privileges; track mp.module) {
+      <nz-form-item class="mb-2 p-0">
+        <nz-form-label class="fs-6 fw-bolder">{{mp.module}}</nz-form-label>
+        <nz-form-control>
+          @for (p of mp.privileges; track p.id) {
+            <label class="m-0" [for]="p.id" nz-checkbox [nzValue]="p.name"
+              [nzChecked]="vm.rolePrivileges[p.name]"
+              (nzCheckedChange)="togglePrivilege(p.name)">
+              {{p.description || p.name}}
+            </label>
+          }
+        </nz-form-control>
+      </nz-form-item>
+    }
   </form>
 </nz-card>
