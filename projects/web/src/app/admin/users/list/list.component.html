@@ -67,112 +67,110 @@
           </form>
         </ng-template>
         @let data = (vm.data | async)!;
-        <ng-container>
-          <nz-table nzSize="small" [nzFrontPagination]="false"
-            [nzShowSizeChanger]="true"
-            [nzShowPagination]="true"
-            [nzShowQuickJumper]="true"
-            [nzData]="data"
-            [nzTotal]="(vm.total | async)!"
-            [nzShowTotal]="totalTpl"
-            [nzLoading]="vm.loading"
-            [nzPageIndex]="vm.pageIndex"
-            [nzPageSize]="vm.pageSize"
-            [nzPageSizeOptions]="vm.pageSizeOptions"
-            (nzQueryParams)="loadData($event)">
-            <thead>
-              <tr class="sticky-top">
-                <th scope="col" class="text-end table-row-num-col">#</th>
-                <th scope="col" class="text-start">组织单元</th>
-                <th scope="col" class="text-start">用户名</th>
-                <th scope="col" class="text-center">电话</th>
-                <th scope="col" class="text-center">创建时间</th>
-                <th scope="col" class="text-center">最近登录</th>
-                <th scope="col" class="text-end">登录次数</th>
-                <th scope="col" class="text-center text-nowrap table-action-col-2">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of data; track item.id; let i = $index;) {
-              <tr>
-                <th scope="row" class="text-end">{{i + 1}}</th>
-                <td class="text-center">{{item.organizeUnit?.name}}</td>
-                <td class="text-start">
-                  @if (isLockout(item)) {
-                    <span class="clickable" nz-tooltip="该用户已经被锁定！" nzTooltipPlacement="right">
-                      {{getFullname(item)}}
-                      <svg-icon class="text-danger clickable" iconPath="bi/ban" />
-                    </span>
-                  }
-                  @else {
+        <nz-table nzSize="small" [nzFrontPagination]="false"
+          [nzShowSizeChanger]="true"
+          [nzShowPagination]="true"
+          [nzShowQuickJumper]="true"
+          [nzData]="data"
+          [nzTotal]="(vm.total | async)!"
+          [nzShowTotal]="totalTpl"
+          [nzLoading]="vm.loading"
+          [nzPageIndex]="vm.pageIndex"
+          [nzPageSize]="vm.pageSize"
+          [nzPageSizeOptions]="vm.pageSizeOptions"
+          (nzQueryParams)="loadData($event)">
+          <thead>
+            <tr class="sticky-top">
+              <th scope="col" class="text-end table-row-num-col">#</th>
+              <th scope="col" class="text-start">组织单元</th>
+              <th scope="col" class="text-start">用户名</th>
+              <th scope="col" class="text-center">电话</th>
+              <th scope="col" class="text-center">创建时间</th>
+              <th scope="col" class="text-center">最近登录</th>
+              <th scope="col" class="text-end">登录次数</th>
+              <th scope="col" class="text-center text-nowrap table-action-col-2">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of data; track item.id; let i = $index;) {
+            <tr>
+              <th scope="row" class="text-end">{{i + 1}}</th>
+              <td class="text-center">{{item.organizeUnit?.name}}</td>
+              <td class="text-start">
+                @if (isLockout(item)) {
+                  <span class="clickable" nz-tooltip="该用户已经被锁定！" nzTooltipPlacement="right">
                     {{getFullname(item)}}
+                    <svg-icon class="text-danger clickable" iconPath="bi/ban" />
+                  </span>
+                }
+                @else {
+                  {{getFullname(item)}}
+                }
+              </td>
+              <td class="text-center">{{item.phoneNumber}}</td>
+              <td class="text-center">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td class="text-center">{{item.lastLogin | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td class="text-end">{{item.loginCount}}</td>
+              <td class="text-center">
+                <nz-button-group>
+                  @if (info.privileges['app_users.read_by_id']) {
+                    <button class="px-2" type="button" nz-button nzType="default"
+                      nz-tooltip="详情" nzTooltipPlacement="top"
+                      (click)="showDetail(item.id, false)">
+                      <svg-icon iconPath="bi/info-square" />
+                    </button>
                   }
-                </td>
-                <td class="text-center">{{item.phoneNumber}}</td>
-                <td class="text-center">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td class="text-center">{{item.lastLogin | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                <td class="text-end">{{item.loginCount}}</td>
-                <td class="text-center">
-                  <nz-button-group>
-                    @if (info.privileges['app_users.read_by_id']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
-                        nz-tooltip="详情" nzTooltipPlacement="top"
-                        (click)="showDetail(item.id, false)">
-                        <svg-icon iconPath="bi/info-square" />
-                      </button>
-                    }
-                    @if (canViewGears()) {
-                      <button class="px-2" type="button" nz-button nzType="default"
-                        nz-tooltip="更多操作" nzTooltipPlacement="top"
-                        nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenuTpl">
-                        <svg-icon iconPath="bi/three-dots" />
-                      </button>
-                    }
-                    <nz-dropdown-menu #userMenuTpl="nzDropdownMenu">
-                      <div nz-menu>
-                        @if (info.privileges['app_users.update']) {
-                          <li nz-menu-item (click)="showDetail(item.id, true)">
-                            <svg-icon class="me-2" iconPath="bi/pencil-square" /> 编辑
+                  @if (canViewGears()) {
+                    <button class="px-2" type="button" nz-button nzType="default"
+                      nz-tooltip="更多操作" nzTooltipPlacement="top"
+                      nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenuTpl">
+                      <svg-icon iconPath="bi/three-dots" />
+                    </button>
+                  }
+                  <nz-dropdown-menu #userMenuTpl="nzDropdownMenu">
+                    <div nz-menu>
+                      @if (info.privileges['app_users.update']) {
+                        <li nz-menu-item (click)="showDetail(item.id, true)">
+                          <svg-icon class="me-2" iconPath="bi/pencil-square" /> 编辑
+                        </li>
+                      }
+                      @if (isLockout(item)) {
+                        @if (info.privileges['app_users.unlock']) {
+                            <li nz-menu-item (click)="vm.unlockUser(item.id)">
+                              <svg-icon class="me-2" iconPath="bi/unlock" /> 解锁
                           </li>
                         }
-                        @if (isLockout(item)) {
-                          @if (info.privileges['app_users.unlock']) {
-                              <li nz-menu-item (click)="vm.unlockUser(item.id)">
-                                <svg-icon class="me-2" iconPath="bi/unlock" /> 解锁
-                            </li>
-                          }
-                        }
-                        @else {
-                          @if (info.privileges['app_users.lock']) {
-                            <li nz-menu-item (click)="showLock(item)">
-                              <svg-icon class="me-2" iconPath="bi/lock" /> 锁定
-                            </li>
-                          }
-                        }
-                        @if (info.privileges['app_users.reset_pass']) {
-                          <li nz-menu-item (click)="showPassword(item)">
-                            <svg-icon class="me-2" iconPath="bi/key" /> 重置密码
+                      }
+                      @else {
+                        @if (info.privileges['app_users.lock']) {
+                          <li nz-menu-item (click)="showLock(item)">
+                            <svg-icon class="me-2" iconPath="bi/lock" /> 锁定
                           </li>
                         }
-                        @if (info.privileges['app_users.read_user_roles']) {
-                          <li nz-menu-item (click)="showRoles(item)">
-                            <svg-icon class="me-2" iconPath="bi/shield-check" /> 角色
-                          </li>
-                        }
-                        @if (info.privileges['app_users.delete']) {
-                          <li nz-menu-item (click)="delete(item.id)">
-                            <svg-icon class="me-2" iconPath="bi/trash" /> 删除
-                          </li>
-                        }
-                      </div>
-                    </nz-dropdown-menu>
-                  </nz-button-group>
-                </td>
-              </tr>
-            }
-            </tbody>
-          </nz-table>
-        </ng-container>
+                      }
+                      @if (info.privileges['app_users.reset_pass']) {
+                        <li nz-menu-item (click)="showPassword(item)">
+                          <svg-icon class="me-2" iconPath="bi/key" /> 重置密码
+                        </li>
+                      }
+                      @if (info.privileges['app_users.read_user_roles']) {
+                        <li nz-menu-item (click)="showRoles(item)">
+                          <svg-icon class="me-2" iconPath="bi/shield-check" /> 角色
+                        </li>
+                      }
+                      @if (info.privileges['app_users.delete']) {
+                        <li nz-menu-item (click)="delete(item.id)">
+                          <svg-icon class="me-2" iconPath="bi/trash" /> 删除
+                        </li>
+                      }
+                    </div>
+                  </nz-dropdown-menu>
+                </nz-button-group>
+              </td>
+            </tr>
+          }
+          </tbody>
+        </nz-table>
       </nz-card>
       <ng-template #totalTpl let-total let-range="range">
         当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条

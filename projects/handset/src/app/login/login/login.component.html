@@ -37,9 +37,7 @@
           (click)="login()" [disabled]="(username.invalid || password.invalid)"
           cdkFocusInitial>
           @if (loading) {
-            <ng-container>
-              <mat-icon class="mat-icon-spinner">refresh</mat-icon> 登录中 ...
-            </ng-container>
+            <mat-icon class="mat-icon-spinner">refresh</mat-icon> 登录中 ...
           }
           @else {
             登录
