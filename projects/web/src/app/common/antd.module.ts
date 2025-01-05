@@ -29,6 +29,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
 
 @NgModule({
     imports: [
@@ -61,6 +62,7 @@ import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
         NzProgressModule,
         NzListModule,
         NzOutletModule,
+        NzSliderModule,
     ],
     exports: [
         NzTableModule,
@@ -92,6 +94,7 @@ import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
         NzProgressModule,
         NzListModule,
         NzOutletModule,
+        NzSliderModule,
     ]
 })
 export class AntdModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
