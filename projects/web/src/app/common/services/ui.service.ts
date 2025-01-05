@@ -26,7 +26,7 @@ export class UiService {
         const option = {
             nzDuration: 3000,
             nzAnimate: true,
-            nzPauseOnHover: true
+            nzPauseOnHover: true,
         };
         switch (alert.type) {
             case 'info':
