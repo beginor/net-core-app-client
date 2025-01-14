@@ -73,6 +73,10 @@ export default tseslint.config(
         }
       ],
       '@typescript-eslint/no-non-null-assertion': ['off'],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' }
+      ],
       "@angular-eslint/directive-selector": [
         "error",
         { type: "attribute", style: "camelCase" }
