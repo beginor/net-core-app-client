@@ -72,6 +72,7 @@ export default tseslint.config(
           }
         }
       ],
+      '@typescript-eslint/no-non-null-assertion': ['off'],
       "@angular-eslint/directive-selector": [
         "error",
         { type: "attribute", style: "camelCase" }
