@@ -1,5 +1,6 @@
 import {
-    Component, AfterViewInit, ElementRef, ViewChild, Input, OnDestroy, NgZone
+    Component, AfterViewInit, ElementRef, OnDestroy, signal, effect, input,
+    viewChild,
 } from '@angular/core';
 import { EChartsType, EChartsOption, init } from 'echarts';
 
@@ -16,79 +17,53 @@ import { EchartService } from './echart.service';
 })
 export class EchartComponent implements AfterViewInit, OnDestroy {
 
-    @Input()
-    public config!: string;
+    public config = input<string>('');
 
-    @ViewChild('echart')
-    protected chartElRef!: ElementRef<HTMLDivElement>;
+    private chartElRef = viewChild.required<ElementRef<HTMLDivElement>>('echart');
 
     private echart!: EChartsType;
 
+    private echartsOptions = signal<EChartsOption>({});
+    private resized = signal(false);
+
     private rb = new ResizeObserver(() => {
-        this.zone.runOutsideAngular(() => {
-            this.echart?.resize();
-        });
+        this.resized.set(true);
     });
 
-    constructor(private vm: EchartService, private zone: NgZone) { }
+    constructor(private vm: EchartService) {
+        effect(() => {
+            const opts = this.echartsOptions();
+            if (this.echart) {
+                this.echart.clear();
+                this.echart.setOption(opts);
+            }
+        });
+        effect(() => {
+            const resized = this.resized();
+            if (resized) {
+                this.resized.set(false);
+                if (this.echart) {
+                    this.echart.resize();
+                }
+            }
+        })
+    }
 
     public ngAfterViewInit():void {
-        this.initChart();
-        this.rb.observe(this.chartElRef.nativeElement);
-        void this.updateChartFromConfig();
+        const element = this.chartElRef().nativeElement;
+        this.echart = init(element);
+        this.echart.setOption(this.vm.createInitEchartsOption());
+        this.rb.observe(element);
+        this.updateChartFromConfig();
     }
 
     public ngOnDestroy(): void {
-        this.rb.unobserve(this.chartElRef.nativeElement);
+        this.rb.unobserve(this.chartElRef().nativeElement);
     }
 
-    private initChart(): void {
-        const columns = [];
-        for (let i = 0; i < 10; i++) {
-            columns.push({
-                type: 'rect',
-                x: i * 20,
-                shape: { x: 0, y: -40, width: 10, height: 80 },
-                style: { fill: '#5470c6' },
-                keyframeAnimation: {
-                    duration: 1000,
-                    delay: i * 200,
-                    loop: true,
-                    keyframes: [
-                        { percent: 0.5, scaleY: 0.1, easing: 'cubicIn' },
-                        { percent: 1, scaleY: 1, easing: 'cubicOut' }
-                    ]
-                }
-            });
-        }
-        const initOpts: EChartsOption = {
-            graphic: {
-                elements: [
-                    {
-                        type: 'group',
-                        left: 'center',
-                        top: 'center',
-                        children: columns as any[], // eslint-disable-line @typescript-eslint/no-explicit-any
-                    }
-                ]
-            }
-        };
-        this.echart = init(this.chartElRef.nativeElement);
-        this.echart.setOption(initOpts);
-    }
-
-    private async updateChartFromConfig(): Promise<void> {
-        const props = await this.vm.loadConfig(this.config);
-        const opts = props.echarts;
-        const result = await this.vm.loadData(props.data.url);
-        opts.dataset = { source: result.data };
-        this.zone.runOutsideAngular(() => {
-            this.echart.clear();
-            this.echart.resize();
-            if (props.beforeSetChartOptions) {
-                props.beforeSetChartOptions(opts);
-            }
-            this.echart.setOption(opts);
+    private updateChartFromConfig(): void {
+        this.vm.loadEcharts(this.config()).subscribe(props => {
+            this.echartsOptions.set(props.echarts);
         });
     }
 
