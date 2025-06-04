@@ -23,18 +23,18 @@ export class NavMenuComponent {
     constructor(
         private router: Router,
         private ui: UiService,
-        public vm: NavMenuService,
-        public accountSvc: AccountService
+        protected vm: NavMenuService,
+        protected account: AccountService
     ) { }
 
-    public toggleDrawer(): void {
+    protected toggleDrawer(): void {
         this.ui.drawer.subscribe(drawer => {
             void drawer.close();
         });
     }
 
-    public async logout(): Promise<void> {
-        await this.accountSvc.logout();
+    protected async logout(): Promise<void> {
+        await this.account.logout();
         this.toggleDrawer();
         await this.router.navigate(['/login'], { replaceUrl: true });
     }

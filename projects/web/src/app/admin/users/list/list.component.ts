@@ -220,13 +220,13 @@ export class ListComponent implements OnInit {
     }
 
     public canViewGears(): boolean {
-        const p = this.account.info.getValue().privileges;
+        const p = this.account.current().privileges;
         if (!p) {
             return false;
         }
-        return p['app_users.update'] || p['app_users.delete']
-            || p['app_users.reset_pass'] || p['app_users.lock']
-            || p['app_users.unlock'] || p['app_users.read_user_roles'];
+        return (p['app_users.update'] ?? (p['app_users.delete'])
+            ?? (p['app_users.reset_pass']) ?? (p['app_users.lock'])
+            ?? p['app_users.unlock']) ?? p['app_users.read_user_roles'];
     }
 
     public getUserCount(): number {

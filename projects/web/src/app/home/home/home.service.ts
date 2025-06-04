@@ -1,21 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root'})
 export class HomeService {
 
-    public message = new BehaviorSubject<string>('Hello, angular !');
-    public info = new Subject<string>();
+    public message = signal('Hello, angular !');
+    public info = signal<string>('');
 
     private count = 0;
 
     public updateMessage(): void {
         this.count++;
         const msg = `You have clicked ${this.count} times !`;
-        this.message.next(msg);
+        this.message.set(msg);
 
         if (this.count % 5 === 0) {
-            this.info.next('Well done!');
+            this.info.set('Well done!');
         }
     }
 

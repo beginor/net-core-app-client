@@ -24,7 +24,7 @@ export class HttpErrorHandler implements ErrorHandler {
 
     public handleError(error: unknown): void {
         const err: ErrorModel = {
-            userName: this.account.info.getValue().userName,
+            userName: this.account.current().userName,
             occuredAt: new Date(),
             userAgent: navigator.userAgent,
             path: this.location.path(),

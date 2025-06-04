@@ -22,7 +22,7 @@ import { AntdModule, UiService } from 'projects/web/src/app/common';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-    protected model: LoginModel = { userName: '', password: '' };
+    protected model = signal<LoginModel>({ userName: '', password: '' });
     protected loading = signal(false);
     protected message = signal('');
 
@@ -54,30 +54,28 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.ui.showHeader.set(this.headerShown);
     }
 
-    public async login(): Promise<void> {
-        try {
-            this.loading.set(true);
-            await this.account.login(this.model);
-            await this.account.getInfo();
-            let { returnUrl } = this.route.snapshot.params;
-            if (!returnUrl) {
-                returnUrl = 'home';
+    public login(): void {
+        this.loading.set(true);
+        let { returnUrl } = this.route.snapshot.params;
+        returnUrl ??= 'home';
+        this.account.login(this.model()).subscribe({
+            next: () => {
+                this.router.navigate(
+                    [`/${returnUrl}`],
+                    { replaceUrl: true }
+                );
+            },
+            error: (ex: any) => {
+                this.errorHandler.handleError(ex);
+                const message = typeof ex.error === 'string' ? ex.error : '无法登录！';
+                this.message.set(message);
+                this.model.update(m => ({ ...m, captcha: '' }));
+                this.updateCaptcha();
+            },
+            complete: () => {
+                this.loading.set(false);
             }
-            await this.router.navigate(
-                [`/${returnUrl}`],
-                { replaceUrl: true }
-            );
-        }
-        catch (ex: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-            this.errorHandler.handleError(ex);
-            const message = typeof ex.error === 'string' ? ex.error : '无法登录！';
-            this.message.set(message);
-            this.model.captcha = '';
-            this.updateCaptcha();
-        }
-        finally {
-            this.loading.set(false);
-        }
+        });
     }
 
     public clearMessage(): void {

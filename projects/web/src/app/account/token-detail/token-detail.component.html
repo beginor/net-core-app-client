@@ -31,7 +31,7 @@
       <nz-input-group nzSearch [nzAddOnAfter]="refreshValueTpl">
         <input nz-input type="text" id="value" name="value"
           placeholder="请输入凭证值 ..." [required]="true" readonly
-          [(ngModel)]="model.value"
+          [(ngModel)]="model().value"
           #value="ngModel"
         />
         <ng-template #refreshValueTpl>
@@ -56,7 +56,7 @@
     <nz-form-item>
       <nz-form-label>凭证角色</nz-form-label>
       <nz-form-control>
-        @for (role of roles; track role.id) {
+        @for (role of roles(); track role.id) {
           <label class="m-0" nz-checkbox [nzId]="role.id" [for]="role.id"
             [nzDisabled]="!editable" [nzValue]="role.name"
             [nzChecked]="isChecked(role.name, 'checkedRoles')"
@@ -69,7 +69,7 @@
     <nz-form-item>
       <nz-form-label>凭证权限</nz-form-label>
       <nz-form-control>
-        @for (mp of privileges; track mp.module) {
+        @for (mp of privileges(); track mp.module) {
           <div class="m-1">
             <div class="fw-bolder">{{mp.module}}</div>
             @for (p of mp.privileges; track p.id) {
@@ -98,7 +98,7 @@
             </button>
           </ng-template>
         </nz-input-group>
-        @for (url of tokenUrls; track url) {
+        @for (url of tokenUrls(); track url) {
           <nz-input-group class="mb-1" [nzAddOnAfter]="delUrlTpl" nzSearch>
             <input type="text" nz-input readonly [value]="url" />
             <ng-template #delUrlTpl>

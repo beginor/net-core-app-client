@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { Router, RouterModule, EventType } from '@angular/router';
 import { first, filter } from 'rxjs';
 
@@ -19,7 +19,7 @@ import {
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
     private currentUserId = '';
     private currentUrl = '';
@@ -40,10 +40,8 @@ export class AppComponent implements OnInit {
         ).subscribe(e => {
             this.currentUrl = e.url;
         });
-    }
-
-    public ngOnInit(): void {
-        this.account.info.subscribe(user => {
+        effect(() => {
+            const user = this.account.current();
             if (this.currentUserId && !user.id) {
                 void this.router.navigate([
                     '/login',
@@ -55,5 +53,19 @@ export class AppComponent implements OnInit {
             }
         });
     }
+
+    // public ngOnInit(): void {
+    //     this.account.info.subscribe(user => {
+    //         if (this.currentUserId && !user.id) {
+    //             void this.router.navigate([
+    //                 '/login',
+    //                 { returnUrl: this.currentUrl }
+    //             ]);
+    //         }
+    //         else {
+    //             this.currentUserId = user.id;
+    //         }
+    //     });
+    // }
 
 }

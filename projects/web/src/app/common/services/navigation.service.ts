@@ -1,11 +1,11 @@
-import { Injectable, Inject, ErrorHandler } from '@angular/core';
+import { Injectable, Inject, ErrorHandler, effect } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
-import { API_ROOT, AccountService } from 'app-shared';
+import { API_ROOT, AccountService, AccountInfo } from 'app-shared';
 
 @Injectable({
     providedIn: 'root'
@@ -35,8 +35,9 @@ export class NavigationService {
         this.location.onUrlChange(() => {
             this.updateSidebarNodes();
         });
-        account.info.subscribe(() => {
-            this.loadAccountMenu();
+        effect(() => {
+            const info = this.account.current();
+            this.loadAccountMenu(info);
         });
     }
 
@@ -129,7 +130,7 @@ export class NavigationService {
         this.title.setTitle(title);
     }
 
-    private loadAccountMenu(): void {
+    private loadAccountMenu(_: AccountInfo): void {
         const menuUrl = `${this.apiRoot}/account/menu`;
         lastValueFrom(
             this.http.get<NavigationNode>(menuUrl)

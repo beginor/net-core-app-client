@@ -1,4 +1,4 @@
-@let user = accountSvc.currentUser();
+@let user = accountSvc.current();
 @if (user.privileges['app_attachments.create']) {
   <button type="button" nz-button [nzType]="buttonType()" [nzSize]="buttonSize()"
     (click)="chooseFile()" [nzShape]="buttonShape()">

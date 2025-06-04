@@ -2,15 +2,16 @@
   <div class="row g-0">
     <nz-card class="ant-card-data-list" nzTitle="我的凭证" [nzExtra]="cardExtra">
       <ng-template #cardExtra>
+        @let model = vm.model();
         <nz-space>
           <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOn">
             <input type="text" nz-input placeholder="输入关键字进行搜索"
-              name="userName" [(ngModel)]="vm.model.keywords"
+              name="userName" [(ngModel)]="model.keywords"
               [ngModelOptions]="{ standalone: true }"
               (keyup.enter)="loadData({})"
             />
             <ng-template #userNameAddOn>
-              @if (vm.model.keywords) {
+              @if (model.keywords) {
                 <button class="px-2" type="button" nz-button nzType="default"
                   (click)="resetSearch()">
                   <svg-icon iconPath="bi/x" />
@@ -36,13 +37,13 @@
         [nzShowSizeChanger]="true"
         [nzShowPagination]="true"
         [nzShowQuickJumper]="true"
-        [nzData]="vm.tokens"
-        [nzTotal]="vm.total"
+        [nzData]="vm.tokens()"
+        [nzTotal]="vm.total()"
         [nzShowTotal]="totalTpl"
-        [nzLoading]="vm.loading"
-        [nzPageIndex]="vm.pageIndex"
-        [nzPageSize]="vm.pageSize"
-        [nzPageSizeOptions]="vm.pageSizeOptions"
+        [nzLoading]="vm.loading()"
+        [nzPageIndex]="vm.pageIndex()"
+        [nzPageSize]="vm.pageSize()"
+        [nzPageSizeOptions]="vm.pageSizeOptions()"
         (nzQueryParams)="loadData($event)">
         <thead>
         <tr class="sticky-top">
@@ -58,7 +59,7 @@
         </tr>
         </thead>
         <tbody>
-        @for (token of vm.tokens; track token.id; let i = $index;) {
+        @for (token of vm.tokens(); track token.id; let i = $index;) {
           <tr>
             <th scope="row" class="text-end">{{i+1}}</th>
             <td class='text-start'>{{token.name}}</td>

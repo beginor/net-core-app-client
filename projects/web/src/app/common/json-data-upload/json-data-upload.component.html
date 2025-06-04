@@ -1,4 +1,4 @@
-@let user = accountService.currentUser();
+@let user = accountService.current();
 @if (user.privileges['app_json_data.create']) {
   <button type="button" nz-button [nzType]="buttonType()" [nzSize]="buttonSize()"
     [nzShape]="buttonShape()" (click)="chooseFile()">

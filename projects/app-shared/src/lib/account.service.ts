@@ -1,7 +1,7 @@
+import { Injectable, Inject, signal, effect, computed } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
+import { Observable, map, catchError } from 'rxjs';
 
-import { BehaviorSubject, Subscription, interval, lastValueFrom } from 'rxjs';
 import { Base64UrlService } from './base64-url.service';
 import { API_ROOT } from './inject-tokens';
 
@@ -10,70 +10,83 @@ import { API_ROOT } from './inject-tokens';
 })
 export class AccountService {
 
-    public info = new BehaviorSubject<AccountInfo>(
+    public current = signal<AccountInfo>(
         { id: '', userName: 'anonymous', roles: { }, privileges: { } }
     );
 
-    public fullName = new BehaviorSubject<string>('匿名用户');
+    public fullName = computed(() => {
+        const account = this.current();
+            if (account.id) {
+            const fullname = [];
+            if (account.surname) {
+                fullname.push(account.surname);
+            }
+            if (account.givenName) {
+                fullname.push(account.givenName);
+            }
+            if (fullname.length === 0) {
+                fullname.push(account.userName);
+            }
+            return fullname.join('');
+        }
+        else {
+            return '匿名用户';
+        }
+    }, ); // signal<string>('匿名用户');
 
-    public get token(): string {
-        return localStorage.getItem(this.tokenKey) ?? '';
-    }
+    public token = signal<string>('');
 
     private get tokenKey(): string {
         return `Bearer:${this.apiRoot}`;
     }
 
-    private interval$: Subscription;
+    private interval$: number;
 
     constructor(
         private http: HttpClient,
         @Inject(API_ROOT) private apiRoot: string,
         private base64Url: Base64UrlService
     ) {
-        this.interval$ = interval(1000 * 60 * 5).subscribe(
-            () => void this.getInfo()
+        this.interval$ = setInterval(
+            () => void this.getAccountInfo(),
+            1000 * 60 * 5
+        );
+        effect(() => {
+            const token = this.token();
+            if (token) {
+                sessionStorage.setItem(this.tokenKey, token);
+            }
+        });
+    }
+
+    public getAccountInfo(): Observable<AccountInfo> {
+        let url = `${this.apiRoot}/account`;
+        const tmpToken = sessionStorage.getItem('tmpToken');
+        if (tmpToken) {
+            url += `?tmpToken=${tmpToken}`;
+            sessionStorage.removeItem('tmpToken');
+        }
+        return this.http.get<AccountInfo>(url).pipe(
+            map(account => {
+                if (account.token) {
+                    this.saveToken(account.token);
+                    delete account.token;
+                }
+                const currAccount = this.current();
+                if (currAccount.id !== account.id) {
+                    this.current.set(account);
+                }
+                return account;
+            }),
+            catchError(err => {
+                console.error(err);
+                localStorage.removeItem(this.tokenKey);
+                throw err;
+            })
         );
     }
 
-    public async getInfo(): Promise<AccountInfo> {
-        try {
-            let url = `${this.apiRoot}/account`;
-            const tmpToken = sessionStorage.getItem('tmpToken');
-            if (tmpToken) {
-                url += `?tmpToken=${tmpToken}`;
-                sessionStorage.removeItem('tmpToken');
-            }
-            const info = await lastValueFrom(this.http.get<AccountInfo>(url));
-            if (info.token) {
-                this.saveToken(info.token);
-                delete info.token;
-            }
-            const currInfo = this.info.getValue();
-            if (currInfo.id !== info.id) {
-                this.info.next(info);
-                const fullname = [];
-                if (info.surname) {
-                    fullname.push(info.surname);
-                }
-                if (info.givenName) {
-                    fullname.push(info.givenName);
-                }
-                if (fullname.length === 0) {
-                    fullname.push(info.userName);
-                }
-                this.fullName.next(fullname.join(''));
-            }
-            return info;
-        }
-        catch (ex: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-            console.error(ex);
-            localStorage.removeItem(this.tokenKey);
-            throw new Error('Can not get account info!');
-        }
-    }
-
-    public async login(model: LoginModel): Promise<void> {
+    public login(model: LoginModel): Observable<string> {
         const url = this.apiRoot + '/account';
         const loginModel: LoginModel = {
             userName: this.base64Url.encode(model.userName),
@@ -81,46 +94,43 @@ export class AccountService {
             isPersistent: model.isPersistent,
             captcha: model.captcha,
         };
-        const token = await lastValueFrom(
-            this.http.post(url, loginModel, { responseType: 'text' })
+        return this.http.post(url, loginModel, { responseType: 'text' }).pipe(
+            map(token => {
+                this.saveToken(token);
+                return token;
+            })
         );
-        this.saveToken(token);
     }
 
     public logout(): void {
         this.removeToken();
-        this.info.next({ id: '', roles: {}, privileges: {} });
+        this.current.set({ id: '', roles: {}, privileges: {} });
     }
 
-    public async getUser(): Promise<UserInfo> {
-        const userInfo = await lastValueFrom(
-            this.http.get<UserInfo>(`${this.apiRoot}/account/user`)
+    public getUser(): Observable<UserInfo> {
+        return this.http.get<UserInfo>(`${this.apiRoot}/account/user`);
+    }
+
+    public updateUser(userInfo: UserInfo): Observable<UserInfo> {
+        return this.http.put<UserInfo>(
+            `${this.apiRoot}/account/user`,
+            userInfo
         );
-        return userInfo;
     }
 
-    public async updateUser(userInfo: UserInfo): Promise<UserInfo> {
-        const updatedUserInfo = await lastValueFrom(
-            this.http.put<UserInfo>(`${this.apiRoot}/account/user`, userInfo)
-        );
-        return updatedUserInfo;
-    }
-
-    public async changePassword(model: ChangePasswordModel): Promise<void> {
+    public changePassword(model: ChangePasswordModel): Observable<any> {
         const currentPassword = this.base64Url.encode(model.currentPassword);
         const newPassword = this.base64Url.encode(model.newPassword);
         const confirmPassword = this.base64Url.encode(model.confirmPassword);
-        await lastValueFrom(
-            this.http.put(
-                `${this.apiRoot}/account/password`,
-                { currentPassword, newPassword, confirmPassword }
-            )
+        return this.http.put(
+            `${this.apiRoot}/account/password`,
+            { currentPassword, newPassword, confirmPassword }
         );
     }
 
-    public async searchUserTokens(
+    public searchUserTokens(
         searchModel: UserTokenSearchModel
-    ): Promise<UserTokenResultModel> {
+    ): Observable<UserTokenResultModel> {
         let params = new HttpParams();
         for (const key in searchModel) {
             if (searchModel.hasOwnProperty(key)) {
@@ -128,50 +138,46 @@ export class AccountService {
                 params = params.set(key, val);
             }
         }
-        const result = await lastValueFrom(
-            this.http.get<UserTokenResultModel>(`${this.apiRoot}/account/tokens`, { params })
+        return this.http.get<UserTokenResultModel>(
+            `${this.apiRoot}/account/tokens`,
+            { params }
         );
-        return result;
     }
 
-    public async createUserToken(
+    public createUserToken(
         model: UserTokenModel
-    ): Promise<UserTokenModel> {
-        const result = await lastValueFrom(
-            this.http.post<UserTokenModel>(`${this.apiRoot}/account/tokens`, model)
+    ): Observable<UserTokenModel> {
+        return this.http.post<UserTokenModel>(
+            `${this.apiRoot}/account/tokens`,
+            model
         );
-        return result;
     }
 
-    public async updateUserToken(
+    public updateUserToken(
         id: string,
         model: UserTokenModel
-    ): Promise<UserTokenModel> {
-        const result = await lastValueFrom(
-            this.http.put<UserTokenModel>(`${this.apiRoot}/account/tokens/${id}`, model)
-        );
-        return result;
-    }
-
-    public async deleteUserToken(id: string): Promise<void> {
-        await lastValueFrom(
-            this.http.delete(`${this.apiRoot}/account/tokens/${id}`)
+    ): Observable<UserTokenModel> {
+        return this.http.put<UserTokenModel>(
+            `${this.apiRoot}/account/tokens/${id}`,
+            model
         );
     }
 
-    public async newTokenValue(): Promise<string> {
-        return await lastValueFrom(
-            this.http.post(
-                `${this.apiRoot}/account/new-token-value`,
-                null,
-                { responseType: 'text' }
-            )
-        );
+    public deleteUserToken(id: string): Observable<any> {
+        return this.http.delete(`${this.apiRoot}/account/tokens/${id}`);
     }
 
-    public async getRolesAndPrivileges(): Promise<RoleAndPrivilege> {
-        return await lastValueFrom(
-            this.http.get<RoleAndPrivilege>(`${this.apiRoot}/account/roles-and-privileges`)
+    public newTokenValue(): Observable<string> {
+        return this.http.post(
+            `${this.apiRoot}/account/new-token-value`,
+            null,
+            { responseType: 'text' }
+        )
+    }
+
+    public getRolesAndPrivileges(): Observable<RoleAndPrivilege> {
+        return this.http.get<RoleAndPrivilege>(
+            `${this.apiRoot}/account/roles-and-privileges`
         );
     }
 
@@ -187,10 +193,6 @@ export class AccountService {
 
     private removeToken(): void {
         localStorage.removeItem(this.tokenKey);
-    }
-
-    public currentUser(): AccountInfo {
-        return this.info.getValue();
     }
 
 }

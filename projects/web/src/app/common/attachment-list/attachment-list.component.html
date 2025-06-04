@@ -7,7 +7,7 @@
       <svg-icon iconPath="bi/arrow-repeat" />
     </button>
   </nz-list-header>
-  @let showDel = accountService.currentUser().privileges['app_attachments.delete'] && allowDelete();
+  @let showDel = accountService.current().privileges['app_attachments.delete'] && allowDelete();
   @for (att of attachments(); track att.id) {
     <nz-list-item class="d-flex">
       {{att.fileName}}

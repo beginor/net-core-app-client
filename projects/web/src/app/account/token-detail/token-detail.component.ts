@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, signal } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -33,11 +33,12 @@ export class TokenDetailComponent implements OnInit {
     }
     public editable = true;
 
-    public model: UserTokenModel = { id: '0', name: '', value: '' };
-    public roles: AppRole[] = [];
-    public privileges: { module: string; privileges: AppPrivilege[] }[] = [];
-    public tokenExpiresAt?: Date;
-    public tokenUrls: string[] = [];
+    protected model = signal<UserTokenModel>({ id: '0', name: '', value: '' });
+    protected roles = signal<AppRole[]>([]);
+    // eslint-disable-next-line @stylistic/max-len
+    protected privileges = signal<ModulePrivileges[]>([]);
+    protected tokenExpiresAt = signal<Date | undefined>(undefined);
+    protected tokenUrls = signal<string[]>([]);
 
     private reloadList = false;
     private checkedRoles: string[] = [];
@@ -52,87 +53,91 @@ export class TokenDetailComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
-        void this.loadData();
+        this.loadData();
     }
 
-    private async loadData(): Promise<void> {
-        const rap = await this.account.getRolesAndPrivileges();
-        this.roles = rap.roles;
-        this.privileges = [];
-        for (const p of rap.privileges) {
-            let mp = this.privileges.find(
-                m => m.module == p.module
-            );
-            if (!mp) {
-                mp = { module: p.module ?? '', privileges: [] };
-                this.privileges.push(mp);
+    private loadData(): void {
+        this.account.getRolesAndPrivileges().subscribe(rap => {
+            this.roles.set(rap.roles);
+            const privileges: ModulePrivileges[] = [];
+            for (const p of rap.privileges) {
+                let mp = privileges.find(m => m.module == p.module);
+                if (!mp) {
+                    mp = { module: p.module ?? '', privileges: [] };
+                    privileges.push(mp);
+                }
+                mp.privileges.push(p);
             }
-            mp.privileges.push(p);
-        }
-        if (this.id !== '0') {
-            const model = this.vm.getById(this.id);
-            if (model) {
-                this.model = model;
-                if (!!model.roles && model.roles.length > 0) {
-                    this.checkedRoles = JSON.parse(
-                        JSON.stringify(model.roles)
-                    ) as string[];
-                }
-                if (!!model.privileges && model.privileges.length > 0) {
-                    this.checkedPrivileges = JSON.parse(
-                        JSON.stringify(model.privileges)
-                    ) as string[];
-                }
-                if (model.expiresAt) {
-                    this.tokenExpiresAt = new Date(model.expiresAt);
-                }
-                if (!!model.urls && model.urls.length > 0) {
-                    this.tokenUrls = JSON.parse(
-                        JSON.stringify(model.urls)
-                    ) as string[];
+            this.privileges.set(privileges);
+            if (this.id !== '0') {
+                const model = this.vm.getById(this.id);
+                if (model) {
+                    this.model.set(model);
+                    if (!!model.roles && model.roles.length > 0) {
+                        this.checkedRoles = JSON.parse(
+                            JSON.stringify(model.roles)
+                        ) as string[];
+                    }
+                    if (!!model.privileges && model.privileges.length > 0) {
+                        this.checkedPrivileges = JSON.parse(
+                            JSON.stringify(model.privileges)
+                        ) as string[];
+                    }
+                    if (model.expiresAt) {
+                        this.tokenExpiresAt.set(new Date(model.expiresAt));
+                    }
+                    if (!!model.urls && model.urls.length > 0) {
+                        this.tokenUrls.set(JSON.parse(
+                            JSON.stringify(model.urls)
+                        ) as string[]);
+                    }
                 }
             }
-        }
-        else {
-            void this.newTokenValue();
-        }
+            else {
+                void this.newTokenValue();
+            }
+        });
     }
 
     public cancel(): void {
         this.drawerRef.close('');
     }
 
-    public async save(): Promise<void> {
-        this.model.roles = this.checkedRoles;
-        this.model.privileges = this.checkedPrivileges;
-        if (this.tokenExpiresAt) {
-            this.model.expiresAt = formatDate(
-                this.tokenExpiresAt, 'yyyy-MM-dd', this.local
+    public save(): void {
+        const model = this.model();
+        model.roles = this.checkedRoles;
+        model.privileges = this.checkedPrivileges;
+        if (this.tokenExpiresAt()) {
+            model.expiresAt = formatDate(
+                this.tokenExpiresAt()!, 'yyyy-MM-dd', this.local
             );
         }
-        this.model.urls = this.tokenUrls;
+        model.urls = this.tokenUrls();
         if (this.id !== '0') {
-            await this.vm.update(this.id, this.model);
+            this.vm.update(this.id, model);
         }
         else {
-            await this.vm.create(this.model);
+            this.vm.create(model);
         }
         this.drawerRef.close('ok');
     }
 
-    public async newTokenValue(): Promise<void> {
-        try {
-            const val = await this.account.newTokenValue();
-            if (val) {
-                this.model.value = val;
+    public newTokenValue(): void {
+        this.account.newTokenValue().subscribe({
+            next: (val) => {
+                if (val) {
+                    this.model.update(prev => {
+                        return { ...prev, value: val };
+                    });
+                }
+            },
+            error: (ex: unknown) => {
+                console.error(ex);
+                this.ui.showAlert(
+                    { type: 'danger', message: '生成新凭证值出错！' }
+                );
             }
-        }
-        catch (ex: unknown) {
-            console.error(ex);
-            this.ui.showAlert(
-                { type: 'danger', message: '生成新凭证值出错！' }
-            );
-        }
+        });
     }
 
     public isChecked(roleName: string, propName: ArrPropName): boolean {
@@ -166,18 +171,22 @@ export class TokenDetailComponent implements OnInit {
         if (!url) {
             return;
         }
-        const idx = this.tokenUrls.indexOf(url);
+        const urls = this.tokenUrls();
+        const idx = urls.indexOf(url);
         if (idx < 0) {
-            this.tokenUrls.push(url);
+            urls.push(url);
         }
+        this.tokenUrls.set(urls);
         el.value = '';
     }
 
     public removeTokenUrl(url: string): void {
-        const idx = this.tokenUrls.indexOf(url);
+        const urls = this.tokenUrls();
+        const idx = urls.indexOf(url);
         if (idx > -1) {
-            this.tokenUrls.splice(idx, 1);
+            urls.splice(idx, 1);
         }
+        this.tokenUrls.set(urls);
     }
 
     public disabledDate = (current: Date): boolean =>
@@ -187,3 +196,8 @@ export class TokenDetailComponent implements OnInit {
 }
 
 export type ArrPropName = 'checkedRoles' | 'checkedPrivileges';
+
+export interface ModulePrivileges {
+    module: string;
+    privileges: AppPrivilege[];
+}

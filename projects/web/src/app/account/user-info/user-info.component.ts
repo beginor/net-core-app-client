@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, signal } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import {
     FormGroup, Validators, FormBuilder, FormControl, ReactiveFormsModule,
@@ -11,25 +11,25 @@ import {
 import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 @Component({
-  selector: 'app-user-info',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AntdModule,
-    SvgIconComponent,
-  ],
-  templateUrl: './user-info.component.html',
-  styleUrl: './user-info.component.css',
+    selector: 'app-user-info',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AntdModule,
+        SvgIconComponent,
+    ],
+    templateUrl: './user-info.component.html',
+    styleUrl: './user-info.component.css',
 })
 export class UserInfoComponent implements OnInit {
 
-    public user: UserInfo = { id: '' };
-    public dob?: Date;
-    public loading = false;
-    public loadingMessage = '';
-    public updatingPwd = false;
+    public user = signal<UserInfo>({ id: '' });
+    public dob = signal<Date | undefined>(undefined);
+    public loading = signal(false);
+    public loadingMessage = signal('');
+    public updatingPwd = signal(false);
 
     public pwdForm: FormGroup;
 
@@ -55,7 +55,7 @@ export class UserInfoComponent implements OnInit {
                 [Validators.required]
             ),
             newPassword: formBuilder.control(
-                { value: '', disabled: false},
+                { value: '', disabled: false },
                 [Validators.required, Validators.minLength(8)]
             ),
             confirmPassword: formBuilder.control(
@@ -66,77 +66,86 @@ export class UserInfoComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        void this.loadData();
+        this.loadData();
     }
 
-    private async loadData(): Promise<void> {
+    private loadData(): void {
         this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
             { label: '用户信息' }
         ]);
-        try {
-            this.loading = true;
-            this.loadingMessage = '正在加载用户信息 ...';
-            const user = await this.account.getUser();
-            this.user = user;
-            if (user.dateOfBirth) {
-                this.dob = new Date(user.dateOfBirth)
+
+        this.loading.set(true);
+        this.loadingMessage.set('正在加载用户信息 ...');
+        this.account.getUser().subscribe({
+            next: user => {
+                this.user.set(user);
+                if (user.dateOfBirth) {
+                    this.dob.set(new Date(user.dateOfBirth));
+                }
+            },
+            error: (err: unknown) => {
+                console.error(err);
+                this.ui.showAlert(
+                    { type: 'danger', message: '无法获取用户信息！' }
+                );
+            },
+            complete: () => {
+                this.loading.set(false);
+                this.loadingMessage.set('');
             }
-        }
-        catch (ex: unknown) {
-            console.error(ex);
-            this.ui.showAlert(
-                { type: 'danger', message: '无法获取用户信息！' }
-            );
-        }
-        finally {
-            this.loading = false;
-        }
+        });
     }
 
     public async saveUser(): Promise<void> {
-        if (!this.user) {
+        const user = this.user();
+        if (!user.id) {
             return;
         }
-        try {
-            this.loading = true;
-            this.loadingMessage = '正在更新用户信息 ...';
-            if (this.dob) {
-                this.user.dateOfBirth = formatDate(
-                    this.dob, 'yyyy-MM-dd', this.localId
+        this.loading.set(true);
+        this.loadingMessage.set('正在更新用户信息 ...');
+        const dob = this.dob();
+        if (dob) {
+            user.dateOfBirth = formatDate(dob, 'yyyy-MM-dd', this.localId);
+        }
+        this.account.updateUser(user).subscribe({
+            next: user => {
+                this.user.set(user);
+                this.ui.showAlert(
+                    { type: 'success', message: '用户信息已更新！' }
                 );
+            },
+            error: (err: unknown) => {
+                console.error(err);
+                this.ui.showAlert(
+                    { type: 'danger', message: '无法更新用户信息！' }
+                );
+            },
+            complete: () => {
+                this.loading.set(false);
             }
-            this.user = await this.account.updateUser(this.user);
-        }
-        catch (ex: unknown) {
-            console.error(ex);
-            this.ui.showAlert(
-                { type: 'danger', message: '无法更新用户信息！' }
-            );
-        }
-        finally {
-            this.loading = false;
-        }
+        });
     }
 
     public async changePassword(): Promise<void> {
-        try {
-            this.updatingPwd = true;
-            await this.account.changePassword(this.pwdForm.value);
-            this.ui.showAlert(
-                { type: 'success', message: '修改密码成功！' }
-            );
-            this.pwdForm.reset();
-        }
-        catch(ex) {
-            console.error(ex);
-            this.ui.showAlert(
-                { type: 'danger', message: '修改密码出错！' }
-            );
-        }
-        finally {
-            this.updatingPwd = false;
-        }
+        this.updatingPwd.set(true);
+        this.account.changePassword(this.pwdForm.value).subscribe({
+            next: () => {
+                this.ui.showAlert(
+                    { type: 'success', message: '修改密码成功！' }
+                );
+                this.pwdForm.reset();
+            },
+            error: (err: unknown) => {
+                console.error(err);
+                this.ui.showAlert(
+                    { type: 'danger', message: '修改密码出错！' }
+                );
+            },
+            complete: () => {
+                this.updatingPwd.set(false);
+            }
+        });
     }
 
 }

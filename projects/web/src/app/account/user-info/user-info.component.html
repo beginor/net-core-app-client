@@ -1,3 +1,4 @@
+@let _user = user();
 <div class="container mt-3 mb-5">
   <div class="row">
     <div class="col-2 text-end">
@@ -10,7 +11,7 @@
             <nz-form-label nzFor="surname" [nzRequired]="true">姓氏</nz-form-label>
             <nz-form-control [nzHasFeedback]="true">
               <input nz-input type="text" id="surname" name="surname"
-                placeholder="请输入用户姓氏 ..." [(ngModel)]="user.surname"
+                placeholder="请输入用户姓氏 ..." [(ngModel)]="_user.surname"
                 [required]="true" />
             </nz-form-control>
           </nz-form-item>
@@ -20,7 +21,7 @@
             <nz-form-label nzFor="givenName" [nzRequired]="true">名称</nz-form-label>
             <nz-form-control [nzHasFeedback]="true">
               <input nz-input type="text" id="givenName" name="givenName"
-                placeholder="请输入用户名称 ..." [(ngModel)]="user.givenName"
+                placeholder="请输入用户名称 ..." [(ngModel)]="_user.givenName"
                 [required]="true" />
             </nz-form-control>
           </nz-form-item>
@@ -32,7 +33,7 @@
             <nz-form-label nzFor="email" [nzRequired]="true">电子邮箱</nz-form-label>
             <nz-form-control [nzHasFeedback]="true">
               <input nz-input type="text" id="email" name="email"
-                placeholder="请输入用户电子邮箱 ..." [(ngModel)]="user.email"
+                placeholder="请输入用户电子邮箱 ..." [(ngModel)]="_user.email"
                 [required]="true" />
             </nz-form-control>
           </nz-form-item>
@@ -42,7 +43,7 @@
             <nz-form-label nzFor="phoneNumber" [nzRequired]="true">电话号码</nz-form-label>
             <nz-form-control [nzHasFeedback]="true">
               <input nz-input type="text" id="phoneNumber" name="phoneNumber"
-                placeholder="请输入用户电话号码 ..." [(ngModel)]="user.phoneNumber"
+                placeholder="请输入用户电话号码 ..." [(ngModel)]="_user.phoneNumber"
                 [required]="true" />
             </nz-form-control>
           </nz-form-item>
@@ -62,7 +63,7 @@
           <nz-form-item>
             <nz-form-label nzFor="gender">性别</nz-form-label>
             <nz-form-control>
-              <nz-radio-group id="gender" name="gender" [(ngModel)]="user.gender">
+              <nz-radio-group id="gender" name="gender" [(ngModel)]="_user.gender">
                 <label id="gender0" for="gender0" nz-radio nzValue="保密">保密</label>
                 <label id="gender1" for="gender1" nz-radio nzValue="男">男</label>
                 <label id="gender2" for="gender2" nz-radio nzValue="女">女</label>
@@ -77,7 +78,7 @@
             <nz-form-label nzFor="streetAddress">地址</nz-form-label>
             <nz-form-control>
               <input nz-input type="text" id="streetAddress" name="streetAddress"
-                placeholder="请输入用户地址 ..." [(ngModel)]="user.streetAddress"
+                placeholder="请输入用户地址 ..." [(ngModel)]="_user.streetAddress"
               />
             </nz-form-control>
           </nz-form-item>
@@ -85,14 +86,14 @@
       </div>
       <div class="row">
         <div class="col d-flex justify-content-end">
-          @if (loading) {
+          @if (loading()) {
             <div class="me-auto">
               <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" />
-              {{loadingMessage}}
+              {{loadingMessage()}}
             </div>
           }
           <button type="button" nz-button nzType="primary"
-            (click)="saveUser()" [disabled]="!detailForm.valid || loading">
+            (click)="saveUser()" [disabled]="!detailForm.valid || loading()">
             <svg-icon class="me-1" iconPath="bi/check" /> 保存
           </button>
         </div>
@@ -148,14 +149,14 @@
       </div>
       <div class="row">
         <div class="col d-flex justify-content-end">
-          @if (updatingPwd) {
+          @if (updatingPwd()) {
             <div class="me-auto">
               <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" />
               正在修改密码 ...
             </div>
           }
           <button type="button" nz-button nzType="primary"
-            (click)="changePassword()" [disabled]="!pwdForm.valid || updatingPwd">
+            (click)="changePassword()" [disabled]="!pwdForm.valid || updatingPwd()">
             <svg-icon class="me-1" iconPath="bi/check" /> 保存
           </button>
         </div>

@@ -7,8 +7,9 @@
       <svg-icon iconPath="bi/arrow-repeat" />
     </button>
   </nz-list-header>
-  @let showDel = accountService.currentUser().privileges['app_json_data.delete'] && allowDelete();
-  @let showUpdate = accountService.currentUser().privileges['app_json_data.update'] && allowUpdate();
+  @let user = accountService.current();
+  @let showDel = user.privileges['app_json_data.delete'] && allowDelete();
+  @let showUpdate = user.privileges['app_json_data.update'] && allowUpdate();
   @for (item of data(); track item.id) {
     <nz-list-item class="d-flex flex-row">
       <span>{{item.name}}

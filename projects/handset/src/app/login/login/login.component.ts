@@ -1,4 +1,4 @@
-import { Component, ErrorHandler } from '@angular/core';
+import { Component, ErrorHandler, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
@@ -22,45 +22,43 @@ import { MatModule } from '../../mat/mat.module';
 })
 export class LoginComponent {
 
-    public model: LoginModel = { userName: '', password: '' };
-    public loading = false;
+    protected model = signal<LoginModel>({ userName: '', password: '' });
+    protected loading = signal(false);
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private snackBar: MatSnackBar,
-        private accountSvc: AccountService,
+        private account: AccountService,
         private errorHandler: ErrorHandler
     ) { }
 
     public async login(): Promise<void> {
-        if (this.loading) {
+        if (this.loading()) {
             return;
         }
-        try {
-            this.loading = true;
-            await this.accountSvc.login(this.model);
-            await this.accountSvc.getInfo();
-            let returnUrl = this.route.snapshot.params['returnUrl'] as string;
-            if (!returnUrl) {
-                returnUrl = '/home';
+        this.loading.set(true);
+        let { returnUrl } = this.route.snapshot.params;
+        returnUrl ??= 'home';
+        this.account.login(this.model()).subscribe({
+            next: () => {
+                this.router.navigate(
+                    [`/${returnUrl}`],
+                    { replaceUrl: true }
+                );
+            },
+            error: (ex: any) => {
+                this.errorHandler.handleError(ex);
+                this.snackBar.open(
+                    ex.error ?? ex.toString(),
+                    '确定',
+                    { duration: 3000 }
+                );
+            },
+            complete: () => {
+                this.loading.set(false);
             }
-            void this.router.navigate(
-                [`/${returnUrl}`],
-                { replaceUrl: true }
-            );
-        }
-        catch (ex: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-            this.errorHandler.handleError(ex);
-            this.snackBar.open(
-                ex.error ?? ex.toString(),
-                '确定',
-                { duration: 3000 }
-            );
-        }
-        finally {
-            this.loading = false;
-        }
+        });
     }
 
 }

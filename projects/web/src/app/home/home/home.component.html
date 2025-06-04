@@ -3,13 +3,13 @@
   <div class="d-grid gap-2">
     <button class="btn btn-lg btn-outline-primary"
       (click)="vm.updateMessage()">
-      {{vm.message | async}}
+      {{vm.message()}}
     </button>
   </div>
 
-  @if (vm.info | async; as info) {
+  @if (vm.info()) {
     <div class="alert alert-warning mt-3">
-      {{info}}
+      {{vm.info()}}
     </div>
   }
 

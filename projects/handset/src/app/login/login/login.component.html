@@ -5,38 +5,39 @@
 <div class="container">
   <div class="row">
     <div class="offset-md-4 col-md-4">
+      @let _model = model();
       <form class="login-form mt-sm-2 mt-md-3 mt-lg-4" #loginForm="ngForm">
         <mat-form-field class="form-field">
           <input name="username" matInput type="text" placeholder="用户名"
-            [(ngModel)]="model.userName" required #username="ngModel"
+            [(ngModel)]="_model.userName" required #username="ngModel"
             autocomplete="username" />
-          @if (model.userName) {
+          @if (_model.userName) {
             <button mat-icon-button matSuffix aria-label="Clear"
-              (click)="model.userName = ''">
+              (click)="_model.userName = ''">
               <mat-icon>close</mat-icon>
             </button>
           }
         </mat-form-field>
         <mat-form-field class="form-field">
           <input name="password" matInput type="password" placeholder="密码"
-            [(ngModel)]="model.password" required #password="ngModel"
+            [(ngModel)]="_model.password" required #password="ngModel"
             autocomplete="current-password"/>
-          @if (model.password) {
+          @if (_model.password) {
             <button mat-icon-button matSuffix aria-label="Clear"
-              (click)="model.password = ''">
+              (click)="_model.password = ''">
               <mat-icon>close</mat-icon>
             </button>
           }
         </mat-form-field>
         <div class="form-field">
-          <mat-checkbox name="isPersistent" [(ngModel)]="model.isPersistent">
+          <mat-checkbox name="isPersistent" [(ngModel)]="_model.isPersistent">
             记住我
           </mat-checkbox>
         </div>
         <button class="login-button" type="button" mat-raised-button color="primary"
           (click)="login()" [disabled]="(username.invalid || password.invalid)"
           cdkFocusInitial>
-          @if (loading) {
+          @if (loading()) {
             <ng-container>
               <mat-icon class="mat-icon-spinner">refresh</mat-icon> 登录中 ...
             </ng-container>

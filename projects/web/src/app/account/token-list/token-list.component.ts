@@ -43,8 +43,8 @@ export class TokenListComponent implements OnInit {
         // sort = [],
         // filter = [],
     }: Partial<NzTableQueryParams>): void {
-        this.vm.pageSize = pageSize;
-        this.vm.pageIndex = pageIndex;
+        this.vm.pageSize.set(pageSize);
+        this.vm.pageIndex.set(pageIndex);
         void this.vm.search();
     }
 
@@ -84,8 +84,8 @@ export class TokenListComponent implements OnInit {
     }
 
     public resetSearch(): void {
-        this.vm.model.keywords = '';
-        this.vm.pageIndex = 1;
+        this.vm.model().keywords = '';
+        this.vm.pageIndex.set(1);
         void this.vm.search();
     }
 

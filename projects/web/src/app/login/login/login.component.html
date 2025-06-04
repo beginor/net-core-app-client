@@ -3,12 +3,13 @@
     <div class="col col-login mx-auto">
       <nz-card nzTitle="登录您的账户">
         @if (ui.showLoginForm()) {
+          @let _model = model();
           <form nz-form nzLayout="vertical" #loginForm="ngForm" (submit)="login()" method="post">
             <nz-form-item>
               <nz-form-label nzFor="username" nzRequired>用户名</nz-form-label>
               <nz-form-control [nzHasFeedback]="true">
                 <input nz-input nzSize="large" type="text" id="username" name="username"
-                  placeholder="请输入用户名 ..." [(ngModel)]="model.userName"
+                  placeholder="请输入用户名 ..." [(ngModel)]="_model.userName"
                   required autocomplete="username"
                 />
               </nz-form-control>
@@ -18,7 +19,7 @@
               <nz-form-control [nzHasFeedback]="true">
                 <input nz-input nzSize="large" type="password" name="password"
                   placeholder="请输入密码 ..." required id="password"
-                  [(ngModel)]="model.password" autocomplete="new-password"
+                  [(ngModel)]="_model.password" autocomplete="new-password"
                 />
               </nz-form-control>
             </nz-form-item>
@@ -27,7 +28,7 @@
               <nz-form-control [nzHasFeedback]="true">
                 <nz-input-group [nzAddOnAfter]="captchaImageTpl" nzSize="large">
                   <input nz-input nzSize="large" id="captcha" name="captcha"
-                    [(ngModel)]="model.captcha" placeholder="请输入验证码..." required
+                    [(ngModel)]="_model.captcha" placeholder="请输入验证码..." required
                     (keyup)="passwordKeyUp($event, loginForm)"
                   />
                 </nz-input-group>
