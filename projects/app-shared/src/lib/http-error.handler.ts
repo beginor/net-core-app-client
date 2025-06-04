@@ -1,7 +1,6 @@
 import { ErrorHandler, Injectable, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
 
 import { AccountService } from './account.service';
 import { API_ROOT, IS_PRODUCTION } from './inject-tokens';
@@ -32,10 +31,10 @@ export class HttpErrorHandler implements ErrorHandler {
             message: JSON.stringify(error)
         };
         if (this.isProduction) {
-            lastValueFrom(this.http.post(this.url, err)).catch(ex => {
+            this.http.post(this.url, err).subscribe({ error: err => {
                 console.error(err);
-                console.error('Can not send error to server. ', ex);
-            });
+                console.error('Can not send error to server. ', error);
+            }});
         }
         else {
             console.error(error);

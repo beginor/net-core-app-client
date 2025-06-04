@@ -29,18 +29,15 @@ export class SvgIconComponent implements AfterViewInit {
     ) {
         effect(() => {
             const viewInited = this.viewInited();
-            if (!viewInited) {
-                return;
-            }
             const iconPath = this.iconPath();
             const iconSize = this.iconSize();
             const iconClass = this.iconClass();
+            if (!viewInited) {
+                return;
+            }
             untracked(() => {
                 if (iconPath) {
-                    void this.updateIcon(iconPath).then(() => {
-                        this.updateIconClass(iconClass);
-                        this.updateIconSize(iconSize);
-                    });
+                    this.updateIcon(iconPath)
                 }
                 else {
                     this.el.nativeElement.innerHTML = defaultIcon;
@@ -57,18 +54,23 @@ export class SvgIconComponent implements AfterViewInit {
         this.viewInited.set(true);
     }
 
-    private async updateIcon(iconPath: string): Promise<void> {
+    private updateIcon(iconPath: string): void {
         if (this.currentIcon === iconPath) {
             return;
         }
         this.currentIcon = iconPath;
         let svg = this.el.nativeElement.firstChild as SVGElement;
-        const xml = await this.svg.loadSvgFile(iconPath);
-        svg.remove();
-        this.el.nativeElement.innerHTML = xml;
-        svg = this.el.nativeElement.firstChild as SVGElement;
-        svg.setAttribute('fill', 'currentColor');
-        this.svgClass = svg.getAttribute('class') ?? '';
+        this.svg.loadSvgFile(iconPath).subscribe({
+            next: (xml) => {
+                svg.remove();
+                this.el.nativeElement.innerHTML = xml;
+                svg = this.el.nativeElement.firstChild as SVGElement;
+                svg.setAttribute('fill', 'currentColor');
+                this.svgClass = svg.getAttribute('class') ?? '';
+                this.updateIconClass(this.iconClass());
+                this.updateIconSize(this.iconSize());
+            }
+        });
     }
 
     private updateIconClass(iconClass: string): void {

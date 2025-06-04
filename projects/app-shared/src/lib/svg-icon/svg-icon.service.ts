@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { share, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -19,42 +18,32 @@ export class SvgIconService {
         this.basePath = basePath;
     }
 
-    public loadSvgFile(path: string): Promise<string> {
+    public loadSvgFile(path: string): Observable<string> {
         const key = `svg-icon:${path}`;
         const loadedItem = sessionStorage.getItem(key);
+
         if (loadedItem) {
-            return Promise.resolve(loadedItem);
+            return of(loadedItem);
         }
+
         if (this.loadingMap.has(key)) {
-            const op = this.loadingMap.get(key);
-            return new Promise<string>((resolve, reject) => {
-                op?.subscribe({
-                    next: val => resolve(val),
-                    error: ex => reject(ex)
-                });
-            });
+            return this.loadingMap.get(key)!;
         }
+
         let url = `${this.basePath}/${path}`;
         if (!url.endsWith('.svg')) {
             url += '.svg';
         }
-        const loadingOp = this.http.get(url, { responseType: 'text' })
-            .pipe(share());
-        this.loadingMap.set(key, loadingOp);
-        return new Promise<string>((resolve, reject) => {
-            loadingOp.subscribe({
-                next: val => {
-                    sessionStorage.setItem(key, val);
-                    resolve(val);
-                },
-                error: ex => {
-                    reject(ex);
-                },
-                complete: () => {
-                    this.loadingMap.delete(key);
-                }
-            });
-        });
-    }
 
+        const loadingOp = this.http.get(url, { responseType: 'text' }).pipe(
+            tap({
+                next: (val) => sessionStorage.setItem(key, val),
+                complete: () => this.loadingMap.delete(key)
+            }),
+            share()
+        );
+
+        this.loadingMap.set(key, loadingOp);
+        return loadingOp;
+    }
 }
