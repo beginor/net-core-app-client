@@ -1,4 +1,4 @@
-import { Injectable, Inject, signal, effect, computed } from '@angular/core';
+import { Injectable, Inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map, catchError } from 'rxjs';
 
@@ -32,31 +32,30 @@ export class AccountService {
         else {
             return '匿名用户';
         }
-    }, ); // signal<string>('匿名用户');
+    }, );
 
-    public token = signal<string>('');
+    public get token(): string {
+        return localStorage.getItem(this.tokenKey) ?? '';
+    }
+    public set token(value: string) {
+        if (value) {
+            localStorage.setItem(this.tokenKey, value);
+        }
+    }
 
     private get tokenKey(): string {
         return `Bearer:${this.apiRoot}`;
     }
-
-    private interval$: number;
 
     constructor(
         private http: HttpClient,
         @Inject(API_ROOT) private apiRoot: string,
         private base64Url: Base64UrlService
     ) {
-        this.interval$ = setInterval(
+        setInterval(
             () => void this.getAccountInfo(),
             1000 * 60 * 5
         );
-        effect(() => {
-            const token = this.token();
-            if (token) {
-                sessionStorage.setItem(this.tokenKey, token);
-            }
-        });
     }
 
     public getAccountInfo(): Observable<AccountInfo> {

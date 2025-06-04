@@ -23,7 +23,7 @@ export const apiInterceptor: HttpInterceptorFn = (
         const setHeaders: Record<string, string> = {
             'X-Requested-With': 'XMLHttpRequest'
         };
-        if (account.token()) {
+        if (account.token) {
             account.addAuthTokenTo(setHeaders);
         }
         req = req.clone({setHeaders});

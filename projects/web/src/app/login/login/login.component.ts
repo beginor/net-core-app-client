@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 import {
     AccountService, LoginModel, SvgIconComponent, API_ROOT
@@ -58,7 +59,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loading.set(true);
         let { returnUrl } = this.route.snapshot.params;
         returnUrl ??= 'home';
-        this.account.login(this.model()).subscribe({
+        this.account.login(this.model()).pipe(
+            switchMap(() => this.account.getAccountInfo())
+        ).subscribe({
             next: () => {
                 this.router.navigate(
                     [`/${returnUrl}`],
@@ -71,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.message.set(message);
                 this.model.update(m => ({ ...m, captcha: '' }));
                 this.updateCaptcha();
+                this.loading.set(false);
             },
             complete: () => {
                 this.loading.set(false);

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs';
 
 import { AccountService, LoginModel } from 'app-shared';
 
@@ -40,7 +41,9 @@ export class LoginComponent {
         this.loading.set(true);
         let { returnUrl } = this.route.snapshot.params;
         returnUrl ??= 'home';
-        this.account.login(this.model()).subscribe({
+        this.account.login(this.model()).pipe(
+            switchMap(() => this.account.getAccountInfo())
+        ).subscribe({
             next: () => {
                 this.router.navigate(
                     [`/${returnUrl}`],
