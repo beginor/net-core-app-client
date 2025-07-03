@@ -11,8 +11,8 @@ SERVER_PREFIX="${COMPANY_NAME}.${PROJ_NAME}"
 # 修改客户端相关文件
 sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./package.json
 sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./angular.json
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/web/src/app/app.module.ts
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/handset/src/app/app.module.ts
+sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/web/src/app/app.config.ts
+sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/handset/src/app/app.config.ts
 sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./proxy.conf.mjs
 sed -i.bak "s/NetCoreApp/${PROJ_NAME}/g" ./smartcode.yml
 sed -i.bak "s/Beginor/${COMPANY_NAME}/g" ./smartcode.yml
