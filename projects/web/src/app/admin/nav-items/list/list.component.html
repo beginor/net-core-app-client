@@ -4,7 +4,7 @@
     <div class="col">
       <nz-card class="ant-card-data-list" nzTitle="导航菜单" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
-          <nz-button-group>
+          <nz-space-compact>
             @if (user.privileges['app_nav_items.create']) {
               <button type="button" nz-button nzType="primary"
                 (click)="showDetail('0', true)">
@@ -15,7 +15,7 @@
               (click)="loadData({})">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
-          </nz-button-group>
+          </nz-space-compact>
         </ng-template>
         @let data = (vm.data | async)!;
         <nz-table nzSize="small" [nzFrontPagination]="false"
@@ -55,7 +55,7 @@
                 <td class='text-start'>{{item.url}}</td>
                 <td class='text-end'>{{item.sequence}}</td>
                 <td class="text-center">
-                  <nz-button-group>
+                  <nz-space-compact>
                     @if (user.privileges['app_nav_items.read_by_id']) {
                       <button class="px-2" type="button" nz-button nzType="default"
                         nz-tooltip="详情" nzTooltipPlacement="top"
@@ -77,7 +77,7 @@
                         <svg-icon iconPath="bi/trash" />
                       </button>
                     }
-                  </nz-button-group>
+                  </nz-space-compact>
                 </td>
               </tr>
             }

@@ -23,14 +23,14 @@
               </button>
             </ng-template>
           </nz-input-group>
-          <nz-button-group *nzSpaceItem>
+          <nz-space-compact *nzSpaceItem>
             <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
               <svg-icon class="me-1" iconPath="bi/plus" /> 新建凭证
             </button>
             <button type="button" nz-button nzType="default" (click)="loadData({})">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
-          </nz-button-group>
+          </nz-space-compact>
         </nz-space>
       </ng-template>
       <nz-table nzSize="small" [nzFrontPagination]="false"
@@ -70,7 +70,7 @@
             <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
             <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
             <td class="text-center">
-              <nz-button-group>
+              <nz-space-compact>
                 <button class="px-2" type="button"
                   nz-button nzType="default"
                   nz-tooltip="编辑" nzTooltipPlacement="top"
@@ -83,7 +83,7 @@
                   (click)="delete(token.id)">
                   <svg-icon iconPath="bi/trash" />
                 </button>
-              </nz-button-group>
+              </nz-space-compact>
             </td>
           </tr>
         }

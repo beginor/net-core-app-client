@@ -35,7 +35,6 @@ export class TokenDetailComponent implements OnInit {
 
     protected model = signal<UserTokenModel>({ id: '0', name: '', value: '' });
     protected roles = signal<AppRole[]>([]);
-    // eslint-disable-next-line @stylistic/max-len
     protected privileges = signal<ModulePrivileges[]>([]);
     protected tokenExpiresAt = signal<Date | undefined>(undefined);
     protected tokenUrls = signal<string[]>([]);

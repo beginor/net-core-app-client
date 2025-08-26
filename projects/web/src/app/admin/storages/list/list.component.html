@@ -4,7 +4,7 @@
     <div class="col">
       <nz-card class="ant-card-data-list" nzTitle="存储管理" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
-          <nz-button-group>
+          <nz-space-compact>
             @if (user.privileges['app_storages.create']) {
               <button type="button" nz-button nzType="primary"
                 (click)="showDetail('0', true)">
@@ -14,7 +14,7 @@
             <button type="button" nz-button nzType="default" (click)="loadData({})">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
-          </nz-button-group>
+          </nz-space-compact>
         </ng-template>
         @let data = (vm.data | async)!;
         <nz-table nzSize="small" [nzFrontPagination]="false"
@@ -48,7 +48,7 @@
                 <td class='text-center'>{{item.readonly ? '是' : '否'}}</td>
                 <td class='text-start'>{{item.roles}}</td>
                 <td class="text-center">
-                  <nz-button-group>
+                  <nz-space-compact>
                     @if (user.privileges['app_storages.read_by_id']) {
                       <button class="px-2" type="button" nz-button nzType="default"
                         nz-tooltip="详情" nzTooltipPlacement="top"
@@ -70,7 +70,7 @@
                         <svg-icon iconPath="bi/trash" />
                       </button>
                     }
-                  </nz-button-group>
+                  </nz-space-compact>
                 </td>
               </tr>
             }

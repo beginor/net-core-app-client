@@ -52,7 +52,7 @@
                   </nz-option>
                 }
               </nz-select>
-              <nz-button-group *nzSpaceItem>
+              <nz-space-compact *nzSpaceItem>
                 @if (info.privileges['app_users.create']) {
                   <button type="button" nz-button nzType="primary"
                     (click)="showDetail('0', true)">
@@ -62,7 +62,7 @@
                 <button type="button" nz-button nzType="default" (click)="loadData({})">
                   <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
                 </button>
-              </nz-button-group>
+              </nz-space-compact>
             </nz-space>
           </form>
         </ng-template>
@@ -112,7 +112,7 @@
               <td class="text-center">{{item.lastLogin | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td class="text-end">{{item.loginCount}}</td>
               <td class="text-center">
-                <nz-button-group>
+                <nz-space-compact>
                   @if (info.privileges['app_users.read_by_id']) {
                     <button class="px-2" type="button" nz-button nzType="default"
                       nz-tooltip="详情" nzTooltipPlacement="top"
@@ -165,7 +165,7 @@
                       }
                     </div>
                   </nz-dropdown-menu>
-                </nz-button-group>
+                </nz-space-compact>
               </td>
             </tr>
           }

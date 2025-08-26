@@ -4,7 +4,7 @@
     <div class="col">
       <nz-card class="ant-card-data-list" nzTitle="角色" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
-          <nz-button-group>
+          <nz-space-compact>
             @if (user.privileges['app_roles.create']) {
               <button type="button" nz-button nzType="primary"
                 (click)="showDetail('0', true)">
@@ -15,7 +15,7 @@
               (click)="vm.search()">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
-          </nz-button-group>
+          </nz-space-compact>
         </ng-template>
         @let data = (vm.data | async)!;
         <nz-table nzSize="small" [nzFrontPagination]="false"
@@ -51,7 +51,7 @@
                 <td class="text-center">{{item.isAnonymous ? '是' : '否'}}</td>
                 <td class="text-end"><a [routerLink]="['../users', {roleName: item.name}]">{{item.userCount}}</a></td>
                 <td class="text-center">
-                  <nz-button-group>
+                  <nz-space-compact>
                     @if (user.privileges['app_roles.read_by_id']) {
                       <button class="px-2" type="button" nz-button nzType="default"
                         nz-tooltip="详情" nzTooltipPlacement="top"
@@ -81,7 +81,7 @@
                         <svg-icon iconPath="bi/trash" />
                       </button>
                     }
-                  </nz-button-group>
+                  </nz-space-compact>
                 </td>
               </tr>
             }

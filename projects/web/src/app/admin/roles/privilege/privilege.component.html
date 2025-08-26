@@ -1,11 +1,11 @@
 <nz-card class="ant-card-data-detail m-0"
   [nzTitle]="title" [nzExtra]="toolsTpl">
   <ng-template #toolsTpl>
-    <nz-button-group>
+    <nz-space-compact>
       <button type="button" nz-button nzType="default" (click)="close()">
         <svg-icon class="me-1" iconPath="bi/check" /> 确定
       </button>
-    </nz-button-group>
+    </nz-space-compact>
   </ng-template>
   <form nz-form nzLayout="vertical" #privilegeForm="ngForm">
     @for (mp of vm.privileges; track mp.module) {

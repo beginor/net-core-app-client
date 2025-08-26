@@ -21,11 +21,11 @@
                 [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
                 [nzAllowClear]="false">
               </nz-range-picker>
-              <nz-button-group *nzSpaceItem>
+              <nz-space-compact *nzSpaceItem>
                 <button type="button" nz-button nzType="default" (click)="vm.search()">
                   <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
                 </button>
-              </nz-button-group>
+              </nz-space-compact>
             </nz-space>
           </form>
         </ng-template>
@@ -61,7 +61,7 @@
                 <td class='text-start'>{{item.logger}}</td>
                 <td class='text-start text-truncate' style="max-width: 30rem;">{{item.message}}</td>
                 <td class="text-center">
-                  <nz-button-group>
+                  <nz-space-compact>
                     @if (user.privileges['app_logs.read_by_id']) {
                       <button class="px-2" type="button" nz-button nzType="default"
                         nz-tooltip="详情" nzTooltipPlacement="top"
@@ -69,7 +69,7 @@
                         <svg-icon iconPath="bi/info-square" />
                       </button>
                     }
-                  </nz-button-group>
+                  </nz-space-compact>
                 </td>
               </tr>
             }

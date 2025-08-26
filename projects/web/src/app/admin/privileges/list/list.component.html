@@ -13,7 +13,7 @@
                   <nz-option [nzValue]="m" [nzLabel]="m" />
                 }
               </nz-select>
-              <nz-button-group *nzSpaceItem>
+              <nz-space-compact *nzSpaceItem>
                 @if (user.privileges['app_privileges.create']) {
                   <button type="button" nz-button nzType="primary"
                     (click)="showDetail('0', true)">
@@ -24,7 +24,7 @@
                   (click)="loadData({})">
                   <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
                 </button>
-              </nz-button-group>
+              </nz-space-compact>
             </nz-space>
           </form>
         </ng-template>
@@ -60,7 +60,7 @@
                 <td class="text-start">{{item.description}}</td>
                 <td class="text-center" [class.text-danger]="item.isRequired">{{item.isRequired ? '是' : '否'}}</td>
                 <td class="text-center">
-                  <nz-button-group>
+                  <nz-space-compact>
                     @if (user.privileges['app_privileges.read_by_id']) {
                       <button class="px-2" type="button" nz-button nzType="default"
                         nz-tooltip="详情" (click)="showDetail(item.id, false)">
@@ -79,7 +79,7 @@
                         <svg-icon iconPath="bi/trash" />
                       </button>
                     }
-                  </nz-button-group>
+                  </nz-space-compact>
                 </td>
               </tr>
             }

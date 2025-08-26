@@ -15,7 +15,7 @@
       <span>{{item.name}}
         <i class="text-muted">(更新时间：{{item.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}})</i>
       </span>
-      <nz-button-group class="ms-auto" nzSize="small">
+      <nz-space-compact class="ms-auto" nzSize="small">
         @if (showUpdate) {
           <button class="px-1" type="button" nz-button nzSize="small"
             (click)="update(item.id!)" nz-tooltip="更新">
@@ -28,7 +28,7 @@
             <svg-icon iconPath="bi/x" />
           </button>
         }
-      </nz-button-group>
+      </nz-space-compact>
     </nz-list-item>
   } @empty {
     <nz-list-item>

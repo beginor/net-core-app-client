@@ -4,7 +4,7 @@
     <div class="col">
       <nz-card class="ant-card-data-list" nzTitle="组织单元" [nzExtra]="cardExtra">
         <ng-template #cardExtra>
-          <nz-button-group>
+          <nz-space-compact>
             @if (user.privileges['app_organize_units.create']) {
               <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
                 <svg-icon class="me-1" iconPath="bi/plus" /> 新建组织单元
@@ -13,7 +13,7 @@
             <button type="button" nz-button nzType="default" (click)="loadData()">
               <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
             </button>
-          </nz-button-group>
+          </nz-space-compact>
         </ng-template>
         <nz-table #expandTable
           [nzData]="listData" [nzShowPagination]="false"
@@ -39,7 +39,7 @@
                   <td>{{ item.description }}</td>
                   <td class="text-end">{{ item.sequence }}</td>
                   <td>
-                    <nz-button-group>
+                    <nz-space-compact>
                       @if (user.privileges['app_organize_units.read_by_id']) {
                         <button class="px-2" nz-button nzType="default"
                           nz-tooltip="详情" nzTooltipPlacement="top"
@@ -62,7 +62,7 @@
                           <svg-icon iconPath="bi/trash" />
                         </button>
                       }
-                    </nz-button-group>
+                    </nz-space-compact>
                   </td>
                 </tr>
               }

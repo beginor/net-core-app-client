@@ -2,7 +2,7 @@
   <ng-template #titleTpl>
     <div class="d-flex flex-row align-items-center">
       <div>{{title}}</div>
-      <nz-button-group class="ms-1" nzSize="small">
+      <nz-space-compact class="ms-1" nzSize="small">
         <button type="button" nz-button nzType="default" nzSize="small"
           (click)="getFolderContentByPath('.')">
           <svg-icon class="me-1" iconPath="bi/house" /> {{params.alias}}
@@ -13,7 +13,7 @@
             {{bc.name}}
           </button>
         }
-      </nz-button-group>
+      </nz-space-compact>
     </div>
   </ng-template>
   <ng-template #toolsTpl>
@@ -21,14 +21,14 @@
       <nz-input-group *nzSpaceItem>
         <input nz-input type="text" placeholder="搜索..." (keyup)="search($event)" />
       </nz-input-group>
-      <nz-button-group *nzSpaceItem>
+      <nz-space-compact *nzSpaceItem>
         <button type="button" nz-button nzType="primary" (click)="ok()">
           <svg-icon class="me-1" iconPath="bi/check" /> 确定
         </button>
         <button type="button" nz-button nzType="default" (click)="cancel()">
           <svg-icon class="me-1" iconPath="bi/x" /> 取消
         </button>
-      </nz-button-group>
+      </nz-space-compact>
     </nz-space>
   </ng-template>
   <cdk-virtual-scroll-viewport class="scroll-viewport" [itemSize]="15">
