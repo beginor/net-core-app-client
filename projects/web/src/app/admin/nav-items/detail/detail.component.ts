@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -49,12 +49,10 @@ export class DetailComponent implements OnInit {
 
     public parents: MenuOption[] = [];
 
-    constructor(
-        private modal: NzModalService,
-        private drawerRef: NzDrawerRef,
-        public account: AccountService,
-        public vm: NavItemsService
-    ) { }
+    private modal = inject(NzModalService);
+    private drawerRef = inject(NzDrawerRef);
+    public account = inject(AccountService);
+    public vm = inject(NavItemsService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -93,9 +91,7 @@ export class DetailComponent implements OnInit {
     }
 
     public toggleCheckedRole(role: string): void {
-        if (!this.model.roles) {
-            this.model.roles = [];
-        }
+        this.model.roles ??= [];
         const idx = this.model.roles.indexOf(role);
         if (idx > -1) {
             this.model.roles.splice(idx, 1);

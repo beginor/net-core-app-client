@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable, Inject } from '@angular/core';
+import { ErrorHandler, Injectable, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,17 +10,13 @@ import { API_ROOT, IS_PRODUCTION } from './inject-tokens';
 })
 export class HttpErrorHandler implements ErrorHandler {
 
-    private url: string;
+    private location = inject(Location);
+    private http = inject(HttpClient);
+    private apiRoot = inject(API_ROOT);
+    private isProduction = inject(IS_PRODUCTION);
+    private account = inject(AccountService);
 
-    constructor(
-        private location: Location,
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        @Inject(IS_PRODUCTION) private isProduction: boolean,
-        private account: AccountService
-    ) {
-        this.url = `${apiRoot}/client-errors`;
-    }
+    private url = `${this.apiRoot}/client-errors`;
 
     public handleError(error: unknown): void {
         const err: ErrorModel = {

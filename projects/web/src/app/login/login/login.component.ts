@@ -1,5 +1,5 @@
 import {
-    Component, ErrorHandler, OnDestroy, OnInit, Inject, signal
+    Component, ErrorHandler, OnDestroy, OnInit, signal, inject
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -32,18 +32,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     private siderShown = false;
     private headerShown = false;
 
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private account: AccountService,
-        private errorHandler: ErrorHandler,
-        protected ui: UiService,
-        @Inject(API_ROOT) private apiRoot: string,
-    ) {
-        this.updateCaptcha();
-    }
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
+    private account = inject(AccountService);
+    private errorHandler = inject(ErrorHandler);
+    protected ui = inject(UiService);
+    private apiRoot = inject(API_ROOT);
 
     public ngOnInit(): void {
+        this.updateCaptcha();
         this.siderShown = this.ui.showSider();
         this.headerShown = this.ui.showHeader();
         this.ui.showHeader.set(false);

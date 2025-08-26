@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -25,12 +25,10 @@ import { DetailComponent } from '../detail/detail.component';
 })
 export class ListComponent implements OnInit {
 
-    constructor(
-        private drawerService: NzDrawerService,
-        private ui: UiService,
-        public account: AccountService,
-        public vm: NavItemsService
-    ) { }
+    private drawerService = inject(NzDrawerService);
+    private ui = inject(UiService);
+    public account = inject(AccountService);
+    public vm = inject(NavItemsService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
