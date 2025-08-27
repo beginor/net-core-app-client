@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -14,29 +14,33 @@ import { NavigationService } from '../services/navigation.service';
     templateUrl: './iframe.component.html',
     styleUrl: './iframe.component.css',
 })
-export class IframeComponent {
+export class IframeComponent implements OnDestroy {
 
-    public safeUrl?: SafeUrl;
+    protected safeUrl?: SafeUrl;
 
-    constructor(
-        actRoute: ActivatedRoute,
-        domSanitizer: DomSanitizer,
-        nav: NavigationService
-    ) {
-        actRoute.params.subscribe(param => {
-            const src: string = param['src'];
-            if (src.startsWith('http://') || src.startsWith('https://')) {
-                this.safeUrl = domSanitizer.bypassSecurityTrustResourceUrl(src);
+    private actRoute = inject(ActivatedRoute);
+    private domSanitizer = inject(DomSanitizer);
+    private nav = inject(NavigationService);
+
+    private sub = this.actRoute.params.subscribe(param => {
+        const src: string = param['src'];
+        if (src.startsWith('http://') || src.startsWith('https://')) {
+            this.safeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+                src
+            );
+        }
+        else {
+            const iframeUrl = this.nav.findCurrentIframeUrl();
+            if (iframeUrl) {
+                this.safeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+                    iframeUrl
+                );
             }
-            else {
-                const iframeUrl = nav.findCurrentIframeUrl();
-                if (iframeUrl) {
-                    this.safeUrl = domSanitizer.bypassSecurityTrustResourceUrl(
-                        iframeUrl
-                    );
-                }
-            }
-        });
+        }
+    });
+
+    public ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UiService } from 'projects/web/src/app/common';
@@ -14,9 +14,7 @@ import { UiService } from 'projects/web/src/app/common';
 })
 export class AboutComponent implements OnInit {
 
-    constructor(
-        private ui: UiService,
-    ) { }
+    private ui = inject(UiService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([

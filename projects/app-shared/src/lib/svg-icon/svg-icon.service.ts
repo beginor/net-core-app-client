@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { share, tap } from 'rxjs/operators';
@@ -11,8 +11,7 @@ export class SvgIconService {
     private basePath = 'assets/icons';
     private loadingMap = new Map<string, Observable<string>>();
 
-    constructor(private http: HttpClient) {
-    }
+    private http = inject(HttpClient);
 
     public setBasePath(basePath: string): void {
         this.basePath = basePath;

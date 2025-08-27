@@ -1,4 +1,4 @@
-import { Injectable, signal, linkedSignal, } from '@angular/core';
+import { Injectable, signal, linkedSignal, inject, } from '@angular/core';
 import { Observable, catchError, filter, map, of, switchMap, } from 'rxjs';
 
 import {
@@ -31,10 +31,8 @@ export class TokenService {
 
     public loading = signal<boolean>(false);
 
-    constructor(
-        private account: AccountService,
-        private ui: UiService
-    ) { }
+    private account = inject(AccountService);
+    private ui = inject(UiService);
 
     public search(): void {
         this.loading.set(true);

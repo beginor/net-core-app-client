@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID, signal } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, signal, inject } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import {
     FormGroup, Validators, FormBuilder, FormControl, ReactiveFormsModule,
@@ -25,56 +25,54 @@ import { AntdModule, UiService } from 'projects/web/src/app/common';
 })
 export class UserInfoComponent implements OnInit {
 
-    public user = signal<UserInfo>({ id: '' });
-    public dob = signal<Date | undefined>(undefined);
-    public loading = signal(false);
-    public loadingMessage = signal('');
-    public updatingPwd = signal(false);
+    protected user = signal<UserInfo>({ id: '' });
+    protected dob = signal<Date | undefined>(undefined);
+    protected loading = signal(false);
+    protected loadingMessage = signal('');
+    protected updatingPwd = signal(false);
 
-    public pwdForm: FormGroup;
+    protected pwdForm: FormGroup = null!;
 
-    public get currentPassword(): FormControl {
+    protected get currentPassword(): FormControl {
         return this.pwdForm.get('currentPassword') as FormControl;
     }
-    public get newPassword(): FormControl {
+
+    protected get newPassword(): FormControl {
         return this.pwdForm.get('newPassword') as FormControl;
     }
-    public get confirmPassword(): FormControl {
+
+    protected get confirmPassword(): FormControl {
         return this.pwdForm.get('confirmPassword') as FormControl;
     }
 
-    constructor(
-        formBuilder: FormBuilder,
-        private ui: UiService,
-        public account: AccountService,
-        @Inject(LOCALE_ID) private localId: string
-    ) {
-        this.pwdForm = formBuilder.group({
-            currentPassword: formBuilder.control(
-                { value: '', disabled: false },
-                [Validators.required]
-            ),
-            newPassword: formBuilder.control(
-                { value: '', disabled: false },
-                [Validators.required, Validators.minLength(8)]
-            ),
-            confirmPassword: formBuilder.control(
-                { value: '', disabled: false },
-                [Validators.required, confirmTo('newPassword')]
-            )
-        });
-    }
+    private formBuilder = inject(FormBuilder);
+    private ui = inject(UiService);
+    protected account = inject(AccountService);
+    private localId = inject(LOCALE_ID);
 
     public ngOnInit(): void {
-        this.loadData();
-    }
-
-    private loadData(): void {
         this.ui.breadcrumbs.set([
             { label: '首页', url: '/' },
             { label: '用户信息' }
         ]);
+        this.pwdForm = this.formBuilder.group({
+            currentPassword: this.formBuilder.control(
+                { value: '', disabled: false },
+                [Validators.required]
+            ),
+            newPassword: this.formBuilder.control(
+                { value: '', disabled: false },
+                [Validators.required, Validators.minLength(8)]
+            ),
+            confirmPassword: this.formBuilder.control(
+                { value: '', disabled: false },
+                [Validators.required, confirmTo('newPassword')]
+            )
+        });
+        this.loadData();
+    }
 
+    private loadData(): void {
         this.loading.set(true);
         this.loadingMessage.set('正在加载用户信息 ...');
         this.account.getUser().subscribe({
@@ -97,7 +95,7 @@ export class UserInfoComponent implements OnInit {
         });
     }
 
-    public async saveUser(): Promise<void> {
+    protected async saveUser(): Promise<void> {
         const user = this.user();
         if (!user.id) {
             return;
@@ -127,7 +125,7 @@ export class UserInfoComponent implements OnInit {
         });
     }
 
-    public async changePassword(): Promise<void> {
+    protected async changePassword(): Promise<void> {
         this.updatingPwd.set(true);
         this.account.changePassword(this.pwdForm.value).subscribe({
             next: () => {

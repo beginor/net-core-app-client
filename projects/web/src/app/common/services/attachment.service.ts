@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, Injectable } from '@angular/core';
+import { ErrorHandler, inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { lastValueFrom } from 'rxjs';
@@ -15,17 +15,14 @@ export class AttachmentService {
     public uploadList: AttachmentUploadResultModel[] = [];
     public loading = false;
 
-    private baseUrl: string;
     private bufferSize = 1024 * 1024 * 2;
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private errorHandler: ErrorHandler,
-        private ui: UiService
-    ) {
-        this.baseUrl = `${apiRoot}/attachments`;
-    }
+    private http = inject(HttpClient);
+    private errorHandler = inject(ErrorHandler);
+    private ui = inject(UiService);
+    private apiRoot = inject(API_ROOT);
+
+    private baseUrl = `${this.apiRoot}/attachments`;
 
     public getContentUrl(id: string): string {
         return `${this.baseUrl}/${id}`;

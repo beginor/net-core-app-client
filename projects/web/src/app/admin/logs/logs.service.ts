@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject, ErrorHandler, LOCALE_ID } from '@angular/core';
+﻿import { Injectable, ErrorHandler, LOCALE_ID, inject } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
@@ -29,16 +29,15 @@ export class AppLogService {
 
     public dateRange: Date[];
 
-    private baseUrl: string;
+    private apiRoot = inject(API_ROOT);
+    private locale = inject(LOCALE_ID);
+    private http = inject(HttpClient);
+    private ui = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        @Inject(LOCALE_ID) private locale: string,
-        private ui: UiService,
-        private errorHandler: ErrorHandler,
-    ) {
-        this.baseUrl = `${this.apiRoot}/logs`;
+    private baseUrl = `${this.apiRoot}/logs`;
+
+    constructor() {
         const now = new Date();
         const startDate = new Date(
             now.getFullYear(), now.getMonth(), now.getDate() - 2

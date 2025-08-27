@@ -1,4 +1,4 @@
-import { Component, ErrorHandler, signal } from '@angular/core';
+import { Component, ErrorHandler, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
@@ -26,15 +26,13 @@ export class LoginComponent {
     protected model = signal<LoginModel>({ userName: '', password: '' });
     protected loading = signal(false);
 
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private snackBar: MatSnackBar,
-        private account: AccountService,
-        private errorHandler: ErrorHandler
-    ) { }
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
+    private snackBar = inject(MatSnackBar);
+    private account = inject(AccountService);
+    private errorHandler = inject(ErrorHandler);
 
-    public async login(): Promise<void> {
+    protected async login(): Promise<void> {
         if (this.loading()) {
             return;
         }

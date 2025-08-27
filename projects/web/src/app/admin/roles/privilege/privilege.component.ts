@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -25,10 +25,8 @@ export class PrivilegeComponent implements OnInit {
     public title = '';
     public id = '0';
 
-    constructor(
-        private drawerRef: NzDrawerRef,
-        public vm: RolesService
-    ) { }
+    private drawerRef = inject(NzDrawerRef);
+    protected vm = inject(RolesService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -39,11 +37,11 @@ export class PrivilegeComponent implements OnInit {
         await this.vm.getAllPrivileges();
     }
 
-    public close(): void {
+    protected close(): void {
         this.drawerRef.close('');
     }
 
-    public async togglePrivilege(name: string): Promise<void> {
+    protected async togglePrivilege(name: string): Promise<void> {
         await this.vm.toggleRolePrivilege(this.id, name);
     }
 

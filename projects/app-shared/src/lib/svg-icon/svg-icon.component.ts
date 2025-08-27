@@ -1,5 +1,6 @@
 import {
-    Component, ElementRef, AfterViewInit, signal, input, effect, untracked
+    Component, ElementRef, AfterViewInit, signal, input, effect, untracked,
+    inject
 } from '@angular/core';
 
 import { SvgIconService } from './svg-icon.service';
@@ -16,17 +17,17 @@ export class SvgIconComponent implements AfterViewInit {
 
     private viewInited = signal(false);
 
-    public iconPath = input('');
-    public iconSize = input('1rem');
-    public iconClass = input('');
+    protected iconPath = input('');
+    protected iconSize = input('1rem');
+    protected iconClass = input('');
 
     private svgClass = '';
     private currentIcon = '';
 
-    constructor(
-        private el: ElementRef<HTMLElement>,
-        private svg: SvgIconService
-    ) {
+    private el = inject(ElementRef<HTMLElement>);
+    private svg = inject(SvgIconService);
+
+    constructor() {
         effect(() => {
             const viewInited = this.viewInited();
             const iconPath = this.iconPath();

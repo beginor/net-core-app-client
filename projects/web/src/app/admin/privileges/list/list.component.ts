@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -24,12 +24,10 @@ import { DetailComponent } from '../detail/detail.component';
 })
 export class ListComponent implements OnInit {
 
-    constructor(
-        private drawerService: NzDrawerService,
-        private ui: UiService,
-        public account: AccountService,
-        public vm: AppPrivilegeService
-    ) { }
+    private drawerService = inject(NzDrawerService);
+    private ui = inject(UiService);
+    protected account = inject(AccountService);
+    protected vm = inject(AppPrivilegeService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
@@ -40,7 +38,7 @@ export class ListComponent implements OnInit {
         void this.vm.getModules();
     }
 
-    public loadData({
+    protected loadData({
         pageSize = 20,
         pageIndex = 1,
         // sort = [],
@@ -51,7 +49,7 @@ export class ListComponent implements OnInit {
         void this.vm.search();
     }
 
-    public showDetail(id: string, editable: boolean): void {
+    protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<
             DetailComponent,
             Partial<DetailComponent>,
@@ -71,7 +69,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    public async delete(id: string): Promise<void> {
+    protected async delete(id: string): Promise<void> {
         const deleted = await this.vm.delete(id);
         if (deleted) {
             void this.vm.search();

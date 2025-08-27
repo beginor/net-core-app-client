@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { UiService } from '../../services/ui.service';
 import { MatModule } from '../../mat/mat.module';
@@ -14,11 +14,9 @@ import { MatModule } from '../../mat/mat.module';
 })
 export class HomeComponent {
 
-    constructor(
-        private ui: UiService
-    ) { }
+    private ui = inject(UiService);
 
-    public toggleDrawer(): void {
+    protected toggleDrawer(): void {
         this.ui.drawer.subscribe(drawer => {
             void drawer.toggle();
         });

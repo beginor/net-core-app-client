@@ -1,5 +1,5 @@
 import {
-    Component, ElementRef, input, output, signal, ViewChild
+    Component, ElementRef, inject, input, output, signal, ViewChild
 } from '@angular/core';
 
 import {
@@ -22,28 +22,26 @@ import { JsonDataService } from '../services/json-data.service';
 })
 export class JsonDataUploadComponent {
 
-    public businessId = input('0');
-    public iconPath = input('bi/upload');
-    public iconClass = input('me-2');
-    public buttonText = input('选择JSON文件');
-    public buttonShape = input<NzButtonShape>(null);
-    public buttonType = input<NzButtonType>('default');
-    public buttonSize = input<NzButtonSize>('default');
-    public accept = input('.json');
-    public noPrivilegeText = input('没有权限上传!');
+    protected businessId = input('0');
+    protected iconPath = input('bi/upload');
+    protected iconClass = input('me-2');
+    protected buttonText = input('选择JSON文件');
+    protected buttonShape = input<NzButtonShape>(null);
+    protected buttonType = input<NzButtonType>('default');
+    protected buttonSize = input<NzButtonSize>('default');
+    protected accept = input('.json');
+    protected noPrivilegeText = input('没有权限上传!');
 
-    public uploadCompleted = output();
+    protected uploadCompleted = output();
 
     protected uploading = signal(false);
 
     @ViewChild('fileInput', { static: false })
     private fileInputRef?: ElementRef<HTMLInputElement>;
 
-    constructor(
-        protected accountService: AccountService,
-        protected jsonDataService: JsonDataService,
-        private uiService: UiService,
-    ) { }
+    protected accountService = inject(AccountService);
+    protected jsonDataService = inject(JsonDataService);
+    private uiService = inject(UiService);
 
     protected chooseFile(): void {
         if (!this.fileInputRef) {
@@ -53,7 +51,7 @@ export class JsonDataUploadComponent {
         this.fileInputRef.nativeElement.click();
     }
 
-    public async onFileChange(e: Event): Promise<void> {
+    protected async onFileChange(e: Event): Promise<void> {
         e.preventDefault();
         const businessId = this.businessId();
         if (!this.businessId || businessId === '0') {

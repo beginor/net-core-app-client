@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit {
     public editable = false;
     public id = '0';
 
-    public get title(): string {
+    protected get title(): string {
         if (this.id === '0') {
             return '新建菜单项';
         }
@@ -41,18 +41,18 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public targets = [
+    protected targets = [
         { name: '当前窗口', value: '' },
         { name: '内嵌窗口', value: '_iframe' }
     ];
-    public model: NavItemModel = { id: '0', target: '', roles: [] };
+    protected model: NavItemModel = { id: '0', target: '', roles: [], sequence: 0 };
 
-    public parents: MenuOption[] = [];
+    protected parents: MenuOption[] = [];
 
     private modal = inject(NzModalService);
     private drawerRef = inject(NzDrawerRef);
-    public account = inject(AccountService);
-    public vm = inject(NavItemsService);
+    protected account = inject(AccountService);
+    protected vm = inject(NavItemsService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -69,11 +69,11 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public cancel(): void {
+    protected cancel(): void {
         this.drawerRef.close('');
     }
 
-    public async save(): Promise<void> {
+    protected async save(): Promise<void> {
         if (this.id !== '0') {
             await this.vm.update(this.id, this.model);
         }
@@ -83,14 +83,14 @@ export class DetailComponent implements OnInit {
         this.drawerRef.close('ok');
     }
 
-    public isRoleChecked(role: string): boolean {
+    protected isRoleChecked(role: string): boolean {
         if (!this.model.roles) {
             return false;
         }
         return this.model.roles.includes(role);
     }
 
-    public toggleCheckedRole(role: string): void {
+    protected toggleCheckedRole(role: string): void {
         this.model.roles ??= [];
         const idx = this.model.roles.indexOf(role);
         if (idx > -1) {
@@ -101,7 +101,7 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public showIconDialog(): void {
+    protected showIconDialog(): void {
         const modalRef = this.modal.create<
             StorageBrowserComponent,
             StorageContent,

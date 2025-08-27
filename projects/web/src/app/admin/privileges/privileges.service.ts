@@ -1,4 +1,4 @@
-import { Injectable, Inject, ErrorHandler } from '@angular/core';
+import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
@@ -28,16 +28,12 @@ export class AppPrivilegeService {
     public loading = false;
     public showPagination = false;
 
-    private baseUrl: string;
+    private http = inject(HttpClient);
+    private apiRoot = inject(API_ROOT);
+    private ui = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private ui: UiService,
-        private errorHandler: ErrorHandler
-    ) {
-        this.baseUrl = `${this.apiRoot}/privileges`;
-    }
+    private baseUrl = `${this.apiRoot}/privileges`;
 
     /** 搜索系统权限 */
     public async search(): Promise<void> {

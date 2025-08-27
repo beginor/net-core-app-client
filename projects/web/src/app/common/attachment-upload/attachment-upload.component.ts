@@ -1,5 +1,5 @@
 import {
-    Component, ElementRef, input, output, signal, ViewChild
+    Component, ElementRef, inject, input, output, signal, ViewChild
 } from '@angular/core';
 
 import {
@@ -26,32 +26,30 @@ import {
 })
 export class AttachmentUploadComponent {
 
-    public businessId = input('0');
-    public iconPath = input('bi/upload');
-    public iconClass = input('me-2');
-    public buttonText = input('上传附件');
-    public buttonShape = input<NzButtonShape>(null);
-    public buttonType = input<NzButtonType>('default');
-    public buttonSize = input<NzButtonSize>('default');
-    public accept = input('image/*');
-    public multiple = input(false);
-    public noPrivilegeText = input('没有权限上传!');
-    public modalTitle = input('');
+    protected businessId = input('0');
+    protected iconPath = input('bi/upload');
+    protected iconClass = input('me-2');
+    protected buttonText = input('上传附件');
+    protected buttonShape = input<NzButtonShape>(null);
+    protected buttonType = input<NzButtonType>('default');
+    protected buttonSize = input<NzButtonSize>('default');
+    protected accept = input('image/*');
+    protected multiple = input(false);
+    protected noPrivilegeText = input('没有权限上传!');
+    protected modalTitle = input('');
 
-    public fileSelected = output<FileList>();
-    public uploadCompleted = output();
+    protected fileSelected = output<FileList>();
+    protected uploadCompleted = output();
 
     protected uploading = signal(false);
 
     @ViewChild('fileInput', { static: false })
     private fileInputRef?: ElementRef<HTMLInputElement>;
 
-    constructor(
-        public accountSvc: AccountService,
-        public vm: AttachmentService
-    ) { }
+    protected accountSvc = inject(AccountService);
+    protected vm = inject(AttachmentService);
 
-    public chooseFile(): void {
+    protected chooseFile(): void {
         if (!this.fileInputRef) {
             return;
         }
@@ -59,7 +57,7 @@ export class AttachmentUploadComponent {
         this.fileInputRef.nativeElement.click();
     }
 
-    public async onFileChange(e: Event): Promise<void> {
+    protected async onFileChange(e: Event): Promise<void> {
         e.preventDefault();
         const input = e.target as HTMLInputElement;
         const files = input.files;
@@ -73,7 +71,7 @@ export class AttachmentUploadComponent {
         }
     }
 
-    public async uploadAttachments(businessId: string): Promise<void> {
+    protected async uploadAttachments(businessId: string): Promise<void> {
         this.uploading.set(true);
         await this.vm.uploadAttachments(businessId);
         await waitFor(500);
@@ -81,7 +79,7 @@ export class AttachmentUploadComponent {
         this.uploadCompleted.emit();
     }
 
-    public getItemUploadStatus(
+    protected getItemUploadStatus(
         item: AttachmentUploadResultModel
     ): NzProgressStatusType {
         if (item.error) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -24,11 +24,9 @@ import { TokenDetailComponent } from '../token-detail/token-detail.component';
 })
 export class TokenListComponent implements OnInit {
 
-    constructor(
-        private drawerService: NzDrawerService,
-        private ui: UiService,
-        public vm: TokenService
-    ) { }
+    private drawerService = inject(NzDrawerService);
+    private ui = inject(UiService);
+    protected vm = inject(TokenService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
@@ -37,7 +35,7 @@ export class TokenListComponent implements OnInit {
         ]);
     }
 
-    public loadData({
+    protected loadData({
         pageSize = 20,
         pageIndex = 1,
         // sort = [],
@@ -48,7 +46,7 @@ export class TokenListComponent implements OnInit {
         void this.vm.search();
     }
 
-    public showDetail(id: string, editable: boolean): void {
+    protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<
             TokenDetailComponent,
             Partial<TokenDetailComponent>,
@@ -68,14 +66,14 @@ export class TokenListComponent implements OnInit {
         });
     }
 
-    public async delete(id: string): Promise<void> {
+    protected async delete(id: string): Promise<void> {
         const deleted = await this.vm.delete(id);
         if (deleted) {
             void this.vm.search();
         }
     }
 
-    public isExpires(date?: string): boolean {
+    protected isExpires(date?: string): boolean {
         if (!date) {
             return false;
         }
@@ -83,7 +81,7 @@ export class TokenListComponent implements OnInit {
         return d < new Date();
     }
 
-    public resetSearch(): void {
+    protected resetSearch(): void {
         this.vm.model().keywords = '';
         this.vm.pageIndex.set(1);
         void this.vm.search();

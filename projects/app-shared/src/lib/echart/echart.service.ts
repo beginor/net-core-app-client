@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, switchMap } from 'rxjs';
 import { EChartsOption } from 'echarts';
@@ -10,10 +10,8 @@ import { API_ROOT } from '../inject-tokens';
 })
 export class EchartService {
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-    ) { }
+    private http = inject(HttpClient);
+    private apiRoot = inject(API_ROOT);
 
     public createInitEchartsOption(): EChartsOption {
         const columns = [];

@@ -1,4 +1,4 @@
-import { Injectable, Inject, ErrorHandler } from '@angular/core';
+import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
@@ -28,19 +28,15 @@ export class NavItemsService {
     public showPagination = false;
     public roles: AppRoleModel[] = [];
 
-    private baseUrl: string;
-    private rolesSvc: RolesService;
+    private apiRoot = inject(API_ROOT);
+    private http = inject(HttpClient);
+    private uiService = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private uiService: UiService,
-        private errorHandler: ErrorHandler
-    ) {
-        this.baseUrl = `${apiRoot}/nav-items`;
-        this.rolesSvc = new RolesService(
-            http, apiRoot, uiService, errorHandler
-        );
+    private baseUrl = `${this.apiRoot}/nav-items`;
+    private rolesSvc = inject(RolesService);
+
+    constructor() {
         this.rolesSvc.data.subscribe(data => {
             this.roles = data;
         });

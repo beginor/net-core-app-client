@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -23,19 +23,18 @@ import { UsersService } from '../users.service';
 export class RolesComponent implements OnInit {
 
     public userId = '';
+    public editable = true;
     public fullname = '';
-    public get title(): string {
+
+    protected get title(): string {
         return `设置 ${this.fullname || '用户'} 的角色`;
     }
-    public editable = true;
 
     private userRoles: Record<string, boolean> = {};
 
-    constructor(
-        private drawerRef: NzDrawerRef,
-        public account: AccountService,
-        public vm: UsersService
-    ) { }
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(UsersService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -49,11 +48,11 @@ export class RolesComponent implements OnInit {
         }
     }
 
-    public cancel(): void {
+    protected cancel(): void {
         this.drawerRef.close('');
     }
 
-    public async save(): Promise<void> {
+    protected async save(): Promise<void> {
         const toDelete = [];
         const toAdd = [];
         for (const role in this.userRoles) {
@@ -71,11 +70,11 @@ export class RolesComponent implements OnInit {
         this.drawerRef.close('ok');
     }
 
-    public isChecked(roleName: string): boolean {
+    protected isChecked(roleName: string): boolean {
         return this.userRoles[roleName];
     }
 
-    public toggleUserRole(checked: boolean, roleName: string): void {
+    protected toggleUserRole(checked: boolean, roleName: string): void {
         this.userRoles[roleName] = checked;
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AccountService, EchartComponent } from 'app-shared';
@@ -22,11 +22,9 @@ import {
 })
 export class DashboardComponent implements OnInit {
 
-    constructor(
-        public account: AccountService,
-        private ui: UiService,
-        public navigation: NavigationService
-    ) { }
+    protected account = inject(AccountService);
+    private ui = inject(UiService);
+    protected navigation = inject(NavigationService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([

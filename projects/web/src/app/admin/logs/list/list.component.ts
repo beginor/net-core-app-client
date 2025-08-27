@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -25,12 +25,10 @@ import { DetailComponent } from '../detail/detail.component';
 })
 export class ListComponent implements OnInit {
 
-    constructor(
-        private drawerService: NzDrawerService,
-        private ui: UiService,
-        public account: AccountService,
-        public vm: AppLogService
-    ) { }
+    private drawerService = inject(NzDrawerService);
+    private ui = inject(UiService);
+    protected account = inject(AccountService);
+    protected vm = inject(AppLogService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
@@ -40,7 +38,7 @@ export class ListComponent implements OnInit {
         ]);
     }
 
-    public loadData({
+    protected loadData({
         pageSize = 20,
         pageIndex = 1,
         // sort = [],
@@ -51,7 +49,7 @@ export class ListComponent implements OnInit {
         void this.vm.search();
     }
 
-    public showDetail(id: string, editable: boolean): void {
+    protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<
             DetailComponent,
             Partial<DetailComponent>,
@@ -71,17 +69,17 @@ export class ListComponent implements OnInit {
         });
     }
 
-    public async onSelectDate(): Promise<void> {
+    protected async onSelectDate(): Promise<void> {
         this.vm.pageIndex = 1;
         await this.vm.search();
     }
 
-    public onSelectLevel(): void {
+    protected onSelectLevel(): void {
         this.vm.pageIndex = 1;
         void this.vm.search();
     }
 
-    public disabledDate = (current: Date): boolean =>
+    protected disabledDate = (current: Date): boolean =>
         // Can not select days before today and today
         differenceInCalendarDays(current, new Date()) > 0;
 

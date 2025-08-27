@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -29,7 +29,7 @@ export class DetailComponent implements OnInit {
     public editable = false;
     public id = '0';
 
-    public get title(): string {
+    protected get title(): string {
         if (this.id === '0') {
             return '新建菜单项';
         }
@@ -41,19 +41,17 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public model: UserModel = {
+    protected model: UserModel = {
         id: '0',
         lockoutEnabled: true, gender: '保密',
         organizeUnit: { id: '', name: '' }
     };
-    public dateOfBirthDate: Date = new Date('1970-01-01');
+    protected dateOfBirthDate: Date = new Date('1970-01-01');
 
-    constructor(
-        private drawerRef: NzDrawerRef,
-        public account: AccountService,
-        public vm: UsersService,
-        public organizeUnitSvc: OrganizeUnitService,
-    ) { }
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(UsersService);
+    protected organizeUnitSvc = inject(OrganizeUnitService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -72,16 +70,16 @@ export class DetailComponent implements OnInit {
         // this.initOrganizeUnit();
     }
 
-    public initOrganizeUnit(): void {
+    protected initOrganizeUnit(): void {
         void this.organizeUnitSvc.search();
         this.organizeUnitSvc.subscribeDataToTreeNodes();
     }
 
-    public cancel(): void {
+    protected cancel(): void {
         this.drawerRef.close('');
     }
 
-    public async save(): Promise<void> {
+    protected async save(): Promise<void> {
         const d = this.dateOfBirthDate;
         this.model.dateOfBirth = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
         if (this.id !== '0') {
@@ -93,7 +91,7 @@ export class DetailComponent implements OnInit {
         this.drawerRef.close('ok');
     }
 
-    public onOrganizeUnitClick(event: NzFormatEmitEvent)
+    protected onOrganizeUnitClick(event: NzFormatEmitEvent)
         : void {
         if (event.node) {
             this.model.organizeUnit = {

@@ -27,8 +27,8 @@ export class ListComponent implements OnInit {
 
     private drawerService = inject(NzDrawerService);
     private ui = inject(UiService);
-    public account = inject(AccountService);
-    public vm = inject(NavItemsService);
+    protected account = inject(AccountService);
+    protected vm = inject(NavItemsService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
@@ -38,7 +38,7 @@ export class ListComponent implements OnInit {
         ]);
     }
 
-    public loadData({
+    protected loadData({
         pageSize = 20,
         pageIndex = 1,
         // sort = [],
@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
         void this.vm.search();
     }
 
-    public showDetail(id: string, editable: boolean): void {
+    protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<
             DetailComponent,
             Partial<DetailComponent>,
@@ -69,7 +69,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    public async delete(id: string): Promise<void> {
+    protected async delete(id: string): Promise<void> {
         const deleted = await this.vm.delete(id);
         if (deleted) {
             void this.vm.search();

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -25,8 +25,8 @@ import {
 })
 export class DetailComponent implements OnInit {
 
-    public id = '0';
-    public get title(): string {
+    protected id = '0';
+    protected get title(): string {
         let title: string;
         if (this.id === '0') {
             title = '新建组织单元';
@@ -40,16 +40,14 @@ export class DetailComponent implements OnInit {
         return title;
     }
 
-    public editable = false;
-    public model: AppOrganizeUnitModel = {
+    protected editable = false;
+    protected model: AppOrganizeUnitModel = {
         id: '0', name: '', sequence: 0
     };
 
-    constructor(
-        private drawerRef: NzDrawerRef<{ id: string, editable: boolean }>,
-        public account: AccountService,
-        public vm: OrganizeUnitService
-    ) { }
+    private drawerRef = inject(NzDrawerRef<{ id: string, editable: boolean }>)
+    protected account = inject(AccountService);
+    protected vm = inject(OrganizeUnitService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -65,11 +63,11 @@ export class DetailComponent implements OnInit {
         this.vm.subscribeDataToTreeNodes(this.model.id);
     }
 
-    public cancel(): void {
+    protected cancel(): void {
         this.drawerRef.close('');
     }
 
-    public async save(): Promise<void> {
+    protected async save(): Promise<void> {
         if (this.id !== '0') {
             await this.vm.update(this.id, this.model);
         }

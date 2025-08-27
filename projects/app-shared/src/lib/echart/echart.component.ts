@@ -1,6 +1,7 @@
 import {
     Component, AfterViewInit, ElementRef, OnDestroy, signal, effect, input,
     viewChild,
+    inject,
 } from '@angular/core';
 import { EChartsType, EChartsOption, init } from 'echarts';
 
@@ -17,7 +18,7 @@ import { EchartService } from './echart.service';
 })
 export class EchartComponent implements AfterViewInit, OnDestroy {
 
-    public config = input<string>('');
+    protected config = input<string>('');
 
     private chartElRef = viewChild.required<ElementRef<HTMLDivElement>>('echart');
 
@@ -30,7 +31,9 @@ export class EchartComponent implements AfterViewInit, OnDestroy {
         this.resized.set(true);
     });
 
-    constructor(private vm: EchartService) {
+    private vm = inject(EchartService);
+
+    constructor() {
         effect(() => {
             const opts = this.echartsOptions();
             if (this.echart) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     FormGroup, FormControl, Validators, FormsModule,
@@ -26,45 +26,42 @@ import { UsersService } from '../users.service';
 })
 export class LockComponent {
 
-    public editable = true;
+    protected editable = true;
 
-    public lockForm: FormGroup;
-
-    public userId = '';
-    public fullname = '';
-    public get title(): string {
+    protected userId = '';
+    protected fullname = '';
+    protected get title(): string {
         return `锁定 ${this.fullname || '用户'}`
     }
 
 
-    public get lockoutEnd(): FormControl {
+    protected get lockoutEnd(): FormControl {
         return this.lockForm.get('lockoutEnd') as FormControl;
     }
 
-    constructor(
-        private drawerRef: NzDrawerRef,
-        public account: AccountService,
-        public vm: UsersService
-    ) {
-        this.lockForm  = new FormGroup({
-            lockoutEnd: new FormControl(
-                { value: new Date(), disabled: !this.editable },
-                Validators.required
-            )
-        });
-    }
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(UsersService);
 
-    public disabledDate = (current: Date): boolean => {
+    protected lockForm = new FormGroup({
+        lockoutEnd: new FormControl(
+            { value: new Date(), disabled: !this.editable },
+            Validators.required
+        )
+    });
+
+
+    protected disabledDate = (current: Date): boolean => {
         const today = new Date();
         const diff = current.getTime() - today.getTime();
         return diff < 0;
     };
 
-    public cancel(): void {
+    protected cancel(): void {
         this.drawerRef.close('');
     }
 
-    public save(): void {
+    protected save(): void {
         const d = this.lockoutEnd.value as Date;
         const lockEndTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} 23:59:59`;
         void this.vm.lockUser(this.userId, lockEndTime).then(

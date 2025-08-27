@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -20,12 +20,10 @@ import { MatModule } from '../mat/mat.module';
 })
 export class NavMenuComponent {
 
-    constructor(
-        private router: Router,
-        private ui: UiService,
-        protected vm: NavMenuService,
-        protected account: AccountService
-    ) { }
+    private router = inject(Router);
+    private ui = inject(UiService);
+    protected vm = inject(NavMenuService);
+    protected account = inject(AccountService);
 
     protected toggleDrawer(): void {
         this.ui.drawer.subscribe(drawer => {

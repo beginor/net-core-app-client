@@ -1,5 +1,6 @@
 import {
-    Component, OnInit, input, signal, TemplateRef, ViewChild, ElementRef
+    Component, OnInit, input, signal, TemplateRef, ViewChild, ElementRef,
+    inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -23,19 +24,19 @@ import { JsonDataService, JsonDataModel } from '../services/json-data.service';
     styleUrl: './json-data-list.component.css'
 })
 export class JsonDataListComponent implements OnInit {
-    public businessId = input('0');
+    protected businessId = input('0');
 
-    public listSize = input<NzSizeLDSType>('default');
-    public listBordered = input(false);
-    public listHeader = input('JSON数据列表');
-    public listFooter = input<string | TemplateRef<void>>();
+    protected listSize = input<NzSizeLDSType>('default');
+    protected listBordered = input(false);
+    protected listHeader = input('JSON数据列表');
+    protected listFooter = input<string | TemplateRef<void>>();
 
-    public emptyText = input('无数据');
-    public allowDelete = input(true);
-    public allowUpdate = input(true);
-    public take = input(99);
+    protected emptyText = input('无数据');
+    protected allowDelete = input(true);
+    protected allowUpdate = input(true);
+    protected take = input(99);
 
-    public accept = input('.json');
+    protected accept = input('.json');
 
     protected data = signal<JsonDataModel[]>([]);
 
@@ -43,10 +44,8 @@ export class JsonDataListComponent implements OnInit {
     private fileInputRef?: ElementRef<HTMLInputElement>;
     private updatingId = '';
 
-    constructor(
-        private jsonDataService: JsonDataService,
-        protected accountService: AccountService,
-    ) { }
+    private jsonDataService = inject(JsonDataService);
+    protected accountService = inject(AccountService);
 
     public ngOnInit(): void {
         void this.loadData();
@@ -88,7 +87,7 @@ export class JsonDataListComponent implements OnInit {
         await this.loadData();
     }
 
-    public async loadData(): Promise<void> {
+    protected async loadData(): Promise<void> {
         const bizId = this.businessId();
         if (!bizId || bizId === '0') {
             return;

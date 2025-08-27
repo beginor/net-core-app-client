@@ -1,4 +1,4 @@
-import { Injectable, Inject, ErrorHandler, effect } from '@angular/core';
+import { Injectable, ErrorHandler, effect, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
@@ -21,17 +21,16 @@ export class NavigationService {
     public initialized = false;
     public showSidebar = false;
 
-    private currentUrl: string;
+    private http = inject(HttpClient);
+    private title = inject(Title);
+    private location = inject(Location);
+    private account = inject(AccountService);
+    private apiRoot = inject(API_ROOT);
+    private errorHandler = inject(ErrorHandler);
 
-    constructor(
-        private http: HttpClient,
-        private title: Title,
-        private location: Location,
-        private account: AccountService,
-        @Inject(API_ROOT) private apiRoot: string,
-        private errorHandler: ErrorHandler
-    ) {
-        this.currentUrl = location.path();
+    private currentUrl = this.location.path();
+
+    constructor() {
         this.location.onUrlChange(() => {
             this.updateSidebarNodes();
         });

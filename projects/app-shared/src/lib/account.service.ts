@@ -1,4 +1,4 @@
-import { Injectable, Inject, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map, catchError } from 'rxjs';
 
@@ -47,11 +47,11 @@ export class AccountService {
         return `Bearer:${this.apiRoot}`;
     }
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private base64Url: Base64UrlService
-    ) {
+    private http = inject(HttpClient);
+    private apiRoot = inject(API_ROOT);
+    private base64Url = inject(Base64UrlService);
+
+    constructor() {
         setInterval(
             () => void this.getAccountInfo(),
             1000 * 60 * 5

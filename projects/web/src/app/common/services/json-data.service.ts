@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, Injectable, signal } from '@angular/core';
+import { ErrorHandler, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { lastValueFrom } from 'rxjs';
@@ -13,16 +13,13 @@ import { UiService } from './ui.service';
 export class JsonDataService {
 
     public loading = signal(false);
-    private readonly baseUrl: string;
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private errorHandler: ErrorHandler,
-        private ui: UiService
-    ) {
-        this.baseUrl = `${apiRoot}/json`;
-    }
+    private http = inject(HttpClient);
+    private errorHandler = inject(ErrorHandler);
+    private ui = inject(UiService);
+    private apiRoot = inject(API_ROOT);
+
+    private readonly baseUrl = `${this.apiRoot}/json`;
 
     public async search(
         searchModel: JsonDataSearchModel

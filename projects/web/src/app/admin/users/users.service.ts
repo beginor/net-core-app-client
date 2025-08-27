@@ -1,4 +1,4 @@
-import { Injectable, Inject, ErrorHandler } from '@angular/core';
+import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
@@ -17,11 +17,6 @@ export class UsersService {
     public pageSize = this.pageSizeOptions[0];
     public pageIndex = 1;
 
-    public searchModel: UserSearchModel = {
-        skip: this.pageSize * (this.pageIndex - 1),
-        take: this.pageSize
-    };
-
     public total = new BehaviorSubject<number>(0);
     public data = new BehaviorSubject<UserModel[]>([]);
     public loading = false;
@@ -35,19 +30,22 @@ export class UsersService {
     ];
     public roles = new BehaviorSubject<AppRoleModel[]>([]);
 
-    private baseUrl: string;
-    private rolesSvc: RolesService;
+    public searchModel: UserSearchModel = {
+        skip: this.pageSize * (this.pageIndex - 1),
+        take: this.pageSize,
+        sortBy: this.sortMethods[0].value,
+    };
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private ui: UiService,
-        private errorHandler: ErrorHandler,
-        private base64Url: Base64UrlService
-    ) {
-        this.baseUrl = this.apiRoot + '/users';
-        this.searchModel.sortBy = this.sortMethods[0].value;
-        this.rolesSvc = new RolesService(http, apiRoot, ui, errorHandler);
+    private http = inject(HttpClient);
+    private ui = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
+    private base64Url = inject(Base64UrlService);
+    private apiRoot = inject(API_ROOT);
+
+    private baseUrl = this.apiRoot + '/users';
+    private rolesSvc = inject(RolesService);
+
+    constructor() {
         this.rolesSvc.data.subscribe(data => {
             this.roles.next(data);
         });

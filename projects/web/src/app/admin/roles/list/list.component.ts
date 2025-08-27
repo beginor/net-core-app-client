@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -27,12 +27,10 @@ import { PrivilegeComponent } from '../privilege/privilege.component';
 })
 export class ListComponent implements OnInit, OnDestroy {
 
-    constructor(
-        private drawerService: NzDrawerService,
-        private ui: UiService,
-        public account: AccountService,
-        public vm: RolesService
-    ) { }
+    private drawerService = inject(NzDrawerService);
+    private ui = inject(UiService);
+    protected account = inject(AccountService);
+    protected vm = inject(RolesService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
@@ -46,7 +44,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.vm.cleanUp();
     }
 
-    public async loadData({
+    protected async loadData({
         pageSize = 20,
         pageIndex = 1,
         // sort = [],
@@ -57,7 +55,7 @@ export class ListComponent implements OnInit, OnDestroy {
         await this.vm.search();
     }
 
-    public showDetail(id: string, editable: boolean): void {
+    protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<
             DetailComponent,
             Partial<DetailComponent>,
@@ -77,7 +75,7 @@ export class ListComponent implements OnInit, OnDestroy {
         });
     }
 
-    public showPrivileges(role: AppRoleModel): void {
+    protected showPrivileges(role: AppRoleModel): void {
         const ref = this.drawerService.create<
             PrivilegeComponent,
             Partial<PrivilegeComponent>,
@@ -100,7 +98,7 @@ export class ListComponent implements OnInit, OnDestroy {
         });
     }
 
-    public async delete(id: string): Promise<void> {
+    protected async delete(id: string): Promise<void> {
         const deleted = await this.vm.delete(id);
         if (deleted) {
             void this.vm.search();

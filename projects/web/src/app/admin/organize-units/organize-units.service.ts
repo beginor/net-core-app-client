@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject, ErrorHandler } from '@angular/core';
+﻿import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
@@ -22,16 +22,13 @@ export class OrganizeUnitService {
     public treeNodes = new BehaviorSubject<NzTreeNodeOptions[]>([]);
     public loading = false;
     public showPagination = false;
-    private baseUrl: string;
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private ui: UiService,
-        private errorHandler: ErrorHandler
-    ) {
-        this.baseUrl = `${apiRoot}/organize-units`;
-    }
+    private http = inject(HttpClient);
+    private ui = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
+    private apiRoot = inject(API_ROOT);
+
+    private baseUrl = `${this.apiRoot}/organize-units`;;
 
     /** 搜索组织单元 */
     public async search(): Promise<void> {

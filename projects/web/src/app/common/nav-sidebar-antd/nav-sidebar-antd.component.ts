@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -33,12 +33,10 @@ export class NavSidebarAntdComponent {
     @Input()
     public theme: ThemeType = 'dark';
 
-    constructor(
-        public router: Router,
-        public vm: NavigationService
-    ) { }
+    protected router = inject(Router);
+    protected vm = inject(NavigationService);
 
-    public async goTo(url: string): Promise<void> {
+    protected async goTo(url: string): Promise<void> {
         await this.router.navigateByUrl(url);
     }
 

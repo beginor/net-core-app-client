@@ -1,4 +1,4 @@
-import { Injectable, Inject, ErrorHandler } from '@angular/core';
+import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
@@ -27,19 +27,15 @@ export class AppStorageService {
     public showPagination = false;
     public roles: AppRoleModel[] = [];
 
-    private baseUrl: string;
-    private rolesSvc: RolesService;
+    private http = inject(HttpClient);
+    private ui = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
+    private apiRoot = inject(API_ROOT);
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private ui: UiService,
-        private errorHandler: ErrorHandler
-    ) {
-        this.baseUrl = `${this.apiRoot}/storages`;
-        this.rolesSvc = new RolesService(
-            http, apiRoot, ui, errorHandler
-        );
+    private baseUrl = `${this.apiRoot}/storages`;
+    private rolesSvc = inject(RolesService);
+
+    constructor() {
         this.rolesSvc.data.subscribe(data => {
             this.roles = data;
         });

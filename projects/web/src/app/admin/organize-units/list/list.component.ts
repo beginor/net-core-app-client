@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -31,14 +31,12 @@ export interface TreeNodeInterface extends AppOrganizeUnitModel {
 })
 export class ListComponent implements OnInit {
 
-    public listData: TreeNodeInterface[] = [];
+    protected listData: TreeNodeInterface[] = [];
 
-    constructor(
-        private drawerService: NzDrawerService,
-        private ui: UiService,
-        public account: AccountService,
-        public vm: OrganizeUnitService
-    ) { }
+    private drawerService = inject(NzDrawerService);
+    private ui = inject(UiService);
+    protected account = inject(AccountService);
+    protected vm = inject(OrganizeUnitService);
 
     public ngOnInit(): void {
         this.ui.breadcrumbs.set([
@@ -52,7 +50,7 @@ export class ListComponent implements OnInit {
         void this.loadData();
     }
 
-    public convertTreeToList(
+    protected convertTreeToList(
         treeList: AppOrganizeUnitModel[],
         parent?: TreeNodeInterface
     ): TreeNodeInterface[] {
@@ -68,7 +66,7 @@ export class ListComponent implements OnInit {
         return list;
     }
 
-    public expandChange(data: TreeNodeInterface): void {
+    protected expandChange(data: TreeNodeInterface): void {
         data.expand = !data.expand;
         if (!data.expand) {
             this.collapseChild(data.children);
@@ -76,7 +74,7 @@ export class ListComponent implements OnInit {
         // console.log('listData : ', this.listData);
     }
 
-    public collapseChild(childs?: TreeNodeInterface[]): void {
+    protected collapseChild(childs?: TreeNodeInterface[]): void {
         if (childs) {
             childs.forEach((child) => {
                 child.expand = false;
@@ -85,11 +83,11 @@ export class ListComponent implements OnInit {
         }
     }
 
-    public loadData(): void {
+    protected loadData(): void {
         void this.vm.search();
     }
 
-    public showDetail(id: string, editable: boolean): void {
+    protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<DetailComponent, {
             id: string,
             editable: boolean
@@ -110,7 +108,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    public delete(id: string): void {
+    protected delete(id: string): void {
         void this.vm.delete(id).then((deleted) => {
             if (deleted) {
                 void this.vm.search();

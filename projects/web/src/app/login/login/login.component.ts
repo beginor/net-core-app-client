@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.ui.showHeader.set(this.headerShown);
     }
 
-    public login(): void {
+    protected login(): void {
         this.loading.set(true);
         let { returnUrl } = this.route.snapshot.params;
         returnUrl ??= 'home';
@@ -79,11 +79,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         });
     }
 
-    public clearMessage(): void {
+    protected clearMessage(): void {
         this.message.set('');
     }
 
-    public passwordKeyUp(e: KeyboardEvent, loginForm: NgForm): void {
+    protected passwordKeyUp(e: KeyboardEvent, loginForm: NgForm): void {
         if (e.key === 'Enter' && loginForm.valid) {
             void this.login();
         }

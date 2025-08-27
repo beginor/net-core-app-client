@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
@@ -31,9 +31,7 @@ import { NavigationService } from '../services/navigation.service';
 })
 export class NavCardComponent {
 
-    constructor(
-        public router: Router,
-        public nav: NavigationService
-    ) {  }
+    protected router = inject(Router);
+    protected nav = inject(NavigationService);
 
 }

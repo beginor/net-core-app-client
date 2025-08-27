@@ -1,4 +1,4 @@
-import { Injectable, Inject, ErrorHandler } from '@angular/core';
+import { Injectable, ErrorHandler, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
@@ -32,22 +32,16 @@ export class RolesService {
     public privileges: ModulePrivileges[] = [];
     public rolePrivileges: Record<string, boolean> = {};
 
-    private baseUrl: string;
-    private privilegeService: AppPrivilegeService;
+    private http = inject(HttpClient);
+    private ui = inject(UiService);
+    private errorHandler = inject(ErrorHandler);
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) apiRoot: string,
-        private ui: UiService,
-        private errorHandler: ErrorHandler
-    ) {
-        this.baseUrl = `${apiRoot}/roles`;
-        this.privilegeService = new AppPrivilegeService(
-            http,
-            apiRoot,
-            ui,
-            errorHandler
-        );
+    private apiRoot = inject(API_ROOT);
+
+    private baseUrl = `${this.apiRoot}/roles`;
+    private privilegeService = new AppPrivilegeService();
+
+    constructor() {
         this.privilegeService.data.subscribe(data => {
             this.privileges = [];
             for (const privilege of data) {

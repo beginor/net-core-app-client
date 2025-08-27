@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Router, RouterModule, EventType } from '@angular/router';
 import { first, filter } from 'rxjs';
 
@@ -25,17 +25,17 @@ export class AppComponent {
     private currentUrl = '';
     private loginUrl = '/login';
 
-    constructor(
-        protected ui: UiService,
-        private account: AccountService,
-        private router: Router,
-    ) {
-        router.events.pipe(
+    protected ui = inject(UiService);
+    private account = inject(AccountService);
+    private router = inject(Router);
+
+    constructor() {
+        this.router.events.pipe(
             first(e => e.type === EventType.NavigationError)
         ).subscribe(e => {
-            void router.navigate([this.loginUrl, { returnUrl: e.url }]);
+            void this.router.navigate([this.loginUrl, { returnUrl: e.url }]);
         });
-        router.events.pipe(
+        this.router.events.pipe(
             filter(e => e.type == EventType.NavigationEnd)
         ).subscribe(e => {
             this.currentUrl = e.url;
@@ -53,19 +53,5 @@ export class AppComponent {
             }
         });
     }
-
-    // public ngOnInit(): void {
-    //     this.account.info.subscribe(user => {
-    //         if (this.currentUserId && !user.id) {
-    //             void this.router.navigate([
-    //                 '/login',
-    //                 { returnUrl: this.currentUrl }
-    //             ]);
-    //         }
-    //         else {
-    //             this.currentUserId = user.id;
-    //         }
-    //     });
-    // }
 
 }

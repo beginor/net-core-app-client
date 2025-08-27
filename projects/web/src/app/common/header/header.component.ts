@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { AccountService, SvgIconComponent } from 'app-shared';
 import { AntdModule, UiService } from 'projects/web/src/app/common';
@@ -21,14 +21,11 @@ import { NavigationService } from '../services/navigation.service';
 })
 export class HeaderComponent {
 
-    constructor(
-        public account: AccountService,
-        public ui: UiService,
-        public nav: NavigationService,
-        private router: Router
-    ) { }
+    protected account = inject(AccountService);
+    protected ui = inject(UiService);
+    protected nav = inject(NavigationService);
 
-    public async logout(): Promise<void> {
+    protected async logout(): Promise<void> {
         await this.account.logout();
     }
 

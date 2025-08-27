@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -11,10 +11,8 @@ import { ThemeType } from '../nav-sidebar-antd/nav-sidebar-antd.component';
 })
 export class UiService {
 
-    constructor(
-        private nzModal: NzModalService,
-        private nzMessage: NzMessageService,
-    ) { }
+    private nzModal = inject(NzModalService);
+    private nzMessage = inject(NzMessageService);
 
     public siderCollapsed = signal(true);
     public siderTheme = signal<ThemeType>('dark');

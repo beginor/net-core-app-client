@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
@@ -22,34 +22,30 @@ import { StorageService, StorageContent } from '../services/storage.service';
 })
 export class StorageBrowserComponent implements OnInit {
 
-    public title: string;
-    public filteredItems: FolderItem[] = [];
-    private allItems: FolderItem[] = [];
-    public selectedItem?: FolderItem;
-    public breadcrumbs: BreadCrumb[] = [];
-    public searchFilter?: string;
-
     @ViewChild('searchEl')
-    public searchEl?: ElementRef<HTMLInputElement>;
+    protected searchEl?: ElementRef<HTMLInputElement>;
 
-    constructor(
-        public modal: NzModalRef,
-        @Inject(NZ_MODAL_DATA) public params: StorageContent,
-        private service: StorageService
-    ) {
-        this.title = this.params.title;
-    }
+    protected modal = inject(NzModalRef);
+    private service = inject(StorageService);
+    protected params = inject<StorageContent>(NZ_MODAL_DATA);
+
+    protected title = this.params.title;
+    protected filteredItems: FolderItem[] = [];
+    private allItems: FolderItem[] = [];
+    protected selectedItem?: FolderItem;
+    protected breadcrumbs: BreadCrumb[] = [];
+    protected searchFilter?: string;
 
     public ngOnInit(): void {
         void this.loadData();
     }
 
-    public async getFolderContentByPath(path: string): Promise<void> {
+    protected async getFolderContentByPath(path: string): Promise<void> {
         this.params.path = path ?? '/';
         await this.loadData();
     }
 
-    public async getFolderContent(item: FolderItem): Promise<void> {
+    protected async getFolderContent(item: FolderItem): Promise<void> {
         if (item.type === 'file') {
             return;
         }
@@ -67,7 +63,7 @@ export class StorageBrowserComponent implements OnInit {
         await this.loadData();
     }
 
-    public getFolderItemClass(item: FolderItem): string {
+    protected getFolderItemClass(item: FolderItem): string {
         if (item.type === 'folder') {
             return 'text-info';
         }
@@ -77,7 +73,7 @@ export class StorageBrowserComponent implements OnInit {
         return '';
     }
 
-    public getFolderItemIconPath(item: FolderItem): string {
+    protected getFolderItemIconPath(item: FolderItem): string {
         if (item.type === 'folder') {
             return 'bi/folder';
         }
@@ -87,11 +83,11 @@ export class StorageBrowserComponent implements OnInit {
         return 'bi/file-earmark';
     }
 
-    public setSelectedItem(item: FolderItem): void {
+    protected setSelectedItem(item: FolderItem): void {
         this.selectedItem = item;
     }
 
-    public ok(): void {
+    protected ok(): void {
         let path = this.params.path;
         if (path === '.') {
             path = '';
@@ -107,11 +103,11 @@ export class StorageBrowserComponent implements OnInit {
         this.modal.close(path);
     }
 
-    public cancel(): void {
+    protected cancel(): void {
         this.modal.close();
     }
 
-    public search(e: KeyboardEvent): void {
+    protected search(e: KeyboardEvent): void {
         const input = e.target as HTMLInputElement;
         const filter = input.value;
         if (filter) {

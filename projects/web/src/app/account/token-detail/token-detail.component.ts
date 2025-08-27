@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, LOCALE_ID, signal } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, signal, inject } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
@@ -28,10 +28,11 @@ import { TokenService } from '../token.service';
 export class TokenDetailComponent implements OnInit {
 
     public id = '0';
-    public get title(): string {
+    public editable = true;
+
+    protected get title(): string {
         return this.id === '0' ? '新建凭证' : '凭证信息';
     }
-    public editable = true;
 
     protected model = signal<UserTokenModel>({ id: '0', name: '', value: '' });
     protected roles = signal<AppRole[]>([]);
@@ -43,13 +44,11 @@ export class TokenDetailComponent implements OnInit {
     private checkedRoles: string[] = [];
     private checkedPrivileges: string[] = [];
 
-    constructor(
-        private drawerRef: NzDrawerRef,
-        private account: AccountService,
-        private ui: UiService,
-        @Inject(LOCALE_ID) private local: string,
-        public vm: TokenService
-    ) { }
+    private drawerRef = inject(NzDrawerRef);
+    private account = inject(AccountService);
+    private ui = inject(UiService);
+    private local = inject(LOCALE_ID);
+    protected vm = inject(TokenService);
 
     public ngOnInit(): void {
         this.loadData();
@@ -98,11 +97,11 @@ export class TokenDetailComponent implements OnInit {
         });
     }
 
-    public cancel(): void {
+    protected cancel(): void {
         this.drawerRef.close('');
     }
 
-    public save(): void {
+    protected save(): void {
         const model = this.model();
         model.roles = this.checkedRoles;
         model.privileges = this.checkedPrivileges;
@@ -121,7 +120,7 @@ export class TokenDetailComponent implements OnInit {
         this.drawerRef.close('ok');
     }
 
-    public newTokenValue(): void {
+    protected newTokenValue(): void {
         this.account.newTokenValue().subscribe({
             next: (val) => {
                 if (val) {
@@ -139,7 +138,7 @@ export class TokenDetailComponent implements OnInit {
         });
     }
 
-    public isChecked(roleName: string, propName: ArrPropName): boolean {
+    protected isChecked(roleName: string, propName: ArrPropName): boolean {
         const arr = this[propName];
         if (!arr) {
             return false;
@@ -147,7 +146,7 @@ export class TokenDetailComponent implements OnInit {
         return arr.includes(roleName);
     }
 
-    public toggleChecked(
+    protected toggleChecked(
         checked: boolean,
         roleName: string,
         propName: ArrPropName
@@ -165,7 +164,7 @@ export class TokenDetailComponent implements OnInit {
         }
     }
 
-    public addTokenUrl(el: HTMLInputElement): void {
+    protected addTokenUrl(el: HTMLInputElement): void {
         const url = el.value.trim();
         if (!url) {
             return;
@@ -179,7 +178,7 @@ export class TokenDetailComponent implements OnInit {
         el.value = '';
     }
 
-    public removeTokenUrl(url: string): void {
+    protected removeTokenUrl(url: string): void {
         const urls = this.tokenUrls();
         const idx = urls.indexOf(url);
         if (idx > -1) {
@@ -188,7 +187,7 @@ export class TokenDetailComponent implements OnInit {
         this.tokenUrls.set(urls);
     }
 
-    public disabledDate = (current: Date): boolean =>
+    protected disabledDate = (current: Date): boolean =>
         // Can not select days before today and today
         differenceInCalendarDays(current, new Date()) < 1;
 

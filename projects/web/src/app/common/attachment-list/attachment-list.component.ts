@@ -1,4 +1,4 @@
-import { Component, OnInit, input, signal, TemplateRef } from '@angular/core';
+import { Component, OnInit, input, signal, TemplateRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NzSizeLDSType } from 'ng-zorro-antd/core/types';
@@ -22,23 +22,21 @@ import {
     styleUrl: './attachment-list.component.css'
 })
 export class AttachmentListComponent implements OnInit {
-    public businessId = input('0');
+    protected businessId = input('0');
 
-    public listSize = input<NzSizeLDSType>('default');
-    public listBordered = input(false);
-    public listHeader = input('附件列表');
-    public listFooter = input<string | TemplateRef<void>>();
+    protected listSize = input<NzSizeLDSType>('default');
+    protected listBordered = input(false);
+    protected listHeader = input('附件列表');
+    protected listFooter = input<string | TemplateRef<void>>();
 
-    public emptyText = input('无数据');
-    public allowDelete = input(true);
-    public take = input(99);
+    protected emptyText = input('无数据');
+    protected allowDelete = input(true);
+    protected take = input(99);
 
     protected attachments = signal<AttachmentModel[]>([]);
 
-    constructor(
-        private attachmentService: AttachmentService,
-        protected accountService: AccountService,
-    ) { }
+    private attachmentService = inject(AttachmentService);
+    protected accountService = inject(AccountService);
 
     public ngOnInit(): void {
         void this.loadAttachments();
@@ -49,7 +47,7 @@ export class AttachmentListComponent implements OnInit {
         await this.loadAttachments();
     }
 
-    public async loadAttachments(): Promise<void> {
+    protected async loadAttachments(): Promise<void> {
         const bizId = this.businessId();
         if (!bizId || bizId === '0') {
             return;

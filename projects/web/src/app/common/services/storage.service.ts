@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, Injectable } from '@angular/core';
+import { ErrorHandler, inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { lastValueFrom } from 'rxjs';
@@ -11,12 +11,10 @@ import { UiService } from './ui.service';
 })
 export class StorageService {
 
-    constructor(
-        private http: HttpClient,
-        @Inject(API_ROOT) private apiRoot: string,
-        private errorHandler: ErrorHandler,
-        private ui: UiService
-    ) { }
+    private http = inject(HttpClient);
+    private errorHandler = inject(ErrorHandler);
+    private ui = inject(UiService);
+    private apiRoot = inject(API_ROOT);
 
     public async getFolderContent(
         params: StorageContent
