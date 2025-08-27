@@ -13,7 +13,7 @@ import { NavigationService } from '../services/navigation.service';
         RouterModule,
         AntdModule,
     ],
-    template: `@if (nav.sidebarNodes | async; as nodes) {
+    template: `@let nodes = nav.sidebarNodes();
       <div class="row g-0">
         @for (node of nodes; track node.id) {
           @if (node.url !== router.url) {
@@ -25,7 +25,6 @@ import { NavigationService } from '../services/navigation.service';
           }
         }
       </div>
-    }
     `,
     styles: []
 })

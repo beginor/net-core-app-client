@@ -1,9 +1,9 @@
-import { Injectable, ErrorHandler, effect, inject } from '@angular/core';
+import { Injectable, ErrorHandler, effect, inject, signal } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 
 import { API_ROOT, AccountService, AccountInfo } from 'app-shared';
 
@@ -12,14 +12,9 @@ import { API_ROOT, AccountService, AccountInfo } from 'app-shared';
 })
 export class NavigationService {
 
-    public root = new BehaviorSubject<NavigationNode>(
-        { title: '', children: [] }
-    );
-    public topbarNodes = new BehaviorSubject<NavigationNode[] | undefined>([]);
-    public sidebarNodes = new BehaviorSubject<NavigationNode[] | undefined>([]);
-    public accountNodes = new BehaviorSubject<NavigationNode[]>([]);
-    public initialized = false;
-    public showSidebar = false;
+    public root = signal<NavigationNode>({ title: '', children: [] });
+    public sidebarNodes = signal<NavigationNode[]>([]);
+    public accountNodes = signal<NavigationNode[]>([]);
 
     private http = inject(HttpClient);
     private title = inject(Title);
@@ -48,7 +43,7 @@ export class NavigationService {
     }
 
     public findCurrentIframeUrl(): string | undefined {
-        const root = this.root.getValue();
+        const root = this.root();
         return this.findIframeUrl(root.children ?? [], this.currentUrl);
     }
 
@@ -60,7 +55,7 @@ export class NavigationService {
             if (node.url === url) {
                 return node.frameUrl;
             }
-            if (node.url && url.startsWith(node.url) && !!node.children) {
+            if (node.url && url.startsWith(node.url) && node.children) {
                 return this.findIframeUrl(node.children, url);
             }
         }
@@ -68,11 +63,10 @@ export class NavigationService {
     }
 
     private setupNavigationNodes(rootNode: NavigationNode): void {
-        this.root.next(rootNode);
-        this.topbarNodes.next(rootNode.children);
+        this.root.set(rootNode);
         this.updateAccountNodes(rootNode);
         if (rootNode.children) {
-            this.sidebarNodes.next(
+            this.sidebarNodes.set(
                 this.findSidebarNavigationNodes(rootNode.children)
             );
         }
@@ -86,11 +80,11 @@ export class NavigationService {
         if (!account) {
             return;
         }
-        this.accountNodes.next(account.children ?? []);
+        this.accountNodes.set(account.children ?? []);
     }
 
     private updateSidebarNodes(): void {
-        const rootNode = this.root.getValue();
+        const rootNode = this.root();
         if (!rootNode) {
             return;
         }
@@ -101,9 +95,7 @@ export class NavigationService {
                     continue;
                 }
                 if (path.startsWith(node.url)) {
-                    this.sidebarNodes.next(node.children);
-                    this.showSidebar =
-                        (!!node.children) && node.children.length > 0;
+                    this.sidebarNodes.set(node.children ?? []);
                     break;
                 }
             }
@@ -136,9 +128,6 @@ export class NavigationService {
         ).then(node => {
             this.setupNavigationNodes(node);
             this.updateTitle(node.title ?? '');
-            if (!this.initialized) {
-                this.initialized = true;
-            }
         })
         .catch(ex => {
             this.errorHandler.handleError(ex);

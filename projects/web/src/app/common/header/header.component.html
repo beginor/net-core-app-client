@@ -27,16 +27,15 @@
     </button>
     <nz-dropdown-menu #accountMenu>
       <ul nz-menu>
-        @if (nav.accountNodes | async; as accountNodes) {
-          @for (node of accountNodes; track node.id) {
-            <li nz-menu-item [routerLink]="node.url">
-              <svg-icon [iconPath]="node.icon!" />
-              {{node.title}}
-            </li>
-          }
-          @if (accountNodes.length > 0) {
-            <li nz-menu-divider></li>
-          }
+        @let accountNodes = nav.accountNodes();
+        @for (node of accountNodes; track node.id) {
+          <li nz-menu-item [routerLink]="node.url">
+            <svg-icon [iconPath]="node.icon!" />
+            {{node.title}}
+          </li>
+        }
+        @if (accountNodes.length > 0) {
+          <li nz-menu-divider></li>
         }
         <li nz-menu-item (click)="logout()">
           <svg-icon iconPath="bi/door-open" />

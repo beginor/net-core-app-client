@@ -1,66 +1,65 @@
 @let theme = ui.siderTheme();
 @let collapsed = ui.siderCollapsed();
-@if (vm.root | async; as root) {
-  @if (root.title) {
-    <div class="logo"
-      [class.text-white]="theme === 'dark'"
-      [class.text-black]="theme === 'light'">
-      <span class="logo-icon">
-        <svg-icon iconClass="bi bi-xxl" [iconPath]="root.icon!" />
-      </span>
-      <span class="logo-title user-select-none ps-2 fs-5 text-nowrap text-truncate"
-        [class.d-none]="collapsed">{{root.title}}</span>
-    </div>
-  }
-  @if (root.children?.length) {
-    <ul class="side-menu" nz-menu [nzTheme]="theme" nzMode="inline"
-      [nzInlineCollapsed]="collapsed">
-      <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: root.children, level: 1 }}">
-      </ng-container>
-      <ng-template #menuTpl let-data>
-        @for (menu of data.menus; track menu.id) {
-          @if (!menu.isHidden) {
-            @if (menu.children) {
-              <li nz-submenu [nzTitle]="subTitleTpl"
-                [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
-                [nzOpen]="collapsed ? false : (menu.url && router.url.startsWith(menu.url + '/'))">
-                <ng-template #subTitleTpl>
-                  <span title class="d-inline-flex align-items-center">
-                    @if (data.level === 1) {
-                      <span nz-icon>
-                        <svg-icon [iconPath]="menu.icon || 'question-circle'" />
-                      </span>
-                    }
-                    <span>{{ menu.title }}</span>
-                  </span>
-                </ng-template>
-                <ul>
-                  <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: menu.children, level: data.level + 1 } }">
-                  </ng-container>
-                </ul>
-              </li>
-            } @else {
-              <li nz-menu-item nzMatchRouter
-                [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
-                [nzSelected]="menu.url && router.url.startsWith(menu.url)"
-                [class.ant-menu-item-selected]="menu.url && router.url.startsWith(menu.url)"
-                (click)="goTo(menu.url)">
-                <span title
-                  class="d-inline-flex align-items-center"
-                  nz-tooltip nzTooltipPlacement="right" [nzTooltipArrowPointAtCenter]="true"
-                  [nzTooltipTitle]="(theme && data.level === 1) ? menu.title : null">
+@let root = vm.root();
+@if (root.title) {
+  <div class="logo"
+    [class.text-white]="theme === 'dark'"
+    [class.text-black]="theme === 'light'">
+    <span class="logo-icon">
+      <svg-icon iconClass="bi bi-xxl" [iconPath]="root.icon!" />
+    </span>
+    <span class="logo-title user-select-none ps-2 fs-5 text-nowrap text-truncate"
+      [class.d-none]="collapsed">{{root.title}}</span>
+  </div>
+}
+@if (root.children?.length) {
+  <ul class="side-menu" nz-menu [nzTheme]="theme" nzMode="inline"
+    [nzInlineCollapsed]="collapsed">
+    <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: root.children, level: 1 }}">
+    </ng-container>
+    <ng-template #menuTpl let-data>
+      @for (menu of data.menus; track menu.id) {
+        @if (!menu.isHidden) {
+          @if (menu.children) {
+            <li nz-submenu [nzTitle]="subTitleTpl"
+              [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
+              [nzOpen]="collapsed ? false : (menu.url && router.url.startsWith(menu.url + '/'))">
+              <ng-template #subTitleTpl>
+                <span title class="d-inline-flex align-items-center">
                   @if (data.level === 1) {
                     <span nz-icon>
-                      <svg-icon [iconPath]="menu.icon || 'bi/question-circle'" />
+                      <svg-icon [iconPath]="menu.icon || 'question-circle'" />
                     </span>
                   }
                   <span>{{ menu.title }}</span>
                 </span>
-              </li>
-            }
+              </ng-template>
+              <ul>
+                <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: { menus: menu.children, level: data.level + 1 } }">
+                </ng-container>
+              </ul>
+            </li>
+          } @else {
+            <li nz-menu-item nzMatchRouter
+              [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
+              [nzSelected]="menu.url && router.url.startsWith(menu.url)"
+              [class.ant-menu-item-selected]="menu.url && router.url.startsWith(menu.url)"
+              (click)="goTo(menu.url)">
+              <span title
+                class="d-inline-flex align-items-center"
+                nz-tooltip nzTooltipPlacement="right" [nzTooltipArrowPointAtCenter]="true"
+                [nzTooltipTitle]="(theme && data.level === 1) ? menu.title : null">
+                @if (data.level === 1) {
+                  <span nz-icon>
+                    <svg-icon [iconPath]="menu.icon || 'bi/question-circle'" />
+                  </span>
+                }
+                <span>{{ menu.title }}</span>
+              </span>
+            </li>
           }
         }
-      </ng-template>
-    </ul>
-  }
+      }
+    </ng-template>
+  </ul>
 }
