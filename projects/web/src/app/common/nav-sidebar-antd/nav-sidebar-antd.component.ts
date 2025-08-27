@@ -23,10 +23,6 @@ import {
 })
 export class NavSidebarAntdComponent {
 
-    // public collapsed = input(true);
-
-    // public theme = input<ThemeType>('dark');
-
     protected router = inject(Router);
     protected vm = inject(NavigationService);
     protected ui = inject(UiService);
