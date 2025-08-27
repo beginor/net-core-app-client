@@ -8,7 +8,7 @@ import { share, tap } from 'rxjs/operators';
 })
 export class SvgIconService {
 
-    private basePath = 'assets/';
+    private basePath = 'assets';
     private loadingMap = new Map<string, Observable<string>>();
 
     private http = inject(HttpClient);
