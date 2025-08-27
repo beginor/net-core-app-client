@@ -1,5 +1,4 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -44,18 +43,16 @@ export class UiService {
         }
     }
 
-    public showConfirm(message: string): Observable<boolean> {
-        return new Observable<boolean>(observer => {
+    public showConfirm(message: string): Promise<boolean> {
+        return new Promise<boolean>(resolve => {
             this.nzModal.confirm({
                 nzTitle: '提示：',
                 nzContent: message,
                 nzOnOk: () => {
-                    observer.next(true);
-                    observer.complete();
+                    resolve(true);
                 },
                 nzOnCancel: () => {
-                    observer.next(false);
-                    observer.complete();
+                    resolve(false);
                 }
             });
         });

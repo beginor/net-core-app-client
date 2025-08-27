@@ -61,9 +61,9 @@
                 <td class='text-start'>{{item.logger}}</td>
                 <td class='text-start text-truncate' style="max-width: 30rem;">{{item.message}}</td>
                 <td class="text-center">
-                  <nz-space-compact>
+                  <nz-space-compact nzSize="small">
                     @if (user.privileges['app_logs.read_by_id']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
                         <svg-icon iconPath="bi/info-square" />

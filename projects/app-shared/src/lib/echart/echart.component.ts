@@ -18,7 +18,7 @@ import { EchartService } from './echart.service';
 })
 export class EchartComponent implements AfterViewInit, OnDestroy {
 
-    protected config = input<string>('');
+    public config = input<string>('');
 
     private chartElRef = viewChild.required<ElementRef<HTMLDivElement>>('echart');
 

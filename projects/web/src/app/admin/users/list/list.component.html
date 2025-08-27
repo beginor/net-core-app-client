@@ -112,16 +112,16 @@
               <td class="text-center">{{item.lastLogin | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td class="text-end">{{item.loginCount}}</td>
               <td class="text-center">
-                <nz-space-compact>
+                <nz-space-compact nzSize="small">
                   @if (info.privileges['app_users.read_by_id']) {
-                    <button class="px-2" type="button" nz-button nzType="default"
+                    <button class="px-1" type="button" nz-button
                       nz-tooltip="详情" nzTooltipPlacement="top"
                       (click)="showDetail(item.id, false)">
                       <svg-icon iconPath="bi/info-square" />
                     </button>
                   }
                   @if (canViewGears()) {
-                    <button class="px-2" type="button" nz-button nzType="default"
+                    <button class="px-1" type="button" nz-button
                       nz-tooltip="更多操作" nzTooltipPlacement="top"
                       nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenuTpl">
                       <svg-icon iconPath="bi/three-dots" />

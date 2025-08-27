@@ -1,5 +1,4 @@
 import { Injectable, signal, linkedSignal, inject, } from '@angular/core';
-import { Observable, catchError, filter, map, of, switchMap, } from 'rxjs';
 
 import {
     AccountService, UserTokenModel, UserTokenSearchModel
@@ -96,27 +95,28 @@ export class TokenService {
         });
     }
 
-    public delete(id: string): Observable<boolean> {
-        return this.ui.showConfirm('确定要删除该凭证吗？').pipe(
-            filter(res => res),
-            switchMap(() => {
-                return this.account.deleteUserToken(id).pipe(
-                    map(() => {
-                        this.ui.showAlert(
-                            { type: 'success', message: '删除凭证成功！' }
-                        );
-                        return true;
-                    }),
-                    catchError((error) => {
-                        console.error(error);
-                        this.ui.showAlert(
-                            { type: 'danger', message: '删除凭证出错！' }
-                        );
-                        return of(false);
-                    })
-                );
-            })
-        );
+    public async delete(id: string): Promise<boolean> {
+        const confirmed = await this.ui.showConfirm('确定要删除该凭证吗？');
+        if (!confirmed) {
+            return false;
+        }
+        return new Promise<boolean>(resolve => {
+            this.account.deleteUserToken(id).subscribe({
+                next: () => {
+                    this.ui.showAlert(
+                        { type: 'success', message: '删除凭证成功！' }
+                    );
+                    resolve(true);
+                },
+                error: (ex: unknown) => {
+                    console.error(ex);
+                    this.ui.showAlert(
+                        { type: 'danger', message: '删除凭证出错！' }
+                    );
+                    resolve(false);
+                }
+            });
+        });
     }
 
 }

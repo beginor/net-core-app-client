@@ -17,9 +17,9 @@ export class SvgIconComponent implements AfterViewInit {
 
     private viewInited = signal(false);
 
-    protected iconPath = input('');
-    protected iconSize = input('1rem');
-    protected iconClass = input('');
+    public iconPath = input('');
+    public iconSize = input('1rem');
+    public iconClass = input('');
 
     private svgClass = '';
     private currentIcon = '';

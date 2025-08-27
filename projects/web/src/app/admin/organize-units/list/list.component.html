@@ -39,23 +39,23 @@
                   <td>{{ item.description }}</td>
                   <td class="text-end">{{ item.sequence }}</td>
                   <td>
-                    <nz-space-compact>
+                    <nz-space-compact nzSize="small">
                       @if (user.privileges['app_organize_units.read_by_id']) {
-                        <button class="px-2" nz-button nzType="default"
+                        <button class="px-1" nz-button
                           nz-tooltip="详情" nzTooltipPlacement="top"
                           (click)="showDetail(item.id, false)">
                           <svg-icon iconPath="bi/info-square" />
                         </button>
                       }
                       @if (user.privileges['app_organize_units.update']) {
-                        <button class="px-2" nz-button nzType="default"
+                        <button class="px-1" nz-button
                           nz-tooltip="编辑" nzTooltipPlacement="top"
                           (click)="showDetail(item.id, true)">
                           <svg-icon iconPath="bi/pencil-square" />
                         </button>
                       }
                       @if (user.privileges['app_organize_units.delete']) {
-                        <button class="px-2" nz-button nzType="default"
+                        <button class="px-1" nz-button
                           nz-tooltip="删除" nzTooltipPlacement="top"
                           [disabled]="item.children && item.children.length > 0"
                           (click)="delete(item.id)">

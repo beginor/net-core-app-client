@@ -51,23 +51,23 @@
                 <td class="text-center">{{item.isAnonymous ? '是' : '否'}}</td>
                 <td class="text-end"><a [routerLink]="['../users', {roleName: item.name}]">{{item.userCount}}</a></td>
                 <td class="text-center">
-                  <nz-space-compact>
+                  <nz-space-compact nzSize="small">
                     @if (user.privileges['app_roles.read_by_id']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
                         <svg-icon iconPath="bi/info-square" />
                       </button>
                     }
                     @if (user.privileges['app_roles.update']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="编辑" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, true)">
                         <svg-icon iconPath="bi/pencil-square" />
                       </button>
                     }
                     @if (user.privileges['app_roles.read_role_privileges']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="角色权限" nzTooltipPlacement="top"
                         (click)="showPrivileges(item)">
                         <svg-icon iconPath="bi/shield-lock" />

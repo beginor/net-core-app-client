@@ -34,7 +34,7 @@ export class TokenDetailComponent implements OnInit {
         return this.id === '0' ? '新建凭证' : '凭证信息';
     }
 
-    protected model = signal<UserTokenModel>({ id: '0', name: '', value: '' });
+    protected model: UserTokenModel = { id: '0', name: '', value: '' };
     protected roles = signal<AppRole[]>([]);
     protected privileges = signal<ModulePrivileges[]>([]);
     protected tokenExpiresAt = signal<Date | undefined>(undefined);
@@ -70,7 +70,7 @@ export class TokenDetailComponent implements OnInit {
             if (this.id !== '0') {
                 const model = this.vm.getById(this.id);
                 if (model) {
-                    this.model.set(model);
+                    this.model = model;
                     if (!!model.roles && model.roles.length > 0) {
                         this.checkedRoles = JSON.parse(
                             JSON.stringify(model.roles)
@@ -102,7 +102,7 @@ export class TokenDetailComponent implements OnInit {
     }
 
     protected save(): void {
-        const model = this.model();
+        const model = this.model;
         model.roles = this.checkedRoles;
         model.privileges = this.checkedPrivileges;
         if (this.tokenExpiresAt()) {
@@ -124,9 +124,7 @@ export class TokenDetailComponent implements OnInit {
         this.account.newTokenValue().subscribe({
             next: (val) => {
                 if (val) {
-                    this.model.update(prev => {
-                        return { ...prev, value: val };
-                    });
+                    this.model.value = val;
                 }
             },
             error: (ex: unknown) => {

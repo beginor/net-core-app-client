@@ -31,7 +31,7 @@
       <nz-input-group nzSearch [nzAddOnAfter]="refreshValueTpl">
         <input nz-input type="text" id="value" name="value"
           placeholder="请输入凭证值 ..." [required]="true" readonly
-          [(ngModel)]="model().value"
+          [(ngModel)]="model.value"
           #value="ngModel"
         />
         <ng-template #refreshValueTpl>
@@ -94,7 +94,7 @@
           <ng-template #addUrlBtnTpl>
             <button class="px-2" type="button" nz-button nzType="default"
               (click)="addTokenUrl(newUrl)">
-              <svg-icon iconPath="bi/plus" />
+              <nz-icon nzType="bi:plus" />
             </button>
           </ng-template>
         </nz-input-group>
@@ -104,7 +104,7 @@
             <ng-template #delUrlTpl>
               <button class="px-2" type="button" nz-button nzType="default"
                 (click)="removeTokenUrl(url)" nz-tooltip="点击删除这个地址">
-                <svg-icon class="clickable" iconPath="bi/x" />
+                <nz-icon class="clickable" nzType="bi:x" />
               </button>
             </ng-template>
           </nz-input-group>
@@ -116,13 +116,13 @@
     @if (editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        <nz-icon class="me-1" nzType="bi:check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
-      <svg-icon class="me-1" iconPath="bi/x" /> 取消
+      <nz-icon class="me-1" nzType="bi:x" /> 取消
     </button>
   </ng-template>
 </nz-card>

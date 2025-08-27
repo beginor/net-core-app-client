@@ -48,23 +48,23 @@
                 <td class='text-center'>{{item.readonly ? '是' : '否'}}</td>
                 <td class='text-start'>{{item.roles}}</td>
                 <td class="text-center">
-                  <nz-space-compact>
+                  <nz-space-compact nzSize="small">
                     @if (user.privileges['app_storages.read_by_id']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
                         <svg-icon iconPath="bi/info-square" />
                       </button>
                     }
                     @if (user.privileges['app_storages.update']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="编辑" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, true)">
                         <svg-icon iconPath="bi/pencil-square" />
                       </button>
                     }
                     @if (user.privileges['app_storages.delete']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="删除" nzTooltipPlacement="top"
                         (click)="delete(item.id)">
                         <svg-icon iconPath="bi/trash" />

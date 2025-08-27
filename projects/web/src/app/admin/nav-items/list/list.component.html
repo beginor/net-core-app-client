@@ -55,23 +55,23 @@
                 <td class='text-start'>{{item.url}}</td>
                 <td class='text-end'>{{item.sequence}}</td>
                 <td class="text-center">
-                  <nz-space-compact>
+                  <nz-space-compact nzSize="small">
                     @if (user.privileges['app_nav_items.read_by_id']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
                         <svg-icon iconPath="bi/info-square" />
                       </button>
                     }
                     @if (user.privileges['app_nav_items.update']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="编辑" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, true)">
                         <svg-icon iconPath="bi/pencil-square" />
                       </button>
                     }
                     @if (user.privileges['app_nav_items.delete']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button class="px-1" type="button" nz-button
                         nz-tooltip="删除" nzTooltipPlacement="top"
                         (click)="delete(item.id)">
                         <svg-icon iconPath="bi/trash" />

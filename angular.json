@@ -262,17 +262,17 @@
               {
                 "input": "node_modules/bootstrap-icons/icons",
                 "glob": "*.svg",
-                "output": "assets/icons/bi"
+                "output": "assets/bi"
               },
               {
                 "input": "node_modules/@fortawesome/fontawesome-free/svgs",
                 "glob": "**/*.svg",
-                "output": "assets/icons/fa"
+                "output": "assets/fa"
               },
               {
                 "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
                 "glob": "**/*.svg",
-                "output": "assets/icons/antd/assets"
+                "output": "assets"
               }
             ],
             "styles": [
