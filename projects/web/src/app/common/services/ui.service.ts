@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
-import { ThemeType } from '../nav-sidebar-antd/nav-sidebar-antd.component';
-
 @Injectable({
     providedIn: 'root'
 })
@@ -78,3 +76,5 @@ export interface Breadcrumb {
     label: string;
     url?: string;
 }
+
+export type ThemeType = 'dark' | 'light';

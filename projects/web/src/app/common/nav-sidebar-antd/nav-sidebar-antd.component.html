@@ -1,3 +1,5 @@
+@let theme = ui.siderTheme();
+@let collapsed = ui.siderCollapsed();
 @if (vm.root | async; as root) {
   @if (root.title) {
     <div class="logo"
@@ -46,7 +48,7 @@
                 <span title
                   class="d-inline-flex align-items-center"
                   nz-tooltip nzTooltipPlacement="right" [nzTooltipArrowPointAtCenter]="true"
-                  [nzTooltipTitle]="(collapsed && data.level === 1) ? menu.title : null">
+                  [nzTooltipTitle]="(theme && data.level === 1) ? menu.title : null">
                   @if (data.level === 1) {
                     <span nz-icon>
                       <svg-icon [iconPath]="menu.icon || 'bi/question-circle'" />

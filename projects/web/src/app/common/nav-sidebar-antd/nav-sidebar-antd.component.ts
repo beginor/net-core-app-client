@@ -1,9 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 import { SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { AntdModule, UiService } from 'projects/web/src/app/common';
 
 import {
     NavigationService
@@ -23,23 +23,16 @@ import {
 })
 export class NavSidebarAntdComponent {
 
-    private isCollapsed = true;
-    @Input()
-    public get collapsed(): boolean { return this.isCollapsed; }
-    public set collapsed(value: boolean) {
-        this.isCollapsed = value;
-    }
+    // public collapsed = input(true);
 
-    @Input()
-    public theme: ThemeType = 'dark';
+    // public theme = input<ThemeType>('dark');
 
     protected router = inject(Router);
     protected vm = inject(NavigationService);
+    protected ui = inject(UiService);
 
     protected async goTo(url: string): Promise<void> {
         await this.router.navigateByUrl(url);
     }
 
 }
-
-export type ThemeType = 'dark' | 'light';
