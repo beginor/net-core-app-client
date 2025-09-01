@@ -139,6 +139,7 @@ export class JsonDataService {
             const json = JSON.parse(text);
             const name = (json.name ?? file.name) as string;
             const model: JsonDataModel = {
+                id: '0',
                 businessId,
                 name,
                 value: json
