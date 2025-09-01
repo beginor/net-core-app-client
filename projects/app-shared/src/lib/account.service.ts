@@ -51,11 +51,32 @@ export class AccountService {
     private apiRoot = inject(API_ROOT);
     private base64Url = inject(Base64UrlService);
 
+    private readonly KEEP_ONLINE_DELAY_TIME = 1000 * 60 * 5;
+
     constructor() {
-        setInterval(
-            () => void this.getAccountInfo(),
-            1000 * 60 * 5
+        setTimeout(
+            () => this.keepOnline(),
+            this.KEEP_ONLINE_DELAY_TIME
         );
+    }
+
+    private keepOnline(): void {
+        this.getAccountInfo().subscribe({
+            next: _val => {
+                // console.log(_val);
+                setTimeout(
+                    () => this.keepOnline(),
+                    this.KEEP_ONLINE_DELAY_TIME
+                );
+            },
+            error: ex => {
+                console.error(ex);
+                setTimeout(
+                    () => this.keepOnline(),
+                    this.KEEP_ONLINE_DELAY_TIME
+                );
+            }
+        });
     }
 
     public getAccountInfo(): Observable<AccountInfo> {
