@@ -1,10 +1,20 @@
 ﻿import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { AccountService } from 'app-shared';
 
 import {
     OrganizeUnitService,
@@ -17,8 +27,16 @@ import {
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzInputNumberModule,
+        NzSpaceModule,
+        NzSelectModule,
+        NzTreeSelectModule,
+        NzToolTipModule,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',

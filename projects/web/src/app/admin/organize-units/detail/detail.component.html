@@ -2,15 +2,15 @@
 <nz-card class="ant-card-data-detail m-0"
   [nzTitle]="title" [nzExtra]="toolsTpl" [nzActions]="editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
-    <nz-space-compact>
+    <nz-space-compact nzSize="small">
       @if (user.privileges['app_organize_units.update'] && editable) {
         <button type="button" nz-button nzType="primary"
           (click)="save()" [disabled]="!detailForm.valid">
-          <svg-icon class="me-1" iconPath="bi/check" /> 保存
+          <nz-icon nzType="check" /> 保存
         </button>
       }
       <button type="button" nz-button nzType="default" (click)="cancel()">
-        <svg-icon class="me-1" iconPath="bi/x" /> 取消
+        <nz-icon nzType="close" /> 取消
       </button>
     </nz-space-compact>
   </ng-template>
@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>上级组织单元</nz-form-label>
         <nz-form-control>
-          <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="large"
+          <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="default"
             [(ngModel)]="model.parentId" [nzDisabled]="!editable"
             nzPlaceHolder="请选择上级组织单元" [nzNodes]="treeNodes" nzShowSearch>
           </nz-tree-select>
@@ -31,7 +31,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="name">名称</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input nz-input nzSize="large" type="text" id="name" name="name"
+            <input nz-input nzSize="default" type="text" id="name" name="name"
               placeholder="请输入组织单元名称 ..." required
               [disabled]="!editable"
               [(ngModel)]="model.name"
@@ -43,7 +43,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="sequence">排序</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number nzSize="large" type="number" id="sequence" name="sequence"
+            <nz-input-number class="w-100" nzSize="default" type="number" id="sequence" name="sequence"
               nzPlaceHolder="请输入排序..." required
               [disabled]="!editable"
               [(ngModel)]="model.sequence"
@@ -66,13 +66,13 @@
     @if (user.privileges['app_organize_units.update'] && editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        <nz-icon nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
-      <svg-icon class="me-1" iconPath="bi/x" /> 取消
+      <nz-icon nzType="close" /> 取消
     </button>
   </ng-template>
 </nz-card>

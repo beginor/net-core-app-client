@@ -7,11 +7,11 @@
           <nz-space-compact>
             @if (user.privileges['app_organize_units.create']) {
               <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
-                <svg-icon class="me-1" iconPath="bi/plus" /> 新建组织单元
+                <nz-icon nzType="plus" /> 新建组织单元
               </button>
             }
             <button type="button" nz-button nzType="default" (click)="loadData()">
-              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+              <nz-icon nzType="sync" /> 刷新
             </button>
           </nz-space-compact>
         </ng-template>
@@ -41,25 +41,25 @@
                   <td>
                     <nz-space-compact nzSize="small">
                       @if (user.privileges['app_organize_units.read_by_id']) {
-                        <button class="px-1" nz-button
+                        <button nz-button
                           nz-tooltip="详情" nzTooltipPlacement="top"
                           (click)="showDetail(item.id, false)">
-                          <svg-icon iconPath="bi/info-square" />
+                          <nz-icon nzType="bi:info-square" />
                         </button>
                       }
                       @if (user.privileges['app_organize_units.update']) {
-                        <button class="px-1" nz-button
+                        <button nz-button
                           nz-tooltip="编辑" nzTooltipPlacement="top"
                           (click)="showDetail(item.id, true)">
-                          <svg-icon iconPath="bi/pencil-square" />
+                          <nz-icon nzType="bi:pencil-square" />
                         </button>
                       }
                       @if (user.privileges['app_organize_units.delete']) {
-                        <button class="px-1" nz-button
+                        <button nz-button
                           nz-tooltip="删除" nzTooltipPlacement="top"
                           [disabled]="item.children && item.children.length > 0"
-                          (click)="delete(item.id)">
-                          <svg-icon iconPath="bi/trash" />
+                          (nzck)="delete(item.id)">
+                          <nz-icon nzType="bi:trash" />
                         </button>
                       }
                     </nz-space-compact>
