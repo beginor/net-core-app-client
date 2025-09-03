@@ -14,21 +14,21 @@
               @if (model.keywords) {
                 <button class="px-2" type="button" nz-button nzType="default"
                   (click)="resetSearch()">
-                  <svg-icon iconPath="bi/x" />
+                  <nz-icon nzType="close" />
                 </button>
               }
               <button class="px-2" type="button" nz-button nzType="default" nzSearch
                 (click)="loadData({})">
-                <svg-icon iconPath="bi/search" />
+                <nz-icon nzType="search" />
               </button>
             </ng-template>
           </nz-input-group>
           <nz-space-compact *nzSpaceItem>
             <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
-              <svg-icon class="me-1" iconPath="bi/plus" /> 新建凭证
+              <nz-icon nzType="plus" /> 新建凭证
             </button>
             <button type="button" nz-button nzType="default" (click)="loadData({})">
-              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+              <nz-icon nzType="sync" /> 刷新
             </button>
           </nz-space-compact>
         </nz-space>
@@ -70,18 +70,18 @@
             <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
             <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
             <td class="text-center">
-              <nz-space-compact>
-                <button class="px-2" type="button"
+              <nz-space-compact nzSize="small">
+                <button type="button"
                   nz-button nzType="default"
                   nz-tooltip="编辑" nzTooltipPlacement="top"
                   (click)="showDetail(token.id, true)">
-                  <svg-icon iconPath="bi/pencil-square" />
+                  <nz-icon nzType="bi:pencil-square" />
                 </button>
-                <button class="px-2" type="button"
+                <button type="button"
                   nz-button nzType="default"
                   nz-tooltip="删除" nzTooltipPlacement="top"
                   (click)="delete(token.id)">
-                  <svg-icon iconPath="bi/trash" />
+                  <nz-icon nzType="bi:trash" />
                 </button>
               </nz-space-compact>
             </td>

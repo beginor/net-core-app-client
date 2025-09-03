@@ -1,15 +1,24 @@
 import { Component, OnInit, LOCALE_ID, signal, inject } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { differenceInCalendarDays} from 'date-fns';
 
 import {
     AccountService, UserTokenModel, AppRole,
     AppPrivilege,
-    SvgIconComponent
 } from 'app-shared';
-import { UiService, AntdModule } from 'projects/web/src/app/common';
+import { UiService } from 'projects/web/src/app/common';
 
 import { TokenService } from '../token.service';
 
@@ -19,8 +28,14 @@ import { TokenService } from '../token.service';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzSpaceModule,
     ],
     templateUrl: './token-detail.component.html',
     styleUrl: './token-detail.component.css',
