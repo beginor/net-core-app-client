@@ -1,15 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UiService } from 'projects/web/src/app/common';
+import { UiService, AntdModule } from 'projects/web/src/app/common';
 import { HomeService } from './home.service';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     imports: [
-        CommonModule
-    ],
+    CommonModule,
+    AntdModule
+],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })

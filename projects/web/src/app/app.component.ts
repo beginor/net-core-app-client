@@ -1,17 +1,21 @@
 import { Component, effect, inject } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { Router, RouterModule, EventType } from '@angular/router';
 import { first, filter } from 'rxjs';
 
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzIconService } from 'ng-zorro-antd/icon';
+
 import { AccountService } from 'app-shared';
 import {
-    AntdModule, NavSidebarAntdComponent, HeaderComponent, UiService,
- } from 'projects/web/src/app/common';
+    NavSidebarAntdComponent, HeaderComponent, UiService,
+} from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     imports: [
-        AntdModule,
+        NzLayoutModule,
         NavSidebarAntdComponent,
         RouterModule,
         HeaderComponent,
@@ -28,8 +32,11 @@ export class AppComponent {
     protected ui = inject(UiService);
     private account = inject(AccountService);
     private router = inject(Router);
+    private nzIconService = inject(NzIconService);
+    private appBaseHref = inject(APP_BASE_HREF);
 
     constructor() {
+        this.nzIconService.changeAssetsSource(this.appBaseHref);
         this.router.events.pipe(
             first(e => e.type === EventType.NavigationError)
         ).subscribe(e => {
