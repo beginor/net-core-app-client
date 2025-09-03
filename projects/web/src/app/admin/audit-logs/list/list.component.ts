@@ -1,11 +1,19 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { differenceInCalendarDays } from 'date-fns'
 
-import { SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { UiService } from 'projects/web/src/app/common';
 
 import { AuditLogsService } from '../audit-logs.service';
 
@@ -15,8 +23,15 @@ import { AuditLogsService } from '../audit-logs.service';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzSpaceModule,
+        NzTableModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',

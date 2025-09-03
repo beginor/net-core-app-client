@@ -20,18 +20,18 @@
                 <ng-template #userNameAddOnTpl>
                   @if (vm.searchModel.userName) {
                     <button class="px-2" type="button" nz-button nzType="default" (click)="resetUsername()">
-                      <svg-icon iconPath="bi/x" />
+                      <nz-icon nzType="close" />
                     </button>
                   }
                   <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
-                    <svg-icon iconPath="bi/search" />
+                    <nz-icon nzType="search" />
                   </button>
                 </ng-template>
               </nz-input-group>
               <nz-space-compact *nzSpaceItem>
                 <button type="button" nz-button nzType="default"
                   (click)="loadData({})">
-                  <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+                  <nz-icon nzType="sync" /> 刷新
                 </button>
               </nz-space-compact>
             </nz-space>
