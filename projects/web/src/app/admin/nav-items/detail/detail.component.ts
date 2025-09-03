@@ -1,12 +1,24 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
+import { AccountService } from 'app-shared';
 import {
-    AntdModule, StorageBrowserComponent, StorageContent
+    StorageBrowserComponent, StorageContent
 } from 'projects/web/src/app/common';
 import {
     NavItemsService, NavItemModel, MenuOption
@@ -18,8 +30,16 @@ import {
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzCheckboxModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzInputNumberModule,
+        NzSpaceModule,
+        NzSelectModule,
+        NzToolTipModule,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',

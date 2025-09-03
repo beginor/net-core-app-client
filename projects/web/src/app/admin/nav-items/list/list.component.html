@@ -8,12 +8,12 @@
             @if (user.privileges['app_nav_items.create']) {
               <button type="button" nz-button nzType="primary"
                 (click)="showDetail('0', true)">
-                <svg-icon class="me-1" iconPath="bi/plus" /> 新建菜单项
+                <nz-icon nzType="plus" /> 新建菜单项
               </button>
             }
             <button type="button" nz-button nzType="default"
               (click)="loadData({})">
-              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+              <nz-icon nzType="sync" /> 刷新
             </button>
           </nz-space-compact>
         </ng-template>
@@ -49,7 +49,7 @@
                 <td class='text-start'>{{item.tooltip}}</td>
                 <td class='text-start'>
                   @if (item.icon) {
-                    <svg-icon iconClass="bi" [iconPath]="item.icon" />
+                    <nz-icon iconClass="bi" [nzType]="toNzIconType(item.icon)" />
                   }
                   {{item.icon}}</td>
                 <td class='text-start'>{{item.url}}</td>
@@ -57,24 +57,24 @@
                 <td class="text-center">
                   <nz-space-compact nzSize="small">
                     @if (user.privileges['app_nav_items.read_by_id']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
-                        <svg-icon iconPath="bi/info-square" />
+                        <nz-icon nzType="bi:info-square" />
                       </button>
                     }
                     @if (user.privileges['app_nav_items.update']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="编辑" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, true)">
-                        <svg-icon iconPath="bi/pencil-square" />
+                        <nz-icon nzType="bi:pencil-square" />
                       </button>
                     }
                     @if (user.privileges['app_nav_items.delete']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="删除" nzTooltipPlacement="top"
                         (click)="delete(item.id)">
-                        <svg-icon iconPath="bi/trash" />
+                        <nz-icon nzType="bi:trash" />
                       </button>
                     }
                   </nz-space-compact>

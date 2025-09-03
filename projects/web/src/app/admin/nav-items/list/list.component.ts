@@ -2,11 +2,17 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import { NavItemsService } from '../nav-items.service';
 import { DetailComponent } from '../detail/detail.component';
@@ -17,8 +23,14 @@ import { DetailComponent } from '../detail/detail.component';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzDrawerModule,
+        NzFormModule,
+        NzIconModule,
+        NzSpaceModule,
+        NzTableModule,
+        NzToolTipModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
@@ -74,6 +86,17 @@ export class ListComponent implements OnInit {
         if (deleted) {
             void this.vm.search();
         }
+    }
+
+    protected toNzIconType(icon: string): string {
+        if (icon.includes(':')) {
+            return icon;
+        }
+        const idx = icon.indexOf('/');
+        if (idx > 0) {
+            return icon.substring(0, idx) + ':' + icon.substring(idx + 1);
+        }
+        return icon;
     }
 
 }
