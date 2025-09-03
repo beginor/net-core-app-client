@@ -34,7 +34,7 @@
   <cdk-virtual-scroll-viewport class="scroll-viewport" [itemSize]="15">
     <div class="rounded p-4 m-2 folder-item text-center d-inline-block border"
       *cdkVirtualFor="let item of filteredItems" [nz-tooltip]="item.name"
-      [ngClass]="{ 'border-primary': item.name === selectedItem?.name }"
+      [class.border-primary]="item.name === selectedItem?.name"
       (click)="setSelectedItem(item)" (dblclick)="getFolderContent(item)">
       <div [class]="getFolderItemClass(item)">
         <svg-icon [iconPath]="getFolderItemIconPath(item)" iconClass="bi bi-2x" />
