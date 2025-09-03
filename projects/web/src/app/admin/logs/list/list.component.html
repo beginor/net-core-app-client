@@ -23,7 +23,7 @@
               </nz-range-picker>
               <nz-space-compact *nzSpaceItem>
                 <button type="button" nz-button nzType="default" (click)="vm.search()">
-                  <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+                  <nz-icon nzType="sync" /> 刷新
                 </button>
               </nz-space-compact>
             </nz-space>
@@ -63,10 +63,10 @@
                 <td class="text-center">
                   <nz-space-compact nzSize="small">
                     @if (user.privileges['app_logs.read_by_id']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
-                        <svg-icon iconPath="bi/info-square" />
+                        <nz-icon nzType="bi:info-square" />
                       </button>
                     }
                   </nz-space-compact>

@@ -1,10 +1,16 @@
 ﻿import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { AccountService } from 'app-shared';
 
 import { AppLogService, AppLogModel } from '../logs.service';
 
@@ -14,8 +20,11 @@ import { AppLogService, AppLogModel } from '../logs.service';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzFormModule,
+        NzIconModule,
+        NzSpaceModule,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',

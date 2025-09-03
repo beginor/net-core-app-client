@@ -1,12 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NzCardModule } from 'ng-zorro-antd/card';
+
 import { AccountService, EchartComponent } from 'app-shared';
 
-import {
-    NavigationService, UiService, NavCardComponent,
-    AntdModule,
-} from 'projects/web/src/app/common';
+import { NavigationService, UiService, NavCardComponent, } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -14,7 +13,7 @@ import {
     imports: [
         CommonModule,
         EchartComponent,
-        AntdModule,
+        NzCardModule,
         NavCardComponent,
     ],
     templateUrl: './dashboard.component.html',

@@ -12,12 +12,12 @@
             />
             <ng-template #userNameAddOn>
               @if (model.keywords) {
-                <button class="px-2" type="button" nz-button nzType="default"
+                <button type="button" nz-button nzType="default"
                   (click)="resetSearch()">
                   <nz-icon nzType="close" />
                 </button>
               }
-              <button class="px-2" type="button" nz-button nzType="default" nzSearch
+              <button type="button" nz-button nzType="default" nzSearch
                 (click)="loadData({})">
                 <nz-icon nzType="search" />
               </button>

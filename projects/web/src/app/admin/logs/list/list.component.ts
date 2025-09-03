@@ -1,12 +1,21 @@
 ﻿import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { differenceInCalendarDays } from 'date-fns';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import { AppLogService } from '../logs.service';
 import { DetailComponent } from '../detail/detail.component';
@@ -17,8 +26,16 @@ import { DetailComponent } from '../detail/detail.component';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzDatePickerModule,
+        NzDrawerModule,
+        NzFormModule,
+        NzIconModule,
+        NzSpaceModule,
+        NzSelectModule,
+        NzTableModule,
+        NzToolTipModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
