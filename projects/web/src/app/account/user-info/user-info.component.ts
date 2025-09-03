@@ -5,10 +5,20 @@ import {
     FormsModule
 } from '@angular/forms';
 
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
 import {
-    AccountService, SvgIconComponent, UserInfo, confirmTo
+    AccountService, UserInfo, confirmTo
 } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { UiService } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-user-info',
@@ -17,8 +27,15 @@ import { AntdModule, UiService } from 'projects/web/src/app/common';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzRadioModule,
+        NzSpaceModule,
     ],
     templateUrl: './user-info.component.html',
     styleUrl: './user-info.component.css',

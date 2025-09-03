@@ -88,13 +88,13 @@
         <div class="col d-flex justify-content-end">
           @if (loading()) {
             <div class="me-auto">
-              <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" />
+              <nz-icon nzType="sync" [nzSpin]="true" />
               {{loadingMessage()}}
             </div>
           }
           <button type="button" nz-button nzType="primary"
             (click)="saveUser()" [disabled]="!detailForm.valid || loading()">
-            <svg-icon class="me-1" iconPath="bi/check" /> 保存
+            <nz-icon nzType="check" /> 保存
           </button>
         </div>
       </div>
@@ -151,13 +151,13 @@
         <div class="col d-flex justify-content-end">
           @if (updatingPwd()) {
             <div class="me-auto">
-              <svg-icon iconPath="bi/arrow-repeat" iconClass="bi-spin" />
+              <nz-icon nzType="sync" [nzSpin]="true" />
               正在修改密码 ...
             </div>
           }
           <button type="button" nz-button nzType="primary"
             (click)="changePassword()" [disabled]="!pwdForm.valid || updatingPwd()">
-            <svg-icon class="me-1" iconPath="bi/check" /> 保存
+            <nz-icon nzType="check" /> 保存
           </button>
         </div>
       </div>
