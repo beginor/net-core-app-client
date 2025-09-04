@@ -58,7 +58,7 @@
                         <button nz-button
                           nz-tooltip="删除" nzTooltipPlacement="top"
                           [disabled]="item.children && item.children.length > 0"
-                          (nzck)="delete(item.id)">
+                          (click)="delete(item.id)">
                           <nz-icon nzType="bi:trash" />
                         </button>
                       }

@@ -18,7 +18,7 @@ import {
     AppOrganizeUnitModel,
     OrganizeUnitService,
 } from '../organize-units.service';
-import { DetailComponent } from '../detail/detail.component';
+import { DetailComponent, DetailParams } from '../detail/detail.component';
 
 export interface TreeNodeInterface extends AppOrganizeUnitModel {
     children?: TreeNodeInterface[];
@@ -102,10 +102,10 @@ export class ListComponent implements OnInit {
     }
 
     protected showDetail(id: string, editable: boolean): void {
-        const ref = this.drawerService.create<DetailComponent, {
-            id: string,
-            editable: boolean
-        }, string
+        const ref = this.drawerService.create<
+            DetailComponent,
+            DetailParams,
+            string
         >({
             nzClosable: false,
             nzContent: DetailComponent,

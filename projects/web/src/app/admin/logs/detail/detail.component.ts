@@ -8,7 +8,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 
-import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzDrawerRef, NZ_DRAWER_DATA } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
 
@@ -31,15 +31,17 @@ import { AppLogService, AppLogModel } from '../logs.service';
 })
 export class DetailComponent implements OnInit {
 
-    public id = '';
-    public editable = false;
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(AppLogService);
+    protected params = inject<DetailParams>(NZ_DRAWER_DATA);
 
     protected get title(): string {
         let title = '';
-        if (this.id === '0') {
+        if (this.params.id === '0') {
             title = '新建应用程序日志';
         }
-        else if (this.editable) {
+        else if (this.params.editable) {
             title = '编辑应用程序日志';
         }
         else {
@@ -50,17 +52,13 @@ export class DetailComponent implements OnInit {
 
     protected model: AppLogModel = { id: '' };
 
-    private drawerRef = inject(NzDrawerRef);
-    protected account = inject(AccountService);
-    protected vm = inject(AppLogService);
-
     public ngOnInit(): void {
         void this.loadData();
     }
 
     private async loadData(): Promise<void> {
-        if (this.id !== '0') {
-            const model = await this.vm.getById(this.id);
+        if (this.params.id !== '0') {
+            const model = await this.vm.getById(this.params.id);
             if (model) {
                 this.model = model;
             }
@@ -71,4 +69,9 @@ export class DetailComponent implements OnInit {
         this.drawerRef.close('');
     }
 
+}
+
+export interface DetailParams {
+    id: string;
+    editable: boolean;
 }

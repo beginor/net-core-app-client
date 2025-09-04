@@ -1,16 +1,16 @@
 @let user = account.current();
 <nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl"
-  [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  [nzActions]="params.editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
-    <nz-space-compact>
-      @if (user.privileges['app_privileges.update'] && editable) {
+    <nz-space-compact nzSize="small">
+      @if (user.privileges['app_privileges.update'] && params.editable) {
         <button type="button" nz-button nzType="primary"
           (click)="save()" [disabled]="!detailForm.valid">
-          <svg-icon class="me-1" iconPath="bi/check" /> 保存
+          <nz-icon nzType="check" /> 保存
         </button>
       }
       <button type="button" nz-button nzType="default" (click)="cancel()">
-        <svg-icon class="me-1" iconPath="bi/x" /> 取消
+        <nz-icon nzType="close" /> 取消
       </button>
     </nz-space-compact>
   </ng-template>
@@ -22,7 +22,7 @@
       <nz-form-control [nzHasFeedback]="true">
         <input type="text" id="module" name="module" nz-input
           placeholder="请输入权限模块 ..." [(ngModel)]="model.module"
-          [required]="true" [disabled]="!editable"
+          [required]="true" [disabled]="!params.editable"
         />
       </nz-form-control>
     </nz-form-item>
@@ -33,7 +33,7 @@
       <nz-form-control [nzHasFeedback]="true">
         <input type="text" id="name" name="name" nz-input
           placeholder="请输入权限名称 ..." [(ngModel)]="model.name"
-          [required]="true" [disabled]="!editable"
+          [required]="true" [disabled]="!params.editable"
         />
       </nz-form-control>
     </nz-form-item>
@@ -42,28 +42,28 @@
       <nz-form-control [nzHasFeedback]="true">
         <input type="text" id="description" name="description" nz-input
           placeholder="请输入权限描述 ..." [(ngModel)]="model.description"
-          [required]="true" [disabled]="!editable"
+          [required]="true" [disabled]="!params.editable"
         />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <label id="isRequired" name="isRequired" for="isRequired" nz-checkbox
-        [(ngModel)]="model.isRequired" [nzDisabled]="!editable">
+        [(ngModel)]="model.isRequired" [nzDisabled]="!params.editable">
         必须的权限
       </label>
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    @if (user.privileges['app_privileges.update'] && editable) {
+    @if (user.privileges['app_privileges.update'] && params.editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        <nz-icon nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
-      <svg-icon class="me-1" iconPath="bi/x" /> 取消
+      <nz-icon nzType="close" /> 取消
     </button>
   </ng-template>
 </nz-card>

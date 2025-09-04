@@ -13,7 +13,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
-import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzDrawerRef, NZ_DRAWER_DATA } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { AccountService } from 'app-shared';
@@ -46,14 +46,17 @@ import {
 })
 export class DetailComponent implements OnInit {
 
-    public editable = false;
-    public id = '0';
+    private modal = inject(NzModalService);
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(NavItemsService);
+    protected params = inject<DetailParams>(NZ_DRAWER_DATA);
 
     protected get title(): string {
-        if (this.id === '0') {
+        if (this.params.id === '0') {
             return '新建菜单项';
         }
-        else if (this.editable) {
+        else if (this.params.editable) {
             return '编辑菜单项';
         }
         else {
@@ -69,11 +72,6 @@ export class DetailComponent implements OnInit {
 
     protected parents: MenuOption[] = [];
 
-    private modal = inject(NzModalService);
-    private drawerRef = inject(NzDrawerRef);
-    protected account = inject(AccountService);
-    protected vm = inject(NavItemsService);
-
     public ngOnInit(): void {
         void this.loadData();
     }
@@ -81,8 +79,8 @@ export class DetailComponent implements OnInit {
     private async loadData(): Promise<void> {
         await this.vm.getAllRoles();
         this.parents = await this.vm.getMenuOptions();
-        if (this.id !== '0') {
-            const model = await this.vm.getById(this.id);
+        if (this.params.id !== '0') {
+            const model = await this.vm.getById(this.params.id);
             if (model) {
                 this.model = model;
             }
@@ -94,8 +92,8 @@ export class DetailComponent implements OnInit {
     }
 
     protected async save(): Promise<void> {
-        if (this.id !== '0') {
-            await this.vm.update(this.id, this.model);
+        if (this.params.id !== '0') {
+            await this.vm.update(this.params.id, this.model);
         }
         else {
             await this.vm.create(this.model);
@@ -152,4 +150,9 @@ export class DetailComponent implements OnInit {
         });
     }
 
+}
+
+export interface DetailParams {
+    id: string;
+    editable: boolean;
 }

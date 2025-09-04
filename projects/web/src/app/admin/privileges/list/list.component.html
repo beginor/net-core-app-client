@@ -17,12 +17,12 @@
                 @if (user.privileges['app_privileges.create']) {
                   <button type="button" nz-button nzType="primary"
                     (click)="showDetail('0', true)">
-                    <svg-icon class="me-1" iconPath="bi/plus" /> 新建系统权限
+                    <nz-icon nzType="plus" /> 新建系统权限
                   </button>
                 }
                 <button type="button" nz-button nzType="default"
                   (click)="loadData({})">
-                  <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+                  <nz-icon nzType="sync" /> 刷新
                 </button>
               </nz-space-compact>
             </nz-space>
@@ -62,21 +62,21 @@
                 <td class="text-center">
                   <nz-space-compact nzSize="small">
                     @if (user.privileges['app_privileges.read_by_id']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="详情" (click)="showDetail(item.id, false)">
-                        <svg-icon iconPath="bi/info-square" />
+                        <nz-icon nzType="bi:info-square" />
                       </button>
                     }
                     @if (user.privileges['app_privileges.update']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="编辑" (click)="showDetail(item.id, true)">
-                        <svg-icon iconPath="bi/pencil-square" />
+                        <nz-icon nzType="bi:pencil-square" />
                       </button>
                     }
                     @if (user.privileges['app_privileges.delete']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="删除" (click)="delete(item.id)">
-                        <svg-icon iconPath="bi/trash" />
+                        <nz-icon nzType="bi:trash" />
                       </button>
                     }
                   </nz-space-compact>

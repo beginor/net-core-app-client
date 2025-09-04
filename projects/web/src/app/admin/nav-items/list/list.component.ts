@@ -15,7 +15,7 @@ import { AccountService } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
 
 import { NavItemsService } from '../nav-items.service';
-import { DetailComponent } from '../detail/detail.component';
+import { DetailComponent, DetailParams } from '../detail/detail.component';
 
 @Component({
     selector: 'app-nav-item-list',
@@ -64,7 +64,7 @@ export class ListComponent implements OnInit {
     protected showDetail(id: string, editable: boolean): void {
         const ref = this.drawerService.create<
             DetailComponent,
-            Partial<DetailComponent>,
+            DetailParams,
             string
         >({
             nzClosable: false,

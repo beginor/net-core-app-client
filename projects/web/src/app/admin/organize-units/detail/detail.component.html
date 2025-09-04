@@ -1,9 +1,9 @@
 ﻿@let user = account.current();
 <nz-card class="ant-card-data-detail m-0"
-  [nzTitle]="title" [nzExtra]="toolsTpl" [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  [nzTitle]="title" [nzExtra]="toolsTpl" [nzActions]="params.editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
     <nz-space-compact nzSize="small">
-      @if (user.privileges['app_organize_units.update'] && editable) {
+      @if (user.privileges['app_organize_units.update'] && params.editable) {
         <button type="button" nz-button nzType="primary"
           (click)="save()" [disabled]="!detailForm.valid">
           <nz-icon nzType="check" /> 保存
@@ -20,7 +20,7 @@
         <nz-form-label nzRequired>上级组织单元</nz-form-label>
         <nz-form-control>
           <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="default"
-            [(ngModel)]="model.parentId" [nzDisabled]="!editable"
+            [(ngModel)]="model.parentId" [nzDisabled]="!params.editable"
             nzPlaceHolder="请选择上级组织单元" [nzNodes]="treeNodes" nzShowSearch>
           </nz-tree-select>
         </nz-form-control>
@@ -33,7 +33,7 @@
           <nz-form-control nzHasFeedback>
             <input nz-input nzSize="default" type="text" id="name" name="name"
               placeholder="请输入组织单元名称 ..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.name"
             />
           </nz-form-control>
@@ -45,7 +45,7 @@
           <nz-form-control nzHasFeedback>
             <nz-input-number class="w-100" nzSize="default" type="number" id="sequence" name="sequence"
               nzPlaceHolder="请输入排序..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.sequence"
             />
           </nz-form-control>
@@ -57,13 +57,13 @@
       <nz-form-control>
         <textarea nz-input id="description" name="description"
           placeholder="请输入组织单元说明 ..."
-          [(ngModel)]="model.description" [disabled]="!editable">
+          [(ngModel)]="model.description" [disabled]="!params.editable">
         </textarea>
       </nz-form-control>
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    @if (user.privileges['app_organize_units.update'] && editable) {
+    @if (user.privileges['app_organize_units.update'] && params.editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <nz-icon nzType="check" /> 保存

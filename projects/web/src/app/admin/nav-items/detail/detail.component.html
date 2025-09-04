@@ -1,9 +1,9 @@
 @let user = account.current();
 <nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl"
-  [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  [nzActions]="params.editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
     <nz-space-compact nzSize="small">
-      @if (user.privileges['app_nav_items.update'] && editable) {
+      @if (user.privileges['app_nav_items.update'] && params.editable) {
         <button type="button" nz-button nzType="primary"
           (click)="save()" [disabled]="!detailForm.valid">
           <nz-icon nzType="check" /> 保存
@@ -21,7 +21,7 @@
           <nz-form-label nzFor="parentId" [nzRequired]="true">父节点</nz-form-label>
           <nz-form-control nzHasFeedback="true">
             <nz-select nzId="parentId" name="parentId" [(ngModel)]="model.parentId"
-              [nzDisabled]="!editable">
+              [nzDisabled]="!params.editable">
               @for (p of parents; track p.id) {
                 <nz-option [nzValue]="p.id" [nzLabel]="p.title!" />
               }
@@ -35,7 +35,7 @@
           <nz-form-control [nzHasFeedback]="true">
             <input type="text" id="title" name="title"
                placeholder="请输入标题 ..." nz-input [(ngModel)]="model.title"
-               [required]="true" [disabled]="!editable"
+               [required]="true" [disabled]="!params.editable"
             />
           </nz-form-control>
         </nz-form-item>
@@ -45,7 +45,7 @@
           <nz-form-label nzFor="sequence" [nzRequired]="true">顺序</nz-form-label>
           <nz-form-control [nzHasFeedback]="true">
             <nz-input-number class="w-100" nzId="sequence" name="sequence" nzPlaceHolder="请输入顺序 ..."
-              [(ngModel)]="model.sequence" [required]="true" [nzDisabled]="!editable">
+              [(ngModel)]="model.sequence" [required]="true" [nzDisabled]="!params.editable">
             </nz-input-number>
           </nz-form-control>
         </nz-form-item>
@@ -57,7 +57,7 @@
           <nz-form-label nzFor="target" [nzRequired]="true">导航窗口</nz-form-label>
           <nz-form-control [nzHasFeedback]="true">
             <nz-select nzId="target" name="target"
-              [(ngModel)]="model.target" [disabled]="!editable">
+              [(ngModel)]="model.target" [disabled]="!params.editable">
               @for (_t of targets; track _t.value) {
                 <nz-option [nzValue]="_t.value" [nzLabel]="_t.name" />
               }
@@ -71,7 +71,7 @@
           <nz-form-control [nzHasFeedback]="true">
             <input type="text" id="url" name="url"
               placeholder="请输入导航地址 ..." nz-input [(ngModel)]="model.url"
-              [required]="true" [disabled]="!editable"
+              [required]="true" [disabled]="!params.editable"
             />
           </nz-form-control>
         </nz-form-item>
@@ -83,7 +83,7 @@
         <nz-form-control [nzHasFeedback]="true">
           <input type="text" id="frame_url" name="frameUrl"
             placeholder="请输入内嵌窗口地址 ..." nz-input [(ngModel)]="model.frameUrl"
-            required [disabled]="!editable"
+            required [disabled]="!params.editable"
           />
         </nz-form-control>
       </nz-form-item>
@@ -96,11 +96,11 @@
             <nz-input-group nzSearch [nzAddOnAfter]="iconLibBtn">
               <input type="text" nz-input id="icon" name="icon"
                 placeholder="请输入图标 ..." [(ngModel)]="model.icon"
-                [disabled]="!editable"
+                [disabled]="!params.editable"
               />
             </nz-input-group>
             <ng-template #iconLibBtn>
-              @if (editable && user.privileges['app_storages.read_folder_content']) {
+              @if (params.editable && user.privileges['app_storages.read_folder_content']) {
                 <button class="px-2" type="button" nz-button nzType="default" nzSearch
                   nz-tooltip="从图标库查找图标" (click)="showIconDialog()">
                   <nz-icon nzType="search" />
@@ -116,7 +116,7 @@
           <nz-form-control>
             <input type="text" id="tooltip" name="tooltip"
               placeholder="请输入提示文字 ..."  nz-input [(ngModel)]="model.tooltip"
-              [disabled]="!editable"
+              [disabled]="!params.editable"
             />
           </nz-form-control>
         </nz-form-item>
@@ -124,7 +124,7 @@
     </div>
     <nz-form-item>
       <label id="isHidden" name="isHidden" for="isHidden" nz-checkbox
-        [(ngModel)]="model.isHidden" [nzDisabled]="!editable">隐藏菜单项</label>
+        [(ngModel)]="model.isHidden" [nzDisabled]="!params.editable">隐藏菜单项</label>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="roles">菜单角色</nz-form-label>
@@ -132,7 +132,7 @@
         @for (role of vm.roles; track role.id) {
           <label class="m-0"
             nz-checkbox [nzId]="role.id" [for]="role.id"
-            [nzDisabled]="!editable" [nzValue]="role.name"
+            [nzDisabled]="!params.editable" [nzValue]="role.name"
             [nzChecked]="isRoleChecked(role.name)"
             (nzCheckedChange)="toggleCheckedRole(role.name)">
             {{role.description}}
@@ -142,7 +142,7 @@
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    @if (user.privileges['app_nav_items.update'] && editable) {
+    @if (user.privileges['app_nav_items.update'] && params.editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <nz-icon nzType="check" /> 保存
