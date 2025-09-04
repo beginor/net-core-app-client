@@ -4,10 +4,17 @@ import {
     FormGroup, FormControl, Validators, FormsModule,
     ReactiveFormsModule
 } from '@angular/forms';
-import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
+import { NZ_DRAWER_DATA, NzDrawerRef } from 'ng-zorro-antd/drawer';
+
+import { AccountService } from 'app-shared';
 
 import { UsersService } from '../users.service';
 
@@ -18,20 +25,25 @@ import { UsersService } from '../users.service';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzDatePickerModule,
+        NzFormModule,
+        NzIconModule,
+        NzSpaceModule,
     ],
     templateUrl: './lock.component.html',
     styleUrl: './lock.component.css',
 })
 export class LockComponent {
 
-    protected editable = true;
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(UsersService);
+    protected params = inject<LockParams>(NZ_DRAWER_DATA);
 
-    protected userId = '';
-    protected fullname = '';
     protected get title(): string {
-        return `锁定 ${this.fullname || '用户'}`
+        return `锁定 ${this.params.fullname || '用户'}`
     }
 
 
@@ -39,13 +51,9 @@ export class LockComponent {
         return this.lockForm.get('lockoutEnd') as FormControl;
     }
 
-    private drawerRef = inject(NzDrawerRef);
-    protected account = inject(AccountService);
-    protected vm = inject(UsersService);
-
     protected lockForm = new FormGroup({
         lockoutEnd: new FormControl(
-            { value: new Date(), disabled: !this.editable },
+            { value: new Date(), disabled: !this.params.editable },
             Validators.required
         )
     });
@@ -64,9 +72,15 @@ export class LockComponent {
     protected save(): void {
         const d = this.lockoutEnd.value as Date;
         const lockEndTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} 23:59:59`;
-        void this.vm.lockUser(this.userId, lockEndTime).then(
+        void this.vm.lockUser(this.params.id, lockEndTime).then(
             () => this.drawerRef.close('ok')
         );
     }
 
+}
+
+export interface LockParams {
+    id: string;
+    editable: boolean;
+    fullname: string;
 }

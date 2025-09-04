@@ -1,11 +1,22 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+
+import { NzDrawerRef, NZ_DRAWER_DATA } from 'ng-zorro-antd/drawer';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { AccountService } from 'app-shared';
 
 import { UserModel, UsersService } from '../users.service';
 import {
@@ -18,22 +29,33 @@ import {
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzCheckboxModule,
+        NzDatePickerModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzRadioModule,
+        NzSpaceModule,
+        NzTreeSelectModule,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',
 })
 export class DetailComponent implements OnInit {
 
-    public editable = false;
-    public id = '0';
+    private drawerRef = inject(NzDrawerRef);
+    protected account = inject(AccountService);
+    protected vm = inject(UsersService);
+    protected organizeUnitSvc = inject(OrganizeUnitService);
+    protected params = inject<DetailParams>(NZ_DRAWER_DATA);
 
     protected get title(): string {
-        if (this.id === '0') {
+        if (this.params.id === '0') {
             return '新建菜单项';
         }
-        else if (this.editable) {
+        else if (this.params.editable) {
             return '编辑菜单项';
         }
         else {
@@ -48,18 +70,13 @@ export class DetailComponent implements OnInit {
     };
     protected dateOfBirthDate: Date = new Date('1970-01-01');
 
-    private drawerRef = inject(NzDrawerRef);
-    protected account = inject(AccountService);
-    protected vm = inject(UsersService);
-    protected organizeUnitSvc = inject(OrganizeUnitService);
-
     public ngOnInit(): void {
         void this.loadData();
     }
 
     private async loadData(): Promise<void> {
-        if (this.id !== '0') {
-            const model = await this.vm.getById(this.id);
+        if (this.params.id !== '0') {
+            const model = await this.vm.getById(this.params.id);
             if (model) {
                 this.model = model;
             }
@@ -82,8 +99,8 @@ export class DetailComponent implements OnInit {
     protected async save(): Promise<void> {
         const d = this.dateOfBirthDate;
         this.model.dateOfBirth = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-        if (this.id !== '0') {
-            await this.vm.update(this.id, this.model);
+        if (this.params.id !== '0') {
+            await this.vm.update(this.params.id, this.model);
         }
         else {
             await this.vm.create(this.model);
@@ -100,4 +117,9 @@ export class DetailComponent implements OnInit {
             }
         }
     }
+}
+
+export interface DetailParams {
+    id: string;
+    editable: boolean;
 }

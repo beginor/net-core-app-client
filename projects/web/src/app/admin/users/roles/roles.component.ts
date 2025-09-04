@@ -1,10 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+
+import { NZ_DRAWER_DATA, NzDrawerRef } from 'ng-zorro-antd/drawer';
+
+import { AccountService } from 'app-shared';
 
 import { UsersService } from '../users.service';
 
@@ -14,27 +21,28 @@ import { UsersService } from '../users.service';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzCheckboxModule,
+        NzFormModule,
+        NzIconModule,
+        NzSpaceModule,
     ],
     templateUrl: './roles.component.html',
     styleUrl: './roles.component.css',
 })
 export class RolesComponent implements OnInit {
 
-    public userId = '';
-    public editable = true;
-    public fullname = '';
-
-    protected get title(): string {
-        return `设置 ${this.fullname || '用户'} 的角色`;
-    }
-
-    private userRoles: Record<string, boolean> = {};
-
     private drawerRef = inject(NzDrawerRef);
     protected account = inject(AccountService);
     protected vm = inject(UsersService);
+    protected params = inject<RolesParams>(NZ_DRAWER_DATA);
+
+    protected get title(): string {
+        return `设置 ${this.params.fullname || '用户'} 的角色`;
+    }
+
+    private userRoles: Record<string, boolean> = {};
 
     public ngOnInit(): void {
         void this.loadData();
@@ -42,7 +50,7 @@ export class RolesComponent implements OnInit {
 
     private async loadData(): Promise<void> {
         await this.vm.getRoles();
-        const roles = await this.vm.getUserRoles(this.userId);
+        const roles = await this.vm.getUserRoles(this.params.id);
         for (const role of roles) {
             this.userRoles[role] = true;
         }
@@ -66,7 +74,7 @@ export class RolesComponent implements OnInit {
                 }
             }
         }
-        await this.vm.saveUserRoles(this.userId, toAdd, toDelete);
+        await this.vm.saveUserRoles(this.params.id, toAdd, toDelete);
         this.drawerRef.close('ok');
     }
 
@@ -78,4 +86,10 @@ export class RolesComponent implements OnInit {
         this.userRoles[roleName] = checked;
     }
 
+}
+
+export interface RolesParams {
+    id: string;
+    editable: boolean;
+    fullname: string;
 }

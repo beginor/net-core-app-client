@@ -2,17 +2,28 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+
+import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import { UsersService, UserModel, StringIdNameModel } from '../users.service';
-import { DetailComponent } from '../detail/detail.component';
-import { LockComponent } from '../lock/lock.component';
-import { PasswordComponent } from '../password/password.component';
-import { RolesComponent } from '../roles/roles.component';
+import { DetailComponent, DetailParams } from '../detail/detail.component';
+import { LockComponent, LockParams } from '../lock/lock.component';
+import { PasswordComponent, PasswordParams } from '../password/password.component';
+import { RolesComponent, RolesParams } from '../roles/roles.component';
 import {
     OrganizeUnitService
 } from '../../organize-units/organize-units.service';
@@ -24,8 +35,18 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
     imports: [
         CommonModule,
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzDrawerModule,
+        NzDropDownModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        NzSelectModule,
+        NzSpaceModule,
+        NzTableModule,
+        NzToolTipModule,
+        NzTreeModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',
@@ -78,11 +99,7 @@ export class ListComponent implements OnInit {
     }
 
     protected showDetail(id: string, editable: boolean): void {
-        const ref = this.drawerService.create<
-            DetailComponent,
-            Partial<DetailComponent>,
-            string
-        >({
+        const ref = this.drawerService.create<DetailComponent, DetailParams, string>({ // eslint-disable-line @stylistic/max-len
             nzClosable: false,
             nzPlacement: 'right',
             nzWidth: '40vw',
@@ -98,18 +115,14 @@ export class ListComponent implements OnInit {
     }
 
     protected showLock(user: UserModel): void {
-        const ref = this.drawerService.create<
-            LockComponent,
-            Partial<LockComponent>,
-            string
-        >({
+        const ref = this.drawerService.create<LockComponent, LockParams, string>({ // eslint-disable-line @stylistic/max-len
             nzClosable: false,
             nzPlacement: 'right',
             nzWidth: '40vw',
             nzContent: LockComponent,
             nzBodyStyle: { padding: '0' },
             nzData: {
-                userId: user.id,
+                id: user.id,
                 fullname: this.getFullname(user),
                 editable: true
             },
@@ -122,18 +135,14 @@ export class ListComponent implements OnInit {
     }
 
     protected showPassword(user: UserModel): void {
-        const ref = this.drawerService.create<
-            PasswordComponent,
-            Partial<PasswordComponent>,
-            string
-        >({
+        const ref = this.drawerService.create<PasswordComponent, PasswordParams, string>({  // eslint-disable-line @stylistic/max-len
             nzClosable: false,
             nzPlacement: 'right',
             nzWidth: '40vw',
             nzContent: PasswordComponent,
             nzBodyStyle: { padding: '0' },
             nzData: {
-                userId: user.id,
+                id: user.id,
                 fullname: this.getFullname(user),
                 editable: true
             },
@@ -146,18 +155,14 @@ export class ListComponent implements OnInit {
     }
 
     protected showRoles(user: UserModel): void {
-        const ref = this.drawerService.create<
-            RolesComponent,
-            Partial<RolesComponent>,
-            string
-        >({
+        const ref = this.drawerService.create<RolesComponent, RolesParams, string>({ // eslint-disable-line @stylistic/max-len
             nzClosable: false,
             nzPlacement: 'right',
             nzWidth: '40vw',
             nzContent: RolesComponent,
             nzBodyStyle: { padding: '0' },
             nzData: {
-                userId: user.id,
+                id: user.id,
                 fullname: this.getFullname(user),
                 editable: true
             },

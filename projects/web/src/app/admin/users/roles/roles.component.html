@@ -1,11 +1,11 @@
 <nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl">
   <ng-template #toolsTpl>
-    <nz-space-compact>
+    <nz-space-compact nzSize="small">
       <button type="button" nz-button nzType="primary" (click)="save()">
-        <svg-icon class="me-1" iconPath="bi/check" /> 确定
+        <nz-icon nzType="check" /> 确定
       </button>
       <button type="button" nz-button nzType="default"(click)="cancel()">
-        <svg-icon class="me-1" iconPath="bi/x" /> 取消
+        <nz-icon nzType="close" /> 取消
       </button>
     </nz-space-compact>
   </ng-template>
@@ -14,6 +14,7 @@
       <nz-form-control>
         @for (role of vm.roles | async; track role.id;) {
           <label class="m-0" nz-checkbox [nzId]="role.id" [for]="role.id"
+            [nzDisabled]="!params.editable"
             [nzValue]="role.name" [nzChecked]="isChecked(role.name)"
             (nzCheckedChange)="toggleUserRole($event, role.name)">
             {{role.description}}

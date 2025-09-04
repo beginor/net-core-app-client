@@ -1,16 +1,16 @@
 @let user = account.current();
 <nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl"
-  [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  [nzActions]="params.editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
-    <nz-space-compact>
-      @if (user.privileges['app_users.update'] && editable) {
+    <nz-space-compact nzSize="small">
+      @if (user.privileges['app_users.update'] && params.editable) {
         <button type="button" nz-button nzType="primary"
           (click)="save()" [disabled]="!detailForm.valid">
-          <svg-icon class="me-1" iconPath="bi/check" /> 保存
+          <nz-icon class="me-1" nzType="check" /> 保存
         </button>
       }
       <button type="button" nz-button nzType="default" (click)="cancel()">
-        <svg-icon class="me-1" iconPath="bi/x" /> 取消
+        <nz-icon class="me-1" nzType="close" /> 取消
       </button>
     </nz-space-compact>
   </ng-template>
@@ -22,7 +22,7 @@
           <nz-form-control nzHasFeedback>
             <input nz-input type="text" id="surname" name="surname"
               placeholder="请输入用户姓氏 ..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.surname"
             />
             </nz-form-control>
@@ -34,7 +34,7 @@
           <nz-form-control nzHasFeedback>
             <input nz-input type="text" id="givenName" name="givenName"
               placeholder="请输入用户名称 ..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.givenName"
             />
             </nz-form-control>
@@ -48,7 +48,7 @@
           <nz-form-control nzHasFeedback>
             <input nz-input type="text" id="userName" name="userName"
               placeholder="请输入用户用户名 ..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.userName"
             />
             </nz-form-control>
@@ -61,7 +61,7 @@
             <nz-form-control nzHasFeedback>
             <nz-tree-select class="w-100" id="organizeUnit.id"
               name="organizeUnit.id" nzPlaceHolder="请选择组织单元" required
-              [nzDisabled]="!editable" [nzNodes]="treeNodes"
+              [nzDisabled]="!params.editable" [nzNodes]="treeNodes"
               [(ngModel)]="model.organizeUnit!.id"
               (nzTreeClick)="onOrganizeUnitClick($event)">
             </nz-tree-select>
@@ -77,7 +77,7 @@
           <nz-form-control nzHasFeedback>
             <input nz-input type="text" id="email" name="email"
               placeholder="请输入用户电子邮箱 ..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.email"
             />
             </nz-form-control>
@@ -85,7 +85,7 @@
         <nz-form-item>
           <label id="emailConfirmed" name="emailConfirmed" for="emailConfirmed"
             nz-checkbox [(ngModel)]="model.emailConfirmed"
-            [nzDisabled]="!editable">
+            [nzDisabled]="!params.editable">
             电子邮箱已确认
           </label>
         </nz-form-item>
@@ -96,7 +96,7 @@
           <nz-form-control nzHasFeedback>
             <input nz-input type="text" id="phoneNumber" name="phoneNumber"
               placeholder="请输入用户电话号码 ..." required
-              [disabled]="!editable"
+              [disabled]="!params.editable"
               [(ngModel)]="model.phoneNumber"
             />
             </nz-form-control>
@@ -105,7 +105,7 @@
           <label id="phoneNumberConfirmed" name="phoneNumberConfirmed"
             for="phoneNumberConfirmed" nz-checkbox
             [(ngModel)]="model.phoneNumberConfirmed"
-            [nzDisabled]="!editable">
+            [nzDisabled]="!params.editable">
             电话号码已确认
           </label>
         </nz-form-item>
@@ -119,7 +119,7 @@
           <nz-form-control>
             <nz-date-picker class="w-100" id="dateOfBirth" nzId="dateOfBirth" name="dateOfBirth"
               nzPlaceHolder="请选择出生日期 ..." [(ngModel)]="dateOfBirthDate"
-              [nzDisabled]="!editable" [nzInputReadOnly]="true"/>
+              [nzDisabled]="!params.editable" [nzInputReadOnly]="true"/>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -128,7 +128,7 @@
           <nz-form-label nzFor="gender">性别</nz-form-label>
           <nz-form-control>
             <nz-radio-group id="gender" name="gender" nzName="gender"
-              [(ngModel)]="model.gender" [nzDisabled]="!editable">
+              [(ngModel)]="model.gender" [nzDisabled]="!params.editable">
               <label id="gender1" for="gender1" nz-radio nzValue="保密">保密</label>
               <label id="gender2" for="gender2" nz-radio nzValue="男">男</label>
               <label id="gender3" for="gender3" nz-radio nzValue="女">女</label>
@@ -142,7 +142,7 @@
       <nz-form-control>
         <input nz-input type="text" id="streetAddress" name="streetAddress"
           placeholder="请输入用户地址 ..."
-          [disabled]="!editable"
+          [disabled]="!params.editable"
           [(ngModel)]="model.streetAddress"
         />
         </nz-form-control>
@@ -151,22 +151,22 @@
     <nz-form-item>
       <label id="lockoutEnabled" name="lockoutEnabled" for="lockoutEnabled"
         nz-checkbox [(ngModel)]="model.lockoutEnabled"
-        [nzDisabled]="!editable">
+        [nzDisabled]="!params.editable">
         连续输错密码时，允许锁定该用户
       </label>
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    @if (user.privileges['app_users.update'] && editable) {
+    @if (user.privileges['app_users.update'] && params.editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        <nz-icon class="me-1" nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
-      <svg-icon class="me-1" iconPath="bi/x" /> 取消
+      <nz-icon class="me-1" nzType="close" /> 取消
     </button>
   </ng-template>
 </nz-card>
