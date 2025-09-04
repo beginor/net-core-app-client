@@ -1,9 +1,9 @@
 <nz-card class="ant-card-data-detail m-0"
-  [nzTitle]="title" [nzExtra]="toolsTpl">
+  [nzTitle]="params.title" [nzExtra]="toolsTpl">
   <ng-template #toolsTpl>
-    <nz-space-compact>
+    <nz-space-compact nzSize="small">
       <button type="button" nz-button nzType="default" (click)="close()">
-        <svg-icon class="me-1" iconPath="bi/check" /> 确定
+        <nz-icon nzType="check" /> 确定
       </button>
     </nz-space-compact>
   </ng-template>

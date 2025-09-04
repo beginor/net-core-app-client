@@ -8,12 +8,12 @@
             @if (user.privileges['app_roles.create']) {
               <button type="button" nz-button nzType="primary"
                 (click)="showDetail('0', true)">
-                <svg-icon class="me-1" iconPath="bi/plus" /> 新建角色
+                <nz-icon nzType="plus" /> 新建角色
               </button>
             }
             <button type="button" nz-button nzType="default"
               (click)="vm.search()">
-              <svg-icon class="me-1" iconPath="bi/arrow-repeat" /> 刷新
+              <nz-icon nzType="sync" /> 刷新
             </button>
           </nz-space-compact>
         </ng-template>
@@ -53,32 +53,32 @@
                 <td class="text-center">
                   <nz-space-compact nzSize="small">
                     @if (user.privileges['app_roles.read_by_id']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="详情" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, false)">
-                        <svg-icon iconPath="bi/info-square" />
+                        <nz-icon nzType="bi:info-square" />
                       </button>
                     }
                     @if (user.privileges['app_roles.update']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="编辑" nzTooltipPlacement="top"
                         (click)="showDetail(item.id, true)">
-                        <svg-icon iconPath="bi/pencil-square" />
+                        <nz-icon nzType="bi:pencil-square" />
                       </button>
                     }
                     @if (user.privileges['app_roles.read_role_privileges']) {
-                      <button class="px-1" type="button" nz-button
+                      <button type="button" nz-button
                         nz-tooltip="角色权限" nzTooltipPlacement="top"
                         (click)="showPrivileges(item)">
-                        <svg-icon iconPath="bi/shield-lock" />
+                        <nz-icon nzType="bi:shield-lock" />
                       </button>
                     }
                     @if (user.privileges['app_roles.delete']) {
-                      <button class="px-2" type="button" nz-button nzType="default"
+                      <button type="button" nz-button nzType="default"
                         nz-tooltip="删除" nzTooltipPlacement="top"
                         (click)="delete(item.id)"
                         [disabled]="$any(item.userCount) > 0">
-                        <svg-icon iconPath="bi/trash" />
+                        <nz-icon nzType="bi:trash" />
                       </button>
                     }
                   </nz-space-compact>
