@@ -1,16 +1,16 @@
 @let user = account.current();
 <nz-card class="ant-card-data-detail m-0" [nzTitle]="title" [nzExtra]="toolsTpl"
-  [nzActions]="editable ? [okTpl, cancelTpl] : []">
+  [nzActions]="params.editable ? [okTpl, cancelTpl] : []">
   <ng-template #toolsTpl>
-    <nz-space-compact>
-      @if (user.privileges['app_storages.update'] && editable) {
+    <nz-space-compact nzSize="small">
+      @if (user.privileges['app_storages.update'] && params.editable) {
         <button type="button" nz-button nzType="primary"
           (click)="save()" [disabled]="!detailForm.valid">
-          <svg-icon class="me-1" iconPath="bi/check" /> 保存
+          <nz-icon nzType="check" /> 保存
         </button>
       }
       <button type="button" nz-button nzType="default" (click)="cancel()">
-        <svg-icon class="me-1" iconPath="bi/x" /> 取消
+        <nz-icon nzType="close" /> 取消
       </button>
     </nz-space-compact>
   </ng-template>
@@ -22,7 +22,7 @@
       <nz-form-control [nzHasFeedback]="true">
         <input nz-input type="text" id="aliasName" name="aliasName"
           placeholder="请输入存储目录别名 ..." [required]="true"
-          [disabled]="!editable"
+          [disabled]="!params.editable"
           [(ngModel)]="model.aliasName"
         />
       </nz-form-control>
@@ -34,21 +34,21 @@
       <nz-form-control [nzHasFeedback]="true">
         <input nz-input type="text" id="rootFolder" name="rootFolder"
           placeholder="请输入存储目录路径 ..." [required]="true"
-          [disabled]="!editable"
+          [disabled]="!params.editable"
           [(ngModel)]="model.rootFolder"
         />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <label id="readonly" name="readonly" for="readonly" nz-checkbox
-        [(ngModel)]="model.readonly" [nzDisabled]="!editable">是否只读</label>
+        [(ngModel)]="model.readonly" [nzDisabled]="!params.editable">是否只读</label>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="roles">允许的的角色</nz-form-label>
       <nz-form-control>
         @for (role of vm.roles; track role.id) {
           <label class="m-0" [for]="role.id" nz-checkbox
-            [nzDisabled]="!editable" [nzValue]="role.name"
+            [nzDisabled]="!params.editable" [nzValue]="role.name"
             [nzChecked]="isRoleChecked(role.name)"
             (nzCheckedChange)="toggleCheckedRole(role.name)">
             {{role.description}}
@@ -58,16 +58,16 @@
     </nz-form-item>
   </form>
   <ng-template #okTpl>
-    @if (user.privileges['app_storages.update'] && editable) {
+    @if (user.privileges['app_storages.update'] && params.editable) {
       <button class="float-start ms-4" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <svg-icon class="me-1" iconPath="bi/check" /> 保存
+        <nz-icon nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
     <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
-      <svg-icon class="me-1" iconPath="bi/x" /> 取消
+      <nz-icon nzType="close" /> 取消
     </button>
   </ng-template>
 </nz-card>
