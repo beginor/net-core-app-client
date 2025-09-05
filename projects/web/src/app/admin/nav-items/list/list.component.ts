@@ -38,7 +38,7 @@ import { DetailComponent, DetailParams } from '../detail/detail.component';
 export class ListComponent implements OnInit {
 
     private drawerService = inject(NzDrawerService);
-    private ui = inject(UiService);
+    protected ui = inject(UiService);
     protected account = inject(AccountService);
     protected vm = inject(NavItemsService);
 
@@ -86,17 +86,6 @@ export class ListComponent implements OnInit {
         if (deleted) {
             void this.vm.search();
         }
-    }
-
-    protected toNzIconType(icon: string): string {
-        if (icon.includes(':')) {
-            return icon;
-        }
-        const idx = icon.indexOf('/');
-        if (idx > 0) {
-            return icon.substring(0, idx) + ':' + icon.substring(idx + 1);
-        }
-        return icon;
     }
 
 }

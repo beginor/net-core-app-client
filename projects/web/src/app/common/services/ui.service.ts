@@ -61,11 +61,22 @@ export class UiService {
     public toggleSider(): void {
         this.siderCollapsed.update(collapsed => !collapsed);
     }
+
+    public toNzIconType(icon: string): string {
+        if (icon.includes(':')) {
+            return icon;
+        }
+        const idx = icon.indexOf('/');
+        if (idx > 0) {
+            return icon.substring(0, idx) + ':' + icon.substring(idx + 1);
+        }
+        return icon;
+    }
+
 }
 
 export interface Alert {
-    type: 'success' | 'info' | 'warning' | 'danger' | 'primary' | 'secondary'
-        | 'light' | 'dark';
+    type: 'success' | 'info' | 'warning' | 'danger' | 'primary' | 'secondary' | 'light' | 'dark';
     message: string;
 }
 

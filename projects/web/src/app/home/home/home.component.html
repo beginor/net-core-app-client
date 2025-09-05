@@ -1,19 +1,16 @@
 <div class="container p-5">
 
   <div class="d-grid gap-2">
-    <button class="btn btn-lg btn-outline-primary"
+    <button nz-button nzType="default" nzSize="large"
       (click)="vm.updateMessage()">
       {{vm.message()}}
     </button>
   </div>
 
   @if (vm.info()) {
-    <div class="alert alert-warning mt-3">
-      {{vm.info()}}
-    </div>
+    <nz-alert class="mt-3" [nzMessage]="vm.info()" nzType="warning"
+      nzShowIcon="true"
+    />
   }
-
-  <app-attachment-list businessId="0123456" />
-  <app-attachment-upload businessId="0123456" />
 
 </div>

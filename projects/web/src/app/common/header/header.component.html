@@ -22,7 +22,7 @@
   @if (user.id) {
     <button type="button" nz-button nzType="text"
       nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="accountMenu" nzTrigger="click">
-      <svg-icon iconPath="bi/person-circle" class="me-1" />
+      <nz-icon nzType="user" />
       {{account.fullName()}}
     </button>
     <nz-dropdown-menu #accountMenu>
@@ -30,7 +30,7 @@
         @let accountNodes = nav.accountNodes();
         @for (node of accountNodes; track node.id) {
           <li nz-menu-item [routerLink]="node.url">
-            <svg-icon [iconPath]="node.icon!" />
+            <nz-icon [nzType]="ui.toNzIconType(node.icon!)" />
             {{node.title}}
           </li>
         }
@@ -38,7 +38,7 @@
           <li nz-menu-divider></li>
         }
         <li nz-menu-item (click)="logout()">
-          <svg-icon iconPath="bi/door-open" />
+          <nz-icon nzType="logout" />
           注销
         </li>
       </ul>

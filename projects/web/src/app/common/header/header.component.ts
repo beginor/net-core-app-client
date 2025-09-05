@@ -2,8 +2,13 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
+import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 
 import { NavigationService } from '../services/navigation.service';
 
@@ -13,8 +18,10 @@ import { NavigationService } from '../services/navigation.service';
     imports: [
         CommonModule,
         RouterModule,
-        AntdModule,
-        SvgIconComponent,
+        NzBreadCrumbModule,
+        NzButtonComponent,
+        NzDropDownModule,
+        NzIconModule,
     ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css'

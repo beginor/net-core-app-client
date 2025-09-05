@@ -1,20 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UiService, AntdModule, AttachmentUploadComponent } from 'projects/web/src/app/common';
-import { HomeService } from './home.service';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
-import { AttachmentListComponent } from 'projects/web/src/app/common';
+import { UiService } from 'projects/web/src/app/common';
+import { HomeService } from './home.service';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     imports: [
-    CommonModule,
-    AntdModule,
-    AttachmentListComponent,
-    AttachmentUploadComponent
-],
+        CommonModule,
+        NzAlertModule,
+        NzButtonModule,
+    ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
