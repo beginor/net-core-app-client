@@ -1,15 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UiService, AntdModule } from 'projects/web/src/app/common';
+import { UiService, AntdModule, AttachmentUploadComponent } from 'projects/web/src/app/common';
 import { HomeService } from './home.service';
+
+import { AttachmentListComponent } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     imports: [
     CommonModule,
-    AntdModule
+    AntdModule,
+    AttachmentListComponent,
+    AttachmentUploadComponent
 ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',

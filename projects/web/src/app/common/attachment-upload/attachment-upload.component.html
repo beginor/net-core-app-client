@@ -2,7 +2,7 @@
 @if (user.privileges['app_attachments.create']) {
   <button type="button" nz-button [nzType]="buttonType()" [nzSize]="buttonSize()"
     (click)="chooseFile()" [nzShape]="buttonShape()">
-    <svg-icon [class]="iconClass()" [iconPath]="iconPath()" />
+    <nz-icon [class]="iconClass()" [nzType]="iconPath()" />
     {{buttonText()}}
   </button>
   <input class="d-none" type="file" #fileInput [accept]="accept()"

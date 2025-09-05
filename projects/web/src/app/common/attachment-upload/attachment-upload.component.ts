@@ -3,12 +3,14 @@ import {
 } from '@angular/core';
 
 import {
-    NzButtonType, NzButtonSize, NzButtonShape
+    NzButtonModule, NzButtonType, NzButtonSize, NzButtonShape
 } from 'ng-zorro-antd/button';
-import { NzProgressStatusType } from 'ng-zorro-antd/progress';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzProgressModule, NzProgressStatusType } from 'ng-zorro-antd/progress';
 
-import { AccountService, waitFor, SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { AccountService, waitFor } from 'app-shared';
+
 import {
     AttachmentService,
     AttachmentUploadResultModel
@@ -18,28 +20,30 @@ import {
     selector: 'app-attachment-upload',
     standalone: true,
     imports: [
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzModalModule,
+        NzProgressModule,
+        NzIconModule,
     ],
     templateUrl: './attachment-upload.component.html',
     styleUrl: './attachment-upload.component.css'
 })
 export class AttachmentUploadComponent {
 
-    protected businessId = input('0');
-    protected iconPath = input('bi/upload');
-    protected iconClass = input('me-2');
-    protected buttonText = input('上传附件');
-    protected buttonShape = input<NzButtonShape>(null);
-    protected buttonType = input<NzButtonType>('default');
-    protected buttonSize = input<NzButtonSize>('default');
-    protected accept = input('image/*');
-    protected multiple = input(false);
-    protected noPrivilegeText = input('没有权限上传!');
-    protected modalTitle = input('');
+    public businessId = input('0');
+    public iconPath = input('upload');
+    public iconClass = input('');
+    public buttonText = input('上传附件');
+    public buttonShape = input<NzButtonShape>(null);
+    public buttonType = input<NzButtonType>('default');
+    public buttonSize = input<NzButtonSize>('default');
+    public accept = input('image/*');
+    public multiple = input(false);
+    public noPrivilegeText = input('没有权限上传!');
+    public modalTitle = input('');
 
-    protected fileSelected = output<FileList>();
-    protected uploadCompleted = output();
+    public fileSelected = output<FileList>();
+    public uploadCompleted = output();
 
     protected uploading = signal(false);
 

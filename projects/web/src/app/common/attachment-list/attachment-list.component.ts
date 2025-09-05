@@ -1,37 +1,43 @@
 import { Component, OnInit, input, signal, TemplateRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzListModule } from 'ng-zorro-antd/list';
+
 import { NzSizeLDSType } from 'ng-zorro-antd/core/types';
 
-import { SvgIconComponent, AccountService } from 'app-shared';
+import { AccountService } from 'app-shared';
 
-import { AntdModule } from '../antd.module';
 import {
     AttachmentService, AttachmentModel
 } from '../services/attachment.service';
+
 
 @Component({
     selector: 'app-attachment-list',
     standalone: true,
     imports: [
-        CommonModule,
-        AntdModule,
-        SvgIconComponent,
-    ],
+    CommonModule,
+    NzButtonModule,
+    NzIconModule,
+    NzListModule,
+],
     templateUrl: './attachment-list.component.html',
     styleUrl: './attachment-list.component.css'
 })
 export class AttachmentListComponent implements OnInit {
-    protected businessId = input('0');
 
-    protected listSize = input<NzSizeLDSType>('default');
-    protected listBordered = input(false);
-    protected listHeader = input('附件列表');
-    protected listFooter = input<string | TemplateRef<void>>();
+    public businessId = input('0');
 
-    protected emptyText = input('无数据');
-    protected allowDelete = input(true);
-    protected take = input(99);
+    public listSize = input<NzSizeLDSType>('default');
+    public listBordered = input(false);
+    public listHeader = input('附件列表');
+    public listFooter = input<string | TemplateRef<void>>();
+
+    public emptyText = input('无数据');
+    public allowDelete = input(true);
+    public take = input(99);
 
     protected attachments = signal<AttachmentModel[]>([]);
 
