@@ -2,7 +2,8 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { AntdModule } from 'projects/web/src/app/common';
+import { NzCardModule } from 'ng-zorro-antd/card';
+
 import { NavigationService } from '../services/navigation.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { NavigationService } from '../services/navigation.service';
     imports: [
         CommonModule,
         RouterModule,
-        AntdModule,
+        NzCardModule,
     ],
     template: `@let nodes = nav.sidebarNodes();
       <div class="row g-0">
