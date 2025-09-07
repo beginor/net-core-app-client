@@ -4,39 +4,43 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSizeLDSType } from 'ng-zorro-antd/core/types';
 
-import { SvgIconComponent, AccountService } from 'app-shared';
+import { AccountService } from 'app-shared';
 
-import { AntdModule } from '../antd.module';
 import { JsonDataService, JsonDataModel } from '../services/json-data.service';
-
 
 @Component({
     selector: 'app-json-data-list',
     standalone: true,
     imports: [
         CommonModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzIconModule,
+        NzListModule,
+        NzSpaceModule,
     ],
     templateUrl: './json-data-list.component.html',
     styleUrl: './json-data-list.component.css'
 })
 export class JsonDataListComponent implements OnInit {
-    protected businessId = input('0');
+    public businessId = input('0');
 
-    protected listSize = input<NzSizeLDSType>('default');
-    protected listBordered = input(false);
-    protected listHeader = input('JSON数据列表');
-    protected listFooter = input<string | TemplateRef<void>>();
+    public listSize = input<NzSizeLDSType>('default');
+    public listBordered = input(false);
+    public listHeader = input('JSON数据列表');
+    public listFooter = input<string | TemplateRef<void>>();
 
-    protected emptyText = input('无数据');
-    protected allowDelete = input(true);
-    protected allowUpdate = input(true);
-    protected take = input(99);
+    public emptyText = input('无数据');
+    public allowDelete = input(true);
+    public allowUpdate = input(true);
+    public take = input(99);
 
-    protected accept = input('.json');
+    public accept = input('.json');
 
     protected data = signal<JsonDataModel[]>([]);
 

@@ -4,7 +4,7 @@
     {{listHeader()}}
     <button class="ms-auto px-1" type="button" nz-button nzSize="small"
       (click)="loadData()">
-      <svg-icon iconPath="bi/arrow-repeat" />
+      <nz-icon nzType="sync" />
     </button>
   </nz-list-header>
   @let user = accountService.current();
@@ -19,13 +19,13 @@
         @if (showUpdate) {
           <button class="px-1" type="button" nz-button nzSize="small"
             (click)="update(item.id!)" nz-tooltip="更新">
-            <svg-icon iconPath="bi/pencil-square" />
+            <nz-icon nzType="bi:pencil-square" />
           </button>
         }
         @if (showDel) {
           <button class="px-1" type="button" nz-button nzSize="small"
             (click)="delete(item.id!)" nz-tooltip="删除">
-            <svg-icon iconPath="bi/x" />
+            <nz-icon nzType="close" />
           </button>
         }
       </nz-space-compact>

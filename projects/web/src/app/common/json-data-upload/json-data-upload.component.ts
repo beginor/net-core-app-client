@@ -3,34 +3,35 @@ import {
 } from '@angular/core';
 
 import {
-    NzButtonType, NzButtonSize, NzButtonShape
+    NzButtonModule, NzButtonType, NzButtonSize, NzButtonShape
 } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
-import { AccountService, SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { AccountService } from 'app-shared';
+import { UiService } from 'projects/web/src/app/common';
 import { JsonDataService } from '../services/json-data.service';
 
 @Component({
     selector: 'app-json-data-upload',
     standalone: true,
     imports: [
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzIconModule,
     ],
     templateUrl: './json-data-upload.component.html',
     styleUrl: './json-data-upload.component.css'
 })
 export class JsonDataUploadComponent {
 
-    protected businessId = input('0');
-    protected iconPath = input('bi/upload');
-    protected iconClass = input('me-2');
-    protected buttonText = input('选择JSON文件');
-    protected buttonShape = input<NzButtonShape>(null);
-    protected buttonType = input<NzButtonType>('default');
-    protected buttonSize = input<NzButtonSize>('default');
-    protected accept = input('.json');
-    protected noPrivilegeText = input('没有权限上传!');
+    public businessId = input('0');
+    public iconPath = input('upload');
+    public iconClass = input('');
+    public buttonText = input('选择JSON文件');
+    public buttonShape = input<NzButtonShape>(null);
+    public buttonType = input<NzButtonType>('default');
+    public buttonSize = input<NzButtonSize>('default');
+    public accept = input('.json');
+    public noPrivilegeText = input('没有权限上传!');
 
     protected uploadCompleted = output();
 
