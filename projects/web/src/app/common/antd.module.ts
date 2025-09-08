@@ -101,7 +101,7 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
         NzSliderModule,
     ]
 })
-export class AntdModule { // eslint-disable-line @typescript-eslint/no-extraneous-class
+export class AntdModule {
 
     private nzIconService = inject(NzIconService);
     private appBaseHref = inject(APP_BASE_HREF);
@@ -109,7 +109,7 @@ export class AntdModule { // eslint-disable-line @typescript-eslint/no-extraneou
 
     constructor() {
         // antd 写死了路，参数只能添加到 assets/ 的前面，所以多了个assets文件夹
-
+        // eslint-disable-next-line no-console
         console.log('app Base href: ' + this.appBaseHref);
         this.nzIconService.changeAssetsSource(this.appBaseHref);
     }
