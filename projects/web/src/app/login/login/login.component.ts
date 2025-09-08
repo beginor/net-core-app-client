@@ -15,7 +15,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import {
     AccountService, LoginModel, API_ROOT
 } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
+import { UiService } from '../../common';
 
 @Component({
     selector: 'app-login',
@@ -28,8 +28,6 @@ import { UiService } from 'projects/web/src/app/common';
         NzFormModule,
         NzIconModule,
         NzInputModule,
-        // AntdModule,
-        // SvgIconComponent,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
