@@ -16,6 +16,11 @@
   height: 36px;
 }
 
+.logo-icon nz-icon ::ng-deep svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .logo-title {
   opacity: 0;
   height: 36px;

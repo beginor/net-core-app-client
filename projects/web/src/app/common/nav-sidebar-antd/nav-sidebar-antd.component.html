@@ -6,7 +6,7 @@
     [class.text-white]="theme === 'dark'"
     [class.text-black]="theme === 'light'">
     <span class="logo-icon">
-      <svg-icon iconClass="bi bi-xxl" [iconPath]="root.icon!" />
+      <nz-icon [nzType]="toIconType(root.icon!)" />
     </span>
     <span class="logo-title user-select-none ps-2 fs-5 text-nowrap text-truncate"
       [class.d-none]="collapsed">{{root.title}}</span>
@@ -28,7 +28,7 @@
                 <span title class="d-inline-flex align-items-center">
                   @if (data.level === 1) {
                     <span nz-icon>
-                      <svg-icon [iconPath]="menu.icon || 'question-circle'" />
+                      <nz-icon [nzType]="toIconType(menu.icon)" />
                     </span>
                   }
                   <span>{{ menu.title }}</span>
@@ -51,7 +51,7 @@
                 [nzTooltipTitle]="(theme && data.level === 1) ? menu.title : null">
                 @if (data.level === 1) {
                   <span nz-icon>
-                    <svg-icon [iconPath]="menu.icon || 'bi/question-circle'" />
+                    <nz-icon [nzType]="toIconType(menu.icon)" />
                   </span>
                 }
                 <span>{{ menu.title }}</span>

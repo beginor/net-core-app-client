@@ -5,7 +5,7 @@
       <nz-space-compact class="ms-1" nzSize="small">
         <button type="button" nz-button nzType="default" nzSize="small"
           (click)="getFolderContentByPath('.')">
-          <svg-icon class="me-1" iconPath="bi/house" /> {{params.alias}}
+          <nz-icon nzType="home" /> {{params.alias}}
         </button>
         @for (bc of breadcrumbs; track bc.name) {
           <button type="button" nz-button nzType="default" nzSize="small"
@@ -23,10 +23,10 @@
       </nz-input-group>
       <nz-space-compact *nzSpaceItem>
         <button type="button" nz-button nzType="primary" (click)="ok()">
-          <svg-icon class="me-1" iconPath="bi/check" /> 确定
+          <nz-icon nzType="check" /> 确定
         </button>
         <button type="button" nz-button nzType="default" (click)="cancel()">
-          <svg-icon class="me-1" iconPath="bi/x" /> 取消
+          <nz-icon nzType="close" /> 取消
         </button>
       </nz-space-compact>
     </nz-space>
@@ -37,7 +37,7 @@
       [class.border-primary]="item.name === selectedItem?.name"
       (click)="setSelectedItem(item)" (dblclick)="getFolderContent(item)">
       <div [class]="getFolderItemClass(item)">
-        <svg-icon [iconPath]="getFolderItemIconPath(item)" iconClass="bi bi-2x" />
+        <nz-icon [nzType]="getFolderItemIconPath(item)" class="icon-2x" />
       </div>
       <div class="mt-1 folder-item-name text-truncate user-select-none">
         {{ item.type === 'folder' ? item.name : item.name + '.' + item.ext }}

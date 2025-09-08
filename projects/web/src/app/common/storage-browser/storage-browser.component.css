@@ -12,6 +12,11 @@
   height: 120px;
 }
 
+.folder-item nz-icon.icon-2x ::ng-deep svg {
+  width: 2rem;
+  height: 2rem;
+}
+
 .folder-item-name {
   font-size: .825rem;;
 }

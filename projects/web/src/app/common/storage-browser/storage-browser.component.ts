@@ -1,10 +1,16 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 
-import { SvgIconComponent } from 'app-shared';
-import { AntdModule } from 'projects/web/src/app/common';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+
+import { UiService } from 'projects/web/src/app/common';
 
 import { StorageService, StorageContent } from '../services/storage.service';
 
@@ -14,8 +20,12 @@ import { StorageService, StorageContent } from '../services/storage.service';
     imports: [
         CommonModule,
         ScrollingModule,
-        AntdModule,
-        SvgIconComponent,
+        NzButtonModule,
+        NzCardModule,
+        NzIconModule,
+        NzInputModule,
+        NzSpaceModule,
+        NzToolTipModule,
     ],
     templateUrl: './storage-browser.component.html',
     styleUrl: './storage-browser.component.css',
@@ -25,9 +35,11 @@ export class StorageBrowserComponent implements OnInit {
     @ViewChild('searchEl')
     protected searchEl?: ElementRef<HTMLInputElement>;
 
+    private storage = inject(StorageService);
+    private ui = inject(UiService);
     protected modal = inject(NzModalRef);
-    private service = inject(StorageService);
     protected params = inject<StorageContent>(NZ_MODAL_DATA);
+
 
     protected title = this.params.title;
     protected filteredItems: FolderItem[] = [];
@@ -75,12 +87,13 @@ export class StorageBrowserComponent implements OnInit {
 
     protected getFolderItemIconPath(item: FolderItem): string {
         if (item.type === 'folder') {
-            return 'bi/folder';
+            return 'folder';
         }
         if (item.type === 'file' && item.ext === 'svg') {
-            return `${this.params.path}/${item.name}`;
+            const path = `${this.params.path}/${item.name}`;
+            return this.ui.toNzIconType(path);
         }
-        return 'bi/file-earmark';
+        return 'file';
     }
 
     protected setSelectedItem(item: FolderItem): void {
@@ -127,7 +140,7 @@ export class StorageBrowserComponent implements OnInit {
         this.allItems = [];
         this.filteredItems = [];
         // this.breadcrumbs = [];
-        this.params = await this.service.getFolderContent(this.params);
+        this.params = await this.storage.getFolderContent(this.params);
         this.buildFolderItems();
         this.buildBreadcrumbs();
     }

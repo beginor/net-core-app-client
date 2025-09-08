@@ -2,8 +2,11 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { SvgIconComponent } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+
+import { UiService } from 'projects/web/src/app/common';
 
 import {
     NavigationService
@@ -15,8 +18,9 @@ import {
     imports: [
         CommonModule,
         RouterModule,
-        AntdModule,
-        SvgIconComponent,
+        NzMenuModule,
+        NzIconModule,
+        NzToolTipModule,
     ],
     templateUrl: './nav-sidebar-antd.component.html',
     styleUrl: './nav-sidebar-antd.component.css'
@@ -29,6 +33,13 @@ export class NavSidebarAntdComponent {
 
     protected async goTo(url: string): Promise<void> {
         await this.router.navigateByUrl(url);
+    }
+
+    protected toIconType(iconPath: string): string {
+        if (!iconPath) {
+            return 'bi:question-circle';
+        }
+        return this.ui.toNzIconType(iconPath);
     }
 
 }
