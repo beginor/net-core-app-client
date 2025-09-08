@@ -6,7 +6,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
-import { UiService } from 'projects/web/src/app/common';
+import { UiService } from '../services/ui.service';
 
 import {
     NavigationService

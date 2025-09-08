@@ -8,7 +8,7 @@ import {
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { AccountService } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
+import { UiService } from '../services/ui.service';
 import { JsonDataService } from '../services/json-data.service';
 
 @Component({

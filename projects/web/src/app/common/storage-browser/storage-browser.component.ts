@@ -10,7 +10,7 @@ import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
-import { UiService } from 'projects/web/src/app/common';
+import { UiService } from '../services/ui.service';
 
 import { StorageService, StorageContent } from '../services/storage.service';
 

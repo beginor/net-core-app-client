@@ -8,7 +8,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { AccountService } from 'app-shared';
-import { UiService } from 'projects/web/src/app/common';
+import { UiService } from '../services/ui.service';
 
 import { NavigationService } from '../services/navigation.service';
 

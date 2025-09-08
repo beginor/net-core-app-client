@@ -32,6 +32,9 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 
+/**
+ * @deprecated Use modules from ng-zorro-antd instead.
+ */
 @NgModule({
     imports: [
         NzTableModule,
