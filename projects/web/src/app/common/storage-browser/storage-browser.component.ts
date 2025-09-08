@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -32,8 +32,7 @@ import { StorageService, StorageContent } from '../services/storage.service';
 })
 export class StorageBrowserComponent implements OnInit {
 
-    @ViewChild('searchEl')
-    protected searchEl?: ElementRef<HTMLInputElement>;
+    protected searchEl = viewChild<ElementRef<HTMLInputElement>>('searchEl');
 
     private storage = inject(StorageService);
     private ui = inject(UiService);
@@ -134,8 +133,9 @@ export class StorageBrowserComponent implements OnInit {
     }
 
     private async loadData(): Promise<void> {
-        if (this.searchEl) {
-            this.searchEl.nativeElement.value = '';
+        const searchEl = this.searchEl()?.nativeElement;
+        if (searchEl) {
+            searchEl.value = '';
         }
         this.allItems = [];
         this.filteredItems = [];

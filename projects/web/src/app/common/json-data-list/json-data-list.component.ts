@@ -1,7 +1,4 @@
-import {
-    Component, OnInit, input, signal, TemplateRef, ViewChild, ElementRef,
-    inject
-} from '@angular/core';
+import { Component, OnInit, input, signal, TemplateRef, viewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -44,8 +41,7 @@ export class JsonDataListComponent implements OnInit {
 
     protected data = signal<JsonDataModel[]>([]);
 
-    @ViewChild('fileInput', { static: false })
-    private fileInputRef?: ElementRef<HTMLInputElement>;
+    private fileInputRef = viewChild<ElementRef<HTMLInputElement>>('fileInput');
     private updatingId = '';
 
     private jsonDataService = inject(JsonDataService);
@@ -61,12 +57,12 @@ export class JsonDataListComponent implements OnInit {
     }
 
     protected async update(id: string): Promise<void> {
-        if (!this.fileInputRef) {
-            return;
+        const fileInput = this.fileInputRef()?.nativeElement;
+        if (fileInput) {
+            this.updatingId = id;
+            fileInput.value = '';
+            fileInput.click();
         }
-        this.updatingId = id;
-        this.fileInputRef.nativeElement.value = '';
-        this.fileInputRef.nativeElement.click();
     }
 
     protected async onFileChange(e: Event): Promise<void> {

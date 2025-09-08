@@ -1,6 +1,4 @@
-import {
-    Component, ElementRef, inject, input, output, signal, ViewChild
-} from '@angular/core';
+import { Component, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
 
 import {
     NzButtonModule, NzButtonType, NzButtonSize, NzButtonShape
@@ -37,19 +35,18 @@ export class JsonDataUploadComponent {
 
     protected uploading = signal(false);
 
-    @ViewChild('fileInput', { static: false })
-    private fileInputRef?: ElementRef<HTMLInputElement>;
+    private fileInputRef = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
     protected accountService = inject(AccountService);
     protected jsonDataService = inject(JsonDataService);
     private uiService = inject(UiService);
 
     protected chooseFile(): void {
-        if (!this.fileInputRef) {
-            return;
+        const fileInput = this.fileInputRef()?.nativeElement;
+        if (fileInput) {
+            fileInput.value = '';
+            fileInput.click();
         }
-        this.fileInputRef.nativeElement.value = '';
-        this.fileInputRef.nativeElement.click();
     }
 
     protected async onFileChange(e: Event): Promise<void> {

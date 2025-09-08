@@ -1,5 +1,5 @@
 import {
-    Component, ElementRef, inject, input, output, signal, ViewChild
+    Component, ElementRef, inject, input, output, signal, viewChild
 } from '@angular/core';
 
 import {
@@ -47,18 +47,17 @@ export class AttachmentUploadComponent {
 
     protected uploading = signal(false);
 
-    @ViewChild('fileInput', { static: false })
-    private fileInputRef?: ElementRef<HTMLInputElement>;
+    private fileInputRef = viewChild<ElementRef<HTMLInputElement>>('fileInput');
 
     protected accountSvc = inject(AccountService);
     protected vm = inject(AttachmentService);
 
     protected chooseFile(): void {
-        if (!this.fileInputRef) {
-            return;
+        const fileInput = this.fileInputRef()?.nativeElement;
+        if (fileInput) {
+            fileInput.value = '';
+            fileInput.click();
         }
-        this.fileInputRef.nativeElement.value = '';
-        this.fileInputRef.nativeElement.click();
     }
 
     protected async onFileChange(e: Event): Promise<void> {

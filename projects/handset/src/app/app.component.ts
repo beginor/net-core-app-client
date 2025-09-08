@@ -1,6 +1,5 @@
 import {
-    Component, AfterViewInit, ViewChild,
-    inject
+    Component, AfterViewInit, viewChild, inject
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -22,13 +21,12 @@ import { MatModule } from './mat/mat.module';
 })
 export class AppComponent implements AfterViewInit {
 
-    @ViewChild(MatDrawer, { static: true })
-    protected drawer!: MatDrawer;
+    protected drawer = viewChild.required(MatDrawer);
 
     private ui = inject(UiService);
 
     public ngAfterViewInit(): void {
-        this.ui.setDrawer(this.drawer);
+        this.ui.setDrawer(this.drawer());
     }
 
 }
