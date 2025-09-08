@@ -5,18 +5,31 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+
 import {
-    AccountService, LoginModel, SvgIconComponent, API_ROOT
+    AccountService, LoginModel, API_ROOT
 } from 'app-shared';
-import { AntdModule, UiService } from 'projects/web/src/app/common';
+import { UiService } from 'projects/web/src/app/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
     imports: [
         FormsModule,
-        AntdModule,
-        SvgIconComponent,
+        NzAlertModule,
+        NzButtonModule,
+        NzCardModule,
+        NzFormModule,
+        NzIconModule,
+        NzInputModule,
+        // AntdModule,
+        // SvgIconComponent,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',

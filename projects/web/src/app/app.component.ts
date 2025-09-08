@@ -9,7 +9,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import { AccountService } from 'app-shared';
 import {
     NavSidebarAntdComponent, HeaderComponent, UiService,
-} from 'projects/web/src/app/common';
+} from './common';
 
 @Component({
     selector: 'app-root',
