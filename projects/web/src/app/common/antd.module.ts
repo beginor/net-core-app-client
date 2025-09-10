@@ -1,5 +1,4 @@
-import { inject, NgModule } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
@@ -21,7 +20,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -101,16 +100,4 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
         NzSliderModule,
     ]
 })
-export class AntdModule {
-
-    private nzIconService = inject(NzIconService);
-    private appBaseHref = inject(APP_BASE_HREF);
-
-
-    constructor() {
-        // antd 写死了路，参数只能添加到 assets/ 的前面，所以多了个assets文件夹
-        // eslint-disable-next-line no-console
-        console.log('app Base href: ' + this.appBaseHref);
-        this.nzIconService.changeAssetsSource(this.appBaseHref);
-    }
-}
+export class AntdModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
