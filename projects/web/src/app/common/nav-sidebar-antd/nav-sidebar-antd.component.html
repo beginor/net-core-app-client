@@ -5,11 +5,11 @@
   <div class="logo"
     [class.text-white]="theme === 'dark'"
     [class.text-black]="theme === 'light'">
-    <span class="logo-icon">
+    <span class="logo-icon d-inline-block">
       <nz-icon [nzType]="toIconType(root.icon!)" />
     </span>
     <span class="logo-title user-select-none ps-2 fs-5 text-nowrap text-truncate"
-      [class.d-none]="collapsed">{{root.title}}</span>
+      [class.d-none]="collapsed" [class.d-inline-block]="!collapsed">{{root.title}}</span>
   </div>
 }
 @if (root.children?.length) {

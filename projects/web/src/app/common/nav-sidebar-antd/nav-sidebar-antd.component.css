@@ -11,9 +11,9 @@
 
 .logo-icon {
   padding: 8px 4px 8px 12px;
-  line-height: 36px;
-  width: 36px;
-  height: 36px;
+  line-height: 2.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .logo-icon nz-icon ::ng-deep svg {
@@ -23,7 +23,7 @@
 
 .logo-title {
   opacity: 0;
-  height: 36px;
+  height: 2.25rem;
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
