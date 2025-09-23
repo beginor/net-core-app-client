@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --bs-border-radius: 2px;
   --bs-border-radius-sm: 2px;
