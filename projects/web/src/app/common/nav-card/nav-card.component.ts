@@ -15,16 +15,22 @@ import { NavigationService } from '../services/navigation.service';
         NzCardModule,
     ],
     template: `@let nodes = nav.sidebarNodes();
-      <div class="row g-0">
-        @for (node of nodes; track node.id) {
-          @if (node.url !== router.url) {
-            <div class="col-md-6 col-lg-3">
-              <nz-card class="m-2">
-              <h5><a [routerLink]="node.url">{{node.title}}</a></h5>
-              </nz-card>
-            </div>
+      <div class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          @for (node of nodes; track node.id) {
+            @if (node.url !== router.url) {
+              <div class="h-full">
+                <nz-card class="h-full">
+                  <h5 class="text-lg font-bold">
+                    <a [routerLink]="node.url" class="hover:text-blue-600 transition-colors">
+                      {{node.title}}
+                    </a>
+                  </h5>
+                </nz-card>
+              </div>
+            }
           }
-        }
+        </div>
       </div>
     `,
     styles: []

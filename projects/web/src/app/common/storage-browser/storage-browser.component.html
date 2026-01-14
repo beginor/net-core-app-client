@@ -1,6 +1,6 @@
 <nz-card class="m-0" [nzTitle]="titleTpl" [nzExtra]="toolsTpl">
   <ng-template #titleTpl>
-    <div class="d-flex flex-row align-items-center">
+    <div class="flex flex-row items-center">
       <div>{{title}}</div>
       <nz-space-compact class="ms-1" nzSize="small">
         <button type="button" nz-button nzType="default" nzSize="small"
@@ -32,14 +32,14 @@
     </nz-space>
   </ng-template>
   <cdk-virtual-scroll-viewport class="scroll-viewport" [itemSize]="15">
-    <div class="rounded p-4 m-2 folder-item text-center d-inline-block border"
+    <div class="rounded p-4 m-2 folder-item text-center inline-block border"
       *cdkVirtualFor="let item of filteredItems" [nz-tooltip]="item.name"
       [class.border-primary]="item.name === selectedItem?.name"
       (click)="setSelectedItem(item)" (dblclick)="getFolderContent(item)">
       <div [class]="getFolderItemClass(item)">
         <nz-icon [nzType]="getFolderItemIconPath(item)" class="icon-2x" />
       </div>
-      <div class="mt-1 folder-item-name text-truncate user-select-none">
+      <div class="mt-1 folder-item-name truncate select-none">
         {{ item.type === 'folder' ? item.name : item.name + '.' + item.ext }}
       </div>
     </div>

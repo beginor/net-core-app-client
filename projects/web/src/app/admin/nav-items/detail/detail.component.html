@@ -15,8 +15,8 @@
     </nz-space-compact>
   </ng-template>
   <form nz-form nzLayout="vertical" #detailForm="ngForm">
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="parentId" [nzRequired]="true">父节点</nz-form-label>
           <nz-form-control nzHasFeedback="true">
@@ -29,7 +29,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="title" [nzRequired]="true">标题</nz-form-label>
           <nz-form-control [nzHasFeedback]="true">
@@ -40,19 +40,19 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="sequence" [nzRequired]="true">顺序</nz-form-label>
           <nz-form-control [nzHasFeedback]="true">
-            <nz-input-number class="w-100" nzId="sequence" name="sequence" nzPlaceHolder="请输入顺序 ..."
+            <nz-input-number class="w-full!" nzId="sequence" name="sequence" nzPlaceHolder="请输入顺序 ..."
               [(ngModel)]="model.sequence" [required]="true" [nzDisabled]="!params.editable">
             </nz-input-number>
           </nz-form-control>
         </nz-form-item>
       </div>
     </div>
-    <div class="row">
-      <div class="col-4">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="target" [nzRequired]="true">导航窗口</nz-form-label>
           <nz-form-control [nzHasFeedback]="true">
@@ -65,7 +65,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col-8">
+      <div class="flex-2">
         <nz-form-item>
           <nz-form-label nzFor="url" [nzRequired]="true">导航地址</nz-form-label>
           <nz-form-control [nzHasFeedback]="true">
@@ -88,8 +88,8 @@
         </nz-form-control>
       </nz-form-item>
     }
-    <div class="row">
-      <div class="col-4">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="icon">图标</nz-form-label>
           <nz-form-control>
@@ -110,7 +110,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col-8">
+      <div class="flex-2">
         <nz-form-item>
           <nz-form-label nzFor="tooltip">提示文字 </nz-form-label>
           <nz-form-control>
@@ -143,14 +143,14 @@
   </form>
   <ng-template #okTpl>
     @if (user.privileges['app_nav_items.update'] && params.editable) {
-      <button class="float-start ms-4" type="button" nz-button nzType="primary"
+      <button class="float-start ms-4!" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <nz-icon nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
-    <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
+    <button class="float-end me-4!" type="button" nz-button nzType="default" (click)="cancel()">
       <nz-icon nzType="close" /> 取消
     </button>
   </ng-template>

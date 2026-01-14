@@ -1,7 +1,7 @@
 @let info = account.current();
-<div class="container-fluid">
-  <div class="row g-2">
-    <div class="col-2">
+<div class="w-full px-3">
+  <div class="flex gap-3">
+    <div class="w-1/6">
       <nz-card nzTitle="组织单元" [nzExtra]="orgUnitExtraTpl" [nzBodyStyle]="{ padding: '0.25rem' }">
         <ng-template #orgUnitExtraTpl>
           <button type="button" nz-button nzType="default" (click)="loadOrganizeUnit()">
@@ -13,7 +13,7 @@
         }
       </nz-card>
     </div>
-    <div class="col">
+    <div class="grow">
       <nz-card class="ant-card-data-list" nzTitle="用户" [nzExtra]="cardExtraTpl">
         <ng-template #cardExtraTpl>
           <form nz-form>
@@ -98,9 +98,9 @@
               <td class="text-center">{{item.organizeUnit?.name}}</td>
               <td class="text-start">
                 @if (isLockout(item)) {
-                  <span class="clickable" nz-tooltip="该用户已经被锁定！" nzTooltipPlacement="right">
+                  <span class="cursor-pointer" nz-tooltip="该用户已经被锁定！" nzTooltipPlacement="right">
                     {{getFullname(item)}}
-                    <nz-icon class="text-danger clickable" nzType="bi:ban" />
+                    <nz-icon class="text-red-500! cursor-pointer" nzType="bi:ban" />
                   </span>
                 }
                 @else {

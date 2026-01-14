@@ -1,6 +1,6 @@
-<div class="container">
-  <div class="row">
-    <div class="col col-login mx-auto">
+<div class="container mx-auto">
+  <div class="flex flex-wrap">
+    <div class="login mx-auto">
       <nz-card nzTitle="登录您的账户">
         @if (ui.showLoginForm()) {
           @let _model = model();
@@ -33,7 +33,7 @@
                   />
                 </nz-input-group>
                 <ng-template #captchaImageTpl>
-                  <img class="captcha" class="clickable" [src]="captchaImageUrl()" alt="点击刷新验证码"
+                  <img class="cursor-pointer" [src]="captchaImageUrl()" alt="点击刷新验证码"
                     (click)="updateCaptcha()" nz-tooltip="点击刷新验证码" />
                 </ng-template>
               </nz-form-control>

@@ -1,5 +1,5 @@
 <mat-list>
-  <mat-list-item class="d-flex align-items-start">
+  <mat-list-item class="flex items-start">
     <img matListItemAvatar src="./assets/user.png" alt="User" />
     <div matListItemTitle [matMenuTriggerFor]="userMenu">{{account.current().userName}}</div>
     <button matListItemMeta mat-icon-button (click)="toggleDrawer()">

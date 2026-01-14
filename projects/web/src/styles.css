@@ -1,20 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  --bs-border-radius: 2px;
-  --bs-border-radius-sm: 2px;
-  --bs-border-radius-lg: 2px;
-  --bs-primary: var(--ant-primary-color);
-  --bs-primary-rgb: 24, 144, 255;
-  --bs-info: var(--ant-info-color);
-  --bs-info-rgb: 24, 144, 255;
-  --bs-success: var(--ant-success-color);
-  --bs-success-rgb: 82, 196, 26;
-  --bs-warning: var(--ant-warning-color);
-  --bs-warning-rgb: 250, 173, 20;
-  --bs-danger: var(--ant-error-color);
-  --bs-danger-rgb: 255, 77, 79;
-
   --app-nav-sidebar-width: 220px;
   --app-nav-sidebar-collapsed-width: 80px;
   --app-data-list-table-content-max-height: calc(100vh - 202px);
@@ -82,10 +68,6 @@ html, body {
   margin-top: -50px;
   text-align: center;
   line-height: 48px;
-}
-
-.clickable {
-  cursor: pointer !important;
 }
 
 .table-row-num-col {

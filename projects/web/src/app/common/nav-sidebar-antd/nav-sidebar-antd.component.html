@@ -5,11 +5,11 @@
   <div class="logo"
     [class.text-white]="theme === 'dark'"
     [class.text-black]="theme === 'light'">
-    <span class="logo-icon d-inline-block">
+    <span class="logo-icon inline-block">
       <nz-icon [nzType]="toIconType(root.icon!)" />
     </span>
-    <span class="logo-title user-select-none ps-2 fs-5 text-nowrap text-truncate"
-      [class.d-none]="collapsed" [class.d-inline-block]="!collapsed">{{root.title}}</span>
+    <span class="logo-title select-none ps-2 text-xl whitespace-nowrap truncate"
+      [class.hidden]="collapsed" [class.inline-block]="!collapsed">{{root.title}}</span>
   </div>
 }
 @if (root.children?.length) {
@@ -25,7 +25,7 @@
               [nzPaddingLeft]="collapsed && data.level > 1 ? 0 : data.level * 32"
               [nzOpen]="collapsed ? false : (menu.url && router.url.startsWith(menu.url + '/'))">
               <ng-template #subTitleTpl>
-                <span title class="d-inline-flex align-items-center">
+                <span title class="inline-flex items-center">
                   @if (data.level === 1) {
                     <span nz-icon>
                       <nz-icon [nzType]="toIconType(menu.icon)" />
@@ -46,7 +46,7 @@
               [class.ant-menu-item-selected]="menu.url && router.url.startsWith(menu.url)"
               (click)="goTo(menu.url)">
               <span title
-                class="d-inline-flex align-items-center"
+                class="inline-flex items-center"
                 nz-tooltip nzTooltipPlacement="right" [nzTooltipArrowPointAtCenter]="true"
                 [nzTooltipTitle]="(theme && data.level === 1) ? menu.title : null">
                 @if (data.level === 1) {

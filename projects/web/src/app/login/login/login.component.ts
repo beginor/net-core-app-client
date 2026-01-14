@@ -11,6 +11,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import {
     AccountService, LoginModel, API_ROOT
@@ -28,6 +29,7 @@ import { UiService } from '../../common';
         NzFormModule,
         NzIconModule,
         NzInputModule,
+        NzToolTipModule,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',

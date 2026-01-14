@@ -137,11 +137,6 @@
             ],
             "styles": [
               {
-                "input": "node_modules/bootstrap/dist/css/bootstrap-grid.css",
-                "bundleName": "bootstrap-grid",
-                "inject": true
-              },
-              {
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                 "bundleName": "indigo-pink",
                 "inject": true
@@ -279,11 +274,6 @@
               {
                 "input": "node_modules/ng-zorro-antd/ng-zorro-antd.variable.css",
                 "bundleName": "ng-zorro-antd",
-                "inject": true
-              },
-              {
-                "input": "node_modules/bootstrap/dist/css/bootstrap.css",
-                "bundleName": "bootstrap",
                 "inject": true
               },
               "projects/web/src/styles.css"

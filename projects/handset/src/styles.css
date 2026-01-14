@@ -1,12 +1,3 @@
-:root {
-  --bs-breakpoint-xs: 0;
-  --bs-breakpoint-sm: 600px;
-  --bs-breakpoint-md: 960px;
-  --bs-breakpoint-lg: 1280px;
-  --bs-breakpoint-xl: 1600px;
-  --bs-breakpoint-xxl: 1920;
-}
-
 /* Styles for BootStrap Icons */
 .bi {
   display: inline-block;
