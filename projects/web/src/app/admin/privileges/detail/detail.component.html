@@ -55,14 +55,14 @@
   </form>
   <ng-template #okTpl>
     @if (user.privileges['app_privileges.update'] && params.editable) {
-      <button class="float-start ms-4" type="button" nz-button nzType="primary"
+      <button class="float-start ms-4!" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
         <nz-icon nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
-    <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
+    <button class="float-end me-4!" type="button" nz-button nzType="default" (click)="cancel()">
       <nz-icon nzType="close" /> 取消
     </button>
   </ng-template>
