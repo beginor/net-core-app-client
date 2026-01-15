@@ -12,7 +12,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { UiService } from 'projects/web/src/app/common';
 
@@ -35,7 +35,7 @@ import { TokenDetailComponent } from '../token-detail/token-detail.component';
         NzInputModule,
         NzSpaceModule,
         NzTableModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './token-list.component.html',
     styleUrl: './token-list.component.css',

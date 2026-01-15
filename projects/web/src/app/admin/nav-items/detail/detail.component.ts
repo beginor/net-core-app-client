@@ -11,7 +11,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { NzDrawerRef, NZ_DRAWER_DATA } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -39,7 +39,7 @@ import {
         NzInputNumberModule,
         NzSpaceModule,
         NzSelectModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',

@@ -21,7 +21,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -57,7 +57,7 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
         NzTabsModule,
         NzSelectModule,
         NzIconModule,
-        NzToolTipModule,
+        NzTooltipModule,
         NzSpinModule,
         NzBreadCrumbModule,
         NzSwitchModule,
@@ -89,7 +89,7 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
         NzTabsModule,
         NzSelectModule,
         NzIconModule,
-        NzToolTipModule,
+        NzTooltipModule,
         NzSpinModule,
         NzBreadCrumbModule,
         NzSwitchModule,

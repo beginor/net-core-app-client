@@ -11,7 +11,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NZ_DRAWER_DATA, NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { AccountService } from 'app-shared';
@@ -36,7 +36,7 @@ import {
         NzSpaceModule,
         NzSelectModule,
         NzTreeSelectModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.css',

@@ -6,7 +6,6 @@ import {
 import {
     provideHttpClient, withFetch, withInterceptors,
 } from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -24,7 +23,6 @@ export const appConfig: ApplicationConfig = {
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
         provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
-        provideAnimationsAsync(),
         {
             provide: LOCALE_ID,
             useValue: 'zh-Hans'

@@ -13,7 +13,7 @@
       "formatter": [
         "_lambda",
         "(p) => {",
-        "  let str = '<table class=\"text-gray-300\">';",
+        "  let str = '<table>';",
         "  str += '<tr><th class=\"px-1\" colspan=\"2\">' + p[0].axisValueLabel.substring(0, p[0].axisValueLabel.indexOf(' ')) + '</th></tr>';",
         "  str += '<tr><td class=\"px-1\">' + p[0].marker + ' ' + p[0].seriesName + '</td><td class=\"text-end px-1\">' + p[0].data.requestCount.toFixed() + ' 次</td></tr>';",
         "  str += '<tr><td class=\"px-1\">' + p[1].marker + ' ' + p[1].seriesName + '</td><td class=\"text-end px-1\">' + p[1].data.avgDuration.toFixed() + ' 毫秒</td></tr>';",

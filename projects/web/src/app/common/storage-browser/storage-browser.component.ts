@@ -8,7 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalRef, NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { UiService } from '../services/ui.service';
 
@@ -25,7 +25,7 @@ import { StorageService, StorageContent } from '../services/storage.service';
         NzIconModule,
         NzInputModule,
         NzSpaceModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './storage-browser.component.html',
     styleUrl: './storage-browser.component.css',

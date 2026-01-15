@@ -13,7 +13,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 
 import { AccountService } from 'app-shared';
@@ -45,7 +45,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
         NzSelectModule,
         NzSpaceModule,
         NzTableModule,
-        NzToolTipModule,
+        NzTooltipModule,
         NzTreeModule,
     ],
     templateUrl: './list.component.html',

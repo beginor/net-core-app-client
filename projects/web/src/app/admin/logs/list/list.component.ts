@@ -11,7 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 import { differenceInCalendarDays } from 'date-fns';
 
 import { AccountService } from 'app-shared';
@@ -35,7 +35,7 @@ import { DetailComponent, DetailParams } from '../detail/detail.component';
         NzSpaceModule,
         NzSelectModule,
         NzTableModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',

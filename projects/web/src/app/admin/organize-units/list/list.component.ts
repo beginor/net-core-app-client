@@ -9,7 +9,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { AccountService } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
@@ -38,7 +38,7 @@ export interface TreeNodeInterface extends AppOrganizeUnitModel {
         NzIconModule,
         NzSpaceModule,
         NzTableModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',

@@ -10,7 +10,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { AccountService } from 'app-shared';
 import { UiService } from 'projects/web/src/app/common';
@@ -32,7 +32,7 @@ import { DetailComponent, DetailParams } from '../detail/detail.component';
         NzSelectModule,
         NzSpaceModule,
         NzTableModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.css',

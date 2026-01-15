@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { UiService } from '../services/ui.service';
 
@@ -20,7 +20,7 @@ import {
         RouterModule,
         NzMenuModule,
         NzIconModule,
-        NzToolTipModule,
+        NzTooltipModule,
     ],
     templateUrl: './nav-sidebar-antd.component.html',
     styleUrl: './nav-sidebar-antd.component.css'
