@@ -1,85 +1,81 @@
 @let user = account.current();
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <nz-card class="ant-card-data-list" nzTitle="存储管理" [nzExtra]="cardExtra">
-        <ng-template #cardExtra>
-          <nz-space-compact>
-            @if (user.privileges['app_storages.create']) {
-              <button type="button" nz-button nzType="primary"
-                (click)="showDetail('0', true)">
-                <nz-icon nzType="plus" /> 新建存储目录
-              </button>
-            }
-            <button type="button" nz-button nzType="default" (click)="loadData({})">
-              <nz-icon nzType="sync" /> 刷新
-            </button>
-          </nz-space-compact>
-        </ng-template>
-        @let data = (vm.data | async)!;
-        <nz-table nzSize="small" [nzFrontPagination]="false"
-          [nzShowSizeChanger]="true"
-          [nzShowPagination]="true"
-          [nzShowQuickJumper]="true"
-          [nzData]="data"
-          [nzTotal]="(vm.total | async)!"
-          [nzShowTotal]="totalTpl"
-          [nzLoading]="vm.loading"
-          [nzPageIndex]="vm.pageIndex"
-          [nzPageSize]="vm.pageSize"
-          [nzPageSizeOptions]="vm.pageSizeOptions"
-          (nzQueryParams)="loadData($event)">
-          <thead>
-            <tr class="sticky-top">
-              <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
-              <th scope="col" class="text-start text-nowrap">别名</th>
-              <th scope="col" class="text-start text-nowrap">目录</th>
-              <th scope="col" class="text-center text-nowrap">是否只读</th>
-              <th scope="col" class="text-start text-nowrap">允许的角色</th>
-              <th scope="col" class="text-center text-nowrap table-action-col-3">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (item of data; track item.id; let i = $index;) {
-              <tr>
-                <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
-                <td class='text-start'>{{item.aliasName}}</td>
-                <td class='text-start'>{{item.rootFolder}}</td>
-                <td class='text-center'>{{item.readonly ? '是' : '否'}}</td>
-                <td class='text-start'>{{item.roles}}</td>
-                <td class="text-center">
-                  <nz-space-compact nzSize="small">
-                    @if (user.privileges['app_storages.read_by_id']) {
-                      <button class="px-1" type="button" nz-button
-                        nz-tooltip="详情" nzTooltipPlacement="top"
-                        (click)="showDetail(item.id, false)">
-                        <nz-icon nzType="bi:info-square" />
-                      </button>
-                    }
-                    @if (user.privileges['app_storages.update']) {
-                      <button class="px-1" type="button" nz-button
-                        nz-tooltip="编辑" nzTooltipPlacement="top"
-                        (click)="showDetail(item.id, true)">
-                        <nz-icon nzType="bi:pencil-square" />
-                      </button>
-                    }
-                    @if (user.privileges['app_storages.delete']) {
-                      <button class="px-1" type="button" nz-button
-                        nz-tooltip="删除" nzTooltipPlacement="top"
-                        (click)="delete(item.id)">
-                        <nz-icon nzType="bi:trash" />
-                      </button>
-                    }
-                  </nz-space-compact>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </nz-table>
-      </nz-card>
-      <ng-template #totalTpl let-total let-range="range">
-        当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
-      </ng-template>
-    </div>
-  </div>
+<div class="w-full px-3">
+  <nz-card class="ant-card-data-list" nzTitle="存储管理" [nzExtra]="cardExtra">
+    <ng-template #cardExtra>
+      <nz-space-compact>
+        @if (user.privileges['app_storages.create']) {
+          <button type="button" nz-button nzType="primary"
+            (click)="showDetail('0', true)">
+            <nz-icon nzType="plus" /> 新建存储目录
+          </button>
+        }
+        <button type="button" nz-button nzType="default" (click)="loadData({})">
+          <nz-icon nzType="sync" /> 刷新
+        </button>
+      </nz-space-compact>
+    </ng-template>
+    @let data = (vm.data | async)!;
+    <nz-table nzSize="small" [nzFrontPagination]="false"
+      [nzShowSizeChanger]="true"
+      [nzShowPagination]="true"
+      [nzShowQuickJumper]="true"
+      [nzData]="data"
+      [nzTotal]="(vm.total | async)!"
+      [nzShowTotal]="totalTpl"
+      [nzLoading]="vm.loading"
+      [nzPageIndex]="vm.pageIndex"
+      [nzPageSize]="vm.pageSize"
+      [nzPageSizeOptions]="vm.pageSizeOptions"
+      (nzQueryParams)="loadData($event)">
+      <thead>
+        <tr class="sticky-top">
+          <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
+          <th scope="col" class="text-start text-nowrap">别名</th>
+          <th scope="col" class="text-start text-nowrap">目录</th>
+          <th scope="col" class="text-center text-nowrap">是否只读</th>
+          <th scope="col" class="text-start text-nowrap">允许的角色</th>
+          <th scope="col" class="text-center text-nowrap table-action-col-3">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of data; track item.id; let i = $index;) {
+          <tr>
+            <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
+            <td class='text-start'>{{item.aliasName}}</td>
+            <td class='text-start'>{{item.rootFolder}}</td>
+            <td class='text-center'>{{item.readonly ? '是' : '否'}}</td>
+            <td class='text-start'>{{item.roles}}</td>
+            <td class="text-center">
+              <nz-space-compact nzSize="small">
+                @if (user.privileges['app_storages.read_by_id']) {
+                  <button class="px-1" type="button" nz-button
+                    nz-tooltip="详情" nzTooltipPlacement="top"
+                    (click)="showDetail(item.id, false)">
+                    <nz-icon nzType="bi:info-square" />
+                  </button>
+                }
+                @if (user.privileges['app_storages.update']) {
+                  <button class="px-1" type="button" nz-button
+                    nz-tooltip="编辑" nzTooltipPlacement="top"
+                    (click)="showDetail(item.id, true)">
+                    <nz-icon nzType="bi:pencil-square" />
+                  </button>
+                }
+                @if (user.privileges['app_storages.delete']) {
+                  <button class="px-1" type="button" nz-button
+                    nz-tooltip="删除" nzTooltipPlacement="top"
+                    (click)="delete(item.id)">
+                    <nz-icon nzType="bi:trash" />
+                  </button>
+                }
+              </nz-space-compact>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </nz-table>
+  </nz-card>
+  <ng-template #totalTpl let-total let-range="range">
+    当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+  </ng-template>
 </div>

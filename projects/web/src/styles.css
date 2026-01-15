@@ -3,8 +3,8 @@
 :root {
   --app-nav-sidebar-width: 220px;
   --app-nav-sidebar-collapsed-width: 80px;
-  --app-data-list-table-content-max-height: calc(100vh - 202px);
-  --app-organize-unit-tree-max-height: calc(100vh - 154px);
+  --app-data-list-table-content-max-height: calc(100vh - 194px);
+  --app-organize-unit-tree-max-height: calc(100vh - 146px);
 }
 
 /* Styles for BootStrap Icons */
