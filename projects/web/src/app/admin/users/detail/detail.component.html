@@ -15,8 +15,8 @@
     </nz-space-compact>
   </ng-template>
   <form nz-form nzLayout="vertical" #detailForm="ngForm">
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="surname">姓氏</nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -28,7 +28,7 @@
             </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="givenName">名称</nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -41,8 +41,8 @@
         </nz-form-item>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="userName">用户名</nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -54,7 +54,7 @@
             </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         @if (organizeUnitSvc.treeNodes | async; as treeNodes) {
           <nz-form-item>
             <nz-form-label nzRequired nzFor="organizeUnit.id">组织单元</nz-form-label>
@@ -70,8 +70,8 @@
         }
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="email">电子邮箱</nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -90,7 +90,7 @@
           </label>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="phoneNumber">电话号码</nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -112,8 +112,8 @@
       </div>
     </div>
     <hr />
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="dateOfBirth">出生日期</nz-form-label>
           <nz-form-control>
@@ -123,7 +123,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label nzFor="gender">性别</nz-form-label>
           <nz-form-control>
