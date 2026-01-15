@@ -2,7 +2,7 @@
 @let collapsed = ui.siderCollapsed();
 @let root = vm.root();
 @if (root.title) {
-  <div class="logo"
+  <div class="logo flex items-center"
     [class.text-white]="theme === 'dark'"
     [class.text-black]="theme === 'light'">
     <span class="logo-icon inline-block">
