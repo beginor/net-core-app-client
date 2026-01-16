@@ -76,10 +76,10 @@ export class StorageBrowserComponent implements OnInit {
 
     protected getFolderItemClass(item: FolderItem): string {
         if (item.type === 'folder') {
-            return 'text-info';
+            return 'text-cyan-500';
         }
         if (item.type === 'file' && item.ext === 'svg') {
-            return 'text-info';
+            return 'text-cyan-500';
         }
         return '';
     }
