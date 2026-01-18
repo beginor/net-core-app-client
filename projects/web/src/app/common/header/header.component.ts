@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { AccountService } from 'app-shared';
@@ -20,7 +20,7 @@ import { NavigationService } from '../services/navigation.service';
         RouterModule,
         NzBreadCrumbModule,
         NzButtonComponent,
-        NzDropDownModule,
+        NzDropdownModule,
         NzIconModule,
     ],
     templateUrl: './header.component.html',

@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -38,7 +38,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
         NzButtonModule,
         NzCardModule,
         NzDrawerModule,
-        NzDropDownModule,
+        NzDropdownModule,
         NzFormModule,
         NzIconModule,
         NzInputModule,
