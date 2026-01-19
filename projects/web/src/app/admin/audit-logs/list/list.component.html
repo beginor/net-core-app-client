@@ -1,90 +1,88 @@
-<div class="w-full px-3">
-  <nz-card class="ant-card-data-list"
-    nzTitle="审计日志" [nzExtra]="cardExtra">
-    <ng-template #cardExtra>
-      <form nz-form>
-        <nz-space>
-          <nz-range-picker *nzSpaceItem
-            name="dateRange" [nzDisabledDate]="disabledDate"
-            [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
-            [nzAllowClear]="false">
-          </nz-range-picker>
-          <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOnTpl">
-            <input name="userName" type="text" nz-input
-              placeholder="按用户名搜索"
-              [(ngModel)]="vm.searchModel.userName"
-              (keyup.enter)="onUserNameChanged()"
-            />
-            <ng-template #userNameAddOnTpl>
-              @if (vm.searchModel.userName) {
-                <button class="px-2" type="button" nz-button nzType="default" (click)="resetUsername()">
-                  <nz-icon nzType="close" />
-                </button>
-              }
-              <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
-                <nz-icon nzType="search" />
+<nz-card class="ant-card-data-list"
+  nzTitle="审计日志" [nzExtra]="cardExtra">
+  <ng-template #cardExtra>
+    <form nz-form>
+      <nz-space>
+        <nz-range-picker *nzSpaceItem
+          name="dateRange" [nzDisabledDate]="disabledDate"
+          [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
+          [nzAllowClear]="false">
+        </nz-range-picker>
+        <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOnTpl">
+          <input name="userName" type="text" nz-input
+            placeholder="按用户名搜索"
+            [(ngModel)]="vm.searchModel.userName"
+            (keyup.enter)="onUserNameChanged()"
+          />
+          <ng-template #userNameAddOnTpl>
+            @if (vm.searchModel.userName) {
+              <button class="px-2" type="button" nz-button nzType="default" (click)="resetUsername()">
+                <nz-icon nzType="close" />
               </button>
-            </ng-template>
-          </nz-input-group>
-          <nz-space-compact *nzSpaceItem>
-            <button type="button" nz-button nzType="default"
-              (click)="loadData({})">
-              <nz-icon nzType="sync" /> 刷新
+            }
+            <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
+              <nz-icon nzType="search" />
             </button>
-          </nz-space-compact>
-        </nz-space>
-      </form>
-    </ng-template>
-    @let data = (vm.data | async)!;
-    <nz-table nzSize="small" [nzFrontPagination]="false"
-      [nzShowSizeChanger]="true"
-      [nzShowPagination]="true"
-      [nzShowQuickJumper]="true"
-      [nzData]="data"
-      [nzTotal]="(vm.total | async)!"
-      [nzShowTotal]="totalTpl"
-      [nzLoading]="vm.loading"
-      [nzPageIndex]="vm.pageIndex"
-      [nzPageSize]="vm.pageSize"
-      [nzPageSizeOptions]="vm.pageSizeOptions"
-      (nzQueryParams)="loadData($event)">
-      <thead>
-        <tr class="sticky-top">
-          <th scope="col" class="text-end text-nowrap border-left-0">#</th>
-          <th scope="col" class="text-start text-nowrap">IP地址</th>
-          <th scope="col" class="text-start text-nowrap">主机名</th>
-          <th scope="col" class="text-start text-nowrap">请求地址</th>
-          <th scope="col" class="text-center text-nowrap">请求方法</th>
-          <th scope="col" class="text-center text-nowrap">用户名</th>
-          <th scope="col" class="text-center text-nowrap">开始时间</th>
-          <th scope="col" class="text-end text-nowrap">耗时</th>
-          <th scope="col" class="text-end text-nowrap">响应代码</th>
-          <th scope="col" class="text-start text-nowrap">控制器</th>
-          <th scope="col" class="text-start text-nowrap">动作名称</th>
-          <th scope="col" class="text-start text-nowrap">说明</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of data; track $index; let i = $index;) {
-          <tr>
-            <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
-            <td class="text-start">{{item.ip}}</td>
-            <td class="text-start">{{item.hostName}}</td>
-            <td class="text-start text-truncate" style="max-width: 20rem;" [title]="item.requestPath">{{item.requestPath}}</td>
-            <td [class]="getRequestMethodClasses(item.requestMethod)">{{item.requestMethod}}</td>
-            <td class="text-center">{{item.userName}}</td>
-            <td class="text-center text-nowrap">{{item.startAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td [class]="getDurationClasses(item.duration)">{{item.duration}}</td>
-            <td [class]="getResponseCodeClasses(item.responseCode)">{{item.responseCode}}</td>
-            <td class="text-start">{{item.controllerName}}</td>
-            <td class="text-start">{{item.actionName}}</td>
-            <td class="text-start">{{item.description}}</td>
-          </tr>
-        }
-      </tbody>
-    </nz-table>
-  </nz-card>
-  <ng-template #totalTpl let-total let-range="range">
-    当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+          </ng-template>
+        </nz-input-group>
+        <nz-space-compact *nzSpaceItem>
+          <button type="button" nz-button nzType="default"
+            (click)="loadData({})">
+            <nz-icon nzType="sync" /> 刷新
+          </button>
+        </nz-space-compact>
+      </nz-space>
+    </form>
   </ng-template>
-</div>
+  @let data = (vm.data | async)!;
+  <nz-table nzSize="small" [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzShowPagination]="true"
+    [nzShowQuickJumper]="true"
+    [nzData]="data"
+    [nzTotal]="(vm.total | async)!"
+    [nzShowTotal]="totalTpl"
+    [nzLoading]="vm.loading"
+    [nzPageIndex]="vm.pageIndex"
+    [nzPageSize]="vm.pageSize"
+    [nzPageSizeOptions]="vm.pageSizeOptions"
+    (nzQueryParams)="loadData($event)">
+    <thead>
+      <tr class="sticky top-0 bg-gray-200 z-20">
+        <th scope="col" class="text-end! text-nowrap table-row-num-col">#</th>
+        <th scope="col" class="text-start text-nowrap">IP地址</th>
+        <th scope="col" class="text-start text-nowrap">主机名</th>
+        <th scope="col" class="text-start text-nowrap">请求地址</th>
+        <th scope="col" class="text-center! text-nowrap">请求方法</th>
+        <th scope="col" class="text-center! text-nowrap">用户名</th>
+        <th scope="col" class="text-center! text-nowrap">开始时间</th>
+        <th scope="col" class="text-end! text-nowrap">耗时</th>
+        <th scope="col" class="text-end! text-nowrap">响应代码</th>
+        <th scope="col" class="text-start text-nowrap">控制器</th>
+        <th scope="col" class="text-start text-nowrap">动作名称</th>
+        <th scope="col" class="text-start text-nowrap">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of data; track $index; let i = $index;) {
+        <tr>
+          <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
+          <td class="text-start">{{item.ip}}</td>
+          <td class="text-start">{{item.hostName}}</td>
+          <td class="text-start text-truncate" style="max-width: 20rem;" [title]="item.requestPath">{{item.requestPath}}</td>
+          <td [class]="getRequestMethodClasses(item.requestMethod)">{{item.requestMethod}}</td>
+          <td class="text-center">{{item.userName}}</td>
+          <td class="text-center text-nowrap">{{item.startAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td [class]="getDurationClasses(item.duration)">{{item.duration}}</td>
+          <td [class]="getResponseCodeClasses(item.responseCode)">{{item.responseCode}}</td>
+          <td class="text-start">{{item.controllerName}}</td>
+          <td class="text-start">{{item.actionName}}</td>
+          <td class="text-start">{{item.description}}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #totalTpl let-total let-range="range">
+  当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+</ng-template>

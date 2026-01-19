@@ -1,90 +1,88 @@
 @let user = account.current();
-<div class="w-full px-3">
-  <nz-card class="ant-card-data-list" nzTitle="权限管理" [nzExtra]="cardExtra">
-    <ng-template #cardExtra>
-      <form nz-form>
-        <nz-space>
-          <nz-select *nzSpaceItem name="module" style="width: 200px;"
-            [(ngModel)]="vm.searchModel.module" (ngModelChange)="loadData({})">
-            <nz-option nzLabel="全部模块" nzValue=""></nz-option>
-            @for (m of vm.modules | async; track m;) {
-              <nz-option [nzValue]="m" [nzLabel]="m" />
-            }
-          </nz-select>
-          <nz-space-compact *nzSpaceItem>
-            @if (user.privileges['app_privileges.create']) {
-              <button type="button" nz-button nzType="primary"
-                (click)="showDetail('0', true)">
-                <nz-icon nzType="plus" /> 新建系统权限
-              </button>
-            }
-            <button type="button" nz-button nzType="default"
-              (click)="loadData({})">
-              <nz-icon nzType="sync" /> 刷新
+<nz-card class="ant-card-data-list" nzTitle="权限管理" [nzExtra]="cardExtra">
+  <ng-template #cardExtra>
+    <form nz-form>
+      <nz-space>
+        <nz-select *nzSpaceItem name="module" style="width: 200px;"
+          [(ngModel)]="vm.searchModel.module" (ngModelChange)="loadData({})">
+          <nz-option nzLabel="全部模块" nzValue=""></nz-option>
+          @for (m of vm.modules | async; track m;) {
+            <nz-option [nzValue]="m" [nzLabel]="m" />
+          }
+        </nz-select>
+        <nz-space-compact *nzSpaceItem>
+          @if (user.privileges['app_privileges.create']) {
+            <button type="button" nz-button nzType="primary"
+              (click)="showDetail('0', true)">
+              <nz-icon nzType="plus" /> 新建系统权限
             </button>
-          </nz-space-compact>
-        </nz-space>
-      </form>
-    </ng-template>
-    @let data = (vm.data | async)!;
-    <nz-table nzSize="small" [nzFrontPagination]="false"
-      [nzShowSizeChanger]="true"
-      [nzShowPagination]="true"
-      [nzShowQuickJumper]="true"
-      [nzData]="data"
-      [nzTotal]="(vm.total | async)!"
-      [nzShowTotal]="totalTpl"
-      [nzLoading]="vm.loading"
-      [nzPageIndex]="vm.pageIndex"
-      [nzPageSize]="vm.pageSize"
-      [nzPageSizeOptions]="vm.pageSizeOptions"
-      (nzQueryParams)="loadData($event)">
-      <thead>
-        <tr class="sticky-top">
-          <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
-          <th scope="col" class="text-start text-nowrap">权限模块</th>
-          <th scope="col" class="text-start text-nowrap">权限名称</th>
-          <th scope="col" class="text-start text-nowrap">权限描述</th>
-          <th scope="col" class="text-center text-nowrap">是否必须</th>
-          <th scope="col" class="text-center text-nowrap table-action-col-3">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of data; track item.id; let i = $index;) {
-          <tr>
-            <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
-            <td class="text-start">{{item.module}}</td>
-            <td class="text-start">{{item.name}}</td>
-            <td class="text-start">{{item.description}}</td>
-            <td class="text-center" [class.text-danger]="item.isRequired">{{item.isRequired ? '是' : '否'}}</td>
-            <td class="text-center">
-              <nz-space-compact nzSize="small">
-                @if (user.privileges['app_privileges.read_by_id']) {
-                  <button type="button" nz-button
-                    nz-tooltip="详情" (click)="showDetail(item.id, false)">
-                    <nz-icon nzType="bi:info-square" />
-                  </button>
-                }
-                @if (user.privileges['app_privileges.update']) {
-                  <button type="button" nz-button
-                    nz-tooltip="编辑" (click)="showDetail(item.id, true)">
-                    <nz-icon nzType="bi:pencil-square" />
-                  </button>
-                }
-                @if (user.privileges['app_privileges.delete']) {
-                  <button type="button" nz-button
-                    nz-tooltip="删除" (click)="delete(item.id)">
-                    <nz-icon nzType="bi:trash" />
-                  </button>
-                }
-              </nz-space-compact>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </nz-table>
-  </nz-card>
-  <ng-template #totalTpl let-total let-range="range">
-    当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+          }
+          <button type="button" nz-button nzType="default"
+            (click)="loadData({})">
+            <nz-icon nzType="sync" /> 刷新
+          </button>
+        </nz-space-compact>
+      </nz-space>
+    </form>
   </ng-template>
-</div>
+  @let data = (vm.data | async)!;
+  <nz-table nzSize="small" [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzShowPagination]="true"
+    [nzShowQuickJumper]="true"
+    [nzData]="data"
+    [nzTotal]="(vm.total | async)!"
+    [nzShowTotal]="totalTpl"
+    [nzLoading]="vm.loading"
+    [nzPageIndex]="vm.pageIndex"
+    [nzPageSize]="vm.pageSize"
+    [nzPageSizeOptions]="vm.pageSizeOptions"
+    (nzQueryParams)="loadData($event)">
+    <thead>
+      <tr class="sticky top-0 bg-gray-200 z-20">
+        <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
+        <th scope="col" class="text-start text-nowrap">权限模块</th>
+        <th scope="col" class="text-start text-nowrap">权限名称</th>
+        <th scope="col" class="text-start text-nowrap">权限描述</th>
+        <th scope="col" class="text-center text-nowrap">是否必须</th>
+        <th scope="col" class="text-center text-nowrap table-action-col-3">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of data; track item.id; let i = $index;) {
+        <tr>
+          <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
+          <td class="text-start">{{item.module}}</td>
+          <td class="text-start">{{item.name}}</td>
+          <td class="text-start">{{item.description}}</td>
+          <td class="text-center" [class.text-danger]="item.isRequired">{{item.isRequired ? '是' : '否'}}</td>
+          <td class="text-center">
+            <nz-space-compact nzSize="small">
+              @if (user.privileges['app_privileges.read_by_id']) {
+                <button type="button" nz-button
+                  nz-tooltip="详情" (click)="showDetail(item.id, false)">
+                  <nz-icon nzType="bi:info-square" />
+                </button>
+              }
+              @if (user.privileges['app_privileges.update']) {
+                <button type="button" nz-button
+                  nz-tooltip="编辑" (click)="showDetail(item.id, true)">
+                  <nz-icon nzType="bi:pencil-square" />
+                </button>
+              }
+              @if (user.privileges['app_privileges.delete']) {
+                <button type="button" nz-button
+                  nz-tooltip="删除" (click)="delete(item.id)">
+                  <nz-icon nzType="bi:trash" />
+                </button>
+              }
+            </nz-space-compact>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #totalTpl let-total let-range="range">
+  当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+</ng-template>

@@ -1,71 +1,69 @@
 ﻿@let user = account.current();
-<div class="w-full px-3">
-  <nz-card class="ant-card-data-list" nzTitle="组织单元" [nzExtra]="cardExtra">
-    <ng-template #cardExtra>
-      <nz-space-compact>
-        @if (user.privileges['app_organize_units.create']) {
-          <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
-            <nz-icon nzType="plus" /> 新建组织单元
-          </button>
-        }
-        <button type="button" nz-button nzType="default" (click)="loadData()">
-          <nz-icon nzType="sync" /> 刷新
+<nz-card class="ant-card-data-list" nzTitle="组织单元" [nzExtra]="cardExtra">
+  <ng-template #cardExtra>
+    <nz-space-compact>
+      @if (user.privileges['app_organize_units.create']) {
+        <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
+          <nz-icon nzType="plus" /> 新建组织单元
         </button>
-      </nz-space-compact>
-    </ng-template>
-    <nz-table #expandTable
-      [nzData]="listData" [nzShowPagination]="false"
-      nzSize="small" [nzPageSize]="listData.length">
-      <thead>
-        <tr>
-          <th>名称</th>
-          <th>说明</th>
-          <th class="text-end">顺序</th>
-          <th class="table-action-col-3 text-center">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of expandTable.data; track item.id;) {
-          @if ((item.parent && item.parent.expand) || !item.parent) {
-            <tr>
-              <td [nzIndentSize]="item.level! * 16"
-                [nzShowExpand]="item.children && item.children.length > 0"
-                [nzExpand]="item.expand"
-                (nzExpandChange)="expandChange(item)">
-                {{ item.name }}
-              </td>
-              <td>{{ item.description }}</td>
-              <td class="text-end">{{ item.sequence }}</td>
-              <td>
-                <nz-space-compact nzSize="small">
-                  @if (user.privileges['app_organize_units.read_by_id']) {
-                    <button nz-button
-                      nz-tooltip="详情" nzTooltipPlacement="top"
-                      (click)="showDetail(item.id, false)">
-                      <nz-icon nzType="bi:info-square" />
-                    </button>
-                  }
-                  @if (user.privileges['app_organize_units.update']) {
-                    <button nz-button
-                      nz-tooltip="编辑" nzTooltipPlacement="top"
-                      (click)="showDetail(item.id, true)">
-                      <nz-icon nzType="bi:pencil-square" />
-                    </button>
-                  }
-                  @if (user.privileges['app_organize_units.delete']) {
-                    <button nz-button
-                      nz-tooltip="删除" nzTooltipPlacement="top"
-                      [disabled]="item.children && item.children.length > 0"
-                      (click)="delete(item.id)">
-                      <nz-icon nzType="bi:trash" />
-                    </button>
-                  }
-                </nz-space-compact>
-              </td>
-            </tr>
-          }
+      }
+      <button type="button" nz-button nzType="default" (click)="loadData()">
+        <nz-icon nzType="sync" /> 刷新
+      </button>
+    </nz-space-compact>
+  </ng-template>
+  <nz-table #expandTable
+    [nzData]="listData" [nzShowPagination]="false"
+    nzSize="small" [nzPageSize]="listData.length">
+    <thead>
+      <tr>
+        <th>名称</th>
+        <th>说明</th>
+        <th class="text-end">顺序</th>
+        <th class="table-action-col-3 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of expandTable.data; track item.id;) {
+        @if ((item.parent && item.parent.expand) || !item.parent) {
+          <tr>
+            <td [nzIndentSize]="item.level! * 16"
+              [nzShowExpand]="item.children && item.children.length > 0"
+              [nzExpand]="item.expand"
+              (nzExpandChange)="expandChange(item)">
+              {{ item.name }}
+            </td>
+            <td>{{ item.description }}</td>
+            <td class="text-end">{{ item.sequence }}</td>
+            <td>
+              <nz-space-compact nzSize="small">
+                @if (user.privileges['app_organize_units.read_by_id']) {
+                  <button nz-button
+                    nz-tooltip="详情" nzTooltipPlacement="top"
+                    (click)="showDetail(item.id, false)">
+                    <nz-icon nzType="bi:info-square" />
+                  </button>
+                }
+                @if (user.privileges['app_organize_units.update']) {
+                  <button nz-button
+                    nz-tooltip="编辑" nzTooltipPlacement="top"
+                    (click)="showDetail(item.id, true)">
+                    <nz-icon nzType="bi:pencil-square" />
+                  </button>
+                }
+                @if (user.privileges['app_organize_units.delete']) {
+                  <button nz-button
+                    nz-tooltip="删除" nzTooltipPlacement="top"
+                    [disabled]="item.children && item.children.length > 0"
+                    (click)="delete(item.id)">
+                    <nz-icon nzType="bi:trash" />
+                  </button>
+                }
+              </nz-space-compact>
+            </td>
+          </tr>
         }
-      </tbody>
-    </nz-table>
-  </nz-card>
-</div>
+      }
+    </tbody>
+  </nz-table>
+</nz-card>
