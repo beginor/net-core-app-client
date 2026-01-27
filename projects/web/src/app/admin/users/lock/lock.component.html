@@ -17,11 +17,9 @@
     <nz-form-item>
       <nz-form-label nzFor="lockoutEnd" [nzRequired]="true">锁定至</nz-form-label>
       <nz-form-control [nzHasFeedback]="true">
-        <nz-date-picker class="w-100" id="lockoutEnd" nzId="lockoutEnd" nzFormat="yyyy-MM-dd"
-          [nzAllowClear]="false" [nzDisabledDate]="disabledDate"
-          placeholder="请选择锁定截止时间 ..." formControlName="lockoutEnd"
-          [nzInputReadOnly]="true"
-          required />
+        <nz-date-picker class="w-full" id="lockoutEnd" nzId="lockoutEnd" nzFormat="yyyy-MM-dd"
+          [nzAllowClear]="false" [nzDisabledDate]="disabledDate" required
+          formControlName="lockoutEnd"  [nzInputReadOnly]="true" />
       </nz-form-control>
     </nz-form-item>
   </form>

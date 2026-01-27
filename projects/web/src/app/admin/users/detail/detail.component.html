@@ -59,7 +59,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="organizeUnit.id">组织单元</nz-form-label>
             <nz-form-control nzHasFeedback>
-            <nz-tree-select class="w-100" id="organizeUnit.id"
+            <nz-tree-select class="w-full" id="organizeUnit.id"
               name="organizeUnit.id" nzPlaceHolder="请选择组织单元" required
               [nzDisabled]="!params.editable" [nzNodes]="treeNodes"
               [(ngModel)]="model.organizeUnit!.id"
@@ -117,7 +117,7 @@
         <nz-form-item>
           <nz-form-label nzFor="dateOfBirth">出生日期</nz-form-label>
           <nz-form-control>
-            <nz-date-picker class="w-100" id="dateOfBirth" nzId="dateOfBirth" name="dateOfBirth"
+            <nz-date-picker class="w-full" id="dateOfBirth" nzId="dateOfBirth" name="dateOfBirth"
               nzPlaceHolder="请选择出生日期 ..." [(ngModel)]="dateOfBirthDate"
               [nzDisabled]="!params.editable" [nzInputReadOnly]="true"/>
           </nz-form-control>

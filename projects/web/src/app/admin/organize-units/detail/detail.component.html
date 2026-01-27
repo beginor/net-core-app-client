@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>上级组织单元</nz-form-label>
         <nz-form-control>
-          <nz-tree-select class="w-100" id="parentId" name="parentId" nzSize="default"
+          <nz-tree-select class="w-full" id="parentId" name="parentId" nzSize="default"
             [(ngModel)]="model.parentId" [nzDisabled]="!params.editable"
             nzPlaceHolder="请选择上级组织单元" [nzNodes]="treeNodes" nzShowSearch>
           </nz-tree-select>
@@ -43,7 +43,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="sequence">排序</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number class="w-100" nzSize="default" type="number" id="sequence" name="sequence"
+            <nz-input-number class="w-full!" nzSize="default" type="number" id="sequence" name="sequence"
               nzPlaceHolder="请输入排序..." required
               [disabled]="!params.editable"
               [(ngModel)]="model.sequence"
