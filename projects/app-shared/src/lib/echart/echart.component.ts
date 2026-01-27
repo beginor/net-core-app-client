@@ -1,7 +1,6 @@
 import {
     Component, AfterViewInit, ElementRef, OnDestroy, signal, effect, input,
-    viewChild,
-    inject,
+    viewChild, inject,
 } from '@angular/core';
 import { EChartsType, EChartsOption, init } from 'echarts';
 
@@ -9,6 +8,7 @@ import { EchartService } from './echart.service';
 
 @Component({
     standalone: true,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'lib-echart',
     template: '<div class="echart" #echart>App Echart works!</div>',
     styles: [`

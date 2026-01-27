@@ -2,6 +2,7 @@
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
+import { defineConfig} from 'eslint/config';
 import eslint from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin'
 import tseslint from 'typescript-eslint';
@@ -10,7 +11,7 @@ import angular from 'angular-eslint';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default tseslint.config(
+export default defineConfig(
   {
     files: ['projects/**/*.ts'],
     plugins: {
@@ -20,7 +21,6 @@ export default tseslint.config(
       parserOptions: {
         projectService: true,
         tsconfigRootDir: __dirname,
-        project: 'tsconfig.json',
       }
     },
     extends: [
