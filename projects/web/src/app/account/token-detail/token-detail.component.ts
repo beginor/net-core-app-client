@@ -10,6 +10,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
@@ -37,6 +38,7 @@ import { TokenService } from '../token.service';
         NzIconModule,
         NzInputModule,
         NzSpaceModule,
+        NzTooltipModule,
     ],
     templateUrl: './token-detail.component.html',
     styleUrl: './token-detail.component.css',

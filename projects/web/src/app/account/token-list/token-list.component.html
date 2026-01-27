@@ -1,97 +1,82 @@
-<div class="container">
-  <div class="row g-0">
-    <nz-card class="ant-card-data-list" nzTitle="我的凭证" [nzExtra]="cardExtra">
-      <ng-template #cardExtra>
-        @let model = vm.model();
-        <nz-space>
-          <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOn">
-            <input type="text" nz-input placeholder="输入关键字进行搜索"
-              name="userName" [(ngModel)]="model.keywords"
-              [ngModelOptions]="{ standalone: true }"
-              (keyup.enter)="loadData({})"
-            />
-            <ng-template #userNameAddOn>
-              @if (model.keywords) {
-                <button type="button" nz-button nzType="default"
-                  (click)="resetSearch()">
-                  <nz-icon nzType="close" />
-                </button>
-              }
-              <button type="button" nz-button nzType="default" nzSearch
-                (click)="loadData({})">
-                <nz-icon nzType="search" />
-              </button>
-            </ng-template>
-          </nz-input-group>
-          <nz-space-compact *nzSpaceItem>
-            <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
-              <nz-icon nzType="plus" /> 新建凭证
+
+<nz-card class="ant-card-data-list" nzTitle="我的凭证" [nzExtra]="cardExtra">
+  <ng-template #cardExtra>
+    @let model = vm.model();
+    <nz-space>
+      <nz-input-search *nzSpaceItem nzAllowClear (nzClear)="resetSearch()"
+        (nzSearch)="loadData({})">
+        <input type="text" nz-input placeholder="输入关键字进行搜索"
+          name="userName" [(ngModel)]="model.keywords"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </nz-input-search>
+      <nz-space-compact *nzSpaceItem>
+        <button type="button" nz-button nzType="primary" (click)="showDetail('0', true)">
+          <nz-icon nzType="plus" /> 新建凭证
+        </button>
+        <button type="button" nz-button nzType="default" (click)="loadData({})">
+          <nz-icon nzType="sync" /> 刷新
+        </button>
+      </nz-space-compact>
+    </nz-space>
+  </ng-template>
+  <nz-table nzSize="small" [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzShowPagination]="true"
+    [nzShowQuickJumper]="true"
+    [nzData]="vm.tokens()"
+    [nzTotal]="vm.total()"
+    [nzShowTotal]="totalTpl"
+    [nzLoading]="vm.loading()"
+    [nzPageIndex]="vm.pageIndex()"
+    [nzPageSize]="vm.pageSize()"
+    [nzPageSizeOptions]="vm.pageSizeOptions()"
+    (nzQueryParams)="loadData($event)">
+    <thead>
+    <tr class="sticky top-0 bg-gray-200 z-20">
+      <th scope="col" class="text-end">#</th>
+      <th scope="col" class="text-start">名称</th>
+      <th scope="col" class="text-center">凭证值</th>
+      <th scope="col" class="text-end">权限</th>
+      <th scope="col" class="text-end">代表的角色</th>
+      <th scope="col" class="text-end">允许的地址</th>
+      <th scope="col" class="text-center">更新时间</th>
+      <th scope="col" class="text-center">过期时间</th>
+      <th scope="col" class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (token of vm.tokens(); track token.id; let i = $index;) {
+      <tr>
+        <th scope="row" class="text-end">{{i+1}}</th>
+        <td class='text-start'>{{token.name}}</td>
+        <td class='text-center'>{{token.value}}</td>
+        <td class='text-end'>{{token.privileges?.length}}</td>
+        <td class='text-end'>{{token.roles?.length}}</td>
+        <td class='text-end'>{{token.urls?.length}}</td>
+        <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
+        <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
+        <td class="text-center">
+          <nz-space-compact nzSize="small">
+            <button type="button"
+              nz-button nzType="default"
+              nz-tooltip="编辑" nzTooltipPlacement="top"
+              (click)="showDetail(token.id, true)">
+              <nz-icon nzType="bi:pencil-square" />
             </button>
-            <button type="button" nz-button nzType="default" (click)="loadData({})">
-              <nz-icon nzType="sync" /> 刷新
+            <button type="button"
+              nz-button nzType="default"
+              nz-tooltip="删除" nzTooltipPlacement="top"
+              (click)="delete(token.id)">
+              <nz-icon nzType="bi:trash" />
             </button>
           </nz-space-compact>
-        </nz-space>
-      </ng-template>
-      <nz-table nzSize="small" [nzFrontPagination]="false"
-        [nzShowSizeChanger]="true"
-        [nzShowPagination]="true"
-        [nzShowQuickJumper]="true"
-        [nzData]="vm.tokens()"
-        [nzTotal]="vm.total()"
-        [nzShowTotal]="totalTpl"
-        [nzLoading]="vm.loading()"
-        [nzPageIndex]="vm.pageIndex()"
-        [nzPageSize]="vm.pageSize()"
-        [nzPageSizeOptions]="vm.pageSizeOptions()"
-        (nzQueryParams)="loadData($event)">
-        <thead>
-        <tr class="sticky top-0 bg-gray-200 z-20">
-          <th scope="col" class="text-end">#</th>
-          <th scope="col" class="text-start">名称</th>
-          <th scope="col" class="text-center">凭证值</th>
-          <th scope="col" class="text-end">权限</th>
-          <th scope="col" class="text-end">代表的角色</th>
-          <th scope="col" class="text-end">允许的地址</th>
-          <th scope="col" class="text-center">更新时间</th>
-          <th scope="col" class="text-center">过期时间</th>
-          <th scope="col" class="text-center">操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        @for (token of vm.tokens(); track token.id; let i = $index;) {
-          <tr>
-            <th scope="row" class="text-end">{{i+1}}</th>
-            <td class='text-start'>{{token.name}}</td>
-            <td class='text-center'>{{token.value}}</td>
-            <td class='text-end'>{{token.privileges?.length}}</td>
-            <td class='text-end'>{{token.roles?.length}}</td>
-            <td class='text-end'>{{token.urls?.length}}</td>
-            <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
-            <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
-            <td class="text-center">
-              <nz-space-compact nzSize="small">
-                <button type="button"
-                  nz-button nzType="default"
-                  nz-tooltip="编辑" nzTooltipPlacement="top"
-                  (click)="showDetail(token.id, true)">
-                  <nz-icon nzType="bi:pencil-square" />
-                </button>
-                <button type="button"
-                  nz-button nzType="default"
-                  nz-tooltip="删除" nzTooltipPlacement="top"
-                  (click)="delete(token.id)">
-                  <nz-icon nzType="bi:trash" />
-                </button>
-              </nz-space-compact>
-            </td>
-          </tr>
-        }
-        </tbody>
-      </nz-table>
-    </nz-card>
-    <ng-template #totalTpl let-total let-range="range">
-      当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
-    </ng-template>
-  </div>
-</div>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #totalTpl let-total let-range="range">
+  当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+</ng-template>

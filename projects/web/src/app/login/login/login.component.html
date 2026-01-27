@@ -16,25 +16,26 @@
           <nz-form-item>
             <nz-form-label nzFor="password" nzRequired>密码</nz-form-label>
             <nz-form-control [nzHasFeedback]="true">
+              <nz-input-password [nzVisibilityToggle]="true">
               <input nz-input nzSize="large" type="password" name="password"
                 placeholder="请输入密码 ..." required id="password"
                 [(ngModel)]="_model.password" autocomplete="new-password"
               />
+              </nz-input-password>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item class="captcha-item">
             <nz-form-label nzFor="captcha" nzRequired>验证码</nz-form-label>
             <nz-form-control [nzHasFeedback]="true">
-              <nz-input-group [nzAddOnAfter]="captchaImageTpl" nzSize="large">
+              <nz-input-wrapper>
                 <input nz-input nzSize="large" id="captcha" name="captcha"
                   [(ngModel)]="_model.captcha" placeholder="请输入验证码..." required
                   (keyup)="passwordKeyUp($event, loginForm)"
                 />
-              </nz-input-group>
-              <ng-template #captchaImageTpl>
-                <img class="cursor-pointer" [src]="captchaImageUrl()" alt="点击刷新验证码"
+                <img class="cursor-pointer" nzInputAddonAfter width="118" height="38"
+                  [ngSrc]="captchaImageUrl()" alt="点击刷新验证码" priority
                   (click)="updateCaptcha()" nz-tooltip="点击刷新验证码" />
-              </ng-template>
+              </nz-input-wrapper>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>

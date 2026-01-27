@@ -8,23 +8,12 @@
           [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
           [nzAllowClear]="false">
         </nz-range-picker>
-        <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOnTpl">
-          <input name="userName" type="text" nz-input
-            placeholder="按用户名搜索"
+        <nz-input-search *nzSpaceItem nzAllowClear (nzClear)="resetUsername()"
+          (nzSearch)="onUserNameChanged()">
+          <input name="userName" type="text" nz-input placeholder="按用户名搜索"
             [(ngModel)]="vm.searchModel.userName"
-            (keyup.enter)="onUserNameChanged()"
           />
-          <ng-template #userNameAddOnTpl>
-            @if (vm.searchModel.userName) {
-              <button class="px-2" type="button" nz-button nzType="default" (click)="resetUsername()">
-                <nz-icon nzType="close" />
-              </button>
-            }
-            <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
-              <nz-icon nzType="search" />
-            </button>
-          </ng-template>
-        </nz-input-group>
+        </nz-input-search>
         <nz-space-compact *nzSpaceItem>
           <button type="button" nz-button nzType="default"
             (click)="loadData({})">

@@ -93,20 +93,16 @@
         <nz-form-item>
           <nz-form-label nzFor="icon">图标</nz-form-label>
           <nz-form-control>
-            <nz-input-group nzSearch [nzAddOnAfter]="iconLibBtn">
+            <nz-input-wrapper>
               <input type="text" nz-input id="icon" name="icon"
                 placeholder="请输入图标 ..." [(ngModel)]="model.icon"
                 [disabled]="!params.editable"
               />
-            </nz-input-group>
-            <ng-template #iconLibBtn>
               @if (params.editable && user.privileges['app_storages.read_folder_content']) {
-                <button class="px-2" type="button" nz-button nzType="default" nzSearch
-                  nz-tooltip="从图标库查找图标" (click)="showIconDialog()">
-                  <nz-icon nzType="search" />
-                </button>
+                <nz-icon nzInputAddonAfter class="cursor-pointer" nzType="search" nz-tooltip="从图标库查找图标"
+                  (click)="showIconDialog()" />
               }
-            </ng-template>
+            </nz-input-wrapper>
           </nz-form-control>
         </nz-form-item>
       </div>

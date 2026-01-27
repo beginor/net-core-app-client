@@ -3,7 +3,7 @@
   <div class="w-1/6">
     <nz-card nzTitle="组织单元" [nzExtra]="orgUnitExtraTpl" [nzBodyStyle]="{ padding: '0.25rem' }">
       <ng-template #orgUnitExtraTpl>
-        <button type="button" nz-button nzType="default" (click)="loadOrganizeUnit()">
+        <button type="button" nz-button nzType="text" (click)="loadOrganizeUnit()">
           <nz-icon nzType="sync" />
         </button>
       </ng-template>
@@ -17,24 +17,13 @@
       <ng-template #cardExtraTpl>
         <form nz-form>
           <nz-space>
-            <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="userNameAddOnTpl">
+            <nz-input-search *nzSpaceItem nzAllowClear (nzClear)="cleanUserSearch()"
+              (nzSearch)="loadData({})">
               <input name="userName" type="text" nz-input
                 placeholder="按用户名搜索"
                 [(ngModel)]="vm.searchModel.userName"
-                (keyup.enter)="loadData({})"
               />
-              <ng-template #userNameAddOnTpl>
-                @if (vm.searchModel.userName) {
-                  <button class="px-2" type="button" nz-button nzType="default"
-                    (click)="cleanUserSearch()">
-                    <nz-icon nzType="close" />
-                  </button>
-                }
-                <button class="px-2" type="button" nz-button nzType="default" nzSearch (click)="vm.search()">
-                  <nz-icon nzType="search" />
-                </button>
-              </ng-template>
-            </nz-input-group>
+            </nz-input-search>
             <nz-select *nzSpaceItem name="roleName" style="width: 160px;"
               [(ngModel)]="vm.searchModel.roleName" (ngModelChange)="research()">
               <nz-option nzValue="" nzLabel="全部用户"></nz-option>

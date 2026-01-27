@@ -28,26 +28,22 @@
       <nz-form-label nzFor="value" [nzRequired]="true">
         凭证值
       </nz-form-label>
-      <nz-input-group nzSearch [nzAddOnAfter]="refreshValueTpl">
+      <nz-input-wrapper>
         <input nz-input type="text" id="value" name="value"
           placeholder="请输入凭证值 ..." [required]="true" readonly
           [(ngModel)]="model.value"
           #value="ngModel"
         />
-        <ng-template #refreshValueTpl>
-          <button class="px-2" type="button" nzSearch nz-button nzType="default"
-            nz-tooltip="刷新凭证值" (click)="newTokenValue()">
-            <nz-icon nzType="sync" />
-          </button>
-        </ng-template>
-      </nz-input-group>
+        <nz-icon nzInputAddonAfter class="cursor-pointer" nzType="sync" (click)="newTokenValue()"
+          nz-tooltip="刷新凭证值"/>
+      </nz-input-wrapper>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="expiresAt">
         过期时间
       </nz-form-label>
       <nz-form-control>
-        <nz-date-picker class="w-100" id="expiresAt" nzId="expiresAt" name="expiresAt"
+        <nz-date-picker class="w-full" id="expiresAt" nzId="expiresAt" name="expiresAt"
           nzPlaceHolder="设置凭证的过期时间，否者将永不过期。" [(ngModel)]="tokenExpiresAt"
           [nzDisabledDate]="disabledDate" [nzInputReadOnly]="true"
           [nzDisabled]="!editable" />
@@ -73,7 +69,7 @@
           <div class="m-1">
             <div class="fw-bolder">{{mp.module}}</div>
             @for (p of mp.privileges; track p.id) {
-              <label class="m-0" nz-checkbox [nzId]="p.id" [for]="p.id"
+              <label class="m-0!" nz-checkbox [nzId]="p.id" [for]="p.id"
                 [nzDisabled]="!editable" [nzValue]="p.name"
                 [nzChecked]="isChecked(p.name, 'checkedPrivileges')"
                 (nzCheckedChange)="toggleChecked($event, p.name, 'checkedPrivileges')">
@@ -87,27 +83,19 @@
     <nz-form-item>
       <nz-form-label>允许的 url 地址 </nz-form-label>
       <nz-form-control>
-        <nz-input-group class="mb-1" [nzAddOnAfter]="addUrlBtnTpl" nzSearch>
+        <nz-input-wrapper class="mb-2">
           <input type="text" nz-input id="newUrl" name="newUrl"
             placeholder="http:// ..." (keyup.enter)="addTokenUrl(newUrl)"
             #newUrl />
-          <ng-template #addUrlBtnTpl>
-            <button class="px-2" type="button" nz-button nzType="default"
-              (click)="addTokenUrl(newUrl)">
-              <nz-icon nzType="bi:plus" />
-            </button>
-          </ng-template>
-        </nz-input-group>
+          <nz-icon nzInputAddonAfter class="cursor-pointer" nzType="plus"
+            (click)="addTokenUrl(newUrl)" />
+        </nz-input-wrapper>
         @for (url of tokenUrls(); track url) {
-          <nz-input-group class="mb-1" [nzAddOnAfter]="delUrlTpl" nzSearch>
+          <nz-input-wrapper class="mb-2">
             <input type="text" nz-input readonly [value]="url" />
-            <ng-template #delUrlTpl>
-              <button class="px-2" type="button" nz-button nzType="default"
-                (click)="removeTokenUrl(url)" nz-tooltip="点击删除这个地址">
-                <nz-icon class="cursor-pointer" nzType="bi:x" />
-              </button>
-            </ng-template>
-          </nz-input-group>
+            <nz-icon nzInputAddonAfter class="cursor-pointer" nzType="close"
+              (click)="removeTokenUrl(url)" />
+          </nz-input-wrapper>
         }
       </nz-form-control>
     </nz-form-item>

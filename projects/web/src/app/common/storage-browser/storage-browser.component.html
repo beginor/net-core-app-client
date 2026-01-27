@@ -18,9 +18,9 @@
   </ng-template>
   <ng-template #toolsTpl>
     <nz-space>
-      <nz-input-group *nzSpaceItem>
+      <nz-input-wrapper *nzSpaceItem>
         <input nz-input type="text" placeholder="搜索..." (keyup)="search($event)" />
-      </nz-input-group>
+      </nz-input-wrapper>
       <nz-space-compact *nzSpaceItem>
         <button type="button" nz-button nzType="primary" (click)="ok()">
           <nz-icon nzType="check" /> 确定

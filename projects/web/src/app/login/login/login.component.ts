@@ -17,6 +17,7 @@ import {
     AccountService, LoginModel, API_ROOT
 } from 'app-shared';
 import { UiService } from '../../common';
+import { NgOptimizedImage } from "@angular/common";
 
 @Component({
     selector: 'app-login',
@@ -30,6 +31,7 @@ import { UiService } from '../../common';
         NzIconModule,
         NzInputModule,
         NzTooltipModule,
+        NgOptimizedImage,
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
@@ -73,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             switchMap(() => this.account.getAccountInfo())
         ).subscribe({
             next: () => {
-                this.router.navigate(
+                void this.router.navigate(
                     [`/${returnUrl}`],
                     { replaceUrl: true }
                 );
