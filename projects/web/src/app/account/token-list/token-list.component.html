@@ -55,7 +55,7 @@
         <td class='text-end'>{{token.roles?.length}}</td>
         <td class='text-end'>{{token.urls?.length}}</td>
         <td class='text-center'>{{token.updateTime | date:'yyyy-MM-dd'}}</td>
-        <td class='text-center' [class.text-danger]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
+        <td class='text-center' [class.text-red-500]="isExpires(token.expiresAt)">{{token.expiresAt | date:'yyyy-MM-dd'}}</td>
         <td class="text-center">
           <nz-space-compact nzSize="small">
             <button type="button"

@@ -64,16 +64,16 @@ export class ListComponent implements OnInit {
         const classes = ['text-center'];
         switch (method.toLowerCase()) {
             case 'get':
-                classes.push('text-primary');
+                classes.push('text-blue-500');
                 break;
             case 'post':
-                classes.push('text-success');
+                classes.push('text-green-500');
                 break;
             case 'put':
-                classes.push('text-warning');
+                classes.push('text-yellow-500');
                 break;
             case 'delete':
-                classes.push('text-danger');
+                classes.push('text-red-500');
         }
         return classes.join(' ');
     }
@@ -81,13 +81,13 @@ export class ListComponent implements OnInit {
     protected getDurationClasses(duration: number): string {
         const classes = ['text-end'];
         if (duration < 1000) {
-            classes.push('text-success');
+            classes.push('text-green-500');
         }
         else if (duration < 2000) {
-            classes.push('text-warning');
+            classes.push('text-yellow-500');
         }
         else {
-            classes.push('text-danger');
+            classes.push('text-red-500');
         }
         return classes.join(' ');
     }
@@ -95,13 +95,13 @@ export class ListComponent implements OnInit {
     protected getResponseCodeClasses(code: number): string {
         const classes = ['text-end'];
         if (code < 300) {
-            classes.push('text-success');
+            classes.push('text-green-500');
         }
         else if (code < 500) {
-            classes.push('text-warning');
+            classes.push('text-yellow-500');
         }
         else {
-            classes.push('text-danger');
+            classes.push('text-red-500');
         }
         return classes.join(' ');
     }

@@ -1,6 +1,6 @@
 <nz-list [nzBordered]="listBordered()" [nzSize]="listSize()"
   [nzFooter]="listFooter()">
-  <nz-list-header class="d-flex">
+  <nz-list-header class="flex">
     {{listHeader()}}
     <button class="ms-auto" type="button" nz-button nzSize="small"
       (click)="loadAttachments()">
@@ -9,7 +9,7 @@
   </nz-list-header>
   @let showDel = accountService.current().privileges['app_attachments.delete'] && allowDelete();
   @for (att of attachments(); track att.id) {
-    <nz-list-item class="d-flex">
+    <nz-list-item class="flex">
       {{att.fileName}}
       @if (showDel) {
         <button class="ms-auto" type="button" nz-button nzSize="small"

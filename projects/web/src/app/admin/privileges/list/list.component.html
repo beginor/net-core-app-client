@@ -55,7 +55,7 @@
           <td class="text-start">{{item.module}}</td>
           <td class="text-start">{{item.name}}</td>
           <td class="text-start">{{item.description}}</td>
-          <td class="text-center" [class.text-danger]="item.isRequired">{{item.isRequired ? '是' : '否'}}</td>
+          <td class="text-center" [class.text-red-500]="item.isRequired">{{item.isRequired ? '是' : '否'}}</td>
           <td class="text-center">
             <nz-space-compact nzSize="small">
               @if (user.privileges['app_privileges.read_by_id']) {

@@ -108,19 +108,19 @@ export class AppLogService {
 
     public getTextClass(level?: string): string {
         // if (level === 'DEBUG') {
-        //     return 'text-muted';
+        //     return 'text-gray-500';
         // }
         if (level === 'INFO') {
-            return 'text-info';
+            return 'text-blue-500';
         }
         if (level === 'WARN') {
-            return 'text-warning';
+            return 'text-yellow-500';
         }
         if (level === 'ERROR') {
-            return 'text-danger';
+            return 'text-red-500';
         }
         if (level === 'FATAL') {
-            return 'text-danger';
+            return 'text-red-500';
         }
         return '';
     }

@@ -5,8 +5,8 @@
      <nz-icon [class]="iconClass()" [nzType]="iconPath()" />
     {{buttonText()}}
   </button>
-  <input class="d-none" type="file" #fileInput [accept]="accept()"
+  <input class="hidden" type="file" #fileInput [accept]="accept()"
     (change)="onFileChange($event)" />
 } @else {
-  <span class="text-warning">{{noPrivilegeText()}}</span>
+  <span class="text-yellow-500">{{noPrivilegeText()}}</span>
 }
