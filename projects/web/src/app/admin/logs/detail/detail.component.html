@@ -7,8 +7,8 @@
     </nz-space-compact>
   </ng-template>
   <form nz-form nzLayout="vertical">
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label>日志ID</nz-form-label>
           <nz-form-control>
@@ -16,7 +16,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label>创建时间</nz-form-label>
           <nz-form-control>
@@ -25,14 +25,14 @@
         </nz-form-item>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label>线程</nz-form-label>
           <nz-form-control>{{model.thread}}</nz-form-control>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <nz-form-label>日志级别</nz-form-label>
           <nz-form-control>{{model.level}}</nz-form-control>

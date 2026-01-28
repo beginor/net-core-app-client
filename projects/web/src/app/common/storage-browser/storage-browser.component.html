@@ -34,7 +34,7 @@
   <cdk-virtual-scroll-viewport class="scroll-viewport" [itemSize]="15">
     <div class="rounded p-4 m-2 folder-item text-center inline-block border border-gray-300"
       *cdkVirtualFor="let item of filteredItems" [nz-tooltip]="item.name"
-      [class.border-primary]="item.name === selectedItem?.name"
+      [class.border-blue-500]="item.name === selectedItem?.name"
       (click)="setSelectedItem(item)" (dblclick)="getFolderContent(item)">
       <div [class]="getFolderItemClass(item)">
         <nz-icon [nzType]="getFolderItemIconPath(item)" class="icon-2x" />

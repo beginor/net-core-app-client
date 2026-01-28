@@ -1,80 +1,78 @@
 ﻿@let user = account.current();
-<div class="w-full px-3">
-  <nz-card class="ant-card-data-list" nzTitle="运行日志" [nzExtra]="cardExtra">
-    <ng-template #cardExtra>
-      <form nz-form>
-        <nz-space>
-          <nz-select *nzSpaceItem name="level"
-            [(ngModel)]="vm.searchModel.level" (ngModelChange)="onSelectLevel()"
-            style="width: 130px;">
-            <nz-option nzLabel="全部日志级别" nzValue=""></nz-option>
-            <nz-option nzLabel="DEBUG" nzValue="DEBUG"></nz-option>
-            <nz-option nzLabel="INFO" nzValue="INFO"></nz-option>
-            <nz-option nzLabel="WARN" nzValue="WARN"></nz-option>
-            <nz-option nzLabel="ERROR" nzValue="ERROR"></nz-option>
-            <nz-option nzLabel="FATAL" nzValue="FATAL"></nz-option>
-          </nz-select>
-          <nz-range-picker *nzSpaceItem
-            name="dateRange" [nzDisabledDate]="disabledDate"
-            [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
-            [nzAllowClear]="false">
-          </nz-range-picker>
-          <nz-space-compact *nzSpaceItem>
-            <button type="button" nz-button nzType="default" (click)="vm.search()">
-              <nz-icon nzType="sync" /> 刷新
-            </button>
-          </nz-space-compact>
-        </nz-space>
-      </form>
-    </ng-template>
-    @let data = (vm.data | async)!;
-    <nz-table nzSize="small" [nzFrontPagination]="false"
-      [nzShowSizeChanger]="true"
-      [nzShowPagination]="true"
-      [nzShowQuickJumper]="true"
-      [nzData]="data"
-      [nzTotal]="(vm.total | async)!"
-      [nzShowTotal]="totalTpl"
-      [nzLoading]="vm.loading"
-      [nzPageIndex]="vm.pageIndex"
-      [nzPageSize]="vm.pageSize"
-      [nzPageSizeOptions]="vm.pageSizeOptions"
-      (nzQueryParams)="loadData($event)">
-      <thead>
-        <tr class="sticky top-0 bg-gray-200 z-20">
-          <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
-          <th scope="col" class="text-start text-nowrap">产生时间</th>
-          <th scope="col" class="text-start text-nowrap">日志级别</th>
-          <th scope="col" class="text-start text-nowrap">记录者</th>
-          <th scope="col" class="text-start text-nowrap">日志消息</th>
-          <th scope="col" class="text-center text-nowrap table-action-col-1">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of data; track $index; let i = $index;) {
-          <tr>
-            <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
-            <td class='text-start'>{{item.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-            <td [class]="'text-start ' + vm.getTextClass(item.level)">{{item.level}}</td>
-            <td class='text-start'>{{item.logger}}</td>
-            <td class='text-start text-truncate' style="max-width: 30rem;">{{item.message}}</td>
-            <td class="text-center">
-              <nz-space-compact nzSize="small">
-                @if (user.privileges['app_logs.read_by_id']) {
-                  <button type="button" nz-button
-                    nz-tooltip="详情" nzTooltipPlacement="top"
-                    (click)="showDetail(item.id, false)">
-                    <nz-icon nzType="bi:info-square" />
-                  </button>
-                }
-              </nz-space-compact>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </nz-table>
-  </nz-card>
-  <ng-template #totalTpl let-total let-range="range">
-    当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+<nz-card class="ant-card-data-list" nzTitle="运行日志" [nzExtra]="cardExtra">
+  <ng-template #cardExtra>
+    <form nz-form>
+      <nz-space>
+        <nz-select *nzSpaceItem name="level"
+          [(ngModel)]="vm.searchModel.level" (ngModelChange)="onSelectLevel()"
+          style="width: 130px;">
+          <nz-option nzLabel="全部日志级别" nzValue=""></nz-option>
+          <nz-option nzLabel="DEBUG" nzValue="DEBUG"></nz-option>
+          <nz-option nzLabel="INFO" nzValue="INFO"></nz-option>
+          <nz-option nzLabel="WARN" nzValue="WARN"></nz-option>
+          <nz-option nzLabel="ERROR" nzValue="ERROR"></nz-option>
+          <nz-option nzLabel="FATAL" nzValue="FATAL"></nz-option>
+        </nz-select>
+        <nz-range-picker *nzSpaceItem
+          name="dateRange" [nzDisabledDate]="disabledDate"
+          [(ngModel)]="vm.dateRange" (ngModelChange)="onSelectDate()"
+          [nzAllowClear]="false">
+        </nz-range-picker>
+        <nz-space-compact *nzSpaceItem>
+          <button type="button" nz-button nzType="default" (click)="vm.search()">
+            <nz-icon nzType="sync" /> 刷新
+          </button>
+        </nz-space-compact>
+      </nz-space>
+    </form>
   </ng-template>
-</div>
+  @let data = (vm.data | async)!;
+  <nz-table nzSize="small" [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzShowPagination]="true"
+    [nzShowQuickJumper]="true"
+    [nzData]="data"
+    [nzTotal]="(vm.total | async)!"
+    [nzShowTotal]="totalTpl"
+    [nzLoading]="vm.loading"
+    [nzPageIndex]="vm.pageIndex"
+    [nzPageSize]="vm.pageSize"
+    [nzPageSizeOptions]="vm.pageSizeOptions"
+    (nzQueryParams)="loadData($event)">
+    <thead>
+      <tr class="sticky top-0 bg-gray-200 z-20">
+        <th scope="col" class="text-end! text-nowrap table-row-num-col">#</th>
+        <th scope="col" class="text-start! text-nowrap">产生时间</th>
+        <th scope="col" class="text-start! text-nowrap">日志级别</th>
+        <th scope="col" class="text-start! text-nowrap">记录者</th>
+        <th scope="col" class="text-start! text-nowrap">日志消息</th>
+        <th scope="col" class="text-center! text-nowrap table-action-col-1">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of data; track $index; let i = $index;) {
+        <tr>
+          <th scope="row" class="text-end">{{i+1+vm.searchModel.skip}}</th>
+          <td class='text-start'>{{item.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td [class]="'text-start ' + vm.getTextClass(item.level)">{{item.level}}</td>
+          <td class='text-start'>{{item.logger}}</td>
+          <td class='text-start text-truncate' style="max-width: 30rem;">{{item.message}}</td>
+          <td class="text-center">
+            <nz-space-compact nzSize="small">
+              @if (user.privileges['app_logs.read_by_id']) {
+                <button type="button" nz-button
+                  nz-tooltip="详情" nzTooltipPlacement="top"
+                  (click)="showDetail(item.id, false)">
+                  <nz-icon nzType="bi:info-square" />
+                </button>
+              }
+            </nz-space-compact>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #totalTpl let-total let-range="range">
+  当前显示 {{total}} 条记录中的第 {{range[0]}} 至 {{range[1]}} 条
+</ng-template>

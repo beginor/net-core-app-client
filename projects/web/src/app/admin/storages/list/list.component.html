@@ -28,12 +28,12 @@
     (nzQueryParams)="loadData($event)">
     <thead>
       <tr class="sticky top-0 bg-gray-200 z-20">
-        <th scope="col" class="text-end text-nowrap table-row-num-col">#</th>
-        <th scope="col" class="text-start text-nowrap">别名</th>
-        <th scope="col" class="text-start text-nowrap">目录</th>
-        <th scope="col" class="text-center text-nowrap">是否只读</th>
-        <th scope="col" class="text-start text-nowrap">允许的角色</th>
-        <th scope="col" class="text-center text-nowrap table-action-col-3">操作</th>
+        <th scope="col" class="text-end! text-nowrap table-row-num-col">#</th>
+        <th scope="col" class="text-start! text-nowrap">别名</th>
+        <th scope="col" class="text-start! text-nowrap">目录</th>
+        <th scope="col" class="text-center! text-nowrap">是否只读</th>
+        <th scope="col" class="text-start! text-nowrap">允许的角色</th>
+        <th scope="col" class="text-center! text-nowrap table-action-col-3">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -47,21 +47,21 @@
           <td class="text-center">
             <nz-space-compact nzSize="small">
               @if (user.privileges['app_storages.read_by_id']) {
-                <button class="px-1" type="button" nz-button
+                <button type="button" nz-button
                   nz-tooltip="详情" nzTooltipPlacement="top"
                   (click)="showDetail(item.id, false)">
                   <nz-icon nzType="bi:info-square" />
                 </button>
               }
               @if (user.privileges['app_storages.update']) {
-                <button class="px-1" type="button" nz-button
+                <button type="button" nz-button
                   nz-tooltip="编辑" nzTooltipPlacement="top"
                   (click)="showDetail(item.id, true)">
                   <nz-icon nzType="bi:pencil-square" />
                 </button>
               }
               @if (user.privileges['app_storages.delete']) {
-                <button class="px-1" type="button" nz-button
+                <button type="button" nz-button
                   nz-tooltip="删除" nzTooltipPlacement="top"
                   (click)="delete(item.id)">
                   <nz-icon nzType="bi:trash" />

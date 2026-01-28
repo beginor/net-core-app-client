@@ -34,8 +34,8 @@
         />
       </nz-form-control>
     </nz-form-item>
-    <div class="row">
-      <div class="col">
+    <div class="flex gap-3">
+      <div class="flex-1">
         <nz-form-item>
           <label nz-checkbox nzId="isDefault" for="isDefault" id="isDefault"
             name="isDefault" [(ngModel)]="model.isDefault" [nzDisabled]="!params.editable">
@@ -43,7 +43,7 @@
           </label>
         </nz-form-item>
       </div>
-      <div class="col">
+      <div class="flex-1">
         <nz-form-item>
           <label nz-checkbox nzId="isAnonymous" for="isAnonymous" id="isAnonymous"
             name="isAnonymous" [(ngModel)]="model.isAnonymous" [nzDisabled]="!params.editable">

@@ -67,7 +67,7 @@
       <nz-form-control>
         @for (mp of privileges(); track mp.module) {
           <div class="m-1">
-            <div class="fw-bolder">{{mp.module}}</div>
+            <div class="font-bold">{{mp.module}}</div>
             @for (p of mp.privileges; track p.id) {
               <label class="m-0!" nz-checkbox [nzId]="p.id" [for]="p.id"
                 [nzDisabled]="!editable" [nzValue]="p.name"
@@ -102,15 +102,15 @@
   </form>
   <ng-template #okTpl>
     @if (editable) {
-      <button class="float-start ms-4" type="button" nz-button nzType="primary"
+      <button class="float-start ms-4!" type="button" nz-button nzType="primary"
         (click)="save()" [disabled]="!detailForm.valid">
-        <nz-icon class="me-1" nzType="check" /> 保存
+        <nz-icon nzType="check" /> 保存
       </button>
     }
   </ng-template>
   <ng-template #cancelTpl>
-    <button class="float-end me-4" type="button" nz-button nzType="default" (click)="cancel()">
-      <nz-icon class="me-1" nzType="close" /> 取消
+    <button class="float-end me-4!" type="button" nz-button nzType="default" (click)="cancel()">
+      <nz-icon nzType="close" /> 取消
     </button>
   </ng-template>
 </nz-card>

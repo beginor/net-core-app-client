@@ -5,11 +5,11 @@
       @if (user.privileges['app_users.lock'] && params.editable) {
         <button type="button" type="button" nz-button nzType="primary"
           [disabled]="!lockForm.valid" (click)="save()">
-          <nz-icon class="me-1" nzType="check" /> 保存
+          <nz-icon nzType="check" /> 保存
         </button>
       }
       <button type="button" nz-button nzType="default" (click)="cancel()">
-        <nz-icon class="me-1" nzType="close" /> 取消
+        <nz-icon nzType="close" /> 取消
       </button>
     </nz-space-compact>
   </ng-template>
