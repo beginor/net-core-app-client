@@ -1,8 +1,8 @@
 <nz-list [nzBordered]="listBordered()" [nzSize]="listSize()"
   [nzFooter]="listFooter()">
-  <nz-list-header class="flex">
+  <nz-list-header class="flex! items-start">
     {{listHeader()}}
-    <button class="ms-auto px-1" type="button" nz-button nzSize="small"
+    <button class="ml-auto!" type="button" nz-button nzSize="small"
       (click)="loadData()">
       <nz-icon nzType="sync" />
     </button>
@@ -15,15 +15,15 @@
       <span>{{item.name}}
         <i class="text-gray-500">(更新时间：{{item.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}})</i>
       </span>
-      <nz-space-compact class="ms-auto" nzSize="small">
+      <nz-space-compact class="ml-auto" nzSize="small">
         @if (showUpdate) {
-          <button class="px-1" type="button" nz-button nzSize="small"
+          <button type="button" nz-button nzSize="small"
             (click)="update(item.id!)" nz-tooltip="更新">
             <nz-icon nzType="bi:pencil-square" />
           </button>
         }
         @if (showDel) {
-          <button class="px-1" type="button" nz-button nzSize="small"
+          <button type="button" nz-button nzSize="small"
             (click)="delete(item.id!)" nz-tooltip="删除">
             <nz-icon nzType="close" />
           </button>
@@ -36,6 +36,6 @@
     </nz-list-item>
   }
 </nz-list>
-<input class="hidden" type="file" #fileInput [accept]="accept()"
+<input class="hidden!" type="file" #fileInput [accept]="accept()"
   (change)="onFileChange($event)"
 />
