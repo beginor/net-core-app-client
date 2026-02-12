@@ -1,6 +1,7 @@
 import {
     Component, ErrorHandler, OnDestroy, OnInit, signal, inject
 } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
@@ -17,7 +18,6 @@ import {
     AccountService, LoginModel, API_ROOT
 } from 'app-shared';
 import { UiService } from '../../common';
-import { NgOptimizedImage } from "@angular/common";
 
 @Component({
     selector: 'app-login',
