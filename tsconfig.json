@@ -2,9 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "app-shared": [
-        "./dist/app-shared"
-      ]
+      "app-shared": ["./dist/app-shared"]
     },
     "baseUrl": "./",
     "strict": true,
@@ -25,7 +23,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "files": [],
   "references": [
     {
       "path": "./projects/app-shared/tsconfig.lib.json"
