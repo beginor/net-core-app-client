@@ -40,7 +40,7 @@
       }
     ],
     "legend": {
-      "data": ["访问量", "平均响应时间"], "left": "right"
+      "data": ["访问量", "平均响应时间"], "left": "right", "top": "top"
     },
     "series": [
       {
