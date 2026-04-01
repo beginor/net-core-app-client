@@ -5,11 +5,11 @@
 ## 命令
 
 - 安装依赖: `pnpm install`
-- 启动 Web 项目：`pnpm start web`
-- 启动 Handset 项目：`pnpm start handset`
+- 编译共享项目：`pnpm build app-shared`
 - 编译 Web 项目：`pnpm build web`
 - 编译 Handset 项目：`pnpm build handset`
-- 编译共享项目：`pnpm build app-shared`
+- 启动 Web 项目：`pnpm start web`
+- 启动 Handset 项目：`pnpm start handset`
 
 ## 实事项
 
@@ -20,6 +20,7 @@
 - 基础路径：`/net-core-app`
 - API 根路径：`/net-core-app/api`
 - 开发代理：`proxy.conf.mjs` -> `http://127.0.0.1:5050`
+- 服务端的 OpenAPI 文档： `http://127.0.0.1:5050/openapi/v1.json`
 - 认证流程：`projects/app-shared/src/lib/account.service.ts`
 - HTTP 拦截器：`projects/app-shared/src/lib/api-interceptor.ts`
 - 路由守卫：`projects/app-shared/src/lib/auth.guard.ts`
@@ -37,3 +38,5 @@
   - `projects/web/src/app/login/login/`
   - `projects/handset/src/app/login/login/`
 - 配置：`eslint.config.mjs`，Angular schematics 默认 `skipTests: true`
+
+按照 `ANGULAR.md` 中的最佳实践与规则要求生成和重构代码；
