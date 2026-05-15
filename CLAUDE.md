@@ -5,11 +5,9 @@
 ## 命令
 
 - 安装依赖: `pnpm install`
-- 编译共享项目：`pnpm build app-shared`
-- 编译 Web 项目：`pnpm build web`
-- 编译 Handset 项目：`pnpm build handset`
-- 启动 Web 项目：`pnpm start web`
-- 启动 Handset 项目：`pnpm start handset`
+- 添加依赖项： 先编辑 package.json ，在 dependencies 或 devDependencies 末尾添加包名称和版本，再执行 `pnpm install`
+- 编译项目：`pnpm build <proj-name>`
+- 启动项目：`pnpm start <proj-name>`
 
 ## 实事项
 
