@@ -10,15 +10,10 @@ CONTEXT_ROOT=app
 SERVER_PREFIX="${COMPANY_NAME}.${PROJ_NAME}"
 # 修改客户端相关文件
 sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./package.json
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./angular.json
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/web/src/app/app.config.ts
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/handset/src/app/app.config.ts
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./proxy.conf.mjs
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/web/src/index.html
-sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./projects/handset/src/index.html
+sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./vite.config.ts
+sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./src/config.ts
+sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./index.html
 sed -i.bak "s/net-core-app/${CONTEXT_ROOT}/g" ./CLAUDE.md
-sed -i.bak "s/NetCoreApp/${PROJ_NAME}/g" ./smartcode.yml
-sed -i.bak "s/Beginor/${COMPANY_NAME}/g" ./smartcode.yml
 # 删除备份文件
 find . -name '*.bak' -delete
 # 提交一下客户端文件

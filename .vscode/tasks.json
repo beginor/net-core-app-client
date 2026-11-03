@@ -2,29 +2,35 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "pnpm:build:app-shared",
+      "label": "pnpm:build",
       "type": "shell",
       "command": "pnpm",
-      "args": ["build", "app-shared"],
+      "args": ["build"],
       "problemMatcher": ["$tsc"],
       "group": "build"
     },
     {
-      "label": "pnpm:build:web",
+      "label": "pnpm:dev",
       "type": "shell",
       "command": "pnpm",
-      "args": ["build", "web"],
-      "problemMatcher": ["$tsc"],
-      "group": "build"
-    },
-    {
-      "label": "pnpm:start:web",
-      "type": "shell",
-      "command": "pnpm",
-      "args": ["start", "web"],
+      "args": ["dev"],
       "problemMatcher": ["$tsc"],
       "group": "test",
       "isBackground": true
+    },
+    {
+      "label": "pnpm:lint",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["lint"],
+      "problemMatcher": []
+    },
+    {
+      "label": "pnpm:test",
+      "type": "shell",
+      "command": "pnpm",
+      "args": ["test"],
+      "problemMatcher": []
     }
   ]
 }
