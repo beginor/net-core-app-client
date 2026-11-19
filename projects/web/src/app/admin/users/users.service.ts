@@ -22,8 +22,8 @@ export class UsersService {
     public loading = false;
     public showPagination = false;
     public sortMethods = [
-        { value: 'CreateTime:DESC', text: '最近创建' },
-        { value: 'CreateTime:ASC', text: '最早创建' },
+        { value: 'CreatedAt:DESC', text: '最近创建' },
+        { value: 'CreatedAt:ASC', text: '最早创建' },
         { value: 'LastLogin:DESC', text: '最近登录' },
         { value: 'LoginCount:DESC', text: '登录次数' },
         { value: 'UserName:ASC', text: '用户名' }
