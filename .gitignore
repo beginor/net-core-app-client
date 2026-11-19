@@ -5,3 +5,4 @@ dist
 .angular
 styles/*.css
 pnpm-lock.yaml
+public
